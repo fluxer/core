@@ -1,0 +1,18 @@
+" Begin /etc/vimrc
+
+set nocompatible
+set backspace=2
+syntax on
+if (&term == "iterm") || (&term == "putty")
+  set background=dark
+endif
+
+set ruler
+
+set mouse-=a
+
+" Enable spelling check
+" set spelllang=en
+" set spell
+
+" End /etc/vimrc 

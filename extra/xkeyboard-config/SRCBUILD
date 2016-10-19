@@ -1,0 +1,26 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+# http://www.linuxfromscratch.org/blfs/view/svn/x/xkeyboard-config.html
+
+version=2.15
+description="Keyboard configuration database for the X Window System"
+depends=('xorg-libraries' 'xorg-applications')
+makedepends=('intltool' 'xorg-protocol-headers')
+sources=("http://xorg.freedesktop.org/archive/individual/data/xkeyboard-config/xkeyboard-config-$version.tar.bz2")
+
+src_compile() {
+    cd "$SOURCE_DIR/xkeyboard-config-$version"
+
+    ./configure --prefix=/usr \
+        --sysconfdir=/etc \
+        --localstatedir=/var \
+        --disable-rpath \
+        --with-xkb-rules-symlink=xorg \
+        --disable-nls
+    make
+}
+
+src_install() {
+    cd "$SOURCE_DIR/xkeyboard-config-$version"
+    make DESTDIR="$INSTALL_DIR" install
+}

@@ -1,0 +1,21 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+# TODO: introspection
+# http://www.linuxfromscratch.org/blfs/view/svn/x/atk.html
+
+version=2.18.0
+description="A library providing a set of interfaces for accessibility"
+depends=('glib')
+makedepends=('python')
+sources=("http://ftp.gnome.org/pub/gnome/sources/atk/2.18/atk-$version.tar.xz")
+
+src_compile() {
+    cd "atk-$version"
+   ./configure --prefix=/usr
+    make
+}
+
+src_install() {
+    cd "atk-$version"
+    make DESTDIR="$INSTALL_DIR" install
+}

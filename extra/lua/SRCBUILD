@@ -1,0 +1,33 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+# http://www.linuxfromscratch.org/blfs/view/svn/general/lua.html
+
+version=5.1.5
+description='A powerful light-weight programming language designed for extending applications'
+depends=('readline')
+sources=("http://www.lua.org/ftp/lua-$version.tar.gz"
+    'lua-5.1-cflags.patch' 'lua-shared.patch')
+
+src_compile() {
+    cd "$SOURCE_DIR/lua-$version"
+
+    patch -Np1 -i "$SOURCE_DIR/lua-5.1-cflags.patch"
+    patch -Np1 -i "$SOURCE_DIR/lua-shared.patch"
+    sed -e 's|/usr/local|/usr|g' -e 's|/include|/include/lua|g' -i etc/lua.pc
+
+    [ "$(uname -m)" = "x86_64" ] && export CFLAGS="$CFLAGS -fPIC"
+
+    make -j1 MYCFLAGS="$CFLAGS" MYLDFLAGS="$LDFLAGS" linux
+}
+
+src_install() {
+    cd "$SOURCE_DIR/lua-$version"
+    make -j1 \
+        TO_LIB="liblua.a liblua.so liblua.so.5.1 liblua.so.$version" \
+        INSTALL_DATA='cp -d' \
+        INSTALL_TOP="$INSTALL_DIR/usr" \
+        INSTALL_INC="$INSTALL_DIR/usr/include/lua" \
+        INSTALL_MAN="$INSTALL_DIR/usr/share/man/man1" \
+        install
+    install -vDm644 etc/lua.pc "$INSTALL_DIR/usr/lib/pkgconfig/lua.pc"
+}

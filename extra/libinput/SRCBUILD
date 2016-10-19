@@ -1,0 +1,24 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+# http://www.linuxfromscratch.org/blfs/view/svn/x/x7driver.html#libinput
+
+version=1.3.3
+description="library that handles input devices for display servers and other applications that need to directly deal with input devices."
+depends=('mtdev' 'eudev' 'libevdev')
+sources=("http://freedesktop.org/software/libinput/libinput-$version.tar.xz"
+        "http://freedesktop.org/software/libinput/libinput-$version.tar.xz.sig")
+pgpkeys=('E23B7E70B467F0BF')
+
+src_compile() {
+    cd libinput-$version
+
+    ./configure --prefix=/usr \
+        --disable-libwacom \
+        --disable-static
+    make
+}
+
+src_install() {
+    cd libinput-$version
+    make DESTDIR="$INSTALL_DIR" install
+}

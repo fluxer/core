@@ -1,0 +1,22 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+# http://www.linuxfromscratch.org/blfs/view/svn/general/valgrind.html
+
+version=3.11.0
+description="A tool to help find memory-management problems in programs"
+depends=('glibc' 'perl')
+makedepends=('gdb')
+sources=("http://valgrind.org/downloads/valgrind-$version.tar.bz2")
+
+src_compile() {
+    cd "$SOURCE_DIR/valgrind-$version"
+
+    ./configure --prefix=/usr \
+        --mandir=/usr/share/man
+    make
+}
+
+src_install() {
+    cd "$SOURCE_DIR/valgrind-$version"
+    make DESTDIR="$INSTALL_DIR" install
+}

@@ -1,0 +1,58 @@
+# Maintainer:  Ivailo Monev <xakepa10@gmail.com>
+
+version=0.21.7
+description='Dependency based init system that works with sysvinit.'
+depends=('sysvinit' 'busybox')
+optdepends=('net-tools')
+backup=(etc/inittab
+        etc/rc.conf
+        etc/conf.d/bootmisc
+        etc/conf.d/consolefont
+        etc/conf.d/devfs
+        etc/conf.d/dmesg
+        etc/conf.d/fsck
+        etc/conf.d/hostname
+        etc/conf.d/hwclock
+        etc/conf.d/keymaps
+        etc/conf.d/killprocs
+        etc/conf.d/localmount
+        etc/conf.d/modules
+        etc/conf.d/netmount
+        etc/conf.d/network
+        etc/conf.d/staticroute
+        etc/conf.d/tmpfiles
+        etc/conf.d/urandom)
+sources=("http://dev.gentoo.org/~williamh/dist/openrc-$version.tar.bz2"
+        'einfo-color.patch'
+        'inittab')
+
+_makeargs=(BRANDING='Entropy GNU/Linux')
+# _makeargs+=(MKPAM=pam)
+_makeargs+=(MKSELINUX=no)
+_makeargs+=(MKNET=newnet)
+_makeargs+=(MKTERMCAP=ncurses)
+_makeargs+=(PKG_PREFIX="")
+_makeargs+=(LIBDIR=/lib)
+_makeargs+=(SHLIBDIR=/lib)
+_makeargs+=(LIBEXECDIR=/lib/rc)
+_makeargs+=(BINDIR=/bin)
+_makeargs+=(SBINDIR=/sbin)
+_makeargs+=(SYSCONFDIR=/etc)
+
+src_prepare() {
+    cd "$SOURCE_DIR/openrc-$version"
+    patch -Np1 -i "$SOURCE_DIR/einfo-color.patch"
+}
+
+src_compile() {
+    cd "$SOURCE_DIR/openrc-$version"
+    make "${_makeargs[@]}"
+}
+
+src_install() {
+    cd "$SOURCE_DIR/openrc-$version"
+
+    make DESTDIR="$INSTALL_DIR" "${_makeargs[@]}" install
+
+    install -vm644 "$SOURCE_DIR/inittab" "$INSTALL_DIR/etc/inittab"
+} 

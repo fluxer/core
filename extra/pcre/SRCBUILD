@@ -1,0 +1,36 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+# http://www.linuxfromscratch.org/blfs/view/svn/general/pcre.html
+
+version=8.39
+description="Library that implements Perl 5-style regular expressions"
+depends=('gcc')
+sources=("ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/pcre-$version.tar.bz2"
+        "ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/pcre-$version.tar.bz2.sig")
+pgpkeys=('9766E084FB0F43D8')
+
+src_compile() {
+    cd "$SOURCE_DIR/pcre-$version"
+
+    ./configure --prefix=/usr \
+        --enable-utf \
+        --enable-unicode-properties \
+        --enable-pcre16 \
+        --enable-pcre32 \
+        --enable-jit \
+        --enable-pcregrep-libz \
+        --enable-pcregrep-libbz2 \
+        --enable-pcretest-libreadline \
+        --disable-static
+    make
+}
+
+src_check() {
+    cd "$SOURCE_DIR/pcre-$version"
+    make -j1 check
+}
+
+src_install() {
+    cd "$SOURCE_DIR/pcre-$version"
+    make DESTDIR="$INSTALL_DIR" install
+}

@@ -1,0 +1,44 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+version=1.1.11
+description="X Display Manager"
+depends=('xorg-libraries' 'xorg-applications')
+makedepends=('pkgconf' 'xorg-makeutils' 'xorg-protocol-headers')
+backup=(etc/X11/xdm/Xaccess
+        etc/X11/xdm/Xresources
+        etc/X11/xdm/Xservers
+        etc/X11/xdm/xdm-config
+        etc/X11/xdm/Xsetup_0
+        etc/X11/xdm/Xsession)
+sources=("http://xorg.freedesktop.org/releases/individual/app/xdm-$version.tar.bz2"
+        Xsession.patch
+        xdm-1.0.5-sessreg-utmp-fix-bug177890.patch
+        git_fixes.diff)
+
+src_compile() {
+    cd "$SOURCE_DIR/xdm-$version"
+
+    # upstream commits - Add some missing malloc failure checks
+    patch -Np1 -i "$SOURCE_DIR/git_fixes.diff"
+
+    patch -Np0 -i "$SOURCE_DIR/Xsession.patch"
+    patch -Np0 -i "$SOURCE_DIR/xdm-1.0.5-sessreg-utmp-fix-bug177890.patch"
+
+    autoreconf -fi
+    ./configure --prefix=/usr \
+        --disable-xdm-auth \
+        --disable-static \
+        --with-xdmconfigdir=/etc/X11/xdm \
+        --with-xdmscriptdir=/etc/X11/xdm \
+        --with-pixmapdir=/usr/share/xdm/pixmaps
+    make
+}
+
+src_install() {
+    cd "$SOURCE_DIR/xdm-$version"
+
+    make DESTDIR="$INSTALL_DIR" install
+
+    install -vdm755 "$INSTALL_DIR/var/lib/xdm"
+    sed -i -e 's|/X11R6||g' "$INSTALL_DIR/etc/X11/xdm/"*
+}

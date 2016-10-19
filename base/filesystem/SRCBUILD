@@ -1,0 +1,99 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+# http://www.linuxfromscratch.org/lfs/view/development/chapter06/creatingdirs.html
+# http://www.linuxfromscratch.org/lfs/view/development/chapter06/createfiles.html
+# http://www.linuxfromscratch.org/lfs/view/development/chapter07/usage.html
+# http://www.linuxfromscratch.org/blfs/view/svn/postlfs/profile.html
+# http://www.linuxfromscratch.org/blfs/view/svn/postlfs/users.html
+
+version=20151228
+description="Flesystem layout and base configuration files"
+sources=('passwd' 'group' 'resolv.conf' 'hosts' 'profile' 'inputrc' 'fstab'
+        'usb.conf' 'os-release' 'networks'  'shells' 'securetty' 'sysctl.conf'
+        'dircolors.sh' 'extrapaths.sh' 'i18n.sh' 'readline.sh' 'umask.sh')
+backup=('etc/passwd'
+        'etc/group'
+        'etc/resolv.conf'
+        'etc/hosts'
+        'etc/profile'
+        'etc/inputrc'
+        'etc/fstab'
+        'etc/modprobe.d/usb.conf'
+        'etc/networks'
+        'etc/issue'
+        'etc/shells'
+        'etc/sysctl.conf'
+        'etc/dircolors'
+        'etc/profile.d/dircolors.sh'
+        'etc/profile.d/extrapaths.sh'
+        'etc/profile.d/i18n.sh'
+        'etc/profile.d/readline.sh'
+        'etc/profile.d/umask.sh')
+
+src_install() {
+    cd "$INSTALL_DIR"
+
+    # Setup root directory
+    install -vdm755 dev
+    install -vdm555 proc sys
+    install -vdm755 {bin,sbin,boot,home,lib,mnt,run,srv,usr,var}
+    install -vdm755 etc/{profile.d,modprobe.d,ld.so.conf.d}
+    install -vdm755 usr/{bin,sbin,lib}
+    install -vdm755 usr/share/{doc,info,locale,misc,terminfo,zoneinfo}
+    install -vdm755 usr/share/man/man{1..8}
+    install -dvm0750 root
+    install -dvm1777 tmp var/tmp
+
+    if [ "$(uname -m)" = "x86_64" ];then
+        ln -sv lib lib64
+        ln -sv usr/lib usr/lib64
+    fi
+
+    install -vdm755 var/{log,mail,spool,cache,local}
+    install -vdm755 var/lib/{misc,locate}
+    install -vdm755 run
+    install -vdm775 run/lock
+    chgrp -v 18 run/lock
+    ln -s /proc/self/mounts etc/mtab
+
+    ln -vs ../run var/run
+    ln -vs ../run/lock var/lock
+
+    # create log files
+    touch        var/run/utmp var/log/{btmp,lastlog,wtmp}
+    chgrp -v 14  var/run/utmp var/log/lastlog
+    chmod -v 664 var/run/utmp var/log/lastlog
+
+    # Setup /etc directory
+    touch etc/issue
+    echo "$version" > etc/entropy-release
+    install -vm644 "$SOURCE_DIR/passwd" etc/passwd
+    install -vm644 "$SOURCE_DIR/group" etc/group
+    install -vm644 "$SOURCE_DIR/resolv.conf" etc/resolv.conf
+    install -vm644 "$SOURCE_DIR/hosts" etc/hosts
+    install -vm644 "$SOURCE_DIR/profile" etc/profile
+    install -vm644 "$SOURCE_DIR/inputrc" etc/inputrc
+    install -vm644 "$SOURCE_DIR/fstab" etc/fstab
+    install -vm644 "$SOURCE_DIR/usb.conf" etc/modprobe.d/usb.conf
+    install -vm644 "$SOURCE_DIR/os-release" etc/os-release
+    install -vm644 "$SOURCE_DIR/networks" etc/networks
+    install -vm644 "$SOURCE_DIR/shells" etc/shells
+    install -vm644 "$SOURCE_DIR/shells" etc/securetty
+    install -vm644 "$SOURCE_DIR/sysctl.conf" etc/sysctl.conf
+    dircolors -p > etc/dircolors
+    install -vDm644 "$SOURCE_DIR/"*.sh etc/profile.d/
+}
+
+post_upgrade() {
+    echo
+    echo " >> The following files have been replaced:"
+
+    echo
+    for b in "${backup[@]}";do
+        echo "    $b"
+    done
+    echo
+
+    echo " >> You may want to restore some of them"
+    echo
+}

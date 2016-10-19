@@ -1,0 +1,67 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+# http://www.linuxfromscratch.org/blfs/view/svn/basicnet/rsync.html
+
+version=3.1.2
+description="A file transfer program to keep remote files in sync"
+depends=('perl')
+backup=('etc/rsyncd.conf' 'etc/xinetd.d/rsync')
+sources=("http://rsync.samba.org/ftp/rsync/rsync-$version.tar.gz"
+        "http://rsync.samba.org/ftp/rsync/rsync-$version.tar.gz.asc"
+        'rsyncd.conf' 'rsyncd.init' 'rsyncd.confd')
+pgpkeys=('6C859FB14B96A8C5')
+
+src_compile() {
+    cd "$SOURCE_DIR/rsync-$version"
+
+    ./configure --prefix=/usr \
+        --with-included-popt \
+        --without-included-zlib
+    make
+}
+
+src_check() {
+    cd "$SOURCE_DIR/rsync-$version"
+    make check
+}
+
+src_install() {
+    cd "$SOURCE_DIR/rsync-$version"
+
+    make DESTDIR="$INSTALL_DIR" install
+
+    install -vDm644 "$SOURCE_DIR/rsyncd.conf" "$INSTALL_DIR/etc/rsyncd.conf"
+    install -vDm755 support/rrsync "$INSTALL_DIR/lib/rsync/rrsync"
+
+    # install init script
+    install -vDm744 "$SOURCE_DIR/rsyncd.init" "$INSTALL_DIR/etc/init.d/rsyncd"
+    install -vDm644 "$SOURCE_DIR/rsyncd.conf" "$INSTALL_DIR/etc/conf.d/rsyncd"
+}
+
+post_install() {
+    if ! getent group rsyncd; then
+        echo " >> Adding rsyncd group"
+        addgroup -S -g 48 rsyncd
+    fi
+
+    if ! getent passwd rsyncd; then
+        echo " >> Adding rsyncd user"
+        adduser -S -u 48 -D -g "rsync Daemon" -h /home/rsync -G rsyncd -s /bin/false rsyncd
+    fi
+}
+
+post_upgrade() {
+    post_install
+}
+
+post_remove() {
+    if getent passwd rsyncd; then
+        echo " >> Deleting rsyncd user"
+        deluser rsyncd
+    fi
+
+    if getent group rsyncd; then
+        echo " >> Deleting rsyncd group"
+        delgroup rsyncd
+    fi
+}

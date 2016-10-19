@@ -1,0 +1,94 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+# http://www.linuxfromscratch.org/blfs/view/svn/basicnet/samba.html
+
+version=4.4.5
+description="SMB Fileserver and AD Domain server"
+depends=('db' 'popt' 'cups' 'libcap' 'gnutls')
+makedepends=('python' 'readline' 'acl' 'openldap' 'krb5' 'dbus')
+optdepends=('libaio' 'gamin')
+sources=("https://download.samba.org/pub/samba/stable/samba-$version.tar.gz"
+        "https://download.samba.org/pub/samba/stable/samba-$version.tar.asc"
+        'swat.xinetd' 'samba.tmpfiles' 'samba.confd' 'samba.initd' 'smb.conf')
+pgpkeys=('6568B7EA')
+backup=('etc/samba/smb.conf'
+        'etc/xinetd.d/swat'
+        'etc/conf.d/samba')
+
+src_compile() {
+    cd "$SOURCE_DIR/samba-$version"
+
+    ./configure --prefix=/usr \
+        --sysconfdir=/etc \
+        --localstatedir=/var \
+        --with-piddir=/run/samba \
+        --without-pam \
+        --without-systemd \
+        --enable-fhs \
+        --enable-selftest \
+        --with-system-mitkrb5
+    make
+}
+
+src_check() {
+    cd "$SOURCE_DIR/samba-$version"
+    make quicktest
+}
+
+src_install() {
+    cd "$SOURCE_DIR/samba-$version"
+
+    make DESTDIR="$INSTALL_DIR" install
+
+    # install init script
+    install -vDm744 "$SOURCE_DIR/samba.initd" "$INSTALL_DIR/etc/init.d/samba"
+    install -vDm644 "$SOURCE_DIR/samba.confd" "$INSTALL_DIR/etc/conf.d/samba"
+
+    # create ephemeral dirs via tmpfiles rather than shipping them in package
+    install -vDm644 "$SOURCE_DIR/samba.tmpfiles" "$INSTALL_DIR/lib/tmpfiles.d/samba.conf"
+
+    # install sample smb.conf
+    install -vdm755 "$INSTALL_DIR/etc/samba"
+    install -vm644 "$SOURCE_DIR/smb.conf" "$INSTALL_DIR/etc/samba/smb.conf"
+
+    mkdir -vp "$INSTALL_DIR/etc/samba/private"
+    chmod -v 700 "$INSTALL_DIR/etc/samba/private"
+
+    install -vDm644 "$SOURCE_DIR/swat.xinetd" "$INSTALL_DIR/etc/xinetd.d/swat"
+
+    # spool directory
+    install -vdm1777 "$INSTALL_DIR/var/spool/samba"
+
+    rm -vrf "$INSTALL_DIR/var/run"
+
+    # setup requirements to share as regular user
+    post_install
+    mkdir -vp "$INSTALL_DIR/var/lib/samba/usershare"
+    chown -v root:sambashare "$INSTALL_DIR/var/lib/samba/usershare"
+    chmod -v 1770 "$INSTALL_DIR/var/lib/samba/usershare"
+}
+
+post_install() {
+    if ! getent group sambashare; then
+        echo " >> Adding sambashare group"
+        addgroup -S sambashare
+    fi
+
+    # guard from src_install()
+    if [ -f /etc/init.d/samba ];then
+        rc-update add samba default
+    fi
+}
+
+post_upgrade() {
+    post_install
+}
+
+post_remove() {
+    if getent group sambashare; then
+        echo " >> Deleting sambashare group"
+        delgroup sambashare
+    fi
+
+    rc-update del samba default
+}

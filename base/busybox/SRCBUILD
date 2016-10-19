@@ -1,0 +1,79 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+# http://git.busybox.net/busybox/tree/docs/syslog.conf.txt
+# http://git.busybox.net/busybox/tree/miscutils/man.c
+# http://git.busybox.net/busybox/plain/docs/mdev.txt
+# http://git.busybox.net/busybox/plain/miscutils/fbsplash.c
+# http://git.busybox.net/busybox/plain/miscutils/fbsplash.cfg
+
+version=1.24.2
+description="Utilities for rescue and embedded systems"
+makedepends=('glibc' 'make' 'gcc' 'ncurses')
+# http://www.busybox.net/downloads/snapshots/busybox-snapshot.tar.bz2
+sources=("http://www.busybox.net/downloads/busybox-$version.tar.bz2"
+        'config' 'mdev.conf' 'syslog.conf' 'sysklogd.init' 'sysklogd.conf'
+        'fbsplash.hook' 'late_fbsplash.hook' 'fbsplash.files'
+        '1000-fbsplash-use-virtual-y-size-in-mmap-size-calculation.patch'
+        "https://busybox.net/downloads/fixes-$version/busybox-$version-CVE-2016-2147.patch"
+        "https://busybox.net/downloads/fixes-$version/busybox-$version-CVE-2016-2148.patch"
+        "https://busybox.net/downloads/fixes-$version/busybox-$version-ash-recursive-heredocs.patch")
+
+src_prepare() {
+    cd "$SOURCE_DIR/busybox-$version"
+    patch -Np1 -i "$SOURCE_DIR/1000-fbsplash-use-virtual-y-size-in-mmap-size-calculation.patch"
+    patch -Np1 -i "$SOURCE_DIR/busybox-$version-CVE-2016-2147.patch"
+    patch -Np1 -i "$SOURCE_DIR/busybox-$version-CVE-2016-2148.patch"
+    patch -Np1 -i "$SOURCE_DIR/busybox-$version-ash-recursive-heredocs.patch"
+}
+
+src_compile() {
+    cd "$SOURCE_DIR/busybox-$version"
+    cp "$SOURCE_DIR/config" .config
+
+    make oldconfig
+    make menuconfig
+    make
+}
+
+src_install() {
+    cd "$SOURCE_DIR/busybox-$version"
+
+    make CONFIG_PREFIX="$INSTALL_DIR" install
+
+    chmod -v 4555 "$INSTALL_DIR/bin/busybox"
+    install -vDm644 "$SOURCE_DIR/mdev.conf" "$INSTALL_DIR/etc/mdev.conf"
+    install -vDm644 "$SOURCE_DIR/syslog.conf" "$INSTALL_DIR/etc/syslog.conf"
+
+    # mkdir -pv "$INSTALL_DIR/etc/mkinitfs/"{root/hooks,files}
+    # cp -fv "$SOURCE_DIR/fbsplash.hook" "$INSTALL_DIR/etc/mkinitfs/root/hooks/30_fbsplash"
+    # cp -fv "$SOURCE_DIR/late_fbsplash.hook" "$INSTALL_DIR/etc/mkinitfs/root/hooks/late_90_fbsplash"
+    # cp -fv "$SOURCE_DIR/fbsplash.files" "$INSTALL_DIR/etc/mkinitfs/files/fbsplash.conf"
+
+    # install init script
+    install -vDm744 "$SOURCE_DIR/sysklogd.init" "$INSTALL_DIR/etc/init.d/sysklogd"
+    install -vDm644 "$SOURCE_DIR/sysklogd.conf" "$INSTALL_DIR/etc/conf.d/sysklogd"
+
+    mkdir -pv "$INSTALL_DIR/sbin"
+    ln -vs busybox "$INSTALL_DIR/bin/sh"
+    ln -vs busybox "$INSTALL_DIR/bin/run-parts"
+    ln -vs busybox "$INSTALL_DIR/bin/which"
+    ln -vs ../bin/busybox "$INSTALL_DIR/sbin/syslogd"
+    ln -vs ../bin/busybox "$INSTALL_DIR/sbin/klogd"
+    # temporary symlinks until the ports stop using them
+    ln -vs busybox "$INSTALL_DIR/bin/addgroup"
+    ln -vs busybox "$INSTALL_DIR/bin/delgroup"
+    ln -vs busybox "$INSTALL_DIR/bin/adduser"
+    ln -vs busybox "$INSTALL_DIR/bin/deluser"
+}
+
+post_install() {
+    rc-update add sysklogd default
+}
+
+post_upgrade() {
+    post_install
+}
+
+post_remove() {
+    rc-update del sysklogd default
+}

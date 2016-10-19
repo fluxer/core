@@ -1,0 +1,34 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+# http://www.linuxfromscratch.org/blfs/view/svn/x/cairo.html
+
+version=1.12.18
+description="Cairo vector graphics library"
+depends=('libpng' 'xorg-libraries' 'fontconfig' 'pixman' 'glib')
+makedepends=('libdrm' 'mesalib' 'xorg-protocol-headers')
+sources=("http://cairographics.org/releases/cairo-$version.tar.xz")
+
+src_compile() {
+    cd "$SOURCE_DIR/cairo-$version"
+
+    ./configure --prefix=/usr \
+        --enable-tee \
+        --enable-xcb \
+        --enable-png \
+        --enable-svg \
+        --enable-gobject \
+        --enable-pthread \
+        --disable-static \
+        --disable-gtk-doc-html
+    make
+}
+
+src_check() {
+    cd "$SOURCE_DIR/cairo-$version"
+    make -j1 check
+}
+
+src_install() {
+    cd "$SOURCE_DIR/cairo-$version"
+    make DESTDIR="$INSTALL_DIR" install
+}

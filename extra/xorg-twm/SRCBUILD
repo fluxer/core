@@ -1,0 +1,29 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+# http://www.linuxfromscratch.org/blfs/view/svn/x/twm.html
+
+version=1.0.9
+description="Classic window manager for the X Window System"
+depends=('xorg-libraries')
+backup=('etc/X11/twm/system.twmrc')
+makedepends=('xorg-makeutils' 'xorg-protocol-headers')
+sources=("http://xorg.freedesktop.org/releases/individual/app/twm-$version.tar.bz2"
+        "http://xorg.freedesktop.org/releases/individual/app/twm-$version.tar.bz2.sig")
+pgpkeys=('CFDF148828C642A7')
+
+src_compile() {
+    cd "$SOURCE_DIR/twm-$version"
+
+    sed -i -e '/^rcdir =/s,^\(rcdir = \).*,\1/etc/X11/app-defaults,' src/Makefile.in
+    ./configure --prefix=/usr \
+        --sysconfdir=/etc \
+        --localstatedir=/var
+    make
+}
+
+src_install() {
+    cd "$SOURCE_DIR/twm-$version"
+
+    make DESTDIR="$INSTALL_DIR" install
+    install -vDm644 src/system.twmrc "$INSTALL_DIR/etc/X11/twm/system.twmrc"
+}

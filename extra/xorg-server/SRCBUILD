@@ -1,0 +1,64 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+# http://www.linuxfromscratch.org/blfs/view/svn/x/xorg-server.html
+
+version=1.18.4
+release=2
+description="X.Org server"
+depends=('xorg-libraries' 'xkeyboard-config' 'pixman' 'libdrm'
+         'freetype2' 'fontconfig' 'mesalib' 'openssl' 'libepoxy')
+makedepends=('xorg-protocol-headers')
+sources=("http://xorg.freedesktop.org/releases/individual/xserver/xorg-server-$version.tar.bz2"
+        "http://xorg.freedesktop.org/releases/individual/xserver/xorg-server-$version.tar.bz2.sig"
+        'xorg-server.tmpfiles')
+pgpkeys=('DD38563A8A8224537D1F90E45B8A2D50A0ECD0D3')
+
+src_compile() {
+    cd "$SOURCE_DIR/xorg-server-$version"
+
+    # fails to build with clang
+    export CC=gcc
+
+    # https://bugs.gentoo.org/show_bug.cgi?id=488906
+    LDFLAGS="$LDFLAGS -Wl,-z,lazy"
+
+    ./configure --prefix=/usr \
+        --sysconfdir=/etc \
+        --localstatedir=/var \
+        --enable-install-setuid \
+        --disable-static \
+        --with-xkb-output=/var/lib/xkb \
+        --with-default-font-path=built-ins \
+        --enable-glx \
+        --enable-dri \
+        --enable-dri2 \
+        --enable-dri3 \
+        --enable-glamor \
+        --disable-kdrive \
+        --disable-xvfb \
+        --disable-tcp-transport \
+        --disable-linux-acpi \
+        --disable-config-hal \
+        --disable-systemd-logind \
+        --without-dtrace \
+        --without-fop \
+        --with-sha1=libcrypto
+    make
+}
+
+src_check() {
+    cd "$SOURCE_DIR/xorg-server-$version"
+    make check
+}
+
+src_install() {
+    cd "$SOURCE_DIR/xorg-server-$version"
+
+    make DESTDIR="$INSTALL_DIR" install
+
+    install -vdm755 "$INSTALL_DIR/etc/X11/xorg.conf.d"
+    
+    # install initscripts tmpfiles config
+    install -vDm644 "$SOURCE_DIR/xorg-server.tmpfiles" \
+        "$INSTALL_DIR/etc/tmpfiles.d/xorg-server.conf"
+}

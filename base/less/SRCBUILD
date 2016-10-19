@@ -1,0 +1,27 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+# http://www.linuxfromscratch.org/lfs/view/development/chapter06/less.html
+
+version=481
+description='A terminal based program for viewing text files'
+depends=('glibc' 'ncurses')
+optdepends=('pcre')
+sources=("http://www.greenwoodsoftware.com/less/less-$version.tar.gz"
+        "http://www.greenwoodsoftware.com/less/less-$version.tar.gz.sig")
+pgpkeys=('F153A7C833235259')
+
+src_compile() {
+    cd "$SOURCE_DIR/less-$version"
+
+    _options="--with-regex=posix"
+    [ "$OPTIONAL_PCRE" = "yes" ] && _options+=" --with-regex=pcre"
+    ./configure --prefix=/usr \
+        --sysconfdir=/etc \
+        $_options
+    make
+}
+
+src_install() {
+    cd less-$version
+    make DESTDIR="$INSTALL_DIR" install
+}

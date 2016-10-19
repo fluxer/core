@@ -1,0 +1,30 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+# http://www.linuxfromscratch.org/blfs/view/svn/general/poppler.html
+
+version=0.32.0
+release=2
+description="PDF rendering library based on xpdf 3.0"
+depends=('libjpeg-turbo' 'openjpeg' 'gcc' 'cairo' 'fontconfig')
+makedepends=('icu' 'git' 'cmake')
+optdepends=('katie' 'gtk2')
+sources=("https://github.com/fluxer/poppler.git"
+        'git://git.freedesktop.org/git/poppler/test')
+
+src_compile() {
+    cd "$SOURCE_DIR/poppler.git"
+
+    cmake -DCMAKE_BUILD_TYPE=RelWithDbgInfo \
+        -DCMAKE_INSTALL_PREFIX=/usr
+    make
+}
+
+src_check() {
+    cd "$SOURCE_DIR/poppler.git"
+    LANG=en_US.UTF8 make check
+}
+
+src_install() {
+    cd "$SOURCE_DIR/poppler.git"
+    make DESTDIR="$INSTALL_DIR" install
+}

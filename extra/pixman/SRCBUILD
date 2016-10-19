@@ -1,0 +1,26 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+# http://www.linuxfromscratch.org/blfs/view/svn/general/pixman.html
+
+version=0.32.8
+description="Pixel-manipulation library for X and cairo"
+depends=('glibc')
+sources=("http://xorg.freedesktop.org/releases/individual/lib/pixman-$version.tar.bz2")
+
+src_compile() {
+    cd "$SOURCE_DIR/pixman-$version"
+
+    ./configure --prefix=/usr \
+        --disable-static
+    make
+}
+
+src_check() {
+    cd "$SOURCE_DIR/pixman-$version"
+    make check
+}
+
+src_install() {
+    cd "$SOURCE_DIR/pixman-$version"
+    make DESTDIR="$INSTALL_DIR" install
+}

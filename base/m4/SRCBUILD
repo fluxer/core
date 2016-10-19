@@ -1,0 +1,33 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+# http://www.linuxfromscratch.org/lfs/view/development/chapter06/m4.html
+
+version=1.4.17
+description="Implementation of the traditional Unix macro processor"
+depends=('glibc')
+sources=("http://ftp.gnu.org/gnu/m4/m4-$version.tar.xz"
+        "http://ftp.gnu.org/gnu/m4/m4-$version.tar.xz.sig"
+        'm4-1.4.17-posix_spawn.patch')
+pgpkeys=('151308092983D606')
+
+src_prepare() {
+    cd "$SOURCE_DIR/m4-$version"
+    patch -Np1 -i "$SOURCE_DIR/m4-1.4.17-posix_spawn.patch"
+}
+
+src_compile() {
+    cd "$SOURCE_DIR/m4-$version"
+
+    ./configure --prefix=/usr
+    make
+}
+
+src_check() {
+    cd "$SOURCE_DIR/m4-$version"
+    make check
+}
+
+src_install() {
+    cd "$SOURCE_DIR/m4-$version"
+    make DESTDIR="$INSTALL_DIR" install 
+}

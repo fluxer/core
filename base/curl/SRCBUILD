@@ -1,0 +1,36 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+# http://www.linuxfromscratch.org/blfs/view/svn/basicnet/curl.html
+
+version=7.49.1
+description="Command line tool for transferring data with URL syntax"
+depends=('ca-certificates' 'libssh2' 'openssl' 'zlib')
+optdepends=('samba' 'openldap')
+checkdepends=('stunnel')
+sources=("http://curl.haxx.se/download/curl-$version.tar.gz"
+        "http://curl.haxx.se/download/curl-$version.tar.gz.asc")
+pgpkeys=('27EDEAF22F3ABCEB50DB9A125CC908FDB71E12C2')
+
+src_compile() {
+    cd "$SOURCE_DIR/curl-$version"
+
+    _options="--disable-smb --disable-ldap --disable-ldaps"
+    [ "$OPTIONAL_SAMBA" = "yes" ] && _options+=" --enable-smb"
+    [ "$OPTIONAL_OPENLDAP" = "yes" ] && _options+=" --enable-ldap --enable-ldaps"
+    ./configure --prefix=/usr \
+        --disable-static \
+        --enable-threaded-resolver \
+        --with-ca-bundle=/etc/ssl/certs/ca-certificates.crt \
+        $_options
+    make
+}
+
+src_check() {
+    cd "$SOURCE_DIR/curl-$version"
+    make check
+}
+
+src_install() {
+    cd "$SOURCE_DIR/curl-$version"
+    make DESTDIR="$INSTALL_DIR" install
+}

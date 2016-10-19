@@ -1,0 +1,31 @@
+diff --git a/src/libeinfo/einfo.h b/src/libeinfo/einfo.h
+index c0325c2..22eca47 100644
+--- a/src/libeinfo/einfo.h
++++ b/src/libeinfo/einfo.h
+@@ -78,7 +78,7 @@ void elog(int, const char * EINFO_RESTRICT, ...) EINFO_PRINTF(2, 3);
+  * " * ". If the terminal can handle color then we color the * based on
+  * the command used. Otherwise we are identical to the printf function.
+  *
+- * - einfo  - green
++ * - einfo  - blue
+  * - ewarn  - yellow
+  * - eerror - red
+  *
+diff --git a/src/libeinfo/libeinfo.c b/src/libeinfo/libeinfo.c
+index 9791051..5018f11 100644
+--- a/src/libeinfo/libeinfo.c
++++ b/src/libeinfo/libeinfo.c
+@@ -94,11 +94,11 @@ hidden_proto(ewendv)
+ #define INDENT_MAX		40
+ 
+ /* Default colours */
+-#define GOOD                    2
++#define GOOD                    4
+ #define WARN                    3
+ #define BAD                     1
+ #define HILITE                  6
+-#define BRACKET                 4
++#define BRACKET                 2
+ 
+ /* We fallback to these escape codes if termcap isn't available
+  * like say /usr isn't mounted */

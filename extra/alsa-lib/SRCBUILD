@@ -1,0 +1,26 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+# http://www.linuxfromscratch.org/blfs/view/svn/multimedia/alsa-lib.html
+
+version=1.0.29
+description="Alternative implementation of Linux sound support"
+depends=('glibc' 'python')
+sources=("ftp://ftp.alsa-project.org/pub/lib/alsa-lib-$version.tar.bz2")
+
+src_compile() {
+    cd "$SOURCE_DIR/alsa-lib-$version"
+
+    ./configure --prefix=/usr
+    make
+}
+
+src_check() {
+    cd "$SOURCE_DIR/alsa-lib-$version"
+    make check
+}
+
+
+src_install() {
+    cd "$SOURCE_DIR/alsa-lib-$version"
+    make DESTDIR="$INSTALL_DIR" install
+}

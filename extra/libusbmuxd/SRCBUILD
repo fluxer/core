@@ -1,0 +1,18 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+version=1.0.9
+description="USB Multiplex Daemon"
+depends=('libusbx' 'libplist')
+sources=("http://www.libimobiledevice.org/downloads/libusbmuxd-$version.tar.bz2")
+
+src_compile() {
+    cd "$SOURCE_DIR/libusbmuxd-$version"
+    ./configure --prefix=/usr \
+        --disable-static
+    make
+}
+
+src_install() {
+    cd "$SOURCE_DIR/libusbmuxd-$version"
+    make DESTDIR="$INSTALL_DIR" install
+}

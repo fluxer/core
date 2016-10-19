@@ -1,0 +1,27 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+# http://www.linuxfromscratch.org/blfs/view/svn/multimedia/xvid.html
+
+version=1.3.4
+description="XviD is an open source MPEG-4 video codec"
+depends=('glibc')
+makedepends=('nasm')
+sources=("http://downloads.xvid.org/downloads/xvidcore-$version.tar.bz2")
+
+src_compile() {
+    cd "$SOURCE_DIR/xvidcore/build/generic"
+
+    ./configure --prefix=/usr
+    make
+}
+
+src_install() {
+    cd "$SOURCE_DIR/xvidcore/build/generic"
+    make DESTDIR="$INSTALL_DIR" install
+
+    #Fix dynamic libraries
+    cd "$INSTALL_DIR/usr/lib"
+    _mylib=$(basename libxvidcore.so.*)
+    ln -vsf "${_mylib}" libxvidcore.so.4
+    ln -vsf "${_mylib}" libxvidcore.so
+}

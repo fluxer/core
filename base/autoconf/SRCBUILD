@@ -1,0 +1,29 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+# http://www.linuxfromscratch.org/lfs/view/development/chapter06/autoconf.html
+
+version=2.69
+description="Extensible package of M4 macros that produce shell scripts to automatically configure software source code packages"
+depends=('m4' 'perl')
+sources=("http://ftp.gnu.org/gnu/autoconf/autoconf-$version.tar.xz"
+        "http://ftp.gnu.org/gnu/autoconf/autoconf-$version.tar.xz.sig")
+pgpkeys=('A7A16B4A2527436A')
+
+src_compile() {
+    cd "$SOURCE_DIR/autoconf-$version"
+    ./configure --prefix=/usr
+    make
+}
+
+src_check() {
+    cd "$SOURCE_DIR/autoconf-$version"
+    make check
+}
+
+src_install() {
+    cd "$SOURCE_DIR/autoconf-$version"
+    make DESTDIR="$INSTALL_DIR" install
+
+    # remove unwanted file
+    rm -vf "$INSTALL_DIR/usr/share/info/standards.info"
+}

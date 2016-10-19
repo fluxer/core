@@ -1,0 +1,20 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+# TODO: bump to 5.0.0
+
+version=4.2.1
+description="The library for xine-dvdnav plugin"
+depends=('libdvdread')
+sources=("http://dvdnav.mplayerhq.hu/releases/libdvdnav-$version.tar.xz")
+
+src_compile() {
+    cd "$SOURCE_DIR/libdvdnav-$version"
+
+    ./autogen.sh --prefix=/usr
+    make
+}
+
+src_install() {
+    cd "$SOURCE_DIR/libdvdnav-$version"
+    make DESTDIR="$INSTALL_DIR" install
+}

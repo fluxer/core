@@ -1,0 +1,51 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+# http://www.linuxfromscratch.org/blfs/view/svn/postlfs/iptables.html
+
+version=1.4.21
+release=3
+description='Linux kernel packet control tool'
+depends=('glibc' 'bash')
+makedepends=('linux-api-headers')
+sources=("http://www.iptables.org/projects/iptables/files/iptables-$version.tar.bz2"
+        "http://www.iptables.org/projects/iptables/files/iptables-$version.tar.bz2.sig"
+        'default_ipv4.rules' 'default_ipv6.rules'
+        'iptables.confd' 'iptables.initd')
+pgpkeys=('57FF5E9C9AA67A860B557AF7A4111F89BB5F58CC')
+backup=('etc/conf.d/iptables')
+
+src_compile() {
+    cd "$SOURCE_DIR/iptables-$version"
+
+    # use system one
+    rm include/linux/types.h
+
+    ./configure --prefix=/usr \
+        --sbindir=/sbin \
+        --libexecdir=/lib/iptables \
+        --sysconfdir=/etc \
+        --with-xtlibdir=/lib/iptables \
+        --enable-devel \
+        --enable-libipq \
+        --enable-shared
+    make
+}
+
+src_install() {
+    cd "$SOURCE_DIR/iptables-$version"
+
+    make DESTDIR="$INSTALL_DIR" install
+
+    cd "$SOURCE_DIR"
+    install -vDm644 default_ipv4.rules \
+        "$INSTALL_DIR/etc/iptables/default_ipv4.rules"
+    install -vDm644 default_ipv6.rules \
+        "$INSTALL_DIR/etc/iptables/default_ipv6.rules"
+
+    install -vDm644 iptables.confd "$INSTALL_DIR/etc/conf.d/iptables"
+    install -vDm744 iptables.initd "$INSTALL_DIR/etc/init.d/iptables"
+    install -vDm644 iptables.confd "$INSTALL_DIR/etc/conf.d/ip6tables"
+    install -vDm744 iptables.initd "$INSTALL_DIR/etc/init.d/ip6tables"
+
+    mkdir -vp "$INSTALL_DIR/var/lib/"{iptables,ip6tables}
+}

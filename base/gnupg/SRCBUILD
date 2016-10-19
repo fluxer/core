@@ -1,0 +1,37 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+# http://www.linuxfromscratch.org/blfs/view/svn/postlfs/gnupg.html
+
+version=1.4.20
+release=2
+description='Complete and free implementation of the OpenPGP standard'
+depends=('zlib' 'bzip2' 'curl' 'readline')
+# makedepends=('openldap' 'libusbx')
+sources=("https://gnupg.org/ftp/gcrypt/gnupg/gnupg-$version.tar.bz2"
+        "https://gnupg.org/ftp/gcrypt/gnupg/gnupg-$version.tar.bz2.sig")
+pgpkeys=('249B39D24F25E3B6' '2071B08A33BD3F06')
+
+src_compile() {
+    cd "$SOURCE_DIR/gnupg-$version"
+
+    # does not build with clang
+    export CC=gcc CXX=g++
+
+    ./configure --prefix=/usr \
+        --libexecdir=/usr/lib \
+        --enable-large-secmem \
+        --enable-noexecstack \
+        --disable-rpath \
+        --disable-nls
+    make
+}
+
+src_check() {
+    cd "$SOURCE_DIR/gnupg-$version"
+    make check
+}
+
+src_install() {
+    cd "$SOURCE_DIR/gnupg-$version"
+    make DESTDIR="$INSTALL_DIR" install
+}

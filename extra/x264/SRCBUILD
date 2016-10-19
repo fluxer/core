@@ -1,0 +1,22 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+# http://www.linuxfromscratch.org/blfs/view/svn/multimedia/x264.html
+
+version=20160827
+description="Free library for encoding H264/AVC video streams"
+depends=('glibc')
+makedepends=('yasm')
+sources=("http://download.videolan.org/pub/videolan/x264/snapshots/x264-snapshot-$version-2245.tar.bz2")
+
+src_compile() {
+    cd "$SOURCE_DIR/x264-snapshot-$version-2245"
+
+    ./configure --prefix=/usr \
+        --enable-shared \
+        --disable-cli
+    make
+}
+src_install() {
+    cd "$SOURCE_DIR/x264-snapshot-$version-2245"
+    make DESTDIR="$INSTALL_DIR" install
+}

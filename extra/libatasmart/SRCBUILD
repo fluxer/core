@@ -1,0 +1,23 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+# http://www.linuxfromscratch.org/blfs/view/svn/general/libatasmart.html
+
+version=0.19
+description="ATA S.M.A.R.T. Reading and Parsing Library"
+depends=('eudev')
+sources=("http://0pointer.de/public/libatasmart-$version.tar.xz")
+
+src_compile() {
+    cd "$SOURCE_DIR/libatasmart-$version"
+    
+    ./configure --prefix=/usr \
+        --sysconfdir=/etc \
+        --localstatedir=/var \
+        --disable-static
+    make
+}
+
+src_install() {
+    cd "$SOURCE_DIR/libatasmart-$version"
+    make DESTDIR="$INSTALL_DIR" install
+}

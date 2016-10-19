@@ -1,0 +1,23 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+# http://cblfs.cross-lfs.org/index.php/Libssh2
+
+version=1.7.0
+description="Client-side C library implementing the SSH2 protocol"
+depends=('openssl' 'zlib' 'glibc')
+sources=("http://www.libssh2.org/download/libssh2-$version.tar.gz"
+        "http://www.libssh2.org/download/libssh2-$version.tar.gz.asc")
+pgpkeys=('914C533DF9B2ADA2204F586D78E11C6B279D5C91')
+
+src_compile() {
+    cd "libssh2-$version"
+
+    ./configure --prefix=/usr \
+        --disable-static
+    make
+}
+
+src_install() {
+    cd "libssh2-$version"
+    make DESTDIR="$INSTALL_DIR" install
+}

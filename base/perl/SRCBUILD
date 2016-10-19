@@ -1,0 +1,41 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+# http://www.linuxfromscratch.org/lfs/view/development/chapter06/perl.html
+
+version=5.22.2
+release=2
+description="Highly capable, feature-rich programming language"
+depends=('glibc' 'zlib' 'busybox' 'gdbm')
+sources=("http://www.cpan.org/src/5.0/perl-$version.tar.gz")
+
+src_compile() {
+    cd "$SOURCE_DIR/perl-$version"
+
+    export BUILD_ZLIB=False BUILD_BZIP2=0
+
+    sh Configure -des -Dprefix=/usr   \
+        -Dvendorprefix=/usr           \
+        -Dman1dir=/usr/share/man/man1 \
+        -Dman3dir=/usr/share/man/man3 \
+        -Dpager="/usr/bin/less -isR"  \
+        -Duseshrplib \
+        -Doptimize="$CFLAGS" \
+        -Dldflags="$LDFLAGS"
+    make
+}
+
+src_check() {
+    cd "$SOURCE_DIR/perl-$version"
+    # Failed 14 tests out of 2248, 99.38% okay.
+    make test
+}
+
+src_install() {
+    cd "$SOURCE_DIR/perl-$version"
+
+    make DESTDIR="$INSTALL_DIR" install
+
+    # saves ~10MB
+    rm -vrf "$INSTALL_DIR/usr/lib/perl5/pod"
+    find "$INSTALL_DIR/usr/lib/perl5/" -name '*.pod' -delete
+}

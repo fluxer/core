@@ -1,0 +1,50 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+version=2.7.5
+description="A utility for reading man pages"
+depends=('bash' 'gdbm' 'zlib' 'groff' 'libpipeline' 'less')
+optdepends=('gzip')
+backup=('etc/man_db.conf')
+sources=("http://download-mirror.savannah.gnu.org/releases/man-db/man-db-$version.tar.xz"
+        "http://download-mirror.savannah.gnu.org/releases/man-db/man-db-$version.tar.xz.sig"
+        convert-mans)
+pgpkeys=('393587D97D86500B')
+
+src_compile() {
+    cd man-db-$version
+
+    ./configure --prefix=/usr \
+        --sbindir=/usr/bin \
+        --sysconfdir=/etc \
+        --libexecdir=/usr/lib \
+        --with-db=gdbm \
+        --disable-setuid \
+        --enable-mandirs=GNU \
+        --with-sections="1 n l 8 3 0 2 5 4 9 6 7"
+    make
+}
+
+src_check() {
+    cd man-db-$version
+    make check
+}
+
+src_install() {
+    cd man-db-$version
+
+    make DESTDIR=$INSTALL_DIR install
+
+    # part of groff pkg
+    rm -vf $INSTALL_DIR/usr/bin/zsoelim
+
+    # script from LFS to convert manpages, see
+    # http://www.linuxfromscratch.org/lfs/view/6.4/chapter06/man-db.html
+    install -vDm755 $SOURCE_DIR/convert-mans  $INSTALL_DIR/usr/bin/convert-mans 
+
+    # mandb is not smart enough to create it
+    mkdir -pv "$INSTALL_DIR/var/cache/man/fsstnd"
+}
+
+post_remove() {
+    rm -vrf /var/cache/man
+}

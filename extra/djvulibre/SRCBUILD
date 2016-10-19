@@ -1,0 +1,27 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+version=3.5.25.3
+_major=3.5.25
+description="Suite to create, manipulate and view DjVu ('déjà vu') documents"
+makedepends=('librsvg')
+depends=('libtiff' 'hicolor-icon-theme')
+sources=("http://downloads.sourceforge.net/project/djvu/DjVuLibre/${_major}/djvulibre-$version.tar.gz")
+
+src_compile() {
+	cd "$SOURCE_DIR/djvulibre-${_major}"
+
+	./configure --prefix=/usr \
+        --disable-desktopfiles
+	make
+}
+
+src_install() {
+	cd "$SOURCE_DIR/djvulibre-${_major}"
+
+	make DESTDIR="$INSTALL_DIR" install
+
+	for sz in 22 32 48 64; do
+		install -Dm644 desktopfiles/prebuilt-hi${sz}-djvu.png \
+            "$INSTALL_DIR/usr/share/icons/hicolor/${sz}x${sz}/mimetypes/image-vnd.djvu.mime.png"
+	done
+}

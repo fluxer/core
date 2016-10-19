@@ -1,0 +1,12 @@
+# Begin /etc/fstab
+
+# file system  mount-point  type     options             dump  fsck
+
+devpts         /dev/pts     devpts   gid=5,mode=620      0     0
+tmpfs          /run         tmpfs    defaults            0     0
+
+# /dev/sdXX    /            ext4     defaults            1     1
+# /dev/sdXX    /home        ext4     defaults            1     2
+# /dev/sdXX    swap         swap     pri=1               0     0
+
+# End /etc/fstab

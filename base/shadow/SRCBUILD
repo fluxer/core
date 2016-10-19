@@ -1,0 +1,66 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+# http://www.linuxfromscratch.org/lfs/view/development/chapter06/shadow.html
+
+version=4.2.1
+release=2
+description="Password and account management tool suite with support for shadow files and PAM"
+depends=('bash' 'acl')
+sources=("http://pkg-shadow.alioth.debian.org/releases/shadow-$version.tar.xz"
+        "http://pkg-shadow.alioth.debian.org/releases/shadow-$version.tar.xz.sig"
+        login.defs
+        useradd.defaults
+        xstrdup.patch
+        shadow-strncpy-usage.patch
+        lastlog.tmpfiles)
+pgpkeys=('872F702C4D6E25A8')
+backup=('etc/login.defs'
+        'etc/default/useradd')
+
+src_compile() {
+    cd "shadow-$version"
+
+    # need to offer these upstream
+    patch -Np1 -i "$SOURCE_DIR/xstrdup.patch"
+    patch -Np1 -i "$SOURCE_DIR/shadow-strncpy-usage.patch"
+
+    sed -i 's/groups$(EXEEXT) //' src/Makefile.in
+    find man -name Makefile.in -exec sed -i 's/groups\.1 / /' {} \;
+    sed -e 's@#ENCRYPT_METHOD DES@ENCRYPT_METHOD SHA512@' \
+        -e 's@/var/spool/mail@/var/mail@' -i etc/login.defs
+
+    ./configure --prefix=/usr \
+        --sysconfdir=/etc \
+        --without-libpam \
+        --with-group-name-max-length=32 \
+        --without-selinux \
+        --without-nscd
+    make
+}
+
+src_install() {
+    cd "shadow-$version"
+
+    make DESTDIR="$INSTALL_DIR" install
+
+    install -vDm644 "$SOURCE_DIR/useradd.defaults" "$INSTALL_DIR/etc/default/useradd"
+    install -vDm644 "$SOURCE_DIR/login.defs" "$INSTALL_DIR/etc/login.defs"
+    install -vDm644 "$SOURCE_DIR/lastlog.tmpfiles" "$INSTALL_DIR/etc/tmpfiles.d/lastlog.conf"
+}
+
+post_install() {
+    echo " >> Enabling shadowed user and group passwords"
+    [ -f /etc/shadow ] || pwconv
+    [ -f /etc/gshadow ] || grpconv
+}
+
+post_upgrade() {
+    post_install
+
+    grpck -r
+    if [ $? -eq 2 ]; then
+        echo " >> WARNING: /etc/group or /etc/gshadow are inconsistent."
+        echo " >> Run 'grpck' to correct this."
+    fi
+    return 0
+}

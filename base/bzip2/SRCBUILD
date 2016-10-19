@@ -1,0 +1,35 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+# http://www.linuxfromscratch.org/lfs/view/development/chapter06/bzip2.html
+
+version=1.0.6
+description="Freely available, patent free, high-quality data compressor"
+depends=('glibc')
+sources=("http://www.bzip.org/$version/bzip2-$version.tar.gz"
+        "bzip2-1.0.6-install_docs-1.patch")
+
+src_compile() {
+    cd "$SOURCE_DIR/bzip2-$version"
+
+    # patch -Np1 -i "$SOURCE_DIR/bzip2-$version-install_docs-1.patch"
+    sed -i 's@\(ln -s -f \)$(PREFIX)/bin/@\1@' Makefile
+    sed -i "s@(PREFIX)/man@(PREFIX)/share/man@g" Makefile
+    make -f Makefile-libbz2_so
+    make clean 
+    make
+}
+
+src_install() {
+    cd "$SOURCE_DIR/bzip2-$version"
+
+    make PREFIX="$INSTALL_DIR/usr" install
+    install -vdm 0755 "$INSTALL_DIR/bin" "$INSTALL_DIR/lib"
+    mv -v "$INSTALL_DIR/usr/bin" "$INSTALL_DIR/"
+    mv -v "$INSTALL_DIR/usr/lib" "$INSTALL_DIR/"
+    cp -v bzip2-shared "$INSTALL_DIR/bin/bzip2"
+    cp -av libbz2.so* "$INSTALL_DIR/lib"
+    ln -sv ../../lib/libbz2.so.1.0 "$INSTALL_DIR/lib/libbz2.so"
+    rm -v "$INSTALL_DIR/bin/"{bunzip2,bzcat}
+    ln -sv bzip2 "$INSTALL_DIR/bin/bunzip2"
+    ln -sv bzip2 "$INSTALL_DIR/bin/bzcat"
+}

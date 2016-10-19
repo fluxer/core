@@ -1,0 +1,19 @@
+this will install a pic version of libiberty.a by overwriting the non-pic
+version of libiberty.a while compiling.  we do this because there is no
+shared version of libiberty for random apps to link against which means if
+someone wants to use this in a shared library or PIE, they're out of luck.
+it's arguable whether people should be able to use this in a shared lib,
+but usage in PIE should be fine.  you could argue that this penalizes the
+non-PIE users, but the counter point is that people using this library in
+general are fairly low, and we'd rather have things work for all of them.
+
+--- libiberty/Makefile.in
++++ libiberty/Makefile.in
+@@ -224,6 +224,7 @@ $(TARGETLIB): $(REQUIRED_OFILES) $(EXTRA
+ 	  $(AR) $(AR_FLAGS) $(TARGETLIB) \
+ 	    $(REQUIRED_OFILES) $(EXTRA_OFILES) $(LIBOBJS); \
+ 	  $(RANLIB) $(TARGETLIB); \
++	  cp $(TARGETLIB) ../ ; \
+ 	  cd ..; \
+ 	else true; fi
+ 

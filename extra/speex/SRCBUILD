@@ -1,0 +1,24 @@
+version=1.2rc2
+description="A free codec for free speech"
+depends=('libogg' 'speexdsp')
+sources=("http://downloads.us.xiph.org/releases/speex/speex-$version.tar.gz")
+
+src_compile() {
+    cd "$SOURCE_DIR/speex-$version"
+    ./configure --prefix=/usr \
+        --sysconfdir=/etc \
+        --localstatedir=/var \
+        --disable-static \
+        --enable-binaries # Must be given or configure won't use pkg-config correctly
+    make
+}
+
+src_check() {
+    cd "$SOURCE_DIR/speex-$version"
+    make -k check
+}
+
+src_install() {
+    cd "$SOURCE_DIR/speex-$version"
+    make DESTDIR="$INSTALL_DIR" install
+}

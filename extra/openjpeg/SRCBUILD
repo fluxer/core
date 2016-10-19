@@ -1,0 +1,32 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+# http://www.linuxfromscratch.org/blfs/view/svn/general/openjpeg.html
+
+version=1.5.2
+description="An open source JPEG 2000 codec"
+depends=('zlib')
+makedepends=('libtiff' 'lcms2' 'libpng')
+sources=("http://downloads.sourceforge.net/openjpeg.mirror/openjpeg-$version.tar.gz")
+
+src_prepare() {
+    cd "$SOURCE_DIR/openjpeg-$version"
+
+    autoreconf -fi
+    # make sure we use system libs
+    rm -rf thirdparty
+}
+
+src_compile() {
+    cd "$SOURCE_DIR/openjpeg-$version"
+
+    ./configure --prefix=/usr \
+        --enable-shared \
+        --disable-static \
+        --disable-silent-rules
+    make
+}
+
+src_install() {
+    cd "$SOURCE_DIR/openjpeg-$version"
+    make DESTDIR="$INSTALL_DIR" install
+}

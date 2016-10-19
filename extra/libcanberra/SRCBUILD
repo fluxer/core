@@ -1,0 +1,40 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+# http://www.linuxfromscratch.org/blfs/view/svn/multimedia/libcanberra.html
+# TODO: 'libltdl', 'tdb', 'gtk3', 'gtk2'
+
+version=0.30
+description="Implementation of the XDG Sound Theme and Name Specifications"
+depends=('libvorbis' 'alsa-lib' 'sound-theme-freedesktop')
+optdepends=('gstreamer' 'pulseaudio')
+sources=("http://0pointer.de/lennart/projects/libcanberra/libcanberra-$version.tar.xz"
+        'libcanberra.xinit')
+
+src_compile() {
+    cd "$SOURCE_DIR/libcanberra-$version"
+    
+    _options="--disable-gstreamer --disable-pulse"
+    [ "$OPTIONAL_GSTREAMER" = "yes" ] && _options+=" --enable-gstreamer"
+    [ "$OPTIONAL_PULSEAUDIO" = "yes" ] && _options+=" --enable-pulse"
+    ./configure --prefix=/usr \
+        --sysconfdir=/etc \
+        --localstatedir=/var \
+        --disable-static \
+        --disable-gtk-doc \
+        --with-builtin=dso \
+        --enable-null \
+        --enable-alsa \
+        --disable-oss \
+        $_options
+    make
+}
+
+src_install() {
+    cd "$SOURCE_DIR/libcanberra-$version"
+
+    make -j1 DESTDIR="$INSTALL_DIR" install
+
+    install -vD "$SOURCE_DIR/libcanberra.xinit" \
+        "$INSTALL_DIR/etc/X11/xinit/xinitrc.d/40-libcanberra-gtk-module"
+}
+

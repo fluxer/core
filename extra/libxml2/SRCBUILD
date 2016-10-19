@@ -1,0 +1,35 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+# http://www.linuxfromscratch.org/blfs/view/svn/general/libxml2.html
+
+version=2.9.4
+description="XML C parser and toolkit"
+depends=('zlib' 'readline' 'ncurses' 'xz')
+makedepends=('python')
+sources=("ftp://ftp.xmlsoft.org/libxml2/libxml2-$version.tar.gz"
+        "ftp://ftp.xmlsoft.org/libxml2/libxml2-$version.tar.gz.asc"
+        'http://www.w3.org/XML/Test/xmlts20130923.tar.gz')
+pgpkeys=('4606B8A5DE95BC1F')
+
+src_compile() {
+    cd "$SOURCE_DIR/libxml2-$version"
+
+    ./configure --prefix=/usr \
+        --with-threads\
+        --with-history \
+        --disable-static
+    make
+}
+
+src_check() {
+    cd "$SOURCE_DIR/libxml2-$version"
+
+    mv "$SOURCE_DIR/xmlconf" .
+    make check
+}
+
+
+src_install() {
+    cd "$SOURCE_DIR/libxml2-$version"
+    make DESTDIR="$INSTALL_DIR" install
+}

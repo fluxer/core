@@ -1,0 +1,43 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+# http://www.linuxfromscratch.org/lfs/view/development/chapter06/coreutils.html
+
+version=8.25
+release=2
+description='The basic file, shell and text manipulation utilities of the GNU operating system'
+depends=('glibc' 'acl' 'gmp' 'libcap' 'openssl')
+sources=("http://ftp.gnu.org/gnu/coreutils/coreutils-$version.tar.xz"
+        "http://ftp.gnu.org/gnu/coreutils/coreutils-$version.tar.xz.sig")
+pgpkeys=('DF6FD971306037D9')
+
+src_compile() {
+    cd "$SOURCE_DIR/coreutils-$version"
+
+    FORCE_UNSAFE_CONFIGURE=1 ./configure --prefix=/usr \
+        --with-openssl \
+        --enable-no-install-program=kill,uptime \
+        --disable-nls
+    make
+}
+
+src_check() {
+    cd "$SOURCE_DIR/coreutils-$version"
+    make RUN_EXPENSIVE_TESTS=yes check
+}
+
+src_install() {
+    cd "$SOURCE_DIR/coreutils-$version"
+
+    make DESTDIR="$INSTALL_DIR" install
+
+    cd "$INSTALL_DIR"
+    mkdir -vp bin usr/sbin
+    mv -v usr/bin/{cat,chgrp,chmod,chown,cp,date,dd,df,echo} bin/
+    mv -v usr/bin/{false,ln,ls,mkdir,mknod,mv,pwd,rm} bin/
+    mv -v usr/bin/{rmdir,stty,sync,true,uname} bin/
+    mv -v usr/bin/chroot usr/sbin/
+    # mv -v usr/share/man/man1/chroot.1 usr/share/man/man8/chroot.8
+    # sed -i s/\"1\"/\"8\"/1 usr/share/man/man8/chroot.8
+
+    mv -v usr/bin/{head,sleep,nice,test,[} bin/
+}

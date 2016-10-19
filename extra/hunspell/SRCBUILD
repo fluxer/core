@@ -1,0 +1,26 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+version=1.3.3
+description="Spell checker and morphological analyzer library and program"
+depends=('gcc' 'readline' 'perl')
+sources=("http://downloads.sf.net/hunspell/hunspell-$version.tar.gz")
+
+src_compile() {
+    cd "$SOURCE_DIR/hunspell-$version"
+
+    ./configure --prefix=/usr \
+        --disable-static \
+        --without-ui \
+        --with-readline
+        # --with-experimental # breaks the build in 1.3.4+
+    make
+}
+
+src_install() {
+    cd "$SOURCE_DIR/hunspell-$version"
+    make -j1 DESTDIR="$INSTALL_DIR" install
+  
+    # add generic hunspell.so for development and projects not using pkgconfig flags - FS#30592
+    cd "$INSTALL_DIR/usr/lib"
+    ln -vs libhunspell-?.?.so libhunspell.so
+}

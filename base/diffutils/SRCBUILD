@@ -1,0 +1,28 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+# http://www.linuxfromscratch.org/lfs/view/development/chapter06/diffutils.html
+
+version=3.5
+description='Utility programs used for creating patch files'
+depends=('glibc' 'bash')
+sources=("http://ftp.gnu.org/gnu/diffutils/diffutils-$version.tar.xz"
+        "http://ftp.gnu.org/gnu/diffutils/diffutils-$version.tar.xz.sig")
+pgpkeys=('7FD9FCCB000BEEEE')
+
+src_compile() {
+    cd "$SOURCE_DIR/diffutils-$version"
+    ./configure --prefix=/usr \
+        --disable-rpath \
+        --disable-nls
+    make
+}
+
+src_check() {
+    cd "$SOURCE_DIR/diffutils-$version"
+    make check
+}
+
+src_install() {
+    cd "$SOURCE_DIR/diffutils-$version"
+    make DESTDIR="$INSTALL_DIR" install
+}

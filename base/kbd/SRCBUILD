@@ -1,0 +1,30 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+# http://www.linuxfromscratch.org/lfs/view/development/chapter06/kbd.html
+
+version=2.0.3
+description="Keytable files and keyboard utilities"
+makedepends=('check')
+sources=("ftp://ftp.altlinux.org/pub/people/legion/kbd/kbd-$version.tar.xz"
+        "ftp://ftp.altlinux.org/pub/people/legion/kbd/kbd-$version.tar.sign"
+        'fix-euro2.patch')
+pgpkeys=('A45ABA544CFFD434')
+
+src_prepare() {
+    cd "$SOURCE_DIR/kbd-$version"
+    patch -Np1 -i "$SOURCE_DIR/fix-euro2.patch"
+}
+
+src_compile() {
+    cd "$SOURCE_DIR/kbd-$version"
+
+    ./configure --prefix=/usr \
+        --disable-rpath \
+        --disable-vlock
+    make
+}
+
+src_install() {
+    cd "$SOURCE_DIR/kbd-$version"
+    make DESTDIR="$INSTALL_DIR" install
+}

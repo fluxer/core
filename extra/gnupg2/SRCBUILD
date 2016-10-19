@@ -1,0 +1,41 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+# TODO: use npth
+# http://www.linuxfromscratch.org/blfs/view/svn/postlfs/gnupg.html
+
+version=2.0.29
+description='Complete and free implementation of the OpenPGP standard'
+depends=('curl' 'pth' 'bzip2' 'libassuan' 'readline' 'libksba' 'libgcrypt' 'pinentry')
+makedepends=('openldap' 'libusbx')
+sources=("https://gnupg.org/ftp/gcrypt/gnupg/gnupg-$version.tar.bz2"
+        "https://gnupg.org/ftp/gcrypt/gnupg/gnupg-$version.tar.bz2.sig")
+pgpkeys=('249B39D24F25E3B6' '2071B08A33BD3F06')
+
+src_compile() {
+    cd "$SOURCE_DIR/gnupg-$version"
+
+    # does not build with clang
+    export CC=gcc CXX=g++
+
+    ./configure --prefix=/usr \
+        --sysconfdir=/etc \
+        --libexecdir=/usr/lib \
+        --enable-large-secmem \
+        --enable-symcryptrun \
+        --disable-rpath
+    make
+}
+
+src_check() {
+    cd "$SOURCE_DIR/gnupg-$version"
+    make check
+}
+
+src_install() {
+    cd "$SOURCE_DIR/gnupg-$version"
+
+    make DESTDIR="$INSTALL_DIR" install
+    # resolve conflicts with gnupg1
+    mv -v "$INSTALL_DIR/usr/share/man/man1/gpg-zip.1" \
+        "$INSTALL_DIR/usr/share/man/man1/gpg2-zip.1"
+}

@@ -1,0 +1,19 @@
+#!/sbin/openrc-run
+
+depend() {
+    use dns net
+}
+
+start() {
+    ebegin "Starting K Display Manager"
+    start-stop-daemon --start --quiet \
+        --exec /usr/bin/kdm --pidfile /var/run/kdm.pid
+    eend $?
+}
+
+stop() {
+    ebegin "Stopping K Display Manager"
+    start-stop-daemon --stop --quiet \
+        --exec /usr/bin/kdm --pidfile /var/run/kdm.pid
+    eend $?
+}

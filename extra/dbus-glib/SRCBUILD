@@ -1,0 +1,27 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+# http://www.linuxfromscratch.org/blfs/view/svn/general/dbus-glib.html
+
+version=0.106
+description="GLib bindings for DBUS"
+depends=('dbus' 'glib')
+sources=("http://dbus.freedesktop.org/releases/dbus-glib/dbus-glib-$version.tar.gz")
+
+src_compile() {
+    cd "$SOURCE_DIR/dbus-glib-$version"
+
+    ./configure --prefix=/usr \
+        --sysconfdir=/etc \
+        --libexecdir=/usr/lib/dbus \
+        --disable-static
+    make
+}
+
+src_check() {
+    cd "$SOURCE_DIR/dbus-glib-$version"
+    make test
+}
+src_install() {
+    cd "$SOURCE_DIR/dbus-glib-$version"
+    make DESTDIR="$INSTALL_DIR" install
+}

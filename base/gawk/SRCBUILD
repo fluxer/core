@@ -1,0 +1,27 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+# http://www.linuxfromscratch.org/lfs/view/development/chapter06/gawk.html
+
+version=4.1.4
+description="Upwardly compatible Unix awk version of Brian Kernighan (gawk)"
+depends=('glibc' 'readline')
+sources=("http://ftp.gnu.org/gnu/gawk/gawk-$version.tar.xz"
+        "http://ftp.gnu.org/gnu/gawk/gawk-$version.tar.xz.sig")
+pgpkeys=('DF597815937EC0D2')
+
+src_compile() {
+    cd "$SOURCE_DIR/gawk-$version"
+
+    ./configure --prefix=/usr
+    make
+}
+
+src_check() {
+    cd "$SOURCE_DIR/gawk-$version"
+    make check
+}
+
+src_install() {
+    cd "$SOURCE_DIR/gawk-$version"
+    make DESTDIR="$INSTALL_DIR" install
+}

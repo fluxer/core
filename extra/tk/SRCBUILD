@@ -1,0 +1,36 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+# http://www.linuxfromscratch.org/blfs/view/svn/general/tk.html
+
+version=8.6.6
+description="A windowing toolkit for use with tcl"
+depends=("tcl" 'xorg-libraries')
+sources=("http://downloads.sf.net/tcl/tk$version-src.tar.gz")
+
+src_compile() {
+    cd tk$version/unix
+    [[ $(uname -m) == "x86_64" ]] && BIT="--enable-64bit"
+    ./configure --prefix=/usr \
+        --mandir=/usr/share/man \
+        --enable-threads \
+        --disable-rpath $BIT
+    make
+}
+
+src_check() {
+    cd "tk$version/unix"
+    make test
+}
+
+src_install() {
+    cd "tk$version/unix"
+
+    make INSTALL_ROOT="$INSTALL_DIR" install install-private-headers
+    ln -vsf wish${version%.*} "$INSTALL_DIR/usr/bin/wish"
+    ln -vsf libtk${version%.*}.so "$INSTALL_DIR/usr/lib/libtk.so"
+
+    # remove buildroot traces
+    sed -e "s#$SOURCE_DIR/tk$version/unix#/lib#" \
+        -e "s#$SOURCE_DIR/tk$version#/include#" \
+        -i "$INSTALL_DIR/usr/lib/tkConfig.sh"
+}

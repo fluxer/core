@@ -1,0 +1,30 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+version=1.1.10
+description="Library implementation of the Media Transfer Protocol"
+depends=('libusbx' 'libgcrypt')
+sources=("http://downloads.sf.net/libmtp/libmtp-$version.tar.gz"
+        "http://downloads.sf.net/libmtp/libmtp-$version.tar.gz.asc")
+pgpkeys=('2209D6902F969C95')
+
+src_compile() {
+    cd "$SOURCE_DIR/libmtp-$version"
+
+    ./configure --prefix=/usr \
+        --with-udev=/lib/udev \
+        --disable-static
+    make
+}
+
+src_check() {
+    cd "$SOURCE_DIR/libmtp-$version"
+    make check
+}
+
+src_install() {
+    cd "$SOURCE_DIR/libmtp-$version"
+    make DESTDIR="$INSTALL_DIR" install
+
+    # fix broken udev rule
+    sed -i "/^Unable to open/d" "$INSTALL_DIR/lib/udev/rules.d/69-libmtp.rules"
+}

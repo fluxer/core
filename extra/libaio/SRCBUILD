@@ -1,0 +1,22 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+version=0.3.110
+description="The Linux-native asynchronous I/O facility (aio) library"
+checkdepends=('patchutils')
+sources=("http://ftp.de.debian.org/debian/pool/main/liba/libaio/libaio_$version.orig.tar.gz")
+
+src_compile() {
+    cd "$SOURCE_DIR/libaio-$version"
+    make
+}
+
+src_check() {
+    cd "$SOURCE_DIR/libaio-$version"
+    make check
+}
+
+src_install() {
+    cd "$SOURCE_DIR/libaio-$version"
+    make prefix="$INSTALL_DIR/usr" install
+}
+

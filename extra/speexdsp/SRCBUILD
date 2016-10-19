@@ -1,0 +1,23 @@
+version=1.2rc3
+description="DSP library derived from Speex"
+depends=('glibc')
+sources=("http://downloads.us.xiph.org/releases/speex/speexdsp-$version.tar.gz")
+
+src_compile() {
+    cd "$SOURCE_DIR/speexdsp-$version"
+    ./configure --prefix=/usr \
+        --sysconfdir=/etc \
+        --localstatedir=/var \
+        --disable-static
+    make
+}
+
+src_check() {
+    cd "$SOURCE_DIR/speexdsp-$version"
+    make -k check
+}
+
+src_install() {
+    cd "$SOURCE_DIR/speexdsp-$version"
+    make DESTDIR="$INSTALL_DIR" install
+}

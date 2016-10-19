@@ -1,0 +1,30 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+# http://www.linuxfromscratch.org/lfs/view/development/chapter06/acl.html
+
+version=2.2.52
+description="Access control list utilities, libraries and headers"
+depends=('attr')
+sources=("http://download.savannah.gnu.org/releases/acl/acl-$version.src.tar.gz"
+        "http://download.savannah.gnu.org/releases/acl/acl-$version.src.tar.gz.sig")
+pgpkeys=('154343260542DF34')
+
+src_compile() {
+    cd "$SOURCE_DIR/acl-$version"
+
+    export INSTALL_USER=root INSTALL_GROUP=root
+    ./configure --prefix=/usr \
+        --libexecdir=/usr/lib \
+        --disable-static
+    make
+}
+
+src_check() {
+    cd "$SOURCE_DIR/acl-$version"
+    make tests
+}
+
+src_install() {
+    cd "$SOURCE_DIR/acl-$version"
+    make DIST_ROOT="$INSTALL_DIR" install install-lib install-dev
+}

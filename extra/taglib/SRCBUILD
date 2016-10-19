@@ -1,0 +1,26 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+# http://www.linuxfromscratch.org/blfs/view/svn/multimedia/taglib.html
+
+version=1.9.1
+description="A Library for reading and editing the meta-data of several popular audio formats"
+depends=('bash' 'zlib' 'gcc')
+makedepends=('cmake')
+sources=("https://taglib.github.io/releases/taglib-$version.tar.gz")
+
+src_compile() {
+    cd "$SOURCE_DIR/taglib-$version"
+
+    mkdir "$SOURCE_DIR/build" && cd "$SOURCE_DIR/build"
+    cmake ../taglib-$version \
+        -DCMAKE_INSTALL_PREFIX=/usr \
+        -DCMAKE_BUILD_TYPE=RelWithDebInfo \
+        -DWITH_MP4=ON \
+        -DWITH_ASF=ON
+    make
+}
+
+src_install() {
+    cd "$SOURCE_DIR/build"
+    make DESTDIR="$INSTALL_DIR" install
+}

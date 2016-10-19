@@ -1,0 +1,23 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+# http://www.linuxfromscratch.org/lfs/view/development/chapter06/man-pages.html
+# NB: spm local -fp man-pages | wc -l
+
+version=4.07
+description="Collection of over 2,300 man pages"
+depends=('man-db')
+sources=("http://www.kernel.org/pub/linux/docs/man-pages/man-pages-$version.tar.xz"
+        "http://www.kernel.org/pub/linux/docs/man-pages/man-pages-$version.tar.sign")
+pgpkeys=('E522595B52EDA4E6BFCCCB5E856199113A35CE5E')
+
+src_install() {
+    cd "$SOURCE_DIR/man-pages-$version"
+    make prefix=/usr DESTDIR="$INSTALL_DIR" install
+
+    # remove man pages conflicting with shadow
+    rm -vf "$INSTALL_DIR/usr/share/man/man3/"getspnam.3*
+    rm -vf "$INSTALL_DIR/usr/share/man/man5/"passwd.5*
+    # remove man pages conflicting with attr
+    rm -vf "$INSTALL_DIR/usr/share/man/man5/"attr.5*
+}
+

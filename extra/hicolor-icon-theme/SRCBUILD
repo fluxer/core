@@ -1,0 +1,17 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+version=0.12
+description="Freedesktop.org Hicolor icon theme"
+sources=("http://icon-theme.freedesktop.org/releases/hicolor-icon-theme-$version.tar.gz")
+
+src_compile() {
+    cd "$SOURCE_DIR/hicolor-icon-theme-$version"
+
+    ./configure --prefix=/usr
+    make
+}
+
+src_install() {
+    cd "$SOURCE_DIR/hicolor-icon-theme-$version"
+    make DESTDIR="$INSTALL_DIR" install
+}

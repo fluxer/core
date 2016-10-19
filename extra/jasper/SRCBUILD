@@ -1,0 +1,31 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+# http://www.linuxfromscratch.org/blfs/view/svn/general/jasper.html
+
+version=1.900.1
+description="A software-based implementation of the codec specified in the emerging JPEG-2000 Part-1 standard"
+depends=('libjpeg-turbo')
+makedepends=('freeglut' 'xorg-libraries' 'glu')
+sources=(http://www.ece.uvic.ca/~mdadams/jasper/software/jasper-$version.zip
+        patch-libjasper-stepsizes-overflow.diff jasper-1.900.1-CVE-2008-3520.patch
+        jpc_dec.c.patch jasper-1.900.1-CVE-2008-3522.patch)
+
+src_compile() {
+    cd "$SOURCE_DIR/jasper-$version"
+
+    patch -p1 -i "$SOURCE_DIR/jpc_dec.c.patch"
+    patch -p1 -i "$SOURCE_DIR/patch-libjasper-stepsizes-overflow.diff"
+    patch -p1 -i "$SOURCE_DIR/jasper-1.900.1-CVE-2008-3520.patch"
+    patch -p1 -i "$SOURCE_DIR/jasper-1.900.1-CVE-2008-3522.patch"
+
+    sh ./configure --prefix=/usr \
+        --mandir=/usr/share/man \
+        --enable-shared \
+        --disable-static
+    make
+}
+
+src_install() {
+    cd "$SOURCE_DIR/jasper-$version"
+    make DESTDIR="$INSTALL_DIR" install
+}

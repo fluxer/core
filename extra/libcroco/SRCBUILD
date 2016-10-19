@@ -1,0 +1,27 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+# http://www.linuxfromscratch.org/blfs/view/svn/general/libcroco.html
+
+version=0.6.8
+description="General CSS parsing and manipulation library written in C"
+depends=('glib' 'libxml2')
+makedepends=('intltool')
+sources=("http://ftp.gnome.org/pub/gnome/sources/libcroco/0.6/libcroco-$version.tar.xz")
+
+src_compile() {
+    cd "libcroco-$version"
+
+    ./configure --prefix=/usr \
+        --disable-static
+    make
+}
+
+src_check() {
+    cd "libcroco-$version"
+    LD_LIBRARY_PATH=$(pwd)/src/.libs make test
+}
+
+src_install() {
+    cd "libcroco-$version"
+    make DESTDIR="$INSTALL_DIR" install
+}

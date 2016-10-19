@@ -1,0 +1,34 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+# http://www.linuxfromscratch.org/blfs/view/svn/kde/kdelibs.html
+
+version=4.18.0
+release=4
+description="KDE Core Libraries"
+depends=('xorg-libraries' 'strigi' 'exiv2' 'libraw' 'libpng' 'shared-mime-info'
+        'docbook-xsl' 'enchant' 'upower' 'udisks' 'mpv' 'gamin' 'libwebp'
+        'katie')
+makedepends=('cmake' 'mesalib')
+optdepends=('libdbusmenu-qt' 'qtwebkit')
+sources=("https://github.com/fluxer/kdelibs.git")
+
+src_compile() {
+    mkdir -p "$SOURCE_DIR/build" && cd "$SOURCE_DIR/build"
+    cmake ../kdelibs.git \
+        -DCMAKE_BUILD_TYPE=RelWithDebInfo \
+        -DCMAKE_SKIP_INSTALL_RPATH=ON \
+        -DCMAKE_INSTALL_PREFIX=/usr \
+        -DSYSCONF_INSTALL_DIR=/etc \
+        -DWITH_FAM=ON
+    make
+}
+
+src_check() {
+    cd "$SOURCE_DIR/build"
+    make test
+}
+
+src_install() {
+    cd "$SOURCE_DIR"/build
+    make DESTDIR="$INSTALL_DIR" install
+}

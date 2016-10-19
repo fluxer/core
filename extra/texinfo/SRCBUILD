@@ -1,0 +1,29 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+# http://www.linuxfromscratch.org/lfs/view/development/chapter06/texinfo.html
+
+version=6.1
+description='GNU documentation system for on-line information and printed output'
+depends=('ncurses' 'findutils' 'gzip' 'perl' 'busybox')
+sources=("ftp://ftp.gnu.org/pub/gnu/texinfo/texinfo-$version.tar.xz"
+        "ftp://ftp.gnu.org/pub/gnu/texinfo/texinfo-$version.tar.xz.sig")
+pgpkeys=('EAF669B31E31E1DECBD11513DDBC579DAB37FBA9')
+
+src_compile() {
+    cd "$SOURCE_DIR/texinfo-$version"
+
+    ./configure --prefix=/usr \
+        --disable-static
+    make
+}
+
+src_check() {
+    cd "$SOURCE_DIR/texinfo-$version"
+    make check
+}
+
+src_install() {
+    cd "$SOURCE_DIR/texinfo-$version"
+    make DESTDIR="$INSTALL_DIR" install
+}
+

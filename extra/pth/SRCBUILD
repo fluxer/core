@@ -1,0 +1,36 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+# http://www.linuxfromscratch.org/blfs/view/svn/general/pth.html
+
+version=2.0.7
+description="The GNU Portable Threads."
+depends=('glibc' 'gawk')
+sources=("ftp://ftp.gnu.org/gnu/pth/pth-$version.tar.gz"
+        "ftp://ftp.gnu.org/gnu/pth/pth-$version.tar.gz.sig")
+pgpkeys=('6E744ACBA9C09E30')
+
+src_compile() {
+    cd "$SOURCE_DIR/pth-$version"
+
+    ./configure --prefix=/usr \
+        --sysconfdir=/etc \
+        --localstatedir=/var \
+        --mandir=/usr/share/man \
+        --disable-static \
+        --enable-shared \
+        --with-pic
+
+    sed -i "s|awk=''|awk=/usr/bin/awk|g" shtool # "Cannot find a reasonable Awk"
+  
+    make -j1
+}
+
+src_check() {
+    cd "$SOURCE_DIR/pth-$version"
+    make -j1 check
+}
+
+src_install() {
+    cd "$SOURCE_DIR/pth-$version"
+    make -j1 DESTDIR="$INSTALL_DIR" install
+}

@@ -1,0 +1,21 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+# TODO: bump to 5.0.0
+
+version=4.2.1
+description="Provides a simple foundation for reading DVD video disks"
+depends=('glibc')
+makedepends=('libdvdcss')
+sources=("http://dvdnav.mplayerhq.hu/releases/libdvdread-$version.tar.xz")
+
+src_compile() {
+    cd "$SOURCE_DIR/libdvdread-$version"
+
+    ./autogen.sh --prefix=/usr
+    make
+}
+
+src_install() {
+    cd "$SOURCE_DIR/libdvdread-$version"
+    make DESTDIR="$INSTALL_DIR" install
+}

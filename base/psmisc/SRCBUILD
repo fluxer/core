@@ -1,0 +1,21 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+version=22.21
+description="Miscellaneous procfs tools"
+depends=('ncurses')
+sources=("http://downloads.sf.net/psmisc/psmisc-$version.tar.gz"
+        'psmisc-fuser.patch')
+
+src_compile() {
+    cd psmisc-$version
+
+    patch -p1 -i ../psmisc-fuser.patch
+
+    ./configure --prefix=/usr
+    make
+}
+
+src_install() {
+    cd psmisc-$version
+    make DESTDIR="$INSTALL_DIR" install
+}

@@ -1,0 +1,85 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+# http://www.linuxfromscratch.org/blfs/view/svn/postlfs/qemu.html
+
+version=2.6.2
+description="A generic and open source processor emulator which achieves a good emulation speed by using dynamic translation."
+depends=('perl' 'python')
+sources=("http://wiki.qemu.org/download/qemu-$version.tar.bz2"
+        "http://wiki.qemu.org/download/qemu-$version.tar.bz2.sig"
+        '65-kvm.rules')
+pgpkeys=('3353C9CEF108B584')
+makedepends=('pixman' 'libjpeg-turbo' 'libpng' 'sdl' 'alsa-lib' 'glib' 'libaio'
+        'gnutls' 'curl' 'cyrus-sasl' 'mesalib' 'libcap-ng' 'libseccomp'
+        'libiscsi' 'libssh2' 'samba')
+options=('!binaries' '!shared' '!static')
+
+src_compile() {
+    cd "$SOURCE_DIR/qemu-$version"
+
+    targets="i386-linux-user,i386-softmmu"
+    [ "$(uname -m)" = "x86_64" ] && targets+=",x86_64-linux-user,x86_64-softmmu"
+
+    # NOTE: our kernel does not support OSS
+    ./configure --prefix=/usr \
+        --sysconfdir=/etc \
+        --localstatedir=/var \
+        --libexecdir=/usr/lib/qemu \
+        --enable-linux-aio \
+        --enable-seccomp \
+        --enable-tpm \
+        --enable-opengl \
+        --enable-sdl \
+        --with-sdlabi=2.0 \
+        --disable-docs \
+        --disable-gtk \
+        --target-list="$targets" \
+        --audio-drv-list='alsa sdl' \
+        --smbd=/usr/sbin/smbd
+    make
+}
+
+src_check() {
+    cd "$SOURCE_DIR/qemu-$version"
+    make check
+}
+
+src_install() {
+    cd "$SOURCE_DIR/qemu-$version"
+    make DESTDIR="$INSTALL_DIR" install
+
+    install -vDm644 "$SOURCE_DIR/65-kvm.rules" \
+        "$INSTALL_DIR/lib/udev/rules.d/65-kvm.rules"
+
+    # bridge_helper needs suid
+    chmod -v u+s "$INSTALL_DIR/usr/lib/qemu/qemu-bridge-helper"
+
+    # add sample config
+    mkdir -pv "$INSTALL_DIR/etc/qemu"
+    echo "allow br0" > "$INSTALL_DIR/etc/qemu/bridge.conf.sample"
+
+    rm -vf "$INSTALL_DIR/usr/share/qemu/openbios-sparc64"
+}
+
+post_install() {
+    if ! getent group kvm; then
+        echo " >> Adding kvm group..."
+        addgroup -S -g 78 kvm
+    fi
+
+    echo
+    echo " >> You must add your user to the 'kvm' group, logout and login"
+    echo " >> again for the changes to take effect."
+    echo
+}
+
+post_upgrade() {
+    post_install
+}
+
+post_remove() {
+    if getent group kvm; then
+        echo " >> Deleting kvm group..."
+        delgroup kvm
+    fi
+}

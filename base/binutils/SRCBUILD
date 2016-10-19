@@ -1,0 +1,63 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+# http://www.linuxfromscratch.org/lfs/view/development/chapter06/binutils.html
+
+version=2.26.1
+release=2
+description="Collection of binary tools"
+depends=('zlib' 'glibc')
+sources=("http://ftp.gnu.org/gnu/binutils/binutils-$version.tar.bz2"
+        "http://ftp.gnu.org/gnu/binutils/binutils-$version.tar.bz2.sig"
+        '91_all_libiberty-pic.patch')
+pgpkeys=('C3126D3B4AE55E93')
+
+src_prepare() {
+    cd "$SOURCE_DIR/binutils-$version"
+    patch -Np0 -i "$SOURCE_DIR/91_all_libiberty-pic.patch"
+}
+
+src_compile() {
+    cd "$SOURCE_DIR/binutils-$version"
+
+    # we never patch the info files so regenerating them is useless
+    find . '(' -name '*.info' -o -name '*.texi' ')' -print0 | xargs -0 touch -r .
+
+    # hack! - libiberty configure tests for header files using "$CPP $CPPFLAGS"
+    sed -i "/ac_cpp=/s/\$CPPFLAGS/\$CPPFLAGS -O2/" libiberty/configure
+
+    # for various reasons - build with GCC
+    export CC=gcc CXX=g++
+
+    mkdir -v "$SOURCE_DIR/binutils-build" && cd "$SOURCE_DIR/binutils-build"
+    "$SOURCE_DIR/binutils-$version/configure" \
+        --prefix=/usr \
+        --enable-shared \
+        --disable-static \
+        --enable-threads \
+        --disable-rpath \
+        --disable-werror \
+        --disable-nls
+    make tooldir="$INSTALL_DIR"
+}
+
+src_check() {
+    cd "$SOURCE_DIR/binutils-build"
+    make check
+}
+
+src_install() {
+    cd "$SOURCE_DIR/binutils-build"
+
+    make prefix="$INSTALL_DIR/usr" tooldir="$INSTALL_DIR" install
+    install -vdm755 "$INSTALL_DIR/usr/include"
+    cp -v "../binutils-$version/include/libiberty.h" "$INSTALL_DIR/usr/include"
+}
+
+post_upgrade() {
+    echo
+    echo " >> If what you just installed is a new major version"
+    echo " >> then you should rebuild your toolchain:"
+    echo
+    echo " # spm source -aD toolchain"
+    echo
+}

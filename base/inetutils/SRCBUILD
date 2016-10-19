@@ -1,0 +1,38 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+# http://www.linuxfromscratch.org/lfs/view/development/chapter06/inetutils.html
+
+version=1.9.4
+description="A collection of common network programs"
+depends=('libcap')
+# makedepends=('help2man')
+sources=("http://ftp.gnu.org/gnu/inetutils/inetutils-$version.tar.xz"
+        "http://ftp.gnu.org/gnu/inetutils/inetutils-$version.tar.xz.sig")
+pgpkeys=('180551BAD95A3C35')
+backup=('etc/xinetd.d/telnet'
+        'etc/xinetd.d/talk'
+        'etc/xinetd.d/rlogin'
+        'etc/xinetd.d/rsh')
+
+src_compile() {
+    cd inetutils-$version
+
+    echo '#define PATH_PROCNET_DEV "/proc/net/dev"' >> ifconfig/system/linux.h 
+
+    ./configure --prefix=/usr  \
+        --localstatedir=/var   \
+        --disable-logger       \
+        --disable-whois        \
+        --disable-servers
+    make
+}
+
+src_check() {
+    cd inetutils-$version
+    make check
+}
+
+src_install() {
+    cd inetutils-$version
+    make DESTDIR="$INSTALL_DIR" install
+}

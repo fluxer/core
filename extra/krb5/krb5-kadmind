@@ -1,0 +1,30 @@
+#!/bin/bash
+
+# general config
+. /etc/rc.conf
+. /etc/rc.d/functions
+
+_bin=$(type -pf kadmind)
+_pid=$(pidof -o %PPID kadmind)
+
+case "$1" in
+    start)
+		if [ -z "$PID" ];then
+			exec_cmd "Starting Kerberos Admin Daemon" "$_bin"
+        fi
+        ;;
+    stop)
+	    if [ -n "$PID" ];then
+			exec_cmd "Stopping Kerberos Admin Daemon" kill "$_pid"
+		fi
+        ;;
+    restart)
+        $0 stop
+	sleep 1
+        $0 start
+        ;;
+    *)
+        echo "usage: $0 {start|stop|restart}"
+	;;
+esac
+

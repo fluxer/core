@@ -1,0 +1,31 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+# http://www.linuxfromscratch.org/lfs/view/development/chapter06/gettext.html
+
+version=0.19.7
+description="Internationalization and localization (i18n) system"
+depends=('gcc' 'glibc' 'ncurses' 'bash')
+sources=("http://ftp.gnu.org/gnu/gettext/gettext-$version.tar.gz"
+        "http://ftp.gnu.org/gnu/gettext/gettext-$version.tar.gz.sig")
+pgpkeys=('D605848ED7E69871')
+
+src_compile() {
+    cd "$SOURCE_DIR/gettext-$version"
+
+    ./configure --prefix=/usr \
+        --disable-rpath \
+        --disable-static
+    make
+}
+
+src_check() {
+    cd "$SOURCE_DIR/gettext-$version"
+    make check
+}
+
+src_install() {
+    cd "$SOURCE_DIR/gettext-$version"
+
+    make DESTDIR="$INSTALL_DIR" install
+    rm -vrf "$INSTALL_DIR/usr/share/doc"
+}

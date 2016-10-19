@@ -1,0 +1,29 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+# http://www.linuxfromscratch.org/lfs/view/development/chapter06/libtool.html
+
+version=2.4.6
+description="Generic library support script"
+depends=('glibc' 'bash')
+sources=("http://ftp.gnu.org/gnu/libtool/libtool-$version.tar.xz"
+        "http://ftp.gnu.org/gnu/libtool/libtool-$version.tar.xz.sig")
+pgpkeys=('CFE2BE707B538E8B26757D84151308092983D606')
+
+src_compile() {
+    cd "$SOURCE_DIR/libtool-$version"
+
+    ./configure --prefix=/usr \
+        --enable-ltdl-install \
+        --disable-static
+    make
+}
+
+src_check() {
+    cd "$SOURCE_DIR/libtool-$version"
+    make check
+}
+
+src_install() {
+    cd "$SOURCE_DIR/libtool-$version"
+    make DESTDIR="$INSTALL_DIR" install 
+}

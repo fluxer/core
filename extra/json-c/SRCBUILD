@@ -1,0 +1,23 @@
+version=0.12
+description="A JSON implementation in C"
+depends=('glibc')
+sources=("https://s3.amazonaws.com/json-c_releases/releases/json-c-$version.tar.gz")
+
+src_compile() {
+    cd "$SOURCE_DIR/json-c-$version"
+    CFLAGS="$CFLAGS -Wno-error"
+    ./configure --prefix=/usr \
+        --disable-static
+    make
+}
+
+src_check() {
+    cd "$SOURCE_DIR/json-c-$version"
+    make check
+}
+
+src_install() {
+    cd "$SOURCE_DIR/json-c-$version"
+    make DESTDIR="$INSTALL_DIR" install
+}
+ 

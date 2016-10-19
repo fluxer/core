@@ -1,0 +1,27 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+# http://www.linuxfromscratch.org/lfs/view/development/chapter06/flex.html
+
+version=2.5.39
+description="Fast lexical analyser generator"
+depends=('glibc')
+sources=("http://downloads.sf.net/flex/flex-$version.tar.xz")
+
+src_compile() {
+    cd "$SOURCE_DIR/flex-$version"
+
+    ./configure --prefix=/usr \
+        --disable-static
+    make
+}
+
+src_check() {
+    cd "$SOURCE_DIR/flex-$version"
+    make check
+}
+
+src_install() {
+    cd "$SOURCE_DIR/flex-$version"
+    make DESTDIR="$INSTALL_DIR" install
+    ln -vs flex "$INSTALL_DIR/usr/bin/lex"
+}

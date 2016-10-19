@@ -1,0 +1,34 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+# http://www.linuxfromscratch.org/blfs/view/svn/general/libarchive.html
+
+version=3.2.1
+description="Multi-format archive and compression library"
+makedepends=('zlib' 'bzip2' 'xz' 'glibc' 'acl' 'attr')
+sources=("http://www.libarchive.org/downloads/libarchive-$version.tar.gz")
+
+src_compile() {
+    cd "$SOURCE_DIR/libarchive-$version"
+
+    # https://github.com/libarchive/libarchive/issues/721
+    ac_cv_lzma_has_mt=no \
+    ./configure --prefix=/usr \
+        --without-nettle \
+        --disable-rpath \
+        --with-openssl \
+        --with-expat \
+        --enable-acl \
+        --enable-xattr \
+        --disable-static
+    make
+}
+
+src_check() {
+    cd "$SOURCE_DIR/libarchive-$version"
+    make check
+}
+
+src_install() {
+    cd "$SOURCE_DIR/libarchive-$version"
+    make DESTDIR="$INSTALL_DIR" install
+}

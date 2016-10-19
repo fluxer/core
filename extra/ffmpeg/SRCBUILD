@@ -1,0 +1,68 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+# http://www.linuxfromscratch.org/blfs/view/svn/multimedia/ffmpeg.html
+
+version=3.1.3
+description="Complete and free Internet live audio and video broadcasting solution for Linux/Unix"
+depends=('alsa-lib' 'bzip2' 'fontconfig' 'lame' 'libass' 'libtheora' 'zlib'
+        'libvorbis' 'zlib' 'xvidcore' 'x264' 'libvpx' 'faac')
+makedepends=('yasm')
+optdepends=('libbluray' 'x265' 'libssh' 'pulseaudio' 'speex')
+checkdepends=('rsync')
+sources=("http://ffmpeg.org/releases/ffmpeg-$version.tar.xz"
+        "http://ffmpeg.org/releases/ffmpeg-$version.tar.xz.asc")
+pgpkeys=('FCF986EA15E6E293A5644F10B4322F04D67658D8')
+backup=('etc/ffserver.conf')
+
+src_compile() {
+    cd "$SOURCE_DIR/ffmpeg-$version"
+
+    _options="--disable-libbluray --disable-libx265 --disable-libssh"
+    _options+=" --disable-libpulse --disable-libspeex"
+    [ "$OPTIONAL_LIBBLURAY" = "yes" ] && _options+=" --enable-libbluray"
+    [ "$OPTIONAL_X265" = "yes" ] && _options+=" --enable-libx265"
+    [ "$OPTIONAL_LIBSSH" = "yes" ] && _options+=" --enable-libssh"
+    [ "$OPTIONAL_PULSEAUDIO" = "yes" ] && _options+=" --enable-libpulse"
+    [ "$OPTIONAL_SPEEX" = "yes" ] && _options+=" --enable-libspeex"
+
+    sed 's/-lflite"/-lflite -lasound"/' -i configure
+    bash ./configure --prefix=/usr \
+        --enable-libass \
+        --enable-fontconfig \
+        --enable-gpl \
+        --enable-libfreetype \
+        --enable-libmp3lame \
+        --enable-libtheora \
+        --enable-libvorbis \
+        --enable-libvpx \
+        --enable-avresample \
+        --enable-postproc \
+        --enable-libx264 \
+        --enable-libxvid \
+        --enable-libfaac \
+        --enable-runtime-cpudetect \
+        --enable-shared \
+        --enable-version3 \
+        --enable-x11grab \
+        --enable-openssl \
+        --enable-nonfree \
+        --disable-static \
+        $_options
+
+    make
+    make tools/qt-faststart
+    make doc/ff{mpeg,play,server}.1
+}
+
+src_check() {
+    cd "$SOURCE_DIR/ffmpeg-$version"
+    make check
+}
+
+src_install() {
+    cd "$SOURCE_DIR/ffmpeg-$version"
+
+    make DESTDIR="$INSTALL_DIR" install install-man
+    install -vDm755 tools/qt-faststart "$INSTALL_DIR/usr/bin/qt-faststart"
+    install -vDm644 doc/ffserver.conf "$INSTALL_DIR/etc/ffserver.conf"
+}

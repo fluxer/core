@@ -1,0 +1,32 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+# http://www.linuxfromscratch.org/lfs/view/development/chapter06/sed.html
+
+version=4.2.2
+description='GNU stream editor'
+depends=('glibc' 'acl' 'attr')
+makedepends=('gettext')
+sources=("ftp://ftp.gnu.org/pub/gnu/sed/sed-$version.tar.gz"
+        "ftp://ftp.gnu.org/pub/gnu/sed/sed-4.2.2.tar.gz.sig")
+pgpkeys=('2684F9ACA750566F')
+
+src_compile() {
+    cd "$SOURCE_DIR/sed-$version"
+
+    ./configure --prefix=/usr \
+        --bindir=/bin \
+        --disable-rpath \
+        --bindir=/bin
+    make
+}
+
+src_check() {
+    cd "$SOURCE_DIR/sed-$version"
+    make check
+}
+
+src_install() {
+    cd "$SOURCE_DIR/sed-$version"
+    make DESTDIR="$INSTALL_DIR" install
+}
+

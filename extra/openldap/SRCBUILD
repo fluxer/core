@@ -1,0 +1,85 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+# http://www.linuxfromscratch.org/blfs/view/svn/server/openldap.html
+
+version=2.4.44
+description="Lightweight Directory Access Protocol (LDAP)"
+depends=('db' 'libtool' 'cyrus-sasl' 'openssl')
+makedepends=('groff')
+backup=('etc/openldap/ldap.conf'
+        'etc/openldap/slapd.conf'
+        'etc/openldap/slapd.ldif')
+sources=("ftp://ftp.openldap.org/pub/OpenLDAP/openldap-release/openldap-$version.tgz"
+        'slapd.tmpfiles' 'slapd.init' 'slapd.confd')
+
+src_compile() {
+    cd "$SOURCE_DIR/openldap-$version"
+
+    ./configure --prefix=/usr \
+        --sysconfdir=/etc     \
+        --localstatedir=/var  \
+        --libexecdir=/usr/lib     \
+        --disable-static      \
+        --enable-dynamic      \
+        --enable-crypt        \
+        --enable-spasswd      \
+        --enable-modules      \
+        --enable-rlookups     \
+        --enable-backends=mod \
+        --enable-overlays=mod \
+        --disable-ndb         \
+        --disable-sql         \
+        --enable-slapd
+    make -j1 depend
+    make -j1
+}
+
+src_check() {
+    cd "$SOURCE_DIR/openldap-$version"
+    make -j1 test
+}
+
+src_install() {
+    cd "$SOURCE_DIR/openldap-$version"
+
+    make -j1 DESTDIR="$INSTALL_DIR" install
+
+    install -vdm700 -o 83 -g 83 "$INSTALL_DIR/var/lib/openldap"
+    install -vdm700 -o 83 -g 83 "$INSTALL_DIR/etc/openldap/slapd.d"
+
+	install -vDm644 "$SOURCE_DIR/slapd.confd" "$INSTALL_DIR/etc/conf.d/slapd"
+    install -vDm744 "$SOURCE_DIR/slapd.init" "$INSTALL_DIR/etc/init.d/slapd"
+    install -vDm644 "$SOURCE_DIR/slapd.tmpfiles" "$INSTALL_DIR/etc/tmpfiles.d/slapd.conf"
+}
+
+
+post_install(){
+    if ! getent group ldap; then
+        echo " >> Adding ldap group..."
+        addgroup -g 83 ldap
+    fi
+
+    if ! getent passwd ldap; then
+        echo " >> Adding ldap user..."
+        adduser -S -D -g "OpenLDAP Daemon Owner" -h /var/lib/openldap -u 83 \
+            -G ldap -s /bin/false ldap
+    fi
+
+    chown -v -R ldap:ldap var/lib/openldap
+}
+
+post_upgrade(){
+    post_install
+}
+
+post_remove(){
+    if getent passwd ldap; then
+        echo " >> Deleting ldap user..."
+        deluser ldap
+    fi
+
+    if getent group ldap; then
+        echo " >> Deleting ldap group..."
+        delgroup ldap
+    fi
+}

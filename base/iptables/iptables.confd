@@ -1,0 +1,7 @@
+# /etc/conf.d/ip6tables
+
+# Options to pass to iptables-save and iptables-restore 
+SAVE_RESTORE_OPTIONS="-c"
+
+# Enable/disable IPv6 forwarding with the rules
+IPFORWARD="no"

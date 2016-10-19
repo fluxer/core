@@ -1,0 +1,24 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+# http://www.linuxfromscratch.org/blfs/view/svn/general/udisks2.html
+
+version=20150406
+description="Disk Management Service"
+depends=('glib' 'libgudev' 'libatasmart' 'acl' 'util-linux')
+makedepends=('docbook-xsl' 'python')
+optdepends=('gptfdisk' 'dosfstools' 'ntfs-3g' 'parted')
+sources=("https://github.com/fluxer/udisks.git")
+
+src_compile() {
+    cd "$SOURCE_DIR/udisks.git"
+    ./autogen.sh --prefix=/usr \
+        --sysconfdir=/etc \
+        --localstatedir=/var \
+        --disable-static
+    make
+}
+
+src_install() {
+    cd "$SOURCE_DIR/udisks.git"
+    make DESTDIR="$INSTALL_DIR" install
+}

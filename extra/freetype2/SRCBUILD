@@ -1,0 +1,29 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+# http://www.linuxfromscratch.org/blfs/view/svn/general/freetype2.html
+
+version=2.6.5
+description="TrueType font rendering library"
+depends=('zlib' 'bzip2' 'bash' 'libpng')
+optdepends=('harfbuzz')
+sources=("http://download.savannah.gnu.org/releases/freetype/freetype-$version.tar.bz2"
+        "http://download.savannah.gnu.org/releases/freetype/freetype-$version.tar.bz2.sig")
+pgpkeys=('C1A60EACE707FDA5')
+
+src_compile() {
+    cd "$SOURCE_DIR/freetype-$version"
+
+    ./configure --prefix=/usr \
+        --disable-static
+    make
+}
+
+src_check() {
+    cd "$SOURCE_DIR/freetype-$version"
+    make check
+}
+
+src_install() {
+    cd "$SOURCE_DIR/freetype-$version"
+    make DESTDIR="$INSTALL_DIR" install
+}

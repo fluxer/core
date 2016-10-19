@@ -1,0 +1,67 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+version=3.1.5
+description="Userspace dev tools (udev) forked by Gentoo"
+backup=('etc/udev/udev.conf')
+depends=('bash' 'kmod' 'util-linux')
+# makedepends=('gperf')
+sources=("http://dev.gentoo.org/~blueness/eudev/eudev-$version.tar.gz"
+        "http://dev.gentoo.org/~blueness/eudev/eudev-$version.tar.gz.asc"
+        "http://dev.gentoo.org/~williamh/dist/udev-init-scripts-31.tar.gz"
+        'eudev.hook' 'eudev.files')
+pgpkeys=('9384FA6EF52D4BBA')
+
+src_compile() {
+    cd "$SOURCE_DIR/eudev-$version"
+
+    ./configure --prefix=/usr \
+            --bindir=/bin \
+            --sbindir=/sbin \
+            --libdir=/usr/lib \
+            --sysconfdir=/etc \
+            --libexecdir=/lib  \
+            --with-rootprefix= \
+            --with-rootlibdir=/lib \
+            --enable-split-usr \
+            --enable-manpages \
+            --enable-hwdb \
+            --disable-introspection \
+            --disable-static
+    make
+}
+
+src_check() {
+    cd "$SOURCE_DIR/eudev-$version"
+    make check
+}
+
+src_install() {
+    cd "$SOURCE_DIR/eudev-$version"
+    make DESTDIR="$INSTALL_DIR" install
+
+    # mkdir -pv "$INSTALL_DIR/etc/mkinitfs/"{root/hooks,files}
+    # cp -fv "$SOURCE_DIR/eudev.hook" "$INSTALL_DIR/etc/mkinitfs/root/hooks/eudev"
+    # cp -fv "$SOURCE_DIR/eudev.files" "$INSTALL_DIR/etc/mkinitfs/files/eudev.conf"
+
+    make -C "$SOURCE_DIR/udev-init-scripts-31" DESTDIR="$INSTALL_DIR" install
+}
+
+post_install() {
+    echo " >> Generating /etc/udev/hwdb.bin"
+    udevadm hwdb --update
+
+    rc-update add udev sysinit
+    rc-update add udev-trigger sysinit
+}
+
+post_upgrade() {
+    post_install
+}
+
+post_remove() {
+    echo " >> Removing /etc/udev/hwdb.bin"
+    rm -vf /etc/udev/hwdb.bin
+
+    rc-update del udev sysinit
+    rc-update del udev-trigger sysinit
+}

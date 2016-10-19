@@ -1,0 +1,27 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+# http://www.linuxfromscratch.org/lfs/view/7.3/chapter06/automake.html
+
+version=1.14.1
+description="Tool for automatically generating Makefile.in files compliant with the GNU Coding Standards"
+depends=('busybox' 'perl')
+sources=("http://ftp.gnu.org/gnu/automake/automake-$version.tar.xz"
+        "http://ftp.gnu.org/gnu/automake/automake-$version.tar.xz.sig")
+pgpkeys=('FC818E17429F96EA')
+
+src_compile() {
+    cd "$SOURCE_DIR/automake-$version"
+    ./configure --prefix=/usr
+    make
+}
+
+# NOT RECOMMENDED!
+# src_check() {
+#     cd "$SOURCE_DIR/automake-$version"
+#     make check
+# }
+
+src_install() {
+    cd "$SOURCE_DIR/automake-$version"
+    make DESTDIR="$INSTALL_DIR" install
+}

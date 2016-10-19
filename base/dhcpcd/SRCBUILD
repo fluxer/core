@@ -1,0 +1,33 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+# http://www.linuxfromscratch.org/blfs/view/svn/basicnet/dhcpcd.html
+
+version=6.10.3
+description="RFC2131 compliant DHCP client daemon"
+depends=('glibc' 'busybox')
+backup=('etc/dhcpcd.conf')
+sources=("http://roy.marples.name/downloads/dhcpcd/dhcpcd-$version.tar.xz"
+        'dhcpcd.init')
+
+src_compile() {
+  cd "$SOURCE_DIR/dhcpcd-$version"
+
+    ./configure --libexecdir=/lib/dhcpcd \
+        --dbdir=/var/lib/dhcpcd \
+        --rundir=/run
+    make
+}
+
+src_check() {
+    cd "$SOURCE_DIR/dhcpcd-$version"
+    make test
+}
+
+src_install() {
+    cd "$SOURCE_DIR/dhcpcd-$version"
+
+    make DESTDIR="$INSTALL_DIR" install
+
+    echo noipv4ll >> "$INSTALL_DIR/etc/dhcpcd.conf"
+    install -vDm744 "$SOURCE_DIR/dhcpcd.init" "$INSTALL_DIR/etc/init.d/dhcpcd"
+} 

@@ -1,0 +1,39 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+version=1.71
+description="Utility to detect other Operating Systems on a set of drives"
+depends=('bash')
+sources=("http://ftp.debian.org/debian/pool/main/o/os-prober/os-prober_$version.tar.xz"
+        'distro.patch')
+
+src_compile() {
+    cd "$SOURCE_DIR/os-prober-$version"
+
+    # adjust lib dir to allow detection of 64-bit distros
+    sed -i -e "s:/lib/ld\*\.so\*:/lib*/ld*.so*:g" os-probes/mounted/common/90linux-distro
+
+    # distro specifiec patch
+    patch -Np1 -i "$SOURCE_DIR/distro.patch"
+
+    rm -f Makefile
+    make newns
+}
+
+src_install() {
+    cd "$SOURCE_DIR/os-prober-$version"
+
+    install -vDm755 linux-boot-prober "$INSTALL_DIR/usr/bin/linux-boot-prober"
+    install -vDm755 os-prober "$INSTALL_DIR/usr/bin/os-prober"
+    install -vDm755 newns "$INSTALL_DIR/usr/lib/os-prober/newns"
+    install -vDm755 common.sh "$INSTALL_DIR/usr/share/os-prober/common.sh"
+
+    for dir in os-probes os-probes/mounted os-probes/init linux-boot-probes linux-boot-probes/mounted; do
+        install -vdm755 "$INSTALL_DIR/usr/lib/$dir"
+        cp -vr "$dir/common/"* "$INSTALL_DIR/usr/lib/$dir"
+        [[ -d "$dir/x86" ]] && cp -vr "$dir/x86/"* "$INSTALL_DIR/usr/lib/$dir"
+    done
+
+    install -Dvm755 os-probes/mounted/powerpc/20macosx "$INSTALL_DIR/usr/lib/os-probes/mounted/20macosx"
+
+    install -vdm755 "$INSTALL_DIR/var/lib/os-prober"
+}

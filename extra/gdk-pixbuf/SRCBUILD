@@ -1,0 +1,39 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+# TODO: introspection
+# http://www.linuxfromscratch.org/blfs/view/svn/x/gdk-pixbuf.html
+
+version=2.32.3
+description="An image loading library"
+depends=('glib' 'libpng' 'libtiff' 'libjpeg-turbo' 'xorg-libraries')
+makedepends=('xorg-protocol-headers')
+optdepends=('jasper')
+sources=("http://download.gnome.org/sources/gdk-pixbuf/2.32/gdk-pixbuf-$version.tar.xz")
+
+src_compile() {
+    cd "$SOURCE_DIR/gdk-pixbuf-$version"
+
+    _options="--without-libjasper"
+    [ "$OPTIONAL_JASPER" = "yes" ] && _options+=" --with-libjasper"
+    ./configure --prefix=/usr \
+        --with-x11 \
+        --disable-nls \
+        --disable-rpath \
+        --disable-gtk-doc-html \
+        $_options
+    make
+}
+
+src_check() {
+    cd "$SOURCE_DIR/gdk-pixbuf-$version"
+    make check
+}
+
+src_install() {
+    cd "$SOURCE_DIR/gdk-pixbuf-$version"
+    make DESTDIR="$INSTALL_DIR" install
+}
+
+pre_remove() {
+    rm -vf /usr/lib/gdk-pixbuf-2.0/2.10.0/loaders/loaders.cache
+}

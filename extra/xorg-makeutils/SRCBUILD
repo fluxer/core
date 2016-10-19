@@ -1,0 +1,52 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+# http://www.linuxfromscratch.org/blfs/view/cvs/x/util-macros.html
+
+version=1.18.4
+description="X.Org imake program and related utilities"
+depends=('glibc')
+makedepends=('pkgconf' 'perl' 'xorg-protocol-headers')
+sources=("http://xorg.freedesktop.org/releases/individual/util/imake-1.0.7.tar.bz2"
+        'http://xorg.freedesktop.org/releases/individual/util/gccmakedep-1.0.3.tar.bz2'
+        'http://xorg.freedesktop.org/releases/individual/util/lndir-1.0.3.tar.bz2'
+        'http://xorg.freedesktop.org/releases/individual/util/makedepend-1.0.5.tar.bz2'
+        'http://xorg.freedesktop.org/releases/individual/util/xorg-cf-files-1.0.6.tar.bz2'
+        'http://xorg.freedesktop.org/releases/individual/util/util-macros-1.19.0.tar.bz2'
+        'linuxconfig.patch')
+
+_packages=(imake gccmakedep lndir makedepend xorg-cf-files util-macros)
+src_compile() {
+    for _pkg in "${_packages[@]}";do
+        cd "$SOURCE_DIR/$_pkg-"*
+
+        case "$_pkg" in
+            xorg-cf-files) patch -p1 -i "$SOURCE_DIR/linuxconfig.patch" ;;
+        esac
+
+        echo "Configuring $_pkg..."
+        ./configure --prefix=/usr \
+                    --sysconfdir=/etc \
+                    --localstatedir=/var \
+                    --disable-static
+
+        echo "Compiling $_pkg..."
+        make
+    done
+}
+
+src_check() {
+    for _pkg in "${_packages[@]}";do
+        cd "$SOURCE_DIR/$_pkg-"*
+        echo "Checking $_pkg..."
+        make check
+    done
+}
+
+src_install() {
+    for _pkg in "${_packages[@]}";do
+        cd "$SOURCE_DIR/$_pkg-"*
+        echo "Installing $_pkg..."
+        make DESTDIR="$INSTALL_DIR" install
+    done
+}
+

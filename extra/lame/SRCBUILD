@@ -1,0 +1,27 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+# http://www.linuxfromscratch.org/blfs/view/svn/multimedia/lame.html
+
+version=3.99.5
+description="A high quality MPEG Audio Layer III (MP3) encoder"
+depends=('ncurses')
+makedepends=('nasm')
+sources=("http://downloads.sf.net/lame/lame-$version.tar.gz")
+
+src_compile() {
+    cd "$SOURCE_DIR/lame-$version"
+
+    # fix a compiler error introduced by gcc-4.9.0 on 32-bit machines
+    [ "$(uname -m)" = "i686" ] && sed -i -e '/xmmintrin\.h/d' configure
+
+    ./configure --prefix=/usr \
+        --enable-nasm \
+        --enable-shared \
+        --disable-static
+    make
+}
+
+src_install() {
+    cd "$SOURCE_DIR/lame-$version"
+    make DESTDIR="$INSTALL_DIR" install
+}

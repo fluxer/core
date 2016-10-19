@@ -1,0 +1,21 @@
+version=0.8.90
+description="Maps the new names of icons for Tango to the legacy names used by the GNOME and KDE desktops."
+depends=('perl-xml-simple')
+sources=("https://sources.archlinux.org/other/icon-naming-utils/icon-naming-utils-$version.tar.gz"
+        'remove-legacy-calc.patch')
+
+src_compile() {
+    cd "$SOURCE_DIR/icon-naming-utils-$version"
+
+    patch -Np1 -i "$SOURCE_DIR/remove-legacy-calc.patch"
+
+    ./configure --prefix=/usr \
+        --sysconfdir=/etc \
+        --libexecdir=/usr/lib/icon-naming-utils \
+        --localstatedir=/var
+    make
+}
+src_install() {
+    cd "$SOURCE_DIR/icon-naming-utils-$version"
+    make DESTDIR="$INSTALL_DIR" install
+}

@@ -1,0 +1,27 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+# http://www.linuxfromscratch.org/blfs/view/svn/x/xcb-util-image.html
+
+version=0.3.9
+description="Utility libraries for XC Binding - Port of Xlib XImage and XShmImage functions"
+depends=('xorg-libraries' 'xcb-util')
+makedepends=('xorg-makeutils')
+sources=("http://xcb.freedesktop.org/dist/xcb-util-image-$version.tar.bz2")
+
+src_compile() {
+    cd "$SOURCE_DIR/xcb-util-image-$version"
+
+    ./configure --prefix=/usr \
+        --disable-static
+    make
+}
+
+src_check() {
+    cd "$SOURCE_DIR/xcb-util-image-$version"
+    make check
+}
+
+src_install() { 
+    cd "$SOURCE_DIR/xcb-util-image-$version"
+    make DESTDIR="$INSTALL_DIR" install
+}

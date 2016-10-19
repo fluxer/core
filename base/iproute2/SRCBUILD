@@ -1,0 +1,50 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+# http://www.linuxfromscratch.org/lfs/view/development/chapter06/iproute2.html
+
+version=4.4.0
+description="IP Routing Utilities"
+depends=('glibc' 'iptables')
+# makedepends=('linux-atm')
+backup=('etc/iproute2/ematch_map'
+        'etc/iproute2/rt_dsfield'
+        'etc/iproute2/rt_protos'
+        'etc/iproute2/rt_realms'
+        'etc/iproute2/rt_scopes'
+        'etc/iproute2/rt_tables')
+sources=("http://www.kernel.org/pub/linux/utils/net/iproute2/iproute2-$version.tar.xz"
+        "http://www.kernel.org/pub/linux/utils/net/iproute2/iproute2-$version.tar.sign"
+        'iproute2-fhs.patch')
+pgpkeys=('9F6FC345B05BE7E766B83C8F80A77F6095CDE47E')
+
+src_prepare() {
+    cd "$SOURCE_DIR/iproute2-$version"
+
+    # set correct fhs structure
+    patch -Np1 -i "$SOURCE_DIR/iproute2-fhs.patch"
+
+    # do not treat warnings as errors
+    sed -i 's/-Werror//' Makefile
+
+    # avoid db requirement
+    sed -i '/^TARGETS/s@arpd@@g' misc/Makefile
+    sed -i /ARPD/d Makefile
+    sed -i 's/arpd.8//' man/man8/Makefile
+}
+
+src_compile() {
+    cd "$SOURCE_DIR/iproute2-$version"
+
+    ./configure
+    make
+}
+
+src_install() {
+    cd "$SOURCE_DIR/iproute2-$version"
+
+    make DESTDIR="$INSTALL_DIR" install
+
+    # libnetlink isn't installed, install it
+    install -vDm644 include/libnetlink.h "$INSTALL_DIR/usr/include/libnetlink.h"
+    install -vDm644 lib/libnetlink.a "$INSTALL_DIR/usr/lib/libnetlink.a"
+}

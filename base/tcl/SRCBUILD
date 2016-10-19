@@ -1,0 +1,50 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+# http://www.linuxfromscratch.org/blfs/view/svn/general/tcl.html
+
+version=8.6.6
+description="The Tcl scripting language"
+depends=('zlib')
+sources=("http://downloads.sf.net/tcl/tcl$version-src.tar.gz")
+
+src_compile() {
+    cd "tcl$version/unix"
+
+    [ "$(uname -m)" == "x86_64" ] && BIT="--enable-64bit"
+    ./configure --prefix=/usr \
+        --mandir=/usr/share/man \
+        --enable-threads \
+        $BIT
+    make
+}
+
+src_check() {
+    cd "tcl$version/unix"
+    make test
+}
+
+src_install() {
+    cd "tcl$version/unix"
+
+    make INSTALL_ROOT="$INSTALL_DIR" install install-private-headers
+    ln -vsf tclsh${version%.*} "$INSTALL_DIR/usr/bin/tclsh"
+    ln -vsf libtcl${version%.*}.so "$INSTALL_DIR/usr/lib/libtcl.so"
+
+    # remove buildroot traces
+    sed -e "s#$SOURCE_DIR/tcl$version/unix#/usr/lib#" \
+        -e "s#$SOURCE_DIR/tcl$version#/usr/include#" \
+        -i "$INSTALL_DIR/usr/lib/tclConfig.sh"
+
+    _tdbcver="1.0.4"
+    sed -e "s#$SOURCE_DIR/tcl$version/unix/pkgs/tdbc${_tdbcver}#/usr/lib/tdbc${_tdbcver}#" \
+        -e "s#$SOURCE_DIR/tcl$version/pkgs/tdbc${_tdbcver}/generic#/usr/include#" \
+        -e "s#$SOURCE_DIR/tcl$version/pkgs/tdbc${_tdbcver}/library#/usr/lib/tcl${version%.*}#" \
+        -e "s#$SOURCE_DIR/tcl$version/pkgs/tdbc${_tdbcver}#/usr/include#" \
+        -i "$INSTALL_DIR/usr/lib/tdbc${_tdbcver}/tdbcConfig.sh"
+
+    _itclver="4.0.5"
+    sed -e "s#$SOURCE_DIR/tcl$version/unix/pkgs/itcl${_itclver}#/usr/lib/itcl${_itclver}#" \
+        -e "s#$SOURCE_DIR/tcl$version/pkgs/itcl${_itclver}/generic#/usr/include#" \
+        -e "s#$SOURCE_DIR/tcl$version/pkgs/itcl${_itclver}#/usr/include#" \
+        -i "$INSTALL_DIR/usr/lib/itcl${_itclver}/itclConfig.sh"
+}

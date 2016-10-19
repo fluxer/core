@@ -1,0 +1,64 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+# http://www.linuxfromscratch.org/blfs/view/svn/pst/docbook-xsl.html
+
+version=1.77.1
+description='XML stylesheets for Docbook-xml transformations'
+depends=('libxml2' 'libxslt' 'docbook-xml')
+sources=("http://downloads.sf.net/docbook/docbook-xsl-$version.tar.bz2")
+
+src_install() {
+    cd "$SOURCE_DIR/docbook-xsl-$version"
+
+    _pkgroot="$INSTALL_DIR/usr/share/xml/docbook/xsl-stylesheets-$version"
+
+    install -dm755 "$_pkgroot"
+    install -m644 VERSION VERSION.xsl "$_pkgroot"
+
+    for fn in VERSION common eclipse epub extensions fo highlighting html \
+            htmlhelp images javahelp lib manpages params profiling roundtrip \
+            slides template tests tools webhelp website xhtml xhtml-1_1;do
+        cp -vR "$fn" "$_pkgroot/"
+    done
+
+    install -vdm755 "$INSTALL_DIR/etc/xml"
+
+    # remove ruby scripts
+    rm -vf "$INSTALL_DIR/usr/share/xml/docbook/xsl-stylesheets-1.77.1/epub/bin/dbtoepub"
+}
+
+
+post_install() {
+    if [ ! -f /etc/xml/catalog ]; then
+        xmlcatalog --noout --create /etc/xml/catalog
+    fi
+
+    xmlcatalog --noout --add "rewriteSystem" \
+        "http://docbook.sourceforge.net/release/xsl/$version" \
+        "/usr/share/xml/docbook/xsl-stylesheets-$version" \
+        /etc/xml/catalog
+
+    xmlcatalog --noout --add "rewriteURI" \
+        "http://docbook.sourceforge.net/release/xsl/$version" \
+        "/usr/share/xml/docbook/xsl-stylesheets-$version" \
+        /etc/xml/catalog
+
+    xmlcatalog --noout --add "rewriteSystem" \
+        "http://docbook.sourceforge.net/release/xsl/current" \
+        "/usr/share/xml/docbook/xsl-stylesheets-$version" \
+        /etc/xml/catalog
+
+    xmlcatalog --noout --add "rewriteURI" \
+        "http://docbook.sourceforge.net/release/xsl/current" \
+        "/usr/share/xml/docbook/xsl-stylesheets-$version" \
+        /etc/xml/catalog
+}
+
+post_upgrade() {
+    post_install
+}
+
+pre_remove() {
+    _OLD=$(spm local -vp docbook-xsl)
+    xmlcatalog --noout --del "/usr/share/xml/docbook/xsl-stylesheets-${_OLD}" /etc/xml/catalog
+}

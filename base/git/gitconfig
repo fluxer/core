@@ -1,0 +1,2 @@
+[http]
+	sslCAPath = /etc/ssl/certs

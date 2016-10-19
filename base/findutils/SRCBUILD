@@ -1,0 +1,27 @@
+# Maintainer: Ivailo Monve <xakepa10@gmail.com>
+
+# http://www.linuxfromscratch.org/lfs/view/development/chapter06/findutils.html
+
+version=4.4.2
+description="GNU utilities to locate files"
+depends=('glibc')
+sources=("ftp://ftp.gnu.org/pub/gnu/findutils/findutils-$version.tar.gz")
+
+src_compile() {
+    cd "$SOURCE_DIR/findutils-$version"
+
+    ./configure --prefix=/usr \
+        --localstatedir=/var/lib/locate
+    make
+}
+
+src_check() {
+    cd "$SOURCE_DIR/findutils-$version"
+    make check
+}
+
+src_install() {
+    cd "$SOURCE_DIR/findutils-$version"
+    make DESTDIR=$INSTALL_DIR install
+}
+

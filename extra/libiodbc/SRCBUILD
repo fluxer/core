@@ -1,0 +1,26 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+# http://www.linuxfromscratch.org/blfs/view/svn/general/libiodbc.html
+
+version=3.52.10
+description='Independent Open DataBase Connectivity for Linux'
+depends=('bash')
+sources=("http://downloads.sourceforge.net/iodbc/libiodbc-$version.tar.gz")
+
+src_compile() {
+    cd "$SOURCE_DIR/libiodbc-$version"
+
+    ./configure --prefix=/usr \
+        --includedir=/usr/include/libiodbc \
+        --disable-gui \
+        --disable-libodbc \
+        --disable-static
+    make
+}
+
+src_install() {
+    cd "$SOURCE_DIR/libiodbc-$version"
+    make DESTDIR="$INSTALL_DIR" install
+
+    rm -vrf "$INSTALL_DIR/usr/share/libiodbc/"
+}

@@ -1,0 +1,19 @@
+# Maintainer : Ivailo Monev <xakepa10@gmail.com"
+
+version=1.11
+description="A library to handle Apple Property List format whereas its binary or XML"
+depends=('glib' 'libxml2')
+makedepends=('python')
+sources=("http://www.libimobiledevice.org/downloads/libplist-$version.tar.bz2")
+
+src_compile() {
+    cd "$SOURCE_DIR/libplist-$version"
+    ./configure --prefix=/usr \
+        --disable-static
+    make -j1
+}
+
+src_install() {
+    cd "$SOURCE_DIR/libplist-$version"
+    make -j1 DESTDIR="$INSTALL_DIR" install
+}

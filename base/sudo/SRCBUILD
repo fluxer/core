@@ -1,0 +1,63 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+# http://www.linuxfromscratch.org/blfs/view/svn/postlfs/sudo.html
+
+version=1.8.15
+description="Method of controlling/auditing Root access"
+depends=('glibc' 'busybox' 'shadow')
+backup=('etc/sudoers')
+sources=("http://www.sudo.ws/sudo/dist/sudo-$version.tar.gz"
+        "http://www.sudo.ws/sudo/dist/sudo-$version.tar.gz.sig"
+        'allow_sudo_group.patch')
+pgpkeys=('5A89DFA27EE470C4')
+
+src_prepare() {
+    cd "$SOURCE_DIR/sudo-$version"
+    patch -Np0 -i "$SOURCE_DIR/allow_sudo_group.patch"
+}
+
+src_compile() {
+    cd "$SOURCE_DIR/sudo-$version"
+
+    ./configure --prefix=/usr \
+        --libexecdir=/usr/lib/ \
+        --with-rundir=/var/lib/sudo \
+        --with-all-insults \
+        --with-env-editor \
+        --without-pam  \
+        --without-sendmail \
+        --enable-shadow \
+        --disable-nls \
+        --disable-rpath \
+        --disable-static \
+        --with-secure-path="/usr/sbin:/usr/bin:/sbin:/bin"
+    make
+}
+
+src_check() {
+    cd "$SOURCE_DIR/sudo-$version"
+    make check
+}
+
+src_install() {
+    cd "$SOURCE_DIR/sudo-$version"
+    make DESTDIR="$INSTALL_DIR" install
+}
+
+post_install() {
+    if ! getent group sudo; then
+        echo " >> Adding sudo group..."
+        addgroup -S sudo
+    fi
+}
+
+post_upgrade() {
+    post_install
+}
+
+post_remove() {
+    if getent group sudo; then
+        echo " >> Deleting sudo group..."
+        delgroup sudo
+    fi
+}

@@ -1,0 +1,26 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+version=1.0.1
+release=2
+description='pkgconfig compatible utility which does not depend on glib'
+sources=("http://rabbit.dereferenced.org/~nenolod/distfiles/pkgconf-$version.tar.xz")
+
+src_compile() {
+    cd "$SOURCE_DIR/pkgconf-$version"
+
+    pkgpath="/lib/pkgconfig:/usr/lib/pkgconfig:/usr/share/pkgconfig"
+    ./configure --prefix=/usr \
+        --sysconfdir=/etc \
+        --with-pkg-config-dir="$pkgpath" \
+        --mandir=/usr/share/man \
+        --localstatedir=/var \
+        --disable-static
+    make
+}
+
+src_install() {
+    cd "$SOURCE_DIR/pkgconf-$version"
+
+    make DESTDIR="$INSTALL_DIR" install
+    ln -s pkgconf "$INSTALL_DIR/usr/bin/pkg-config"
+}

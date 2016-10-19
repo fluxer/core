@@ -1,0 +1,34 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+# http://www.linuxfromscratch.org/blfs/view/svn/general/nspr.html
+
+version=4.10.10
+description="Netscape Portable Runtime"
+depends=('glibc')
+makedepends=('zip')
+sources=("http://ftp.mozilla.org/pub/mozilla.org/nspr/releases/v$version/src/nspr-$version.tar.gz")
+
+src_compile() {
+    cd "$SOURCE_DIR/nspr-$version"
+
+    _confflags=""
+    [ "$(uname -m)" = "x86_64" ] && _confflags="--enable-64bit"
+
+    ./nspr/configure \
+        --prefix=/usr \
+        --libdir=/usr/lib \
+        --includedir=/usr/include/nspr \
+        --enable-optimize \
+        ${_confflags}
+    make
+}
+
+src_install() {
+    cd "$SOURCE_DIR/nspr-$version"
+    make DESTDIR="$INSTALL_DIR" install
+
+    ln -vs nspr.pc "$INSTALL_DIR/usr/lib/pkgconfig/mozilla-nspr.pc"
+    chmod -v 644 "$INSTALL_DIR/usr/lib/"*.a
+    rm -vrf "$INSTALL_DIR/usr/bin/"{compile-et.pl,prerr.properties}
+    rm -vrf "$INSTALL_DIR/usr/include/nspr/md"
+}

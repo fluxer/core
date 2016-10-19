@@ -1,0 +1,52 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+# http://www.linuxfromscratch.org/lfs/view/development/chapter06/vim.html
+# http://www.linuxfromscratch.org/blfs/view/svn/postlfs/vim.html
+
+version=7.4.2225
+release=2
+description="Highly configurable text editor built to enable efficient text editing"
+depends=('glibc' 'ncurses' 'busybox')
+backup=('etc/vimrc')
+sources=("http://crux.nu/files/distfiles/vim-$version.tar.xz"
+        'vimrc')
+
+src_compile() {
+    cd "$SOURCE_DIR/vim-$version"
+
+    echo '#define SYS_VIMRC_FILE "/etc/vimrc"' >> src/feature.h
+    echo '#define SYS_GVIMRC_FILE "/etc/gvimrc"' >> src/feature.h
+
+    ./configure --prefix=/usr \
+        --with-features=huge \
+        --enable-multibyte \
+        --enable-gui=no \
+        --without-x \
+        --disable-darwin \
+        --disable-selinux \
+        --disable-netbeans \
+        --disable-nls
+    make
+}
+
+src_check() {
+    cd "$SOURCE_DIR/vim-$version"
+    make test
+}
+
+src_install() {
+    cd "$SOURCE_DIR/vim-$version"
+
+    make DESTDIR="$INSTALL_DIR" -C src installvimbin installrtbase installmacros installspell
+
+    install -vDm0644 "$SOURCE_DIR/vimrc" "$INSTALL_DIR/etc/vimrc"
+
+    ln -sv vim "$INSTALL_DIR/usr/bin/vi"
+    ln -sf vim.1 "$INSTALL_DIR/usr/share/man/man1/vi.1"
+
+    # csh script
+    rm -vf "$INSTALL_DIR/usr/share/vim/vim74/tools/vim132"
+
+    # saves ~6MB
+    rm -vrf "$INSTALL_DIR/usr/share/vim/vim74/doc"
+}

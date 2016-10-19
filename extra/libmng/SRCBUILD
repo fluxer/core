@@ -1,0 +1,23 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+# http://www.linuxfromscratch.org/blfs/view/svn/general/libmng.html
+
+version=2.0.3
+description="A collection of routines used to create and manipulate MNG format graphics files"
+depends=('zlib' 'libjpeg-turbo' 'lcms2')
+sources=("http://downloads.sf.net/libmng/libmng-$version.tar.xz"
+        "http://downloads.sf.net/libmng/libmng-$version.tar.xz.asc")
+pgpkeys=('F54984BFA16C640F')
+
+src_compile() {
+    cd "$SOURCE_DIR/libmng-$version"
+
+    ./configure --prefix=/usr \
+        --disable-static
+    make
+}
+
+src_install() {
+    cd "$SOURCE_DIR/libmng-$version"
+    make DESTDIR="$INSTALL_DIR" install
+}

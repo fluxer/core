@@ -1,0 +1,38 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+# http://www.linuxfromscratch.org/blfs/view/svn/general/elfutils.html
+
+version=0.163
+description="Libraries and utilities to handle ELF object files and DWARF debugging information"
+depends=('gcc' 'zlib' 'bzip2' 'xz')
+sources=("https://fedorahosted.org/releases/e/l/elfutils/$version/elfutils-$version.tar.bz2"
+        "https://fedorahosted.org/releases/e/l/elfutils/$version/elfutils-$version.tar.bz2.sig")
+pgpkeys=('8370665B57816A6A')
+
+src_compile() {
+    cd "$SOURCE_DIR/elfutils-$version"
+
+    # static libraries madness
+    sed -i -e '/^lib_LIBRARIES/s:=.*:=:' -e '/^%.os/s:%.o$::' lib{asm,dw,elf}/Makefile.in
+    autoreconf -fi
+
+    # clang is a no go
+    export CC=gcc CXX=g++
+
+    # required for test-suite success
+    CFLAGS+=" -g"
+    ./configure --prefix=/usr \
+        --program-prefix="eu-" \
+        --disable-nls
+    make -j1
+}
+
+src_check() {
+    cd "$SOURCE_DIR/elfutils-$version"
+    make check
+}
+
+src_install() {
+    cd "$SOURCE_DIR/elfutils-$version"
+    make DESTDIR="$INSTALL_DIR" install
+}

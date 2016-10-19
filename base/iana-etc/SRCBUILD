@@ -1,0 +1,23 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+# http://www.linuxfromscratch.org/lfs/view/7.2/chapter06/iana-etc.html
+
+version=2.30
+description="Data for network services and protocols from IANA"
+backup=('etc/protocols' 'etc/services')
+sources=("http://sethwklein.net/iana-etc-$version.tar.bz2")
+
+src_compile() {
+    cd "$SOURCE_DIR/iana-etc-$version"
+    make
+}
+
+src_check() {
+    cd "$SOURCE_DIR/iana-etc-$version"
+    make test
+}
+
+src_install(){
+    cd "$SOURCE_DIR/iana-etc-$version"
+    make DESTDIR="$INSTALL_DIR" install 
+}

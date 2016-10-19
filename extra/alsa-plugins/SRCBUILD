@@ -1,0 +1,31 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+# TODO: optdepends - jack
+# http://www.linuxfromscratch.org/blfs/view/svn/multimedia/alsa-plugins.html
+
+version=1.0.29
+description="Extra ALSA plugins"
+depends=('alsa-lib' 'ffmpeg')
+optdepends=('speex' 'pulseaudio')
+sources=("ftp://ftp.alsa-project.org/pub/plugins/alsa-plugins-$version.tar.bz2")
+
+src_prepare() {
+    cd "$SOURCE_DIR/alsa-plugins-$version"
+    sed -i "/speex_preprocess.h/i#include <stdint.h>" speex/pcm_speex.c
+}
+
+src_compile() {
+    cd "$SOURCE_DIR/alsa-plugins-$version"
+
+    _options="--with-speex=no --disable-pulseaudio"
+    [ "$OPTIONAL_SPEEX" = "yes" ] && _options+=" --with-speex=lib"
+    [ "$OPTIONAL_PULSEAUDIO" = "yes" ] && _options+=" --enable-pulseaudio"
+    ./configure --prefix=/usr \
+        $_options
+    make
+}
+
+src_install() {
+    cd "$SOURCE_DIR/alsa-plugins-$version"
+    make DESTDIR="$INSTALL_DIR" install
+}

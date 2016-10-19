@@ -1,0 +1,16 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+version=14.3.1
+description="Easily download, build, install, upgrade, and uninstall Python packages"
+depends=('python')
+sources=("http://pypi.python.org/packages/source/s/setuptools/setuptools-$version.tar.gz")
+
+src_compile() {
+    cd "$SOURCE_DIR/setuptools-$version"
+    python setup.py build
+}
+
+src_install() {
+    cd "$SOURCE_DIR/setuptools-$version"
+    python setup.py install --prefix='/usr' --root="$INSTALL_DIR"
+}

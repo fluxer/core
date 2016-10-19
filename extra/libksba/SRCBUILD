@@ -1,0 +1,27 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+# http://www.linuxfromscratch.org/blfs/view/svn/general/libksba.html
+
+version=1.3.0
+description="A CMS and X.509 access library"
+depends=('bash' 'libgpg-error' 'glibc')
+sources=("ftp://ftp.gnupg.org/gcrypt/libksba/libksba-$version.tar.bz2"
+        "ftp://ftp.gnupg.org/gcrypt/libksba/libksba-$version.tar.bz2.sig")
+pgpkeys=('249B39D24F25E3B6')
+
+src_compile() {
+    cd "$SOURCE_DIR/libksba-$version"
+    
+    ./configure --prefix=/usr
+    make
+}
+
+src_check() {
+    cd "$SOURCE_DIR/libksba-$version"
+    make check
+}  
+
+src_install() {
+    cd "$SOURCE_DIR/libksba-$version"
+    make DESTDIR="$INSTALL_DIR" install
+}

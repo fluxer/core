@@ -1,0 +1,5 @@
+# networks - network name information
+# for more information see man networks(5)
+
+loopback        127.0.0.0
+link-local      169.254.0.0

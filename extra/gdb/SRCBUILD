@@ -1,0 +1,32 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+# http://www.linuxfromscratch.org/blfs/view/svn/general/gdb.html
+
+version=7.11.1
+description="The GNU Debugger"
+depends=('ncurses' 'expat' 'python')
+checkdepends=('dejagnu')
+sources=("http://ftp.gnu.org/gnu/gdb/gdb-$version.tar.xz"
+        "http://ftp.gnu.org/gnu/gdb/gdb-$version.tar.xz.sig")
+pgpkeys=('92EDB04BFF325CF3')
+backup=('etc/gdb/gdbinit')
+
+src_compile() {
+    cd "$SOURCE_DIR/gdb-$version"
+
+    ./configure --prefix=/usr \
+        --with-system-readline \
+        --disable-nls \
+        --disable-rpath
+    make
+}
+
+src_check() {
+    cd "$SOURCE_DIR/gdb-$version"
+    make check
+}
+
+src_install() {
+    cd "$SOURCE_DIR/gdb-$version"
+    make -C gdb DESTDIR="$INSTALL_DIR" MAKEINFO=true install
+}

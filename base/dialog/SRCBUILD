@@ -1,0 +1,27 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+version=1.3-20160424
+description="Script-driven curses widgets"
+depends=('ncurses')
+sources=("ftp://invisible-island.net/dialog/dialog-$version.tgz"
+        "ftp://invisible-island.net/dialog/dialog-$version.tgz.asc"
+        'dialogrc')
+pgpkeys=('C52048C0C0748FEE227D47A2702353E0F7E48EDB')
+
+src_compile() {
+     cd "$SOURCE_DIR/dialog-$version"
+
+    ./configure --prefix=/usr \
+        --enable-widec \
+        --with-ncurses \
+        --without-libtool \
+        --with-ncursesw
+    make
+}
+
+src_install() {
+    cd "$SOURCE_DIR/dialog-$version"
+
+    make DESTDIR="$INSTALL_DIR" install install-lib
+    install -vDm644 "$SOURCE_DIR/dialogrc" "$INSTALL_DIR/etc/dialogrc"
+}

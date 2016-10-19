@@ -1,0 +1,24 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+version=2.8.1
+description="Provides functionality for small OpenGL programs"
+depends=('xorg-libraries' 'mesalib')
+makedepends=('glu' 'xorg-protocol-headers')
+sources=("http://downloads.sf.net/freeglut/freeglut-$version.tar.gz")
+
+src_compile() {
+    cd "$SOURCE_DIR/freeglut-$version"
+
+    # smooth_opengl3 demo doesn't build with recent mesa, Gentoo bug #428382
+    sed -i "s/smooth_opengl3 //" progs/demos/Makefile.*
+
+    autoreconf -vfi
+    ./configure --prefix=/usr \
+        --disable-static
+    make all
+}
+
+src_install() {
+    cd "$SOURCE_DIR/freeglut-$version"
+    make DESTDIR="$INSTALL_DIR" install
+}

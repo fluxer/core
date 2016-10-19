@@ -1,0 +1,7 @@
+NAME=Entropy
+ID=entropy
+PRETTY_NAME="Entropy GNU/Linux"
+ANSI_COLOR="1;34"
+HOME_URL="http://www.entropy-linux.com/"
+SUPPORT_URL="http://www.entropy-linux.com/forums"
+BUG_REPORT_URL=""

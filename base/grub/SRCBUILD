@@ -1,0 +1,54 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+# http://www.linuxfromscratch.org/lfs/view/development/chapter06/grub.html
+
+version=2.02~beta3
+release=2
+description="Multiboot boot loader"
+depends=('glibc' 'busybox' 'xz' 'os-prober')
+makedepends=('bison' 'flex')
+optdepends=('fuse')
+checkdepends=('qemu')
+sources=("http://alpha.gnu.org/gnu/grub/grub-$version.tar.xz"
+        "http://alpha.gnu.org/gnu/grub/grub-$version.tar.xz.sig"
+        'grub-add-GRUB_COLOR_variables.patch'
+        'grub.default')
+pgpkeys=('35A93B74E82E4209')
+
+src_prepare() {
+    cd "$SOURCE_DIR/grub-$version"
+
+    patch -Nup1 -i "$SOURCE_DIR/grub-add-GRUB_COLOR_variables.patch"
+}
+
+src_compile() {
+    cd "$SOURCE_DIR/grub-$version"
+
+    export CFLAGS="${CFLAGS//-fstack-protector/}"
+
+    _options="--disable-grub-mount"
+    [ "$OPTIONAL_FUSE" = "yes" ] && _options+=" --enable-grub-mount"
+    ./configure --prefix=/usr \
+        --sysconfdir=/etc \
+        --disable-grub-emu-usb \
+        --disable-efiemu \
+        --disable-werror \
+        --disable-rpath \
+        --disable-nls \
+        $_options
+    make
+}
+
+src_check() {
+    cd "$SOURCE_DIR/grub-$version"
+    make check
+}
+
+src_install() {
+    cd "$SOURCE_DIR/grub-$version"
+
+    make DESTDIR="$INSTALL_DIR" install 
+
+    install -vDm0644 "$SOURCE_DIR/grub.default" \
+        "$INSTALL_DIR/etc/default/grub"
+}

@@ -1,0 +1,44 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+# http://www.linuxfromscratch.org/blfs/view/svn/postlfs/cyrus-sasl.html
+
+version=2.1.26
+description="Cyrus Simple Authentication Service Layer (SASL) library"
+makedepends=('openssl') # 'krb5' 'sqlite2' 
+sources=("ftp://ftp.cyrusimap.org/cyrus-sasl/cyrus-sasl-$version.tar.gz"
+        'cyrus-sasl-2.1.26-fixes-1.patch' 'libsasl2-pc.patch'
+        'cyrus-sasl-2.1.26-CVE-2013-4122.patch'
+        'saslauthd.rc' 'saslauthd.confd' 'saslauthd.tmpfiles')
+
+src_compile() {
+    cd "$SOURCE_DIR/cyrus-sasl-$version"
+
+    export CFLAGS="$CFLAGS -fPIC"
+    patch -Np1 -i "$SOURCE_DIR/cyrus-sasl-2.1.26-CVE-2013-4122.patch"
+    patch -Np1 -i "$SOURCE_DIR/cyrus-sasl-2.1.26-fixes-1.patch"
+    patch -Np0 -i "$SOURCE_DIR/libsasl2-pc.patch"
+    # sed 's/AM_CONFIG_HEADER/AC_CONFIG_HEADERS/' -i configure.in
+    autoreconf -fi
+
+    pushd saslauthd
+    autoreconf -fi
+    popd
+
+    ./configure --prefix=/usr \
+        --sysconfdir=/etc \
+        --with-dbpath=/var/lib/sasl/sasldb2 \
+        --with-saslauthd=/var/run/saslauthd \
+        --enable-auth-sasldb
+    make -j1
+}
+
+src_install() {
+    cd "$SOURCE_DIR/cyrus-sasl-$version"
+    make -j1 DESTDIR="$INSTALL_DIR" install
+    
+    # install initscripts files
+    install -vDm644 "$SOURCE_DIR/saslauthd.tmpfiles" "$INSTALL_DIR/etc/tmpfiles.d/saslauthd.conf"
+    install -vDm744 "$SOURCE_DIR/saslauthd.rc" "$INSTALL_DIR/etc/rc.d/saslauthd"
+    install -vDm644 "$SOURCE_DIR/saslauthd.confd" "$INSTALL_DIR/etc/conf.d/saslauthd"
+}
+

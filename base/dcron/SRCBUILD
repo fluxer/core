@@ -1,0 +1,50 @@
+version=20150701
+description="dillon's lightweight cron daemon (Git version)"
+depends=("bash")
+makedepends=("git")
+optdepends=("msmtp-mta")
+sources=('https://github.com/dubiousjim/dcron.git'
+        "dcron.init")
+backup=("var/spool/cron/root"
+        "etc/conf.d/crond")
+
+src_compile() {
+    cd "$SOURCE_DIR/dcron.git"
+
+    # by default, any member of group "users" can edit their own crontab
+    make \
+        PREFIX=/usr \
+        CRONTAB_GROUP=users \
+        CRONTABS=/var/spool/cron \
+        CRONSTAMPS=/var/spool/cronstamps
+}
+
+src_install() {
+    cd "$SOURCE_DIR/dcron.git"
+    make DESTDIR="$INSTALL_DIR" install
+
+    # install standard configuration and scripts
+    install -vdm755 "$INSTALL_DIR"/etc/cron.{hourly,daily,weekly,monthly} 
+    install -vDm0600 extra/root.crontab "$INSTALL_DIR/var/spool/cron/root"
+    install -vDm0644 extra/crond.conf "$INSTALL_DIR/etc/conf.d/crond"
+    install -vDm644 extra/crontab.vim "$INSTALL_DIR/usr/share/vim/vimfiles/ftplugin/crontab.vim"
+    sed 's|/var/spool/cron/cronstamps|/var/spool/cronstamps|' -i extra/prune-cronstamps
+    install -D -m755 extra/prune-cronstamps "$INSTALL_DIR/etc/cron.d/prune-cronstamps"
+
+    # use run-parts from Busybox instead of run-cron shipped with dcron
+    sed 's|/usr/sbin/run-cron|/bin/run-parts|g' -i "$INSTALL_DIR/var/spool/cron/root"
+    # install init script
+    install -vDm744 "$SOURCE_DIR/dcron.init" "$INSTALL_DIR/etc/init.d/dcron"
+}
+
+post_install() {
+    rc-update add dcron default
+}
+
+post_upgrade() {
+    post_install
+}
+
+post_remove() {
+    rc-update del dcron default
+}

@@ -1,0 +1,23 @@
+version=2.09
+description="Portable lossless data compression library"
+depends=('glibc')
+sources=("http://www.oberhumer.com/opensource/lzo/download/lzo-$version.tar.gz")
+
+src_compile() {
+    cd "$SOURCE_DIR/lzo-$version"
+    ./configure --prefix=/usr \
+        --enable-shared \
+        --disable-static
+    make
+}
+
+src_check() {
+    cd "$SOURCE_DIR/lzo-$version"
+    make test # Larger test
+    make check
+}
+
+src_install() {
+    cd "$SOURCE_DIR/lzo-$version"
+    make DESTDIR=$INSTALL_DIR install
+}

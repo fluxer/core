@@ -1,0 +1,29 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+# http://www.linuxfromscratch.org/blfs/view/svn/postlfs/ntfs-3g.html
+
+version=2016.2.22
+description="Open source, freely available read/write NTFS driver and utilities"
+depends=('e2fsprogs') # fuse
+sources=("http://tuxera.com/opensource/ntfs-3g_ntfsprogs-$version.tgz")
+
+src_compile() {
+    cd "$SOURCE_DIR/ntfs-3g_ntfsprogs-$version"
+
+    ./configure --prefix=/usr \
+        --disable-static \
+        --enable-posix-acls \
+        --disable-ldconfig \
+        --enable-extras
+    make
+}
+
+src_install() {
+    cd "$SOURCE_DIR/ntfs-3g_ntfsprogs-$version"
+
+    mkdir -vp "$INSTALL_DIR/lib"
+    make DESTDIR="$INSTALL_DIR" install
+
+    ln -vs ../bin/ntfs-3g "$INSTALL_DIR/sbin/mount.ntfs"
+    ln -vs "$INSTALL_DIR/usr/share/man/man8/"{ntfs-3g,mount.ntfs}.8
+}

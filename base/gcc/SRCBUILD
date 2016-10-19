@@ -1,0 +1,82 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+# http://www.linuxfromscratch.org/lfs/view/development/chapter06/gcc.html
+# http://www.linuxfromscratch.org/blfs/view/svn/general/gcc.html
+# http://gcc.gnu.org/git/?p=gcc.git;a=summary
+
+version=4.9.4
+description="GNU compiler collection, includes the C and C++ frontends"
+depends=('glibc' 'zlib' 'mpc' 'mpfr')
+checkdepends=('dejagnu')
+sources=("http://ftp.gnu.org/gnu/gcc/gcc-$version/gcc-$version.tar.bz2"
+        "http://ftp.gnu.org/gnu/gcc/gcc-$version/gcc-$version.tar.bz2.sig")
+pgpkeys=('7F74F97C103468EE5D750B583AB00996FC26A641')
+
+src_prepare() {
+    cd "$SOURCE_DIR/gcc-$version"
+
+    # hack! - some configure tests for header files using "$CPP $CPPFLAGS"
+    sed -i "/ac_cpp=/s/\$CPPFLAGS/\$CPPFLAGS -O2/" {libiberty,gcc}/configure
+
+    # Do not run fixincludes
+    sed -i 's@\./fixinc\.sh@-c true@' gcc/Makefile.in
+}
+
+src_compile() {
+    cd "$SOURCE_DIR/gcc-$version"
+
+    # using -Wformat -Werror=format-security will cause build failures
+    CPPFLAGS="${CPPFLAGS/-Wformat/}"
+    CPPFLAGS="${CPPFLAGS/-Werror=format-security/}"
+
+    # for various reasons - build with GCC
+    export CC=gcc CXX=g++
+
+    mkdir -pv "$SOURCE_DIR/gcc-build" && cd "$SOURCE_DIR/gcc-build"
+    ../gcc-$version/configure \
+        --prefix=/usr \
+        --host="$CHOST" \
+        --enable-clocale=gnu \
+        --enable-threads=posix \
+        --enable-__cxa_atexit \
+        --enable-languages="c,c++" \
+        --enable-shared \
+        --enable-tls \
+        --enable-libgomp \
+        --disable-libsanitizer \
+        --disable-libmudflap \
+        --disable-static \
+        --disable-libstdcxx-dual-abi \
+        --disable-multilib \
+        --disable-bootstrap \
+        --disable-nls \
+        --disable-libssp \
+        --disable-symvers \
+        --with-system-zlib
+    make
+}
+
+src_check() {
+    cd "$SOURCE_DIR/gcc-build"
+
+    ulimit -s 32768
+    make check
+
+    ../gcc-$version/contrib/test_summary | grep FAIL
+}
+
+src_install(){
+    cd "$SOURCE_DIR/gcc-build"
+
+    make DESTDIR="$INSTALL_DIR" install
+    ln -svf gcc "$INSTALL_DIR/usr/bin/cc"
+}
+
+post_upgrade() {
+    echo
+    echo " >> If what you just installed is a new major version"
+    echo " >> then you should rebuild your toolchain:"
+    echo
+    echo " # spm source -aD toolchain"
+    echo
+}

@@ -1,0 +1,32 @@
+#!/bin/sh
+
+grep -q splash /proc/cmdline || return
+
+msg "Setting up splash..."
+
+fbfifo="/dev/.fbsplash.fifo"
+# FIXME: there has be a better way
+fbsize="$(fbset | grep 'mode "' | sed 's|mode "||;s|-.*"||')"
+fbsplash="/boot/splash/$fbsize.ppm"
+if [ ! -e "$fbsplash" ];then
+    error "Not splash image available for size: $fbsize"
+    return
+fi
+
+# overrides
+msg() {
+    true
+}
+error() {
+    echo exit > "$fbfifo"
+    # this must be kept in sync with bfp!
+    echo -e " ${C_RED}*${C_CLEAR} ${@}"
+}
+
+fbconfig="/boot/splash/fbsplash.cfg"
+fbargs=""
+if [ -e "$fbconfig" ];then
+    fbargs="-i $fbconfig"
+fi
+cmd mkfifo "$fbfifo"
+cmd setsid fbsplash -c -s "$fbsplash" -f "$fbfifo" $fbargs &

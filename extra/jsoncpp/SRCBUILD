@@ -1,0 +1,22 @@
+version=1.4.4
+description='A C++ library for interacting with JSON'
+depends=('gcc')
+makedepends=('cmake')
+sources=("https://github.com/open-source-parsers/jsoncpp/archive/$version.tar.gz")
+options=('!mirror')
+
+src_compile() {
+    mkdir -p build && cd build
+    cmake ../jsoncpp-$version \
+        -DCMAKE_BUILD_TYPE=RelWithDebInfo \
+        -DCMAKE_INSTALL_PREFIX=/usr \
+        -DJSONCPP_LIB_BUILD_SHARED=ON \
+        -DJSONCPP_WITH_TESTS=OFF
+    make
+}
+
+src_install() {
+    cd build
+    make DESTDIR="$INSTALL_DIR" install
+}
+

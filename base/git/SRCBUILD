@@ -1,0 +1,70 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+# http://www.linuxfromscratch.org/blfs/view/svn/general/git.html
+
+version=2.8.4
+release=2
+description="Fast, scalable, distributed revision control system"
+depends=('busybox' 'curl' 'expat' 'openssl' 'python')
+optdepends=('tk')
+backup=('etc/gitconfig')
+sources=("http://www.kernel.org/pub/software/scm/git/git-$version.tar.xz"
+        "http://www.kernel.org/pub/software/scm/git/git-$version.tar.sign"
+        "http://www.kernel.org/pub/software/scm/git/git-manpages-$version.tar.xz"
+        "http://www.kernel.org/pub/software/scm/git/git-manpages-$version.tar.sign"
+        'gitconfig')
+pgpkeys=('96E07AF25771955980DAD10020D04E5A713660A7')
+options=('missing') # ruby
+
+src_compile() {
+    cd "$SOURCE_DIR/git-$version"
+
+    _options="--without-tcltk"
+    _make="NO_TCLTK=YesPlease"
+    if [ "$OPTIONAL_TK" = "yes" ];then
+        _options+=" --with-tcltk"
+        _make+=" NO_TCLTK="
+    fi
+    ./configure --prefix=/usr \
+        --libexecdir=/usr/lib \
+        --with-gitconfig=/etc/gitconfig \
+        $_options
+    make NO_CVS=YesPlease \
+        NO_SVN_TESTS=YesPlease \
+        NO_GETTEXT=YesPlease \
+        $_make
+}
+
+src_check() {
+    cd "$SOURCE_DIR/git-$version"
+    make test
+}
+
+src_install() {
+    cd "$SOURCE_DIR/git-$version"
+
+    _make="NO_TCLTK=YesPlease"
+    [ "$OPTIONAL_TK" = "yes" ] && _make+=" NO_TCLTK="
+
+    make NO_CVS=YesPlease \
+        NO_SVN_TESTS=YesPlease \
+        NO_GETTEXT=YesPlease \
+        DESTDIR="$INSTALL_DIR" \
+        NO_INSTALL_HARDLINKS=1 \
+        $_make install
+
+    for mansect in man1 man5 man7; do
+        for manpage in "$SOURCE_DIR/$mansect/"*; do
+            install -vDm644 "$manpage" "$INSTALL_DIR/usr/share/man/$mansect/$(basename $manpage)"
+        done
+    done
+
+    # git-daemon will fail to start without it
+    # TODO: check if special permissions are needed
+    #       tmpfiles.d conf file?
+    mkdir -vp "$INSTALL_DIR/srv/git"
+
+    # install gitconfig as system-wide config file
+    install -vDm644 "$SOURCE_DIR/gitconfig" "$INSTALL_DIR/etc/gitconfig"
+}
+

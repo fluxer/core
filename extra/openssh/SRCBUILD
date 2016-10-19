@@ -1,0 +1,72 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+# http://www.linuxfromscratch.org/blfs/view/svn/postlfs/openssh.html
+
+# TODO: openrc conf/init file
+
+version=7.3p1
+description='Free version of the SSH connectivity tools'
+makedepends=('linux')
+depends=('openssl' 'xorg-applications')
+sources=(" http://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-$version.tar.gz"
+        " http://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-$version.tar.gz.asc"
+        'sshd.tmpfiles')
+pgpkeys=('D3E5F56B6D920D30')
+backup=('etc/ssh/ssh_config'
+        'etc/ssh/sshd_config'
+        'etc/conf.d/sshd')
+
+src_compile() {
+    cd "$SOURCE_DIR/openssh-$version"
+
+    ./configure --prefix=/usr \
+        --libexecdir=/usr/lib/openssh \
+        --sysconfdir=/etc/ssh \
+        --datadir=/usr/share/sshd \
+        --with-md5-passwords \
+        --with-privsep-path=/var/lib/sshd \
+        --with-pid-dir=/run \
+        --without-pam
+    make
+}
+
+src_check() {
+    cd "$SOURCE_DIR/openssh-$version"
+    make tests
+}
+
+src_install() {
+    cd "$SOURCE_DIR/openssh-$version"
+
+    make DESTDIR="$INSTALL_DIR" install
+
+    install -vm755 contrib/ssh-copy-id "$INSTALL_DIR/usr/bin"
+    install -vm644 contrib/ssh-copy-id.1 "$INSTALL_DIR/usr/share/man/man1"
+
+    install -vDm755 contrib/findssl.sh "$INSTALL_DIR/usr/bin/findssl.sh"
+    install -vDm755 contrib/ssh-copy-id "$INSTALL_DIR/usr/bin/ssh-copy-id"
+    install -vDm644 contrib/ssh-copy-id.1 "$INSTALL_DIR/usr/share/man/man1/ssh-copy-id.1"
+
+    echo "PermitRootLogin no" >> "$INSTALL_DIR/etc/ssh/sshd_config"
+    echo "PasswordAuthentication no" >> "$INSTALL_DIR/etc/ssh/sshd_config"
+    echo "ChallengeResponseAuthentication no" >> "$INSTALL_DIR/etc/ssh/sshd_config"
+
+    # install initscripts tmpfiles config
+    install -vDm644 "$SOURCE_DIR/sshd.tmpfiles" "$INSTALL_DIR/etc/tmpfiles.d/sshd.conf"
+}
+
+post_install() {
+    if ! getent group sshd; then
+        echo " >> Adding sshd group..."
+        addgroup -g 50 sshd
+    fi
+
+    if ! getent passwd sshd; then
+        echo " >> Adding sshd user..."
+        adduser -D -g 'sshd PrivSep' -h /var/lib/sshd -G sshd -s /bin/false -u 50 sshd
+    fi
+}
+
+post_upgrade() {
+    post_install
+}

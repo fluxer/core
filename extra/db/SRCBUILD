@@ -1,0 +1,28 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+# http://www.linuxfromscratch.org/blfs/view/svn/server/db.html
+
+version=5.3.28
+description="Berkeley DB embedded database system"
+makedepends=('gcc')
+sources=("http://download.oracle.com/berkeley-db/db-$version.tar.gz")
+
+src_compile() {
+    cd "$SOURCE_DIR/db-$version/build_unix"
+
+    # don't bother installing API docs
+    sed 's|install_docs||' -i ../dist/Makefile.in
+
+    ../dist/configure --prefix=/usr \
+        --enable-compat185 \
+        --enable-shared \
+        --enable-cxx \
+        --enable-dbm \
+        --disable-static
+    make LIBSO_LIBS=-lpthread
+}
+
+src_install() {
+    cd "$SOURCE_DIR/db-$version/build_unix"
+    make DESTDIR="$INSTALL_DIR" install
+}

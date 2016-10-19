@@ -1,0 +1,32 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+# http://www.linuxfromscratch.org/blfs/view/svn/general/harfbuzz.html
+
+version=0.9.42
+description="OpenType text shaping engine."
+depends=('glib' 'freetype2' 'icu')
+makedepends=('cairo')
+optdepends=('graphite')
+sources=("http://www.freedesktop.org/software/harfbuzz/release/harfbuzz-$version.tar.bz2")
+
+src_compile() {
+    cd "$SOURCE_DIR/harfbuzz-$version"
+
+    _options+="--without-graphite2"
+    [ "$OPTIONAL_GRAPHITE" = "yes" ] && _options+=" --with-graphite2"
+    ./configure --prefix=/usr \
+        --with-gobject \
+        --disable-gtk-doc-html \
+        $_options
+    make
+}
+
+src_check() {
+    cd "$SOURCE_DIR/harfbuzz-$version"
+    make check
+}
+
+src_install() {
+    cd "$SOURCE_DIR/harfbuzz-$version"
+    make DESTDIR="$INSTALL_DIR" install
+}

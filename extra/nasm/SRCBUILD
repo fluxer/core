@@ -1,0 +1,20 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+# http://www.linuxfromscratch.org/blfs/view/svn/general/nasm.html
+
+version=2.11.08
+description="80x86 and x86-64 assembler designed for portability and modularity"
+depends=('glibc')
+sources=("http://www.nasm.us/pub/nasm/releasebuilds/$version/nasm-$version.tar.xz")
+
+src_compile() {
+    cd "$SOURCE_DIR/nasm-$version"
+
+    ./configure --prefix=/usr
+    make
+}
+
+src_install() {
+    cd "$SOURCE_DIR/nasm-$version"
+    make INSTALLROOT="$INSTALL_DIR" install install_rdf
+}

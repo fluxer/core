@@ -1,0 +1,37 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+# http://www.linuxfromscratch.org/lfs/view/development/chapter06/kmod.html
+
+version=23
+description="Linux kernel module handling"
+depends=('glibc' 'zlib' 'xz')
+# checkdepends=('linux-sources')
+sources=("ftp://ftp.kernel.org/pub/linux/utils/kernel/kmod/kmod-$version.tar.xz"
+        "ftp://ftp.kernel.org/pub/linux/utils/kernel/kmod/kmod-$version.tar.sign")
+pgpkeys=('EAB33C9690013C733916AC839BA2A5A630CBEA53')
+
+src_compile() {
+    cd "kmod-$version"
+
+    ./configure --prefix=/usr \
+        --sysconfdir=/etc \
+        --bindir=/bin \
+        --with-rootlibdir=/lib \
+        --with-xz \
+        --with-zlib
+    make
+}
+
+src_install() {
+    cd "kmod-$version"
+
+    make DESTDIR="$INSTALL_DIR" install
+
+    # extra directories
+    install -dm755 "$INSTALL_DIR"/{etc,lib}/{depmod,modprobe}.d "$INSTALL_DIR/sbin"
+
+    for target in depmod insmod lsmod modinfo modprobe rmmod; do
+        ln -sv ../bin/kmod "$INSTALL_DIR/sbin/$target"
+    done
+    ln -sv kmod "$INSTALL_DIR/bin/lsmod"
+}

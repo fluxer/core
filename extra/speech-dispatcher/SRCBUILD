@@ -1,0 +1,40 @@
+# FIXME: initscript daemon
+
+version=0.8.5
+description="High-level device independent layer for speech synthesis interface"
+depends=('glib' 'libtool' 'dotconf' 'alsa-lib') # FIXME: 'python-xdg'
+makedepends=('intltool' 'espeak')
+backup=('etc/speech-dispatcher/clients/gnome-speech.conf'
+        'etc/speech-dispatcher/clients/emacs.conf'
+        'etc/speech-dispatcher/modules/ibmtts.conf'
+        'etc/speech-dispatcher/modules/espeak-generic.conf'
+        'etc/speech-dispatcher/modules/espeak.conf'
+        'etc/speech-dispatcher/modules/swift-generic.conf'
+        'etc/speech-dispatcher/modules/festival.conf'
+        'etc/speech-dispatcher/modules/cicero.conf'
+        'etc/speech-dispatcher/modules/espeak-mbrola-generic.conf'
+        'etc/speech-dispatcher/modules/dtk-generic.conf'
+        'etc/speech-dispatcher/modules/llia_phon-generic.conf'
+        'etc/speech-dispatcher/modules/ivona.conf'
+        'etc/speech-dispatcher/modules/epos-generic.conf'
+        'etc/speech-dispatcher/modules/flite.conf'
+        'etc/speech-dispatcher/modules/pico-generic.conf'
+        'etc/speech-dispatcher/speechd.conf')
+sources=("http://www.freebsoft.org/pub/projects/speechd/speech-dispatcher-$version.tar.gz")
+
+src_compile() {
+    cd "$SOURCE_DIR/speech-dispatcher-$version"
+
+    ./configure --prefix=/usr \
+        --sysconfdir=/etc \
+        --without-flite \
+        --with-alsa \
+        --disable-nls \
+        --disable-static
+    make
+}
+
+src_install() {
+    cd "$SOURCE_DIR/speech-dispatcher-$version"
+    make DESTDIR="$INSTALL_DIR" install
+}

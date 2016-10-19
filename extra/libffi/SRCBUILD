@@ -1,0 +1,34 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+# http://www.linuxfromscratch.org/blfs/view/svn/general/libffi.html
+
+version=3.2.1
+description="Portable Foreign Function Interface Library"
+depends=('glibc')
+checkdepends=('dejagnu')
+sources=("ftp://sourceware.org/pub/libffi/libffi-$version.tar.gz")
+
+src_compile() {
+    cd "$SOURCE_DIR/libffi-$version"
+
+    sed -e '/^includesdir/ s/$(libdir).*$/$(includedir)/' \
+        -i include/Makefile.in
+
+    sed -e '/^includedir/ s/=.*$/=@includedir@/' \
+        -e 's/^Cflags: -I${includedir}/Cflags:/' \
+        -i libffi.pc.in
+
+    ./configure --prefix=/usr \
+        --disable-static
+    make
+}
+
+src_check() {
+    cd "$SOURCE_DIR/libffi-$version"
+    make check
+}
+
+src_install() {
+    cd "$SOURCE_DIR/libffi-$version"
+    make DESTDIR="$INSTALL_DIR" install
+}

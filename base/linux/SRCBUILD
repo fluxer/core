@@ -1,0 +1,99 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+# http://kernel.org/
+# http://liquorix.net/sources/
+
+version=4.8.2
+description="Linux Kernel and modules"
+depends=('linux-firmware')
+makedepends=('bc' 'busybox')
+sources=("https://www.kernel.org/pub/linux/kernel/v4.x/linux-$version.tar.xz"
+        "https://www.kernel.org/pub/linux/kernel/v4.x/linux-$version.tar.sign"
+        'config.i686' 'config.x86_64')
+pgpkeys=('ABAF11C65A2970B130ABE3C479BE3E4300411886'
+         '647F28654894E3BD457199BE38DBBDC86092693E')
+options=('!binaries' '!shared' '!static')
+
+src_prepare() {
+    cd "$SOURCE_DIR/linux-$version"
+
+    echo "Preparing for build..."
+    [[ -f Makefile ]] && make mrproper
+    # don't run depmod on 'make install'. We'll do this ourselves in packaging
+    sed -i '2iexit 0' scripts/depmod.sh
+
+    cp -vf "$SOURCE_DIR/config.$(uname -m)" "$SOURCE_DIR/linux-$version/.config"
+}
+
+src_compile() {
+    cd "$SOURCE_DIR/linux-$version"
+
+    echo "Configuring kernel..."
+    make oldconfig
+    make menuconfig
+
+    echo "Building kernel..."
+    make bzImage
+
+    echo "Building modules..."
+    make modules
+}
+
+src_check() {
+    cd "$SOURCE_DIR/linux-$version"
+    make headers_check
+}
+
+src_install() {
+    cd "$SOURCE_DIR/linux-$version"
+
+    echo "Determining kernel release..."
+    _kernver="$(make kernelrelease)"
+    _srcdir="/usr/src/linux-$_kernver"
+
+    echo "Installing kernel image..."
+    install -vDm644 arch/x86/boot/bzImage "$INSTALL_DIR/boot/vmlinuz-$_kernver"
+    install -vDm644 vmlinux "$INSTALL_DIR/$_srcdir/vmlinux"
+
+    echo "Installing modules..."
+    make INSTALL_MOD_STRIP=1 INSTALL_MOD_PATH="$INSTALL_DIR" modules_install
+
+    echo "Removing firmware files..."
+    rm -vrf "$INSTALL_DIR/lib/firmware"
+
+    echo "Compressing kernel modules with gzip..."
+    find "$INSTALL_DIR" -name '*.ko' -exec gzip -v9 {} +
+
+    echo "Installing System.map..."
+    cp -v "System.map" "$INSTALL_DIR/boot/System.map-$_kernver"
+
+    echo "Updating modules dependencies..."
+    depmod -b "$INSTALL_DIR" -F System.map "$_kernver"
+
+    echo "Fixing build and source symlinks..."
+    rm -vf "$INSTALL_DIR/lib/modules/$_kernver/"{build,source}
+    ln -vfs "$_srcdir" "$INSTALL_DIR/lib/modules/$_kernver/build"
+    ln -vfs "$_srcdir" "$INSTALL_DIR/lib/modules/$_kernver/source"
+
+    echo "Installing files necessary for 3rd party modules..."
+    mkdir -vp "$INSTALL_DIR/$_srcdir/"
+    cp -va {.config,Module.symvers} "$INSTALL_DIR/$_srcdir/"
+
+    # clean-up unnecessary files generated during install
+    find "$INSTALL_DIR" \( -name .install -o -name ..install.cmd \) -delete
+}
+
+post_install() {
+    if [ -f "/usr/src/linux-$version/Makefile" ];then
+        cd "/usr/src/linux-$version"
+        make modules_prepare && make prepare
+    fi
+}
+
+post_upgrade() {
+    post_install
+}
+
+post_remove() {
+    rm -vf "boot/initramfs-$version.img" "boot/initramfs-$version-recovery.img"
+}

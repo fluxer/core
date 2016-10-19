@@ -1,0 +1,27 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+# http://www.linuxfromscratch.org/blfs/view/7.5/general/intltool.html
+
+version=0.50.2
+description="The internationalization tool collection"
+depends=('perl-xml-parser')
+sources=("http://edge.launchpad.net/intltool/trunk/$version/+download/intltool-$version.tar.gz"
+        "http://edge.launchpad.net/intltool/trunk/$version/+download/intltool-$version.tar.gz.asc")
+pgpkeys=('6977ECD0E1517D6CA45C0DA443ACFF9623AE85D2')
+
+src_compile() {
+    cd "$SOURCE_DIR/intltool-$version"
+
+    ./configure --prefix=/usr
+    make
+}
+
+src_check() {
+    cd "$SOURCE_DIR/intltool-$version"
+    make check
+}
+
+src_install() {
+    cd "$SOURCE_DIR/intltool-$version"
+    make DESTDIR="$INSTALL_DIR" install
+}

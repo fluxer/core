@@ -1,0 +1,35 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+# http://www.linuxfromscratch.org/lfs/view/development/chapter06/bc.html
+
+version=1.06.95
+description="Arbitrary precision numeric processing language"
+depends=('readline')
+sources=("http://alpha.gnu.org/gnu/bc/bc-$version.tar.bz2"
+        'bc-1.06.95-void_uninitialized.patch')
+
+src_prepare() {
+    cd "$SOURCE_DIR/bc-$version"
+    patch -p0 -i "$SOURCE_DIR/bc-1.06.95-void_uninitialized.patch"
+}
+
+src_compile() {
+    cd "$SOURCE_DIR/bc-$version"
+
+    ./configure --prefix=/usr \
+        --mandir=/usr/share/man \
+        --infodir=/usr/share/info \
+        --with-readline
+    make MAKEINFO=true
+}
+
+src_check() {
+    cd "$SOURCE_DIR/bc-$version"
+    echo "quit" | ./bc/bc -l Test/checklib.b # 10 failures
+}
+
+src_install() {
+    cd "$SOURCE_DIR/bc-$version"
+    make MAKEINFO=true DESTDIR="$INSTALL_DIR" install
+}
+

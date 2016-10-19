@@ -1,0 +1,21 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+version=3.0.28
+description="Utilities for making and checking MS-DOS FAT filesystems"
+depends=('glibc')
+sources=("https://github.com/dosfstools/dosfstools/releases/download/v$version/dosfstools-$version.tar.xz"
+        "https://github.com/dosfstools/dosfstools/releases/download/v$version/dosfstools-$version.tar.xz.sig")
+pgpkeys=('25714AECDBFDACEE1CE95FE77F6022516E869F64')
+
+src_compile() {
+    cd "$SOURCE_DIR/dosfstools-$version"
+    make
+}
+
+src_install() {
+    cd "$SOURCE_DIR/dosfstools-$version"
+    install -vdm7555 "$INSTALL_DIR/usr/share/man/man8/"
+    make PREFIX="$INSTALL_DIR/usr" \
+        MANDIR="$INSTALL_DIR/usr/share/man" \
+        DOCDIR="$INSTALL_DIR/usr/share/doc" install
+}

@@ -1,0 +1,40 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+# http://www.linuxfromscratch.org/blfs/view/svn/general/bluez.html
+
+version=5.39
+description='Daemons for the bluetooth protocol stack'
+depends=('glibc' 'dbus' 'glib' 'libical' 'eudev')
+sources=("http://www.kernel.org/pub/linux/bluetooth/bluez-$version.tar.xz"
+        "http://www.kernel.org/pub/linux/bluetooth/bluez-$version.tar.sign")
+pgpkeys=('E932D120BC2AEC444E558F0106CA9F5D1DCF2659')
+backup=('etc/dbus-1/system.d/bluetooth.conf'
+        'etc/bluetooth/main.conf')
+
+src_compile() {
+    cd "$SOURCE_DIR/bluez-$version"
+
+    ./configure --prefix=/usr \
+        --mandir=/usr/share/man \
+        --sysconfdir=/etc \
+        --localstatedir=/var \
+        --libexecdir=/usr/lib \
+        --with-udevdir=/lib/udev \
+        --enable-library \
+        --disable-systemd
+    make
+}
+
+src_check() {
+    cd "$SOURCE_DIR/bluez-$version"
+    make check
+}
+
+src_install() {
+    cd "$SOURCE_DIR/bluez-$version"
+    make DESTDIR="$INSTALL_DIR" install
+
+    # ship upstream main config file
+    install -vdm755 "$INSTALL_DIR/etc/bluetooth"
+    install -vDm644 src/main.conf "$INSTALL_DIR/etc/bluetooth/main.conf"
+}

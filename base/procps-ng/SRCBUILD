@@ -1,0 +1,27 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+# http://www.linuxfromscratch.org/lfs/view/development/chapter06/procps-ng.html
+
+version=3.3.12
+description='Utilities for monitoring your system and its processes'
+depends=('ncurses' 'eudev')
+sources=("http://downloads.sf.net/procps-ng/Production/procps-ng-$version.tar.xz")
+
+src_compile() {
+    cd "$SOURCE_DIR/procps-ng-$version"
+    sed 's:<ncursesw/:<:g' -i watch.c
+    ./configure --prefix=/usr \
+        --exec-prefix=/ \
+        --sysconfdir=/etc \
+        --libdir=/usr/lib \
+        --enable-watch8bit \
+        --without-systemd \
+        --disable-static \
+        --disable-kill
+    make
+}
+
+src_install() {
+    cd "$SOURCE_DIR/procps-ng-$version"
+    make DESTDIR="$INSTALL_DIR" install
+}

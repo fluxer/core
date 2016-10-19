@@ -1,0 +1,30 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+# http://www.linuxfromscratch.org/blfs/view/svn/general/libical.html
+
+version=1.0.1
+release=2
+description="An open source reference implementation of the icalendar data type and serialization format"
+depends=('glibc')
+makedepends=('cmake')
+sources=("https://github.com/libical/libical/archive/v$version.tar.gz")
+options=('!mirror')
+
+src_compile() {
+    mkdir "$SOURCE_DIR/build" && cd "$SOURCE_DIR/build"
+    cmake ../libical-$version \
+        -DCMAKE_BUILD_TYPE=RelWithDebInfo \
+        -DCMAKE_INSTALL_PREFIX=/usr \
+        -DSHARED_ONLY=ON
+    make
+}
+
+src_check() {
+    cd "$SOURCE_DIR/build"
+    make test
+}
+
+src_install() {
+    cd "$SOURCE_DIR/build"
+    make DESTDIR="$INSTALL_DIR" install
+}

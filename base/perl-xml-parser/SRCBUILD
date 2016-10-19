@@ -1,0 +1,24 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+version=2.44
+description="Interface to James Clark XML parser, expat"
+depends=('perl' 'expat')
+sources=("http://search.cpan.org/CPAN/authors/id/T/TO/TODDR/XML-Parser-$version.tar.gz")
+
+src_compile() {
+    cd "$SOURCE_DIR/XML-Parser-$version"
+
+    # install module in vendor directories.
+    perl Makefile.PL INSTALLDIRS=vendor
+    make
+}
+
+src_check() {
+    cd "$SOURCE_DIR/XML-Parser-$version"
+    make test
+}
+
+src_install() {
+    cd "$SOURCE_DIR/XML-Parser-$version"
+    make DESTDIR="$INSTALL_DIR" install
+}

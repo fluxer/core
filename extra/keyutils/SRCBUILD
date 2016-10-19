@@ -1,0 +1,17 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+version=1.5.9
+description="Linux Key Management Utilities"
+depends=('glibc' 'busybox')
+sources=("http://people.redhat.com/~dhowells/keyutils/keyutils-$version.tar.bz2")
+backup=('etc/request-key.conf')
+
+src_compile() {
+    cd "$SOURCE_DIR/keyutils-$version"
+    make
+}
+
+src_install() {
+    cd "$SOURCE_DIR/keyutils-$version"
+    make NO_ARLIB=1 DESTDIR="$INSTALL_DIR" install
+}

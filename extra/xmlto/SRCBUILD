@@ -1,0 +1,24 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+# http://www.linuxfromscratch.org/blfs/view/cvs/pst/xmlto.html
+
+version=0.0.26
+description="Convert xml to many other formats"
+depends=('libxslt')
+makedepends=('docbook-xsl')
+sources=("https://fedorahosted.org/releases/x/m/xmlto/xmlto-$version.tar.bz2"
+        "https://fedorahosted.org/releases/x/m/xmlto/xmlto-$version.tar.bz2.sig")
+pgpkeys=('E069963EE13766FF')
+
+src_compile() {
+    cd "$SOURCE_DIR/xmlto-$version"
+
+    ./configure --prefix=/usr \
+        --mandir=/usr/share/man
+    make
+}
+
+src_install() {
+    cd "$SOURCE_DIR/xmlto-$version"
+    make DESTDIR="$INSTALL_DIR" install
+}

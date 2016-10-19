@@ -1,0 +1,20 @@
+--- src/filterdiff.c.orig	2014-01-06 02:26:51.818546196 +0000
++++ src/filterdiff.c	2014-01-06 02:26:18.114548000 +0000
+@@ -1263,7 +1263,7 @@
+ 			char errstr[300];
+ 			regerror (err, &regex[num_regex - 1], errstr,
+ 				  sizeof (errstr));
+-			error (EXIT_FAILURE, 0, errstr);
++			error (EXIT_FAILURE, 0, "%s", errstr);
+ 			exit (1);
+ 		}
+ 	}
+@@ -1509,7 +1509,7 @@
+ 			char errstr[300];
+ 			regerror (err, &regex[num_regex - 1], errstr,
+ 				  sizeof (errstr));
+-			error (EXIT_FAILURE, 0, errstr);
++			error (EXIT_FAILURE, 0, "%s", errstr);
+ 			exit (1);
+ 		}
+ 	}

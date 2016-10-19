@@ -1,0 +1,52 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+# http://www.linuxfromscratch.org/blfs/view/svn/pst/gs.html
+
+version=9.20
+description="An interpreter for the PostScript language"
+depends=('xorg-libraries' 'fontconfig' 'zlib' 'libpng' 'libjpeg-turbo'
+         'libtiff' 'dbus' 'cups' 'lcms2')
+makedepends=('gnutls')
+sources=("https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/gs920/ghostscript-$version.tar.gz"
+        'ghostscript-sys-zlib.patch')
+
+src_compile() {
+    cd "$SOURCE_DIR/ghostscript-$version"
+
+    # force it to use system libs
+    rm -rf jpeg libpng zlib expat tiff lcms lcms2 freetype cups/libs
+
+    patch -Np1 -i "$SOURCE_DIR/ghostscript-sys-zlib.patch"
+
+    ./configure --prefix=/usr \
+        --enable-dynamic \
+        --with-ijs \
+        --with-jbig2dec \
+        --with-omni \
+        --with-x \
+        --with-drivers=ALL\
+        --with-fontpath=/usr/share/fonts/Type1:/share/fonts \
+        --enable-fontconfig \
+        --enable-freetype \
+        --without-luratech \
+        --without-omni \
+        --with-system-libtiff \
+        --disable-compile-inits #--help # needed for linking with system zlib
+    make
+}
+
+src_install() {
+    cd "$SOURCE_DIR/ghostscript-$version"
+    make -j1 DESTDIR="$INSTALL_DIR" \
+        cups_serverroot="$INSTALL_DIR/etc/cups" \
+        cups_serverbin="$INSTALL_DIR/usr/lib/cups" install install-so
+
+    # remove unwanted localized man-pages
+    rm -rf "$INSTALL_DIR"/usr/share/man/[^man1]*
+
+    # remove filters that are now maintained in cups-filters as upstream home
+    rm -vrf "$INSTALL_DIR/usr/lib/cups/filter/"{gstopxl,gstoraster}
+
+    # saves ~16MB
+    rm -vrf "$INSTALL_DIR/usr/share/ghostscript/$version/"{doc,examples}
+}

@@ -1,0 +1,31 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+# http://www.linuxfromscratch.org/blfs/view/svn/general/cmake.html
+
+version=3.6.2
+description="A cross-platform open-source make system"
+depends=('shared-mime-info')
+makedepends=('curl')
+optdepends=('jsoncpp' 'libarchive')
+sources=("http://www.cmake.org/files/v3.6/cmake-$version.tar.gz")
+
+src_compile() {
+    cd "$SOURCE_DIR/cmake-$version"
+
+    _options="--no-system-jsoncpp --no-system-libarchive"
+    [ "$OPTIONAL_JSONCPP" = "yes" ] && _options+=" --system-jsoncpp"
+    [ "$OPTIONAL_LIBARCHIVE" = "yes" ] && _options+=" --system-libarchive"
+    ./bootstrap --prefix=/usr \
+        --mandir=/share/man \
+        --docdir=/share/doc/cmake \
+        --system-libs \
+        --parallel=$(getconf _NPROCESSORS_ONLN) \
+        $_options
+    make
+}
+
+src_install() {
+    cd "$SOURCE_DIR/cmake-$version"
+    make DESTDIR="$INSTALL_DIR" install
+}
+

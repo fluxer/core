@@ -1,0 +1,26 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+# http://www.linuxfromscratch.org/blfs/view/svn/multimedia/faac.html
+
+version=1.28
+description="An AAC audio encoder"
+depends=('glibc')
+sources=("http://downloads.sourceforge.net/faac/faac-$version.tar.gz"
+        'faac-1.28-glibc_fixes-1.patch' 'format-security.patch')
+
+src_compile() {
+    cd "$SOURCE_DIR"/faac-$version
+
+    patch -Np1 -i "$SOURCE_DIR/faac-1.28-glibc_fixes-1.patch"
+    patch -Np1 -i "$SOURCE_DIR/format-security.patch"
+    sed -i -e '/obj-type/d' -e '/Long Term/d' frontend/main.c
+
+    ./configure --prefix=/usr \
+        --disable-static
+    make
+}
+
+src_install() {
+    cd "$SOURCE_DIR"/faac-$version
+    make DESTDIR="$INSTALL_DIR" install
+}

@@ -1,0 +1,26 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+# http://www.linuxfromscratch.org/blfs/view/svn/general/lcms2.html
+
+version=2.7
+description="Small-footprint color management engine, version 2"
+depends=('libtiff')
+sources=("http://downloads.sourceforge.net/sourceforge/lcms/lcms2-$version.tar.gz")
+
+src_compile() {
+    cd "$SOURCE_DIR/lcms2-$version"
+
+    ./configure --prefix=/usr \
+        --disable-static
+    make
+}
+
+src_check() {
+    cd "$SOURCE_DIR/lcms2-$version"
+    make check
+}
+
+src_install() {
+    cd "$SOURCE_DIR/lcms2-$version"
+    make DESTDIR="$INSTALL_DIR" install
+}

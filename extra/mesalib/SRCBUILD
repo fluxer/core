@@ -1,0 +1,55 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+# http://www.linuxfromscratch.org/blfs/view/svn/x/mesa.html
+
+version=11.2.2
+release=2
+description="OpenGL compatible 3D graphics library"
+makedepends=('xorg-libraries' 'xorg-makeutils' 'xorg-protocol-headers'
+        'libdrm' 'python' 'expat' 'libxml2' 'elfutils' 'openssl')
+sources=("https://mesa.freedesktop.org/archive/$version/mesa-$version.tar.xz"
+        "https://mesa.freedesktop.org/archive/$version/mesa-$version.tar.xz.sig")
+pgpkeys=('EDAE37B02CEB490D')
+optdepends=('llvm')
+
+src_compile() {
+    cd "$SOURCE_DIR/mesa-$version"
+
+    _platforms="drm,x11"
+    _options=""
+    _drivers="nouveau,r600,svga,swrast"
+    if [ "$OPTIONAL_LLVM" = "yes" ];then
+         _options+=" --enable-gallium-llvm --enable-llvm-shared-libs"
+         _drivers+=",r300,radeonsi"
+    fi
+
+    ./autogen.sh --prefix=/usr \
+        --sysconfdir=/etc \
+        --enable-texture-float \
+        --enable-osmesa \
+        --enable-glx \
+        --enable-glx-tls \
+        --enable-dri \
+        --enable-gles1 \
+        --enable-gles2 \
+        --with-egl-platforms="$_platforms" \
+        --enable-egl \
+        --enable-gbm \
+        --with-gallium-drivers="$_drivers" \
+        --with-sha1=libcrypto \
+        --disable-xa \
+        --disable-vdpau \
+        --disable-nine \
+        $_options
+    make
+}
+
+src_check() {
+    cd "$SOURCE_DIR/mesa-$version"
+    make check
+}
+
+src_install() {
+    cd "$SOURCE_DIR/mesa-$version"
+    make DESTDIR="$INSTALL_DIR" install
+}

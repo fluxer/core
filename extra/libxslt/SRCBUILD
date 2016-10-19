@@ -1,0 +1,28 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+# http://www.linuxfromscratch.org/blfs/view/svn/general/libxslt.html
+
+version=1.1.28
+description="XSLT C library"
+depends=('libxml2')
+makedepends=('python')
+checkdepends=('docbook-xml')
+sources=("ftp://xmlsoft.org/libxslt/libxslt-$version.tar.gz")
+
+src_compile() {
+    cd "$SOURCE_DIR/libxslt-$version"
+
+    ./configure --prefix=/usr \
+        --disable-static
+    make
+}
+
+src_check() {
+    cd "$SOURCE_DIR/libxslt-$version"
+    make check
+}
+
+src_install() {
+    cd "$SOURCE_DIR/libxslt-$version"
+    make DESTDIR="$INSTALL_DIR" install
+}

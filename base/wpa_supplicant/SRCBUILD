@@ -1,0 +1,48 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+# http://www.linuxfromscratch.org/blfs/view/svn/basicnet/wpa_supplicant.html
+
+version=2.5
+description="Utility providing key negotiation for WPA wireless networks"
+depends=('readline' 'libnl' 'openssl')
+optdepends=('dbus')
+backup=('etc/wpa_supplicant.conf')
+sources=("http://w1.fi/releases/wpa_supplicant-$version.tar.gz"
+    'config')
+
+src_compile() {
+    cd "$SOURCE_DIR/wpa_supplicant-$version/wpa_supplicant"
+
+    cp -v "$SOURCE_DIR/config" .config
+
+    if [ "$OPTIONAL_DBUS" = "yes" ];then
+        echo CONFIG_CTRL_IFACE_DBUS=y >> .config
+        echo CONFIG_CTRL_IFACE_DBUS_NEW=y >> .config
+        echo CONFIG_CTRL_IFACE_DBUS_INTRO=y >> .config
+    fi
+
+    make BINDIR=/sbin LIBDIR=/lib
+}
+
+src_install() {
+    cd "$SOURCE_DIR/wpa_supplicant-$version/wpa_supplicant"
+
+    install -vdm755 "$INSTALL_DIR/etc/"
+    install -vm644 wpa_supplicant.conf "$INSTALL_DIR/etc/wpa_supplicant.conf"
+
+    install -vdm755 "$INSTALL_DIR/sbin"
+    install -vm755 wpa_{cli,passphrase,supplicant} "$INSTALL_DIR/sbin"
+
+    install -vdm755 "$INSTALL_DIR/usr/share/man/man"{5,8}
+    install -vm644 doc/docbook/wpa_supplicant.conf.5 "$INSTALL_DIR/usr/share/man/man5"
+    install -vm644 doc/docbook/wpa_{cli,passphrase,supplicant}.8 "$INSTALL_DIR/usr/share/man/man8"
+
+    if [ "$OPTIONAL_DBUS" = "yes" ];then
+        install -vdm755 "$INSTALL_DIR/usr/share/dbus-1/system-services" \
+            "$INSTALL_DIR/etc/dbus-1/system.d"
+        install -m644 dbus/fi.{epitest.hostap.WPASupplicant,w1.wpa_supplicant1}.service \
+            "$INSTALL_DIR/usr/share/dbus-1/system-services/"
+        install -vm644 dbus/dbus-wpa_supplicant.conf \
+            "$INSTALL_DIR/etc/dbus-1/system.d/wpa_supplicant.conf"
+    fi
+}

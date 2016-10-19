@@ -1,0 +1,26 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+# http://www.linuxfromscratch.org/lfs/view/development/chapter06/file.html
+
+version=5.25
+description="File type identification utility"
+depends=('zlib' 'glibc')
+sources=("ftp://ftp.astron.com/pub/file/file-$version.tar.gz")
+
+src_compile() {
+    cd "$SOURCE_DIR/file-$version"
+
+    ./configure --prefix=/usr
+    make
+}
+
+src_check() {
+    cd "$SOURCE_DIR/file-$version"
+    make check
+}
+
+src_install() {
+    cd "$SOURCE_DIR/file-$version"
+    make DESTDIR="$INSTALL_DIR" install
+}
+

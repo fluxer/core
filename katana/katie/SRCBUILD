@@ -1,0 +1,34 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+version=4.9.0
+description='C++ toolkit derived from the Qt 4.8 framework'
+depends=('libtiff' 'libpng' 'libmng' 'sqlite' 'ca-certificates' 'glib' 'dbus'
+        'fontconfig' 'xorg-libraries' 'icu' 'hicolor-icon-theme' 'mesalib'
+        'cups')
+makedepends=('python')
+optdepends=('gtk2' 'mariadb' 'unixodbc' 'postgresql' 'nas')
+sources=("https://github.com/fluxer/katie.git")
+
+src_compile() {
+    mkdir -p build && cd build
+
+    cmake ../katie.git \
+         -Wno-dev \
+        -DCMAKE_BUILD_TYPE=Release \
+        -DCMAKE_INSTALL_PREFIX=/usr \
+        -DKATIE_LDCONF_FULL=/etc/ld.so.conf.d \
+        -DKATIE_PROFILE_FULL=/etc/profile.d \
+        -DWITH_GTK2=$OPTIONAL_GTK2_BOOL \
+        -DWITH_MYSQL=$OPTIONAL_MARIADB_BOOL \
+        -DWITH_ODBC=$OPTIONAL_UNIXODBC_BOOL \
+        -DWITH_PSQL=$OPTIONAL_POSTGRESQL_BOOL \
+        -DWITH_NAS=$OPTIONAL_NAS_BOOL \
+        -DKATIE_ALLINONE=ON
+    make
+}
+
+src_install() {
+    cd "$SOURCE_DIR/build"
+    make DESTDIR="$INSTALL_DIR" install
+}
+

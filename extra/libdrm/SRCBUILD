@@ -1,0 +1,35 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+# http://www.linuxfromscratch.org/blfs/view/svn/x/libdrm.html
+
+version=2.4.70
+description="Userspace library for accessing the DRM"
+depends=('glibc' 'xorg-libraries')
+optdepends=('valgrind')
+sources=("http://dri.freedesktop.org/libdrm/libdrm-$version.tar.bz2"
+        "http://dri.freedesktop.org/libdrm/libdrm-$version.tar.bz2.sig")
+pgpkeys=('D6285B5E899299F3DA746184191C9B905522B045')
+
+src_compile() {
+    cd "$SOURCE_DIR/libdrm-$version"
+
+    sed -i "/pthread-stubs/d" configure.ac
+    autoreconf -vfi
+
+    _options="--disable-valgrind"
+    [ "$OPTIONAL_VALGRIND" = "yes" ] && _options+=" --enable-valgrind"
+    ./configure --prefix=/usr \
+        --enable-udev \
+        $_options
+    make
+}
+
+src_check() {
+    cd "$SOURCE_DIR/libdrm-$version"
+    make check
+}
+
+src_install() {
+    cd "$SOURCE_DIR/libdrm-$version"
+    make DESTDIR="$INSTALL_DIR" install
+}

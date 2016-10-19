@@ -1,0 +1,51 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+# http://www.linuxfromscratch.org/blfs/view/svn/general/python2.html
+
+version=2.7.12
+release=3
+description="Interpreted, interactive, object-oriented programming language"
+depends=('bzip2' 'zlib' 'bash' 'gdbm' 'readline' 'openssl' 'glibc' 'expat')
+optdepends=('libffi' 'sqlite')
+sources=("http://www.python.org/ftp/python/$version/Python-$version.tar.xz"
+        "http://www.python.org/ftp/python/$version/Python-$version.tar.xz.asc")
+pgpkeys=('04C367C218ADD4FF')
+
+src_prepare() {
+    cd "$SOURCE_DIR/Python-$version"
+
+    # https://bugs.gentoo.org/show_bug.cgi?id=346817
+    sed -i "/SQLITE_OMIT_LOAD_EXTENSION/d" setup.py
+}
+
+src_compile() {
+    cd "$SOURCE_DIR/Python-$version"
+
+    _options="--without-system-ffi"
+    [ "$OPTIONAL_LIBFFI" = "yes" ] && _options+=" --with-system-ffi"
+    [ "$OPTIONAL_SQLITE" = "yes" ] && _options+=" --enable-loadable-sqlite-extensions"
+    ./configure --prefix=/usr \
+        --with-threads \
+        --enable-shared \
+        --enable-ipv6 \
+        --with-system-expat \
+        $_options
+    make
+}
+
+src_check() {
+    cd "$SOURCE_DIR/Python-$version"
+    make test
+}
+
+src_install() {
+    cd "$SOURCE_DIR/Python-$version"
+
+    make DESTDIR="$INSTALL_DIR" install
+    chmod -v 755 "$INSTALL_DIR/usr/lib/libpython2.7.so.1.0"
+
+    # saves ~31MB
+    find "$INSTALL_DIR" -name test -exec rm -vrf {} +
+    find "$INSTALL_DIR" -name tests -exec rm -vrf {} +
+}
+

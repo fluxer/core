@@ -1,0 +1,22 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+version=1.0.5
+description='ELF related utils for ELF 32/64 binaries that can check files for security relevant properties'
+depends=('bash')
+checkdepends=('python')
+sources=("http://distfiles.gentoo.org/distfiles/pax-utils-$version.tar.xz")
+
+src_compile() {
+    cd "$SOURCE_DIR/pax-utils-$version"
+    make
+}
+
+src_check() {
+    cd "$SOURCE_DIR/pax-utils-$version"
+    make check
+}
+
+src_install() {
+    cd "$SOURCE_DIR/pax-utils-$version"
+    make USE_PYTHON=no PREFIX="$INSTALL_DIR/usr" DESTDIR="$INSTALL_DIR" install
+}

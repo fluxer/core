@@ -1,0 +1,42 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+# http://www.linuxfromscratch.org/blfs/view/svn/general/graphite2.html
+
+version=1.2.4
+description='reimplementation of the SIL Graphite text processing engine'
+depends=('gcc')
+makedepends=('cmake' 'freetype2' 'python')
+sources=("http://downloads.sf.net/project/silgraphite/graphite2/graphite2-$version.tgz"
+        'graphite2-1.2.0-cmakepath.patch')
+
+src_compile() {
+    cd "$SOURCE_DIR"
+
+    # fix install path - .cmake files contain architecture dependend content - taken from FC/Slackware
+    pushd graphite2-$version
+    patch -Np1 -i $SOURCE_DIR/graphite2-1.2.0-cmakepath.patch
+    cd -
+
+    mkdir build && cd build
+    cmake -G "Unix Makefiles" ../graphite2-$version \
+        -DCMAKE_C_FLAGS:STRING="${CFLAGS}" \
+        -DCMAKE_INSTALL_PREFIX=/usr \
+        -DCMAKE_BUILD_TYPE:STRING=Release \
+        -DGRAPHITE2_COMPARE_RENDERER=OFF \
+        #-DCMAKE_VERBOSE_MAKEFILE:BOOL=ON # remove when docs install target will be fixed
+
+    # fix unwanted -O3 cflag (taken form Debian)
+    find . -type f ! -name "rules" ! -name "changelog" -exec sed -i -e 's/\-O3//g' {} \;
+
+    make
+}
+
+src_check() {
+    cd "$SOURCE_DIR/build"
+    ctest
+}
+
+src_install() {
+    cd "$SOURCE_DIR/build"
+    make DESTDIR="$INSTALL_DIR" install
+}

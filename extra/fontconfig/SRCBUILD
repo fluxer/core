@@ -1,0 +1,64 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+# http://www.linuxfromscratch.org/blfs/view/svn/general/fontconfig.html
+
+version=2.11.1
+description="A library for configuring and customizing font access"
+depends=('expat' 'freetype2')
+sources=("http://www.fontconfig.org/release/fontconfig-$version.tar.bz2")
+
+src_compile() {
+    cd "$SOURCE_DIR/fontconfig-$version"
+
+    # make sure there's no rpath trouble and sane .so versioning
+    libtoolize -f
+    autoreconf -fi
+
+    ./configure --prefix=/usr \
+        --sysconfdir=/etc \
+        --localstatedir=/var \
+        --disable-static \
+        --disable-docs
+    make
+}
+
+src_check() {
+    cd "$SOURCE_DIR/fontconfig-$version"
+    make check
+}
+
+src_install() {
+    cd "$SOURCE_DIR/fontconfig-$version"
+    make DESTDIR="$INSTALL_DIR" install
+}
+
+
+post_install() {
+    echo "
+  Fontconfig configuration is done via /etc/fonts/conf.avail and conf.d.
+  Read /etc/fonts/conf.d/README for more information.
+
+  Configuration via /etc/fonts/local.conf is still possible,
+  but is no longer recommended for options available in conf.avail.
+
+  Main systemwide configuration should be done by symlinks
+  (especially for autohinting, sub-pixel and lcdfilter):
+
+  cd /etc/fonts/conf.d
+  ln -s ../conf.avail/XX-foo.conf
+
+  Check also https://wiki.archlinux.org/index.php/Font_Configuration
+  and https://wiki.archlinux.org/index.php/Fonts.
+"
+    echo " >> Updating font cache. This may take a while..."
+    fc-cache --force
+}
+
+post_upgrade() {
+    echo " >> Updating font cache. This may take a while..."
+    fc-cache --force
+}
+
+post_remove() {
+    echo " >> Check for dead symlinks and leftover files in /etc/fonts/conf.d/"
+}

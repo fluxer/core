@@ -1,0 +1,23 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+# http://www.linuxfromscratch.org/blfs/view/svn/general/enchant.html
+
+version=1.6.0
+description="A wrapper library for generic spell checking"
+depends=('dbus-glib')
+optdepends=('hunspell')
+sources=("http://www.abisource.com/downloads/enchant/$version/enchant-$version.tar.gz")
+
+src_compile() {
+    cd "$SOURCE_DIR/enchant-$version"
+    ./configure --prefix=/usr \
+        --disable-static \
+        --disable-ispell \
+        --with-myspell-dir=/usr/share/myspell
+    make
+}
+
+src_install() {
+    cd "$SOURCE_DIR/enchant-$version"
+    make DESTDIR="$INSTALL_DIR" install
+}

@@ -1,0 +1,3 @@
+# Set up i18n variables
+export LANG=en_US.UTF-8
+export LC_ALL=en_US.UTF-8

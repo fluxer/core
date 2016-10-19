@@ -1,0 +1,122 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+# http://www.linuxfromscratch.org/blfs/view/svn/pst/cups.html
+
+version=2.1.4
+description="Common Unix Printing System"
+depends=('openssl' 'libtiff' 'libpng' 'krb5' 'acl' 'bc' 'libusbx'
+        'dbus' 'eudev' 'hicolor-icon-theme' 'xdg-utils')
+# makedepends=('xinetd')
+sources=("https://github.com/apple/cups/releases/download/release-$version/cups-$version-source.tar.gz"
+        "https://github.com/apple/cups/releases/download/release-$version/cups-$version-source.tar.gz.sig"
+        'cups-1.4.4-nostrip.patch' 'cupsd.init')
+pgpkeys=('08D76223')
+backup=('etc/cups/client.confetc/cups/cupsd.conf'
+        'etc/cups/snmp.conf'
+        'etc/cups/printers.conf'
+        'etc/cups/classes.conf'
+        'etc/cups/cups-files.conf'
+        'etc/cups/subscriptions.conf'
+        'etc/dbus-1/system.d/cups.conf'
+        'etc/xinetd.d/cups-lpd')
+
+src_compile() {
+  cd "$SOURCE_DIR/cups-$version"
+
+  patch -Np1 -i "$SOURCE_DIR/cups-1.4.4-nostrip.patch"
+
+    sed -i 's:555:755:g;s:444:644:g' Makedefs.in
+    sed -i '/MAN.EXT/s:.gz::g' configure config-scripts/cups-manpages.m4
+    sed -i '/LIBGCRYPTCONFIG/d' config-scripts/cups-ssl.m4
+    sed -i 's@else /\* HAVE_AVAHI \*/@elif defined(HAVE_AVAHI)@' test/ippserver.c
+    sed -i 's|@CUPS_HTMLVIEW@|xdg-open|' desktop/cups.desktop.in
+
+    # Rebuild configure script for not zipping man-pages.
+    aclocal -I config-scripts
+    autoconf -I config-scripts
+
+    ./configure --prefix=/usr \
+        --sysconfdir=/etc \
+        --localstatedir=/var \
+        --with-logdir=/var/log/cups \
+        --with-system-groups=lpadmin \
+        --with-cups-user=lp \
+        --with-cups-group=lp \
+        --enable-raw-printing \
+        --enable-dbus \
+        --enable-ssl \
+        --enable-threads \
+        --enable-avahi \
+        --with-dbusdir=/etc/dbus-1 \
+        --disable-gnutls \
+        --disable-pam \
+        --disable-systemd \
+        --with-optim="$CFLAGS"
+  make
+}
+
+src_check() {
+    cd "$SOURCE_DIR/cups-$version"
+    make check
+}
+
+src_install() {
+    cd "$SOURCE_DIR/cups-$version"
+    make BUILDROOT="$INSTALL_DIR" install
+
+    # install ssl directory where to store the certs, solves some samba issues
+    install -vdm700 -g lp "$INSTALL_DIR/etc/cups/ssl"
+
+    echo "# see 'man client.conf'" >> "$INSTALL_DIR/etc/cups/client.conf"
+    echo "ServerName /var/run/cups/cups.sock #  alternative: ServerName hostname-or-ip-address[:port] of a remote server" >> \
+        "$INSTALL_DIR/etc/cups/client.conf"
+    chgrp lp "$INSTALL_DIR/etc/cups/client.conf"
+
+    # install some more configuration files that will get filled by cupsd
+    touch "$INSTALL_DIR/etc/cups/"{printers.conf,classes.conf,subscriptions.conf} 
+    chgrp lp "$INSTALL_DIR/etc/cups/"{printers.conf,classes.conf,subscriptions.conf}
+
+    # remove files now part of cups-filters
+    rm -vrf "$INSTALL_DIR/usr/share/cups/"{banners,data/testprint}
+
+    # remove useless rc.d scripts
+    rm -vrf "$INSTALL_DIR/etc/"{rc*,init.d}
+
+    # install init script
+    install -vDm744 "$SOURCE_DIR/cupsd.init" "$INSTALL_DIR/etc/init.d/cupsd"
+    neededservices="need dbus"
+    # TODO: use zeroconf && neededservices+=" avahi-daemon"
+    sed  -e "s/@neededservices@/$neededservices/" -i "$INSTALL_DIR/etc/init.d/cupsd"
+}
+
+post_install() {
+    if ! getent group lpadmin; then
+        echo " >> Adding lpadmin group"
+        groupadd -r lpadmin
+    fi
+
+    if ! getent passwd lp; then
+        echo " >> Adding lp user"
+        useradd -c "Print Service User" -d /var/spool/cups -g lp -s /bin/false -u 10 lp
+    fi
+
+    rc-update add cupsd default
+
+    echo ">> If you use an HTTPS connection to CUPS, the first time you access"
+    echo ">> the interface it may take a very long time before the site comes up."
+    echo ">> This is because the first request triggers the generation of the CUPS"
+    echo ">> SSL certificates which can be a very time-consuming job."
+}
+
+post_upgrade() {
+    post_install
+}
+
+post_remove() {
+    if getent group lpadmin; then
+        echo " >> Deleting lpadmin group"
+        delgroup lpadmin
+    fi
+
+    rc-update del cupsd default
+}

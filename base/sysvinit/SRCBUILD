@@ -1,0 +1,25 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+# http://www.linuxfromscratch.org/lfs/view/development/chapter06/sysvinit.html
+
+version=2.88
+description='Linux System V Init'
+depends=('glibc' 'procps-ng')
+sources=("http://download.savannah.gnu.org/releases/sysvinit/sysvinit-${version}dsf.tar.bz2"
+        'sysvinit-2.88dsf-consolidated-1.patch')
+
+src_prepare() {
+    cd "$SOURCE_DIR/sysvinit-${version}dsf"
+    patch -p1 -i "$SOURCE_DIR/sysvinit-2.88dsf-consolidated-1.patch"
+}
+
+src_compile() {
+    cd "$SOURCE_DIR/sysvinit-${version}dsf"
+    make
+}
+
+src_install() {
+    cd "$SOURCE_DIR/sysvinit-${version}dsf"
+    make ROOT="$INSTALL_DIR/" install
+}
+

@@ -1,0 +1,36 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+# http://www.linuxfromscratch.org/blfs/view/svn/pst/cups-filters.html
+
+version=1.0.61
+description="OpenPrinting CUPS Filters"
+depends=('cups' 'lcms2' 'poppler' 'qpdf')
+makedepends=('ghostscript' 'ttf-dejavu')
+checkdepends=('ttf-dejavu')
+backup=('etc/fonts/conf.d/99pdftoopvp.conf'
+        'etc/cups/cups-browsed.conf')
+sources=("http://www.openprinting.org/download/cups-filters/cups-filters-$version.tar.xz")
+
+src_compile() {
+    cd "$SOURCE_DIR/cups-filters-$version"
+
+    ./configure --prefix=/usr  \
+        --sysconfdir=/etc \
+        --with-rcdir=no \
+        --enable-avahi \
+        --localstatedir=/var \
+        --with-browseremoteprotocols=DNSSD,CUPS \
+        --with-test-font-path=/usr/share/fonts/TTF/DejaVuSans.ttf \
+        --disable-static
+    make
+}
+
+src_check() {
+    cd "$SOURCE_DIR/cups-filters-$version"
+    make check
+}
+
+src_install() {
+    cd cups-filters-$version
+    make DESTDIR="$INSTALL_DIR" install
+}

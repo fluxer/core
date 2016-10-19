@@ -1,0 +1,33 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+# http://www.linuxfromscratch.org/blfs/view/svn/general/libjpeg.html
+
+version=1.5.1
+description="JPEG image codec that uses SIMD instructions (MMX, SSE2, NEON) to accelerate baseline JPEG compression and decompression"
+depends=('glibc')
+makedepends=('nasm')
+sources=("http://download.sf.net/libjpeg-turbo/$version/libjpeg-turbo-$version.tar.gz")
+
+src_compile() {
+     cd "$SOURCE_DIR/libjpeg-turbo-$version"
+
+    ./configure --prefix=/usr \
+        --with-jpeg8 \
+        --mandir=/usr/share/man \
+        --disable-static
+    make
+}
+
+src_check() {
+    cd "$SOURCE_DIR/libjpeg-turbo-$version"
+    make test
+}
+
+src_install() {
+    cd "$SOURCE_DIR/libjpeg-turbo-$version"
+
+    make DESTDIR="$INSTALL_DIR" install
+
+    # provide jpegint.h as it is required by various software
+    install -vm644 jpegint.h "$INSTALL_DIR/usr/include/"
+}

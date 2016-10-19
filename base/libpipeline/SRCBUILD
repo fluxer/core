@@ -1,0 +1,26 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+# http://www.linuxfromscratch.org/lfs/view/development/chapter06/libpipeline.html
+
+version=1.4.1
+description="a C library for manipulating pipelines of subprocesses in a flexible and convenient way"
+depends=('glibc')
+sources=("http://download.savannah.gnu.org/releases/libpipeline/libpipeline-$version.tar.gz"
+        "http://download.savannah.gnu.org/releases/libpipeline/libpipeline-$version.tar.gz.sig")
+pgpkeys=('AC0A4FF12611B6FCCF01C111393587D97D86500B')
+
+src_compile() {
+    cd libpipeline-$version
+    ./configure --prefix=/usr
+    make
+}
+
+src_check() {
+    cd libpipeline-$version
+    make check
+}
+
+src_install() {
+    cd libpipeline-$version
+    make DESTDIR="$INSTALL_DIR/" install
+}

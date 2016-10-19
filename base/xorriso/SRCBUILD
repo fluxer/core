@@ -1,0 +1,30 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+version=1.4.4
+description="ISO 9660 Rock Ridge filesystem manipulator"
+depends=('glibc' 'readline')
+sources=("http://www.gnu.org/software/xorriso/xorriso-$version.tar.gz"
+        "http://www.gnu.org/software/xorriso/xorriso-$version.tar.gz.sig")
+pgpkeys=('44BC9FD0D688EB007C4DD029E9CBDFC0ABC0A854')
+options=('missing') # tcl/tk
+
+src_prepare() {
+    cd "$SOURCE_DIR/xorriso-$version"
+
+    touch NEWS
+    autoreconf -fi
+}
+
+src_compile() {
+    cd "$SOURCE_DIR/xorriso-$version"
+
+    ./configure --prefix=/usr \
+        --disable-static \
+        --disable-debug
+    make
+}
+
+src_install() {
+    cd "$SOURCE_DIR/xorriso-$version"
+    make DESTDIR="$INSTALL_DIR" install
+}

@@ -1,0 +1,49 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+# http://www.linuxfromscratch.org/lfs/view/development/chapter06/e2fsprogs.html
+
+version=1.42.13
+release=2
+description="Filesystem utilities for use with the ext2/3/4 filesystems"
+depends=('glibc')
+backup=('etc/mke2fs.conf')
+sources=("http://prdownloads.sf.net/e2fsprogs/e2fsprogs-$version.tar.gz"
+        "http://prdownloads.sf.net/e2fsprogs/e2fsprogs-$version.tar.gz.asc")
+pgpkeys=('3AB057B7E78D945C8C5591FBD36F769BC11804F0')
+
+src_compile() {
+    cd "$SOURCE_DIR/e2fsprogs-$version"
+
+    mkdir -v ../e2fsprogs-build && cd ../e2fsprogs-build
+        ../e2fsprogs-$version/configure \
+        --prefix=/usr \
+        --bindir=/bin \
+        --with-root-prefix="" \
+        --enable-elf-shlibs \
+        --enable-symlink-install \
+        --disable-libblkid \
+        --disable-libuuid \
+        --disable-uuidd \
+        --disable-fsck \
+        --disable-rpath
+    make
+}
+
+src_check() {
+    cd "$SOURCE_DIR/e2fsprogs-build"
+    make check 
+}
+
+src_install() {
+    cd "$SOURCE_DIR/e2fsprogs-build"
+
+    make DESTDIR="$INSTALL_DIR" install
+    make DESTDIR="$INSTALL_DIR" install-libs
+
+    # remove references to build directory
+    sed -i -e 's#^SS_DIR=.*#SS_DIR="/usr/share/ss"#' "$INSTALL_DIR/bin/mk_cmds"
+    sed -i -e 's#^ET_DIR=.*#ET_DIR="/usr/share/et"#' "$INSTALL_DIR/bin/compile_et"
+
+    # disable 2TB+ file support
+    sed -i 's|,huge_file||g' "$INSTALL_DIR/etc/mke2fs.conf"
+}

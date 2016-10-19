@@ -1,0 +1,29 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+# http://www.linuxfromscratch.org/blfs/view/svn/general/libgcrypt.html
+
+version=1.6.5
+description="General purpose cryptographic library based on the code from GnuPG"
+depends=('libgpg-error')
+sources=("ftp://ftp.gnupg.org/gcrypt/libgcrypt/libgcrypt-$version.tar.bz2"
+        "ftp://ftp.gnupg.org/gcrypt/libgcrypt/libgcrypt-$version.tar.bz2.sig")
+pgpkeys=('D8692123C4065DEA5E0F3AB5249B39D24F25E3B6')
+
+src_compile() {
+    cd "$SOURCE_DIR/libgcrypt-$version"
+
+    ./configure --prefix=/usr \
+        --disable-static \
+        --disable-padlock-support
+    make
+}
+
+src_check() {
+    cd "$SOURCE_DIR/libgcrypt-$version"
+    make check
+}
+
+src_install() {
+    cd "$SOURCE_DIR/libgcrypt-$version"
+    make DESTDIR="$INSTALL_DIR" install
+}

@@ -1,0 +1,30 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+# http://www.linuxfromscratch.org/lfs/view/development/chapter06/gdbm.html
+
+version=1.12
+description="Library of database functions that use extensible hashing"
+depends=('glibc')
+sources=("http://ftp.gnu.org/gnu/gdbm/gdbm-$version.tar.gz"
+        "http://ftp.gnu.org/gnu/gdbm/gdbm-$version.tar.gz.sig")
+pgpkeys=('3602B07F55D0C732')
+
+src_compile() {
+    cd "$SOURCE_DIR/gdbm-$version"
+
+    ./configure --prefix=/usr \
+        --enable-libgdbm-compat \
+        --disable-rpath \
+        --disable-static
+    make
+}
+
+src_check() {
+    cd "$SOURCE_DIR/gdbm-$version"
+    make check
+}
+
+src_install() {
+    cd "$SOURCE_DIR/gdbm-$version"
+    make prefix="$INSTALL_DIR/usr" install
+}
