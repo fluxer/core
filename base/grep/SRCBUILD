@@ -3,9 +3,11 @@
 # http://www.linuxfromscratch.org/lfs/view/development/chapter06/grep.html
 
 version=2.26
+release=2
 description='A string search utility'
-depends=('glibc') # 'pcre')
-makedepends=('texinfo')
+depends=('glibc')
+optdepends=('pcre')
+# makedepends=('texinfo')
 sources=("http://ftp.gnu.org/gnu/grep/grep-$version.tar.xz"
          "http://ftp.gnu.org/gnu/grep/grep-$version.tar.xz.sig")
 pgpkeys=('155D3FC500C834486D1EEA677FD9FCCB000BEEEE')
@@ -13,8 +15,11 @@ pgpkeys=('155D3FC500C834486D1EEA677FD9FCCB000BEEEE')
 src_compile() {
     cd "$SOURCE_DIR/grep-$version"
 
+    _options=" --disable-perl-regexp"
+    [ "$OPTIONAL_PCRE" == "yes" ] && _options+=" --enable-perl-regexp"
     ./configure --prefix=/usr \
-        --bindir=/bin
+        --bindir=/bin \
+        $_options
     make
 }
 
