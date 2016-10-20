@@ -1,6 +1,6 @@
 # Maintainer: Ivailo Monev <xakepa10@gmail.com>
 
-version=2.0.4
+version=2.0.5
 description="Simple DirectMedia Layer (Version 2)"
 depends=('glibc' 'xorg-libraries' 'mesalib' 'alsa-lib')
 optdepends=('pulseaudio')
