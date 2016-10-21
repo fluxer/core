@@ -2,11 +2,11 @@
 
 # http://www.linuxfromscratch.org/blfs/view/svn/postlfs/nss.html
 
-version=3.19.4
+version=3.23
 description="Mozilla Network Security Services"
 depends=("nspr" 'sqlite' 'zlib' 'bash')
 makedepends=('perl')
-sources=("http://ftp.mozilla.org/pub/security/nss/releases/NSS_3_19_4_RTM/src/nss-$version.tar.gz"
+sources=("http://ftp.mozilla.org/pub/security/nss/releases/NSS_3_24_RTM/src/nss-$version.tar.gz"
         'nss.pc.in' 'nss-config.in')
 
 src_compile() {
@@ -59,7 +59,7 @@ src_install() {
         -e "s,@MOD_MINOR_VERSION@,${NSS_VMINOR},g" \
         -e "s,@MOD_PATCH_VERSION@,${NSS_VPATCH},g" \
         > "$INSTALL_DIR/usr/bin/nss-config"
-    chmod 755 "$INSTALL_DIR/usr/bin/nss-config"
+    chmod -v 755 "$INSTALL_DIR/usr/bin/nss-config"
 
     install -vm755 dist/*.OBJ/lib/*.so "$INSTALL_DIR/usr/lib/"
 
