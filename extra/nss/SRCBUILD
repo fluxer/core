@@ -21,8 +21,8 @@ src_compile() {
     export PKG_CONFIG_ALLOW_SYSTEM_CFLAGS=1
     export NSS_USE_SYSTEM_SQLITE=1
     export NSS_ENABLE_ECC=1
-    export NSPR_INCLUDE_DIR="$(pkg-config --cflags-only-I nspr | sed 's/-I//')"
-    export NSPR_LIB_DIR="$(pkg-config --libs-only-L nspr | sed 's/-L.//')"
+    export NSPR_INCLUDE_DIR="$(nspr-config --includedir)"
+    export NSPR_LIB_DIR="$(nspr-config --libdir)"
     export XCFLAGS="${CFLAGS}"
 
     [ "$(uname -m)" = "x86_64" ] && export USE_64=1
@@ -48,7 +48,7 @@ src_install() {
         -e "s,%NSS_VERSION%,$version,g" \
         > "$INSTALL_DIR/usr/lib/pkgconfig/nss.pc"
     ln -vsf nss.pc "$INSTALL_DIR/usr/lib/pkgconfig/mozilla-nss.pc"
-    chmod -v 644 $INSTALL_DIR/usr/lib/pkgconfig/*.pc
+    chmod -v 644 "$INSTALL_DIR/usr/lib/pkgconfig/"*.pc
 
     sed "$SOURCE_DIR/nss-config.in" \
         -e "s,@libdir@,/usr/lib,g" \
@@ -61,15 +61,13 @@ src_install() {
         > "$INSTALL_DIR/usr/bin/nss-config"
     chmod 755 "$INSTALL_DIR/usr/bin/nss-config"
 
-    for file in libsoftokn3.so libfreebl3.so libnss3.so libnssutil3.so \
-        libssl3.so libsmime3.so libnssckbi.so libnssdbm3.so; do
-    install -vm755 dist/*.OBJ/lib/$file "$INSTALL_DIR/usr/lib/"
-    done
+    install -vm755 dist/*.OBJ/lib/*.so "$INSTALL_DIR/usr/lib/"
 
     install -vm644 dist/*.OBJ/lib/libcrmf.a "$INSTALL_DIR/usr/lib/"
     install -vm644 dist/*.OBJ/lib/*.chk "$INSTALL_DIR/usr/lib/"
 
-    for file in certutil cmsutil crlutil modutil pk12util shlibsign signtool signver ssltap; do
+    for file in certutil cmsutil crlutil modutil pk12util shlibsign signtool \
+        signver ssltap pk12util; do
         install -vm755 dist/*.OBJ/bin/$file "$INSTALL_DIR/usr/bin/"
     done
 
