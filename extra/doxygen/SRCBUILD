@@ -1,17 +1,22 @@
-version=1.8.9.1
+version=1.8.12
 description="A documentation system for C++, C, Java, IDL and PHP"
 depends=('gcc') # 'graphviz'
-makedepends=('flex' 'ghostscript' 'python')
+makedepends=('flex' 'bison' 'ghostscript' 'python' 'cmake')
 sources=("http://ftp.stack.nl/pub/users/dimitri/doxygen-$version.src.tar.gz")
 
 src_compile() {
-    cd "$SOURCE_DIR/doxygen-$version"
+    mkdir -p "$SOURCE_DIR/build"
+    cd "$SOURCE_DIR/build"
 
-    ./configure --prefix /usr
+    cmake "../doxygen-$version" \
+        -DCMAKE_INSTALL_PREFIX:PATH=/usr \
+        -Dbuild_doc=OFF \
+        -Dbuild_wizard=OFF
+
     make
 }
 
 src_install() {
-    cd "$SOURCE_DIR/doxygen-$version"
-    make INSTALL="$INSTALL_DIR/" MAN1DIR=usr/share/man/man1 install
+    cd "$SOURCE_DIR/build"
+    make DESTDIR="$INSTALL_DIR" install
 }
