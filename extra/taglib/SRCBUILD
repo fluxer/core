@@ -2,7 +2,7 @@
 
 # http://www.linuxfromscratch.org/blfs/view/svn/multimedia/taglib.html
 
-version=1.9.1
+version=1.11.1
 description="A Library for reading and editing the meta-data of several popular audio formats"
 depends=('bash' 'zlib' 'gcc')
 makedepends=('cmake')
