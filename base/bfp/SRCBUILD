@@ -1,9 +1,8 @@
 # Maintainer: Ivailo Monev <xakepa10@gmail.com>
 
-version=20161025
+version=20161026
 description="Big Fucking Projects"
 depends=('busybox' 'python' 'file' 'git' 'pax-utils' 'binutils' 'gcc' 'gnupg')
-# sources=("http://entropy-linux.com/public/distfiles/bfp-$version.tar.xz")
 sources=('https://github.com/fluxer/bfp.git')
 
 src_compile() {
