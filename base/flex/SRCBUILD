@@ -2,10 +2,10 @@
 
 # http://www.linuxfromscratch.org/lfs/view/development/chapter06/flex.html
 
-version=2.5.39
+version=2.6.2
 description="Fast lexical analyser generator"
 depends=('glibc')
-sources=("http://downloads.sf.net/flex/flex-$version.tar.xz")
+sources=("https://github.com/westes/flex/releases/download/v$version/flex-$version.tar.gz")
 
 src_compile() {
     cd "$SOURCE_DIR/flex-$version"
@@ -22,6 +22,8 @@ src_check() {
 
 src_install() {
     cd "$SOURCE_DIR/flex-$version"
+    touch doc/flex.1
     make DESTDIR="$INSTALL_DIR" install
     ln -vs flex "$INSTALL_DIR/usr/bin/lex"
+    rm -vf "$INSTALL_DIR/usr/share/man/man1/flex.1"
 }
