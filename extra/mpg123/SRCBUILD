@@ -3,13 +3,13 @@
 # TODO: optdepends - jack
 # http://www.linuxfromscratch.org/blfs/view/svn/multimedia/mpg123.html
 
-version=1.22.4
+version=1.23.8
 description="Fast console MPEG Audio Player and decoder library"
 depends=('glibc' 'libtool' 'alsa-lib')
 optdepends=('pulseaudio')
 sources=("http://downloads.sf.net/mpg123/mpg123-$version.tar.bz2"
         "http://downloads.sf.net/mpg123/mpg123-$version.tar.bz2.sig")
-pgpkeys=('231C4CBC60D5CAFE')
+pgpkeys=('D021FF8ECF4BE09719D61A27231C4CBC60D5CAFE')
 
 src_compile() {
     cd "$SOURCE_DIR/mpg123-$version"
