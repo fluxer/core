@@ -2,7 +2,7 @@
 
 # http://www.linuxfromscratch.org/blfs/view/svn/general/cmake.html
 
-version=3.6.2
+version=3.6.3
 description="A cross-platform open-source make system"
 depends=('shared-mime-info')
 makedepends=('curl')
