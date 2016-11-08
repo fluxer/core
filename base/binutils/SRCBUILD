@@ -3,7 +3,7 @@
 # http://www.linuxfromscratch.org/lfs/view/development/chapter06/binutils.html
 
 version=2.26.1
-release=2
+release=3
 description="Collection of binary tools"
 depends=('zlib' 'glibc')
 sources=("http://ftp.gnu.org/gnu/binutils/binutils-$version.tar.bz2"
@@ -32,8 +32,9 @@ src_compile() {
     "$SOURCE_DIR/binutils-$version/configure" \
         --prefix=/usr \
         --enable-shared \
-        --disable-static \
         --enable-threads \
+        --enable-lto \
+        --disable-static \
         --disable-rpath \
         --disable-werror \
         --disable-nls
