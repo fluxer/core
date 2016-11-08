@@ -1,14 +1,14 @@
 # Maintainer: Ivailo Monev <xakepa10@gmail.com>
 
-version=1.0.1
-release=2
+version=20161108
 description='pkgconfig compatible utility which does not depend on glib'
-sources=("http://rabbit.dereferenced.org/~nenolod/distfiles/pkgconf-$version.tar.xz")
+sources=("https://github.com/pkgconf/pkgconf.git")
 
 src_compile() {
-    cd "$SOURCE_DIR/pkgconf-$version"
+    cd "$SOURCE_DIR/pkgconf.git"
 
     pkgpath="/lib/pkgconfig:/usr/lib/pkgconfig:/usr/share/pkgconfig"
+    ./autogen.sh
     ./configure --prefix=/usr \
         --sysconfdir=/etc \
         --with-pkg-config-dir="$pkgpath" \
@@ -19,7 +19,7 @@ src_compile() {
 }
 
 src_install() {
-    cd "$SOURCE_DIR/pkgconf-$version"
+    cd "$SOURCE_DIR/pkgconf.git"
 
     make DESTDIR="$INSTALL_DIR" install
     ln -s pkgconf "$INSTALL_DIR/usr/bin/pkg-config"
