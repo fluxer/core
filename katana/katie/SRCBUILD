@@ -6,8 +6,10 @@ depends=('libtiff' 'libpng' 'libmng' 'sqlite' 'ca-certificates' 'glib' 'dbus'
         'fontconfig' 'xorg-libraries' 'icu' 'hicolor-icon-theme' 'mesalib'
         'cups')
 makedepends=('python')
-optdepends=('gtk2' 'mariadb' 'unixodbc' 'postgresql' 'nas')
+optdepends=('gtk2' 'mariadb' 'unixodbc' 'postgresql')
 sources=("https://github.com/fluxer/katie.git")
+
+export CFLAGS="$CFLAGS -Ofast" CXXFLAGS="$CXXFLAGS -Ofast"
 
 src_compile() {
     mkdir -p build && cd build
@@ -22,7 +24,6 @@ src_compile() {
         -DWITH_MYSQL=$OPTIONAL_MARIADB_BOOL \
         -DWITH_ODBC=$OPTIONAL_UNIXODBC_BOOL \
         -DWITH_PSQL=$OPTIONAL_POSTGRESQL_BOOL \
-        -DWITH_NAS=$OPTIONAL_NAS_BOOL \
         -DKATIE_ALLINONE=ON
     make
 }
