@@ -1,12 +1,12 @@
 # Maintainer: Ivailo Monev <xakepa10@gmail.com>
 
-version=20160331
+version=20160628
 description="Linux kernel firmware files"
 sources=("http://distfiles.gentoo.org/distfiles/linux-firmware-$version.tar.xz")
 options=('!binaries' '!shared' '!static')
 
 src_install() {
-    cd "$SOURCE_DIR/linux-firmware-4a8"*
+    cd "$SOURCE_DIR/linux-firmware-dca"*
 
     install -vdm755 "$INSTALL_DIR/lib/firmware"
     cp -va * "$INSTALL_DIR/lib/firmware/"
