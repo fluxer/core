@@ -2,11 +2,11 @@
 
 # http://www.linuxfromscratch.org/blfs/view/svn/pst/cups-filters.html
 
-version=1.0.61
+version=1.11.5
 description="OpenPrinting CUPS Filters"
 depends=('cups' 'lcms2' 'poppler' 'qpdf')
 makedepends=('ghostscript' 'ttf-dejavu')
-checkdepends=('ttf-dejavu')
+optdepends=('avahi')
 backup=('etc/fonts/conf.d/99pdftoopvp.conf'
         'etc/cups/cups-browsed.conf')
 sources=("http://www.openprinting.org/download/cups-filters/cups-filters-$version.tar.xz")
@@ -14,14 +14,16 @@ sources=("http://www.openprinting.org/download/cups-filters/cups-filters-$versio
 src_compile() {
     cd "$SOURCE_DIR/cups-filters-$version"
 
+    _options="--disable-avahi"
+    [ "$OPTIONAL_AVAHI" == "yes" ] && _options+=" --enable-avahi"
     ./configure --prefix=/usr  \
         --sysconfdir=/etc \
         --with-rcdir=no \
-        --enable-avahi \
         --localstatedir=/var \
         --with-browseremoteprotocols=DNSSD,CUPS \
         --with-test-font-path=/usr/share/fonts/TTF/DejaVuSans.ttf \
-        --disable-static
+        --disable-static \
+        $_options
     make
 }
 
