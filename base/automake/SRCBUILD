@@ -2,12 +2,12 @@
 
 # http://www.linuxfromscratch.org/lfs/view/7.3/chapter06/automake.html
 
-version=1.14.1
+version=1.15
 description="Tool for automatically generating Makefile.in files compliant with the GNU Coding Standards"
 depends=('busybox' 'perl')
 sources=("http://ftp.gnu.org/gnu/automake/automake-$version.tar.xz"
         "http://ftp.gnu.org/gnu/automake/automake-$version.tar.xz.sig")
-pgpkeys=('FC818E17429F96EA')
+pgpkeys=('E1622F96D2BB4E58018EEF9860F906016E407573')
 
 src_compile() {
     cd "$SOURCE_DIR/automake-$version"
