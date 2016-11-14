@@ -2,13 +2,13 @@
 
 # http://www.linuxfromscratch.org/blfs/view/svn/x/libdrm.html
 
-version=2.4.70
+version=2.4.73
 description="Userspace library for accessing the DRM"
 depends=('glibc' 'xorg-libraries')
 optdepends=('valgrind')
 sources=("http://dri.freedesktop.org/libdrm/libdrm-$version.tar.bz2"
         "http://dri.freedesktop.org/libdrm/libdrm-$version.tar.bz2.sig")
-pgpkeys=('D6285B5E899299F3DA746184191C9B905522B045')
+pgpkeys=('8703B6700E7EE06D7A39B8D6EDAE37B02CEB490D')
 
 src_compile() {
     cd "$SOURCE_DIR/libdrm-$version"
