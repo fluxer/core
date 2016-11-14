@@ -3,12 +3,12 @@
 # http://www.linuxfromscratch.org/blfs/view/svn/kde/kde-workspace.html
 
 version=4.18.0
-release=2
+release=3
 description="Provides the interface and basic tools for the KDE workspace"
 depends=('kdelibs' 'libmtp' 'xorg-libraries' 'xorg-applications' 'xdg-utils'
          'xcb-util-renderutil' 'xcb-util-image' 'freetype2' 'libusbx'
          'xcb-util-keysyms' 'xcb-util-wm' 'busybox' 'libraw1394' 'ariya-icons'
-         'kde-baseapps')
+         'kde-baseapps' 'ttf-dejavu')
 makedepends=('cmake')
 # TODO: optdepends=('gpsd')
 sources=("https://github.com/fluxer/kde-workspace.git"
