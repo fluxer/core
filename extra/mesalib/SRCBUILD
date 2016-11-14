@@ -7,8 +7,7 @@ description="OpenGL compatible 3D graphics library"
 makedepends=('xorg-libraries' 'xorg-makeutils' 'xorg-protocol-headers'
         'libdrm' 'python' 'expat' 'libxml2' 'elfutils' 'openssl')
 sources=("https://mesa.freedesktop.org/archive/$version/mesa-$version.tar.xz"
-        "https://mesa.freedesktop.org/archive/$version/mesa-$version.tar.xz.sig"
-        'remove-libpthread-stubs.patch')
+        "https://mesa.freedesktop.org/archive/$version/mesa-$version.tar.xz.sig")
 pgpkeys=('8703B6700E7EE06D7A39B8D6EDAE37B02CEB490D')
 optdepends=('llvm')
 
