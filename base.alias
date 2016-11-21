@@ -83,7 +83,6 @@ curl
 dialog
 libnl
 os-prober
-pax-utils
 python
 squashfs-tools
 wpa_supplicant

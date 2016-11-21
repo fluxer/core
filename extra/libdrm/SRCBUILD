@@ -10,12 +10,14 @@ sources=("http://dri.freedesktop.org/libdrm/libdrm-$version.tar.bz2"
         "http://dri.freedesktop.org/libdrm/libdrm-$version.tar.bz2.sig")
 pgpkeys=('8703B6700E7EE06D7A39B8D6EDAE37B02CEB490D')
 
-src_compile() {
+src_prepare() {
     cd "$SOURCE_DIR/libdrm-$version"
 
     sed -i "/pthread-stubs/d" configure.ac
     autoreconf -vfi
+}
 
+src_compile() {
     _options="--disable-valgrind"
     [ "$OPTIONAL_VALGRIND" = "yes" ] && _options+=" --enable-valgrind"
     ./configure --prefix=/usr \

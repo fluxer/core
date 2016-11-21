@@ -1,8 +1,8 @@
 # Maintainer: Ivailo Monev <xakepa10@gmail.com>
 
-version=20161026
+version=20161121
 description="Big Fucking Projects"
-depends=('busybox' 'python' 'file' 'git' 'pax-utils' 'binutils' 'gcc' 'gnupg')
+depends=('busybox' 'python' 'file' 'git' 'binutils' 'gcc' 'gnupg')
 sources=('https://github.com/fluxer/bfp.git')
 
 src_compile() {
