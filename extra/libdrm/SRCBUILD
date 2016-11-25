@@ -18,6 +18,8 @@ src_prepare() {
 }
 
 src_compile() {
+    cd "$SOURCE_DIR/libdrm-$version"
+
     _options="--disable-valgrind"
     [ "$OPTIONAL_VALGRIND" = "yes" ] && _options+=" --enable-valgrind"
     ./configure --prefix=/usr \

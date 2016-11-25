@@ -2,8 +2,7 @@
 
 # http://www.linuxfromscratch.org/lfs/view/development/chapter06/xz-utils.html
 
-version=5.0.8
-release=2
+version=5.2.2
 description="Free general-purpose data compression software with high compression ratio"
 depends=('bash' 'glibc')
 sources=("http://tukaani.org/xz/xz-$version.tar.xz"
