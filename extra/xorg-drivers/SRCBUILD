@@ -3,23 +3,23 @@
 # http://www.linuxfromscratch.org/blfs/view/svn/x/x7driver.html
 
 version=1.18.4
-release=5
+release=6
 description="X.Org video and input devices drivers"
 depends=('eudev' 'xorg-server' 'libinput')
 makedepends=('xorg-protocol-headers')
-sources=("http://xorg.freedesktop.org/releases/individual/driver/xf86-video-ati-7.7.1.tar.bz2"
-        "http://xorg.freedesktop.org/releases/individual/driver/xf86-video-ati-7.7.1.tar.bz2.sig"
+sources=("http://xorg.freedesktop.org/releases/individual/driver/xf86-video-ati-7.8.0.tar.bz2"
+        "http://xorg.freedesktop.org/releases/individual/driver/xf86-video-ati-7.8.0.tar.bz2.sig"
         "http://xorg.freedesktop.org/releases/individual/driver/xf86-video-intel-2.99.917.tar.bz2"
         "http://xorg.freedesktop.org/releases/individual/driver/xf86-video-nouveau-1.0.13.tar.bz2"
         "http://xorg.freedesktop.org/releases/individual/driver/xf86-video-nouveau-1.0.13.tar.bz2.sig"
         "http://xorg.freedesktop.org/releases/individual/driver/xf86-video-vesa-2.3.4.tar.bz2"
         "http://xorg.freedesktop.org/releases/individual/driver/xf86-video-vesa-2.3.4.tar.bz2.sig"
-        "http://xorg.freedesktop.org/releases/individual/driver/xf86-video-vmware-13.1.0.tar.bz2"
-        "http://xorg.freedesktop.org/releases/individual/driver/xf86-video-vmware-13.1.0.tar.bz2.sig"
+        "http://xorg.freedesktop.org/releases/individual/driver/xf86-video-vmware-13.2.1.tar.bz2"
+        "http://xorg.freedesktop.org/releases/individual/driver/xf86-video-vmware-13.2.1.tar.bz2.sig"
         "http://xorg.freedesktop.org/releases/individual/driver/xf86-input-evdev-2.10.4.tar.gz"
         "http://xorg.freedesktop.org/releases/individual/driver/xf86-input-evdev-2.10.4.tar.gz"
-        "http://xorg.freedesktop.org/releases/individual/driver/xf86-input-libinput-0.19.1.tar.bz2"
-        "http://xorg.freedesktop.org/releases/individual/driver/xf86-input-libinput-0.19.1.tar.bz2.sig"
+        "http://xorg.freedesktop.org/releases/individual/driver/xf86-input-libinput-0.22.0.tar.bz2"
+        "http://xorg.freedesktop.org/releases/individual/driver/xf86-input-libinput-0.22.0.tar.bz2.sig"
         'intel-fixes.patch')
 pgpkeys=('B09FAF35BE914521980951145A81AF8E6ADBB200'
         'B97BD6A80CAC4981091AE547FE558C72A67013C3'
