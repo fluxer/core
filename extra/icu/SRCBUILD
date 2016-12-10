@@ -2,17 +2,10 @@
 
 # http://www.linuxfromscratch.org/blfs/view/svn/general/icu.html
 
-version=55.1
-release=2
+version=58.2
 description="International Components for Unicode library"
 depends=('gcc' 'busybox')
-sources=("http://download.icu-project.org/files/icu4c/$version/icu4c-55_1-src.tgz")
-
-src_prepare() {
-    cd "$SOURCE_DIR/icu/source"
-    sed -e 's|#define U_DISABLE_RENAMING 0|#define U_DISABLE_RENAMING 1|' \
-        -i common/unicode/uconfig.h
-}
+sources=("http://download.icu-project.org/files/icu4c/$version/icu4c-58_2-src.tgz")
 
 src_compile() {
     cd "$SOURCE_DIR/icu/source"
