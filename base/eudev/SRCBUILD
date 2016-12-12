@@ -1,15 +1,14 @@
 # Maintainer: Ivailo Monev <xakepa10@gmail.com>
 
-version=3.1.5
+version=3.2.1
 description="Userspace dev tools (udev) forked by Gentoo"
 backup=('etc/udev/udev.conf')
 depends=('bash' 'kmod' 'util-linux')
-# makedepends=('gperf')
+makedepends=('gperf')
 sources=("http://dev.gentoo.org/~blueness/eudev/eudev-$version.tar.gz"
         "http://dev.gentoo.org/~blueness/eudev/eudev-$version.tar.gz.asc"
-        "http://dev.gentoo.org/~williamh/dist/udev-init-scripts-31.tar.gz"
-        'eudev.hook' 'eudev.files')
-pgpkeys=('9384FA6EF52D4BBA')
+        "http://dev.gentoo.org/~williamh/dist/udev-init-scripts-32.tar.gz")
+pgpkeys=('1FEDFAD9D82C52A53BABDC799384FA6EF52D4BBA')
 
 src_compile() {
     cd "$SOURCE_DIR/eudev-$version"
@@ -39,11 +38,7 @@ src_install() {
     cd "$SOURCE_DIR/eudev-$version"
     make DESTDIR="$INSTALL_DIR" install
 
-    # mkdir -pv "$INSTALL_DIR/etc/mkinitfs/"{root/hooks,files}
-    # cp -fv "$SOURCE_DIR/eudev.hook" "$INSTALL_DIR/etc/mkinitfs/root/hooks/eudev"
-    # cp -fv "$SOURCE_DIR/eudev.files" "$INSTALL_DIR/etc/mkinitfs/files/eudev.conf"
-
-    make -C "$SOURCE_DIR/udev-init-scripts-31" DESTDIR="$INSTALL_DIR" install
+    make -C "$SOURCE_DIR/udev-init-scripts-32" DESTDIR="$INSTALL_DIR" install
 }
 
 post_install() {
