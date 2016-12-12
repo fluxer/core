@@ -2,7 +2,7 @@
 
 # http://www.linuxfromscratch.org/blfs/view/svn/x/cairo.html
 
-version=1.12.18
+version=1.14.8
 description="Cairo vector graphics library"
 depends=('libpng' 'xorg-libraries' 'fontconfig' 'pixman' 'glib')
 makedepends=('libdrm' 'mesalib' 'xorg-protocol-headers')
