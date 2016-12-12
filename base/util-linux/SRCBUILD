@@ -2,13 +2,12 @@
 
 # http://www.linuxfromscratch.org/lfs/view/development/chapter06/util-linux.html
 
-version=2.26.2
-release=2
+version=2.28.2
 description="Miscellaneous system utilities for Linux"
 makedepends=('eudev')
-sources=("https://www.kernel.org/pub/linux/utils/util-linux/v2.26/util-linux-$version.tar.xz"
-        "https://www.kernel.org/pub/linux/utils/util-linux/v2.26/util-linux-$version.tar.sign")
-pgpkeys=('E4B71D5EEC39C284')
+sources=("https://www.kernel.org/pub/linux/utils/util-linux/v2.28/util-linux-$version.tar.xz"
+        "https://www.kernel.org/pub/linux/utils/util-linux/v2.28/util-linux-$version.tar.sign")
+pgpkeys=('B0C64D14301CC6EFAEDF60E4E4B71D5EEC39C284')
 options=('missing') # tclsh
 
 src_compile() {
