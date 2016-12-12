@@ -7,6 +7,13 @@ description="International Components for Unicode library"
 depends=('gcc' 'busybox')
 sources=("http://download.icu-project.org/files/icu4c/$version/icu4c-58_2-src.tgz")
 
+src_prepare() {
+    cd "$SOURCE_DIR/icu/source"
+    # disable symbols versioning
+    sed -e 's|#define U_DISABLE_RENAMING 0|#define U_DISABLE_RENAMING 1|' \
+        -i common/unicode/uconfig.h
+}
+
 src_compile() {
     cd "$SOURCE_DIR/icu/source"
 
