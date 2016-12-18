@@ -2,7 +2,7 @@
 
 # http://kernel.org/
 
-version=4.8.13
+version=4.8.15
 description="Linux Kernel and modules"
 depends=('linux-firmware')
 makedepends=('bc' 'busybox')
