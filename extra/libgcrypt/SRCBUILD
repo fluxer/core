@@ -2,7 +2,7 @@
 
 # http://www.linuxfromscratch.org/blfs/view/svn/general/libgcrypt.html
 
-version=1.6.5
+version=1.6.6
 description="General purpose cryptographic library based on the code from GnuPG"
 depends=('libgpg-error')
 sources=("ftp://ftp.gnupg.org/gcrypt/libgcrypt/libgcrypt-$version.tar.bz2"
