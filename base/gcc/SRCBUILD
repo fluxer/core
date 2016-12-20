@@ -4,13 +4,13 @@
 # http://www.linuxfromscratch.org/blfs/view/svn/general/gcc.html
 # http://gcc.gnu.org/git/?p=gcc.git;a=summary
 
-version=6.2.0
+version=6.3.0
 description="GNU compiler collection, includes the C and C++ frontends"
 depends=('glibc' 'zlib' 'mpc' 'mpfr')
 checkdepends=('dejagnu')
 sources=("http://ftp.gnu.org/gnu/gcc/gcc-$version/gcc-$version.tar.bz2"
         "http://ftp.gnu.org/gnu/gcc/gcc-$version/gcc-$version.tar.bz2.sig")
-pgpkeys=('7F74F97C103468EE5D750B583AB00996FC26A641')
+pgpkeys=('33C235A34C46AA3FFB293709A328C3A2C3C45C06')
 
 src_prepare() {
     cd "$SOURCE_DIR/gcc-$version"
