@@ -2,8 +2,7 @@
 
 # http://www.linuxfromscratch.org/lfs/view/development/chapter06/e2fsprogs.html
 
-version=1.42.13
-release=2
+version=1.43.3
 description="Filesystem utilities for use with the ext2/3/4 filesystems"
 depends=('glibc')
 backup=('etc/mke2fs.conf')
