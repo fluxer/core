@@ -2,8 +2,7 @@
 
 # http://www.linuxfromscratch.org/lfs/view/development/chapter06/grep.html
 
-version=2.26
-release=2
+version=2.27
 description='A string search utility'
 depends=('glibc')
 optdepends=('pcre')
