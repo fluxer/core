@@ -2,16 +2,19 @@
 
 # http://www.linuxfromscratch.org/blfs/view/svn/general/libarchive.html
 
-version=3.2.1
+version=3.2.2
 description="Multi-format archive and compression library"
 makedepends=('zlib' 'bzip2' 'xz' 'glibc' 'acl' 'attr')
 sources=("http://www.libarchive.org/downloads/libarchive-$version.tar.gz")
 
+src_prepare() {
+    cd "$SOURCE_DIR/libarchive-$version"
+    autoreconf -fi
+}
+
 src_compile() {
     cd "$SOURCE_DIR/libarchive-$version"
 
-    # https://github.com/libarchive/libarchive/issues/721
-    ac_cv_lzma_has_mt=no \
     ./configure --prefix=/usr \
         --without-nettle \
         --disable-rpath \
