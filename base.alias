@@ -1,7 +1,6 @@
 # filesystem is first to ensure proper herarchy
 filesystem
 
-# LFS ports
 acl
 attr
 autoconf
@@ -59,7 +58,6 @@ openssl
 patch
 perl
 perl-xml-parser
-pkgconf
 procps-ng
 psmisc
 readline
@@ -73,8 +71,7 @@ util-linux
 vim
 xz
 zlib
-
-# non-LFS ports
+pkgconf
 openrc
 bfp
 busybox
