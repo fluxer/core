@@ -2,7 +2,7 @@
 
 # http://www.linuxfromscratch.org/lfs/view/development/chapter06/bash.html
 
-version=4.3.46
+version=4.3.48
 _version=4.3.30
 description="sh-compatible shell that incorporates useful features from the Korn shell (ksh) and C shell (csh)"
 depends=('glibc' 'ncurses' 'readline')
@@ -39,6 +39,10 @@ sources=("http://ftp.gnu.org/gnu/bash/bash-$_version.tar.gz"
         'http://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-045.sig'
         'http://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-046'
         'http://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-046.sig'
+        'http://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-047'
+        'http://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-047.sig'
+        'http://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-048'
+        'http://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-048.sig'
         'bashrc')
 pgpkeys=('BB5869F064EA74AB')
 backup=('etc/bashrc')
@@ -62,6 +66,8 @@ src_prepare() {
     patch -Np0 -i ../bash43-044
     patch -Np0 -i ../bash43-045
     patch -Np0 -i ../bash43-046
+    patch -Np0 -i ../bash43-047
+    patch -Np0 -i ../bash43-048
 }
 
 src_compile() {
