@@ -2,11 +2,11 @@ diff --git a/os-probes/mounted/common/90linux-distro b/os-probes/mounted/common/
 index 9544531..7476b5f 100755
 --- a/os-probes/mounted/common/90linux-distro
 +++ b/os-probes/mounted/common/90linux-distro
-@@ -128,6 +128,9 @@ if (ls "$dir"/lib*/ld*.so* || ls "$dir"/usr/lib*/ld*.so*) >/dev/null 2>/dev/null
- 	elif [ -e "$dir/etc/4MLinux-version" ]; then
- 		short="4MLinux"
- 		long="4MLinux $(head -1 "$dir/etc/4MLinux-version")"
-+	elif [ -e "$dir/etc/entropy-release" ];then
+@@ -137,6 +137,9 @@
+ 	elif [ -e "$dir/etc/devuan_version" ]; then
+ 		short="Devuan"
+ 		long="$(printf "Devuan GNU/Linux (%s)\n" "$(cat "$dir/etc/devuan_version")")"
++       elif [ -e "$dir/etc/entropy-release" ];then
 +		short="Entropy"
 +		long="$(printf "Entropy GNU/Linux (%s)\n" "$(cat "$dir/etc/entropy-release")")"
  	else
