@@ -2,13 +2,16 @@
 
 # http://www.linuxfromscratch.org/blfs/view/cvs/pst/xmlto.html
 
-version=0.0.26
+version=0.0.28
 description="Convert xml to many other formats"
 depends=('libxslt')
 makedepends=('docbook-xsl')
-sources=("https://fedorahosted.org/releases/x/m/xmlto/xmlto-$version.tar.bz2"
-        "https://fedorahosted.org/releases/x/m/xmlto/xmlto-$version.tar.bz2.sig")
-pgpkeys=('E069963EE13766FF')
+sources=("https://releases.pagure.org/xmlto/xmlto-$version.tar.bz2")
+
+src_prepare() {
+    cd "$SOURCE_DIR/xmlto-$version"
+    autoreconf -fi
+}
 
 src_compile() {
     cd "$SOURCE_DIR/xmlto-$version"
