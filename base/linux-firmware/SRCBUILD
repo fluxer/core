@@ -1,6 +1,6 @@
 # Maintainer: Ivailo Monev <xakepa10@gmail.com>
 
-version=20160628
+version=20161205
 description="Linux kernel firmware files"
 sources=("http://distfiles.gentoo.org/distfiles/linux-firmware-$version.tar.xz")
 options=('!binaries' '!shared' '!static')
