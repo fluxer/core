@@ -5,7 +5,7 @@
 version=24
 description="Linux kernel module handling"
 depends=('glibc' 'zlib' 'xz')
-# checkdepends=('linux-sources')
+# checkdepends=('linux-sources' 'libxslt')
 sources=("https://www.kernel.org/pub/linux/utils/kernel/kmod/kmod-$version.tar.xz"
         "https://www.kernel.org/pub/linux/utils/kernel/kmod/kmod-$version.tar.sign")
 pgpkeys=('EAB33C9690013C733916AC839BA2A5A630CBEA53')
@@ -18,7 +18,8 @@ src_compile() {
         --bindir=/bin \
         --with-rootlibdir=/lib \
         --with-xz \
-        --with-zlib
+        --with-zlib \
+        --disable-manpages
     make
 }
 
