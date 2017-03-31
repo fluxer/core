@@ -2,7 +2,7 @@
 
 # http://www.linuxfromscratch.org/lfs/view/development/chapter06/grep.html
 
-version=2.27
+version=2.28
 description='A string search utility'
 depends=('glibc')
 optdepends=('pcre')
@@ -24,7 +24,7 @@ src_compile() {
     ./configure --prefix=/usr \
         --bindir=/bin \
         $_options
-    make
+    make MAKEINFO=true
 }
 
 src_check() {
