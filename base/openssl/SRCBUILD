@@ -2,8 +2,7 @@
 
 # http://www.linuxfromscratch.org/blfs/view/svn/postlfs/openssl.html
 
-version=1.0.2h
-release=2
+version=1.0.2k
 description='Secure Sockets Layer and Transport Layer Security tools'
 makedepends=('zlib')
 sources=("http://www.openssl.org/source/openssl-$version.tar.gz"
