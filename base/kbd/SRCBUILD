@@ -5,8 +5,8 @@
 version=2.0.4
 description="Keytable files and keyboard utilities"
 makedepends=('check')
-sources=("ftp://ftp.kernel.org/pub/linux/utils/kbd/kbd-$version.tar.xz"
-        "ftp://ftp.kernel.org/pub/linux/utils/kbd/kbd-$version.tar.sign"
+sources=("https://www.kernel.org/pub/linux/utils/kbd/kbd-$version.tar.xz"
+        "https://www.kernel.org/pub/linux/utils/kbd/kbd-$version.tar.sign"
         'fix-euro2.patch')
 pgpkeys=('7F2A3D07298149A0793C9A4EA45ABA544CFFD434')
 
