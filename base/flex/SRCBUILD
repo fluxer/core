@@ -5,6 +5,7 @@
 version=2.6.3
 description="Fast lexical analyser generator"
 depends=('glibc')
+# makedepends=('texinfo')
 sources=("https://github.com/westes/flex/releases/download/v$version/flex-$version.tar.gz")
 
 src_compile() {
@@ -12,7 +13,7 @@ src_compile() {
 
     ./configure --prefix=/usr \
         --disable-static
-    make
+    make MAKEINFO=true
 }
 
 src_check() {
@@ -23,7 +24,7 @@ src_check() {
 src_install() {
     cd "$SOURCE_DIR/flex-$version"
     touch doc/flex.1
-    make DESTDIR="$INSTALL_DIR" install
+    make  MAKEINFO=true DESTDIR="$INSTALL_DIR" install
     ln -vs flex "$INSTALL_DIR/usr/bin/lex"
     rm -vf "$INSTALL_DIR/usr/share/man/man1/flex.1"
 }
