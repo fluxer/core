@@ -6,7 +6,7 @@ sources=("http://distfiles.gentoo.org/distfiles/linux-firmware-$version.tar.xz")
 options=('!binaries' '!shared' '!static')
 
 src_install() {
-    cd "$SOURCE_DIR/linux-firmware-dca"*
+    cd "$SOURCE_DIR/linux-firmware-91d"*
 
     install -vdm755 "$INSTALL_DIR/lib/firmware"
     cp -va * "$INSTALL_DIR/lib/firmware/"
