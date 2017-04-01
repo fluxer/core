@@ -2,7 +2,7 @@
 
 # http://www.linuxfromscratch.org/lfs/view/development/chapter06/glibc.html
 
-version=2.24
+version=2.25
 description="GNU C library"
 depends=('filesystem' 'linux-api-headers' 'tzdata')
 makedepends=('gawk')
@@ -26,6 +26,10 @@ src_compile() {
 
     # for various reasons - build with GCC
     export CC=gcc CXX=g++
+
+    # for x86_64, to avoid lib64
+    echo "rtlddir=/lib" >> configparms
+    echo "slibdir=/usr/lib" >> configparms
 
     mkdir -pv ../glibc-build && cd ../glibc-build
     "../glibc-$version/configure" \
