@@ -1,8 +1,9 @@
 # Maintainer: Ivailo Monev <xakepa10@gmail.com>
 
+# http://www.linuxfromscratch.org/lfs/view/development/chapter06/libcap.html
 # http://www.linuxfromscratch.org/blfs/view/svn/postlfs/libcap.html
 
-version=2.24
+version=2.25
 description="POSIX 1003.1e capabilities"
 depends=('glibc' 'attr')
 sources=("https://www.kernel.org/pub/linux/libs/security/linux-privs/libcap2/libcap-$version.tar.xz"
@@ -11,15 +12,14 @@ pgpkeys=('29EE848AE2CCF3F4')
 
 src_compile() {
     cd "$SOURCE_DIR/libcap-$version"
-    sed -i 's:LIBDIR:PAM_&:g' pam_cap/Makefile
+    sed -i '/install.*STALIBNAME/d' libcap/Makefile
     make
 }
 
 src_install() {
     cd "$SOURCE_DIR/libcap-$version"
     make prefix=/usr \
-        SBINDIR=/sbin \
-        PAM_LIBDIR=/lib \
+        lib=lib \
         DESTDIR="$INSTALL_DIR" \
         RAISE_SETFCAP=no install
 }
