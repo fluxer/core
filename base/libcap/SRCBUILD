@@ -8,7 +8,7 @@ description="POSIX 1003.1e capabilities"
 depends=('glibc' 'attr')
 sources=("https://www.kernel.org/pub/linux/libs/security/linux-privs/libcap2/libcap-$version.tar.xz"
         "https://www.kernel.org/pub/linux/libs/security/linux-privs/libcap2/libcap-$version.tar.sign")
-pgpkeys=('29EE848AE2CCF3F4')
+pgpkeys=('38A644698C69787344E954CE29EE848AE2CCF3F4')
 
 src_compile() {
     cd "$SOURCE_DIR/libcap-$version"
