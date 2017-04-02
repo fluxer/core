@@ -39,7 +39,6 @@ src_compile() {
     mkdir -pv "$SOURCE_DIR/gcc-build" && cd "$SOURCE_DIR/gcc-build"
     ../gcc-$version/configure \
         --prefix=/usr \
-        --host="$CHOST" \
         --enable-clocale=gnu \
         --enable-threads=posix \
         --enable-__cxa_atexit \
