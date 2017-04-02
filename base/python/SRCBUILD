@@ -1,21 +1,14 @@
 # Maintainer: Ivailo Monev <xakepa10@gmail.com>
 
-# http://www.linuxfromscratch.org/blfs/view/svn/general/python2.html
+# http://www.linuxfromscratch.org/blfs/view/svn/general/python3.html
 
-version=2.7.13
+version=3.4.6
 description="Interpreted, interactive, object-oriented programming language"
 depends=('bzip2' 'zlib' 'bash' 'gdbm' 'readline' 'openssl' 'glibc' 'expat')
 optdepends=('libffi' 'sqlite')
 sources=("http://www.python.org/ftp/python/$version/Python-$version.tar.xz"
         "http://www.python.org/ftp/python/$version/Python-$version.tar.xz.asc")
-pgpkeys=('04C367C218ADD4FF')
-
-src_prepare() {
-    cd "$SOURCE_DIR/Python-$version"
-
-    # https://bugs.gentoo.org/show_bug.cgi?id=346817
-    sed -i "/SQLITE_OMIT_LOAD_EXTENSION/d" setup.py
-}
+pgpkeys=('3A5CA953F73C700D')
 
 src_compile() {
     cd "$SOURCE_DIR/Python-$version"
@@ -41,9 +34,11 @@ src_install() {
     cd "$SOURCE_DIR/Python-$version"
 
     make DESTDIR="$INSTALL_DIR" install
-    chmod -v 755 "$INSTALL_DIR/usr/lib/libpython2.7.so.1.0"
 
-    # saves ~31MB
+    chmod -v 755 "$INSTALL_DIR/usr/lib/libpython3.4m.so"
+    chmod -v 755 "$INSTALL_DIR/usr/lib/libpython3.so"
+
+    # saves ~40MB
     find "$INSTALL_DIR" -name test -exec rm -vrf {} +
     find "$INSTALL_DIR" -name tests -exec rm -vrf {} +
 }
