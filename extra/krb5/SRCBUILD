@@ -3,7 +3,7 @@
 # TODO: OpenRC services
 # http://www.linuxfromscratch.org/blfs/view/svn/postlfs/mitkrb.html
 
-version=1.13.5
+version=1.13.7
 description="The Kerberos network authentication system"
 depends=('e2fsprogs' 'openldap' 'keyutils')
 makedepends=('perl')
