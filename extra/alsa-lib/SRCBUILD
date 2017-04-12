@@ -2,7 +2,7 @@
 
 # http://www.linuxfromscratch.org/blfs/view/svn/multimedia/alsa-lib.html
 
-version=1.0.29
+version=1.1.3
 description="Alternative implementation of Linux sound support"
 depends=('glibc' 'python')
 sources=("ftp://ftp.alsa-project.org/pub/lib/alsa-lib-$version.tar.bz2")

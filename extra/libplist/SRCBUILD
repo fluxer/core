@@ -1,6 +1,6 @@
 # Maintainer : Ivailo Monev <xakepa10@gmail.com"
 
-version=1.11
+version=1.12
 description="A library to handle Apple Property List format whereas its binary or XML"
 depends=('glib' 'libxml2')
 makedepends=('python')

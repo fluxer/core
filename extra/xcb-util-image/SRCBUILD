@@ -2,7 +2,7 @@
 
 # http://www.linuxfromscratch.org/blfs/view/svn/x/xcb-util-image.html
 
-version=0.3.9
+version=0.4.0
 description="Utility libraries for XC Binding - Port of Xlib XImage and XShmImage functions"
 depends=('xorg-libraries' 'xcb-util')
 makedepends=('xorg-makeutils')

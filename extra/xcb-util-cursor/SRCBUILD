@@ -1,4 +1,6 @@
-version=0.1.2
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+version=0.1.3
 description='XCB cursor library'
 depends=('xorg-libraries' 'xcb-util-renderutil' 'xcb-util-image')
 sources=("http://xcb.freedesktop.org/dist/xcb-util-cursor-$version.tar.bz2")

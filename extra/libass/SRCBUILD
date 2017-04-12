@@ -2,9 +2,9 @@
 
 # http://www.linuxfromscratch.org/blfs/view/svn/multimedia/libass.html
 
-version=0.12.3
+version=0.13.6
 description="Portable subtitle renderer for the ASS/SSA subtitle format"
-depends=('fontconfig' 'fribidi' 'harfbuzz') # TODO: 'enca'
+depends=('fontconfig' 'fribidi' 'harfbuzz')
 sources=("https://github.com/libass/libass/releases/download/$version/libass-$version.tar.xz")
 
 src_compile() {
