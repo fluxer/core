@@ -2,7 +2,7 @@
 
 # http://www.linuxfromscratch.org/blfs/view/svn/general/unixodbc.html
 
-version=2.3.2
+version=2.3.4
 description="ODBC is an open specification for providing application developers with a predictable API with which to access Data Sources"
 depends=('readline' 'libtool')
 sources=("http://www.unixodbc.org/unixODBC-$version.tar.gz")
