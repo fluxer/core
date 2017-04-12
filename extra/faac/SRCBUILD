@@ -8,12 +8,19 @@ depends=('glibc')
 sources=("http://downloads.sourceforge.net/faac/faac-$version.tar.gz"
         'faac-1.28-glibc_fixes-1.patch' 'format-security.patch')
 
-src_compile() {
-    cd "$SOURCE_DIR"/faac-$version
+src_prepare() {
+    cd "$SOURCE_DIR/faac-$version"
 
     patch -Np1 -i "$SOURCE_DIR/faac-1.28-glibc_fixes-1.patch"
     patch -Np1 -i "$SOURCE_DIR/format-security.patch"
     sed -i -e '/obj-type/d' -e '/Long Term/d' frontend/main.c
+}
+
+src_compile() {
+    cd "$SOURCE_DIR/faac-$version"
+
+    # workaround a problem when compiling under GCC-6.x
+    CFLAGS+=" -std=c99" CXXFLAGS+=" -std=c++98"
 
     ./configure --prefix=/usr \
         --disable-static
@@ -21,6 +28,6 @@ src_compile() {
 }
 
 src_install() {
-    cd "$SOURCE_DIR"/faac-$version
+    cd "$SOURCE_DIR/faac-$version"
     make DESTDIR="$INSTALL_DIR" install
 }
