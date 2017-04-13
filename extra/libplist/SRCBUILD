@@ -3,7 +3,6 @@
 version=1.12
 description="A library to handle Apple Property List format whereas its binary or XML"
 depends=('glib' 'libxml2')
-makedepends=('python')
 sources=("http://www.libimobiledevice.org/downloads/libplist-$version.tar.bz2")
 
 src_compile() {
