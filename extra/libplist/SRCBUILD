@@ -8,8 +8,10 @@ sources=("http://www.libimobiledevice.org/downloads/libplist-$version.tar.bz2")
 
 src_compile() {
     cd "$SOURCE_DIR/libplist-$version"
+
     ./configure --prefix=/usr \
-        --disable-static
+        --disable-static \
+        --without-cython
     make -j1
 }
 
