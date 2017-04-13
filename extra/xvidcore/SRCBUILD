@@ -18,10 +18,4 @@ src_compile() {
 src_install() {
     cd "$SOURCE_DIR/xvidcore/build/generic"
     make DESTDIR="$INSTALL_DIR" install
-
-    #Fix dynamic libraries
-    cd "$INSTALL_DIR/usr/lib"
-    _mylib=$(basename libxvidcore.so.*)
-    ln -vsf "${_mylib}" libxvidcore.so.4
-    ln -vsf "${_mylib}" libxvidcore.so
 }
