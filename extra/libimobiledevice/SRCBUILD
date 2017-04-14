@@ -1,6 +1,7 @@
 # Maintainer: Ivailo Monev <xakepa10@gmail.com>
 
 version=1.1.7
+release=2
 description="Is a software library that talks the protocols to support iPhone and iPod Touch devices on Linux"
 depends=('libusbmuxd' 'gnutls' 'libgcrypt')
 sources=("http://libimobiledevice.org/downloads/libimobiledevice-$version.tar.bz2")
@@ -9,7 +10,8 @@ src_compile() {
     cd "$SOURCE_DIR/libimobiledevice-$version"
 
     ./configure --prefix=/usr \
-        --disable-static
+        --disable-static \
+        --without-cython
     make
 }
 
