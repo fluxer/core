@@ -6,7 +6,7 @@
 # http://www.linuxfromscratch.org/blfs/view/svn/postlfs/profile.html
 # http://www.linuxfromscratch.org/blfs/view/svn/postlfs/users.html
 
-version=20151228
+version=20170416
 description="Flesystem layout and base configuration files"
 sources=('passwd' 'group' 'resolv.conf' 'hosts' 'profile' 'inputrc' 'fstab'
         'usb.conf' 'os-release' 'networks'  'shells' 'securetty' 'sysctl.conf'
@@ -78,7 +78,7 @@ src_install() {
     install -vm644 "$SOURCE_DIR/os-release" etc/os-release
     install -vm644 "$SOURCE_DIR/networks" etc/networks
     install -vm644 "$SOURCE_DIR/shells" etc/shells
-    install -vm644 "$SOURCE_DIR/shells" etc/securetty
+    install -vm644 "$SOURCE_DIR/securetty" etc/securetty
     install -vm644 "$SOURCE_DIR/sysctl.conf" etc/sysctl.conf
     dircolors -p > etc/dircolors
     install -vDm644 "$SOURCE_DIR/"*.sh etc/profile.d/
