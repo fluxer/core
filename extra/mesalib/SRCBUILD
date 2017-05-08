@@ -2,33 +2,28 @@
 
 # http://www.linuxfromscratch.org/blfs/view/svn/x/mesa.html
 
-version=12.0.4
+version=13.0.6
 description="OpenGL compatible 3D graphics library"
 makedepends=('xorg-libraries' 'xorg-makeutils' 'xorg-protocol-headers'
         'libdrm' 'python' 'expat' 'libxml2' 'elfutils' 'openssl')
 sources=("https://mesa.freedesktop.org/archive/$version/mesa-$version.tar.xz"
         "https://mesa.freedesktop.org/archive/$version/mesa-$version.tar.xz.sig")
 pgpkeys=('8703B6700E7EE06D7A39B8D6EDAE37B02CEB490D')
-optdepends=('llvm')
 
 src_prepare() {
     cd "$SOURCE_DIR/mesa-$version"
-    sed '/PTHREADSTUBS/d' -i configure.ac
+    sed "/pthread_stubs_possible=/s/yes/no/" -i configure.ac
 }
 
 src_compile() {
     cd "$SOURCE_DIR/mesa-$version"
 
-    _platforms="drm,x11"
-    _options=""
-    _drivers="nouveau,r600,svga,swrast"
-    if [ "$OPTIONAL_LLVM" = "yes" ];then
-         _options+=" --enable-gallium-llvm --enable-llvm-shared-libs"
-         _drivers+=",r300,radeonsi"
-    fi
+    _drivers="i915,r600,nouveau,svga,swrast"
 
     ./autogen.sh --prefix=/usr \
         --sysconfdir=/etc \
+        --with-sha1=libcrypto \
+        --with-gallium-drivers="$_drivers" \
         --enable-texture-float \
         --enable-osmesa \
         --enable-glx \
@@ -36,15 +31,13 @@ src_compile() {
         --enable-dri \
         --enable-gles1 \
         --enable-gles2 \
-        --with-egl-platforms="$_platforms" \
-        --enable-egl \
-        --enable-gbm \
-        --with-gallium-drivers="$_drivers" \
-        --with-sha1=libcrypto \
         --disable-xa \
+        --disable-egl \
+        --disable-gbm \
+        --disable-gallium-llvm \
         --disable-vdpau \
         --disable-nine \
-        $_options
+        --disable-valgrind
     make
 }
 
