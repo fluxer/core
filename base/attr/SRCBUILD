@@ -11,7 +11,7 @@ sources=("http://download.savannah.gnu.org/releases/attr/attr-$version.src.tar.g
 pgpkeys=('154343260542DF34')
 
 src_prepare() {
-    cd "$SOURCE_DIR/acl-$version"
+    cd "$SOURCE_DIR/attr-$version"
 
     patch -Np1 -i "$SOURCE_DIR/attr-cdefs.patch"
 }
