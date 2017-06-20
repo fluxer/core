@@ -7,7 +7,7 @@ description='Common CA certificates'
 depends=('bash' 'openssl' 'busybox')
 backup=('etc/ca-certificates.conf')
 makedepends=('python')
-sources=("http://ftp.debian.org/debian/pool/main/c/ca-certificates/ca-certificates_$version+nmu.tar.xz")
+sources=("http://ftp.debian.org/debian/pool/main/c/ca-certificates/ca-certificates_$version+nmu1.tar.xz")
 
 src_compile() {
     cd "$SOURCE_DIR/ca-certificates-$version"
