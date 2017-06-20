@@ -7,15 +7,15 @@ description='Common CA certificates'
 depends=('bash' 'openssl' 'busybox')
 backup=('etc/ca-certificates.conf')
 makedepends=('python')
-sources=("http://ftp.debian.org/debian/pool/main/c/ca-certificates/ca-certificates_$version.tar.xz")
+sources=("http://ftp.debian.org/debian/pool/main/c/ca-certificates/ca-certificates_$version+nmu.tar.xz")
 
 src_compile() {
-    cd "$SOURCE_DIR/ca-certificates"
+    cd "$SOURCE_DIR/ca-certificates-$version"
     make CERTSDIR=/usr/share/ca-certificates
 }
 
 src_install() {
-    cd "$SOURCE_DIR/ca-certificates"
+    cd "$SOURCE_DIR/ca-certificates-$version"
 
     install -vdm755 "$INSTALL_DIR/"{etc/ca-certificates/update.d,/usr/{sbin,share/ca-certificates},etc/ssl/certs}
     make CERTSDIR=/usr/share/ca-certificates DESTDIR="$INSTALL_DIR" install
