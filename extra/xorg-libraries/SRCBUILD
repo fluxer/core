@@ -6,8 +6,7 @@ version=1.18.4
 release=5
 description="X.Org routines libraries"
 depends=('glibc' 'eudev' 'fontconfig' 'freetype2' 'zlib')
-makedepends=('xorg-makeutils' 'xorg-protocol-headers' 'xorg-makeutils'
-        'fontconfig' 'freetype2' 'gettext')
+makedepends=('xorg-makeutils' 'xorg-protocol-headers' 'gettext')
 sources=("http://xorg.freedesktop.org/releases/individual/lib/libXau-1.0.8.tar.bz2"
         "http://xorg.freedesktop.org/releases/individual/xcb/libxcb-1.12.tar.bz2"
         "http://xorg.freedesktop.org/releases/individual/lib/xtrans-1.3.5.tar.bz2"

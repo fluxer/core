@@ -16,8 +16,8 @@ sources=("http://xorg.freedesktop.org/releases/individual/driver/xf86-video-ati-
         "http://xorg.freedesktop.org/releases/individual/driver/xf86-video-vesa-2.3.4.tar.bz2.sig"
         "http://xorg.freedesktop.org/releases/individual/driver/xf86-video-vmware-13.2.1.tar.bz2"
         "http://xorg.freedesktop.org/releases/individual/driver/xf86-video-vmware-13.2.1.tar.bz2.sig"
-        "http://xorg.freedesktop.org/releases/individual/driver/xf86-input-evdev-2.10.4.tar.gz"
-        "http://xorg.freedesktop.org/releases/individual/driver/xf86-input-evdev-2.10.4.tar.gz"
+        "http://xorg.freedesktop.org/releases/individual/driver/xf86-input-evdev-2.10.5.tar.gz"
+        "http://xorg.freedesktop.org/releases/individual/driver/xf86-input-evdev-2.10.5.tar.gz.sig"
         "http://xorg.freedesktop.org/releases/individual/driver/xf86-input-libinput-0.22.0.tar.bz2"
         "http://xorg.freedesktop.org/releases/individual/driver/xf86-input-libinput-0.22.0.tar.bz2.sig"
         'intel-fixes.patch')
