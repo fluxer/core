@@ -2,15 +2,14 @@
 
 # http://www.linuxfromscratch.org/lfs/view/development/chapter06/grub.html
 
-version=2.02~beta3
-release=2
+version=2.02
 description="Multiboot boot loader"
 depends=('glibc' 'busybox' 'xz' 'os-prober')
 makedepends=('bison' 'flex')
 optdepends=('fuse')
 checkdepends=('qemu')
-sources=("http://alpha.gnu.org/gnu/grub/grub-$version.tar.xz"
-        "http://alpha.gnu.org/gnu/grub/grub-$version.tar.xz.sig"
+sources=("http://ftp.gnu.org/gnu/grub/grub-$version.tar.xz"
+        "http://ftp.gnu.org/gnu/grub/grub-$version.tar.xz.sig"
         'grub-add-GRUB_COLOR_variables.patch'
         'grub.default')
 pgpkeys=('35A93B74E82E4209')

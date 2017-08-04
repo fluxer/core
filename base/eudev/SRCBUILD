@@ -1,6 +1,6 @@
 # Maintainer: Ivailo Monev <xakepa10@gmail.com>
 
-version=3.2.1
+version=3.2.2
 description="Userspace dev tools (udev) forked by Gentoo"
 backup=('etc/udev/udev.conf')
 depends=('bash' 'kmod' 'util-linux')

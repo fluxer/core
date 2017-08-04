@@ -2,7 +2,7 @@
 
 # http://www.linuxfromscratch.org/blfs/view/svn/basicnet/dhcpcd.html
 
-version=6.10.3
+version=6.11.5
 description="RFC2131 compliant DHCP client daemon"
 depends=('glibc' 'busybox')
 backup=('etc/dhcpcd.conf')
@@ -30,4 +30,4 @@ src_install() {
 
     echo noipv4ll >> "$INSTALL_DIR/etc/dhcpcd.conf"
     install -vDm744 "$SOURCE_DIR/dhcpcd.init" "$INSTALL_DIR/etc/init.d/dhcpcd"
-} 
+}

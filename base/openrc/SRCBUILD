@@ -1,6 +1,6 @@
 # Maintainer:  Ivailo Monev <xakepa10@gmail.com>
 
-version=0.21.7
+version=0.24.2
 description='Dependency based init system that works with sysvinit.'
 depends=('sysvinit' 'busybox')
 optdepends=('net-tools')
@@ -21,10 +21,13 @@ backup=(etc/inittab
         etc/conf.d/network
         etc/conf.d/staticroute
         etc/conf.d/tmpfiles
-        etc/conf.d/urandom)
-sources=("http://dev.gentoo.org/~williamh/dist/openrc-$version.tar.bz2"
+        etc/conf.d/urandom
+        etc/conf.d/tmpfiles)
+sources=("https://github.com/OpenRC/openrc/archive/$version.tar.gz"
+        'https://github.com/OpenRC/opentmpfiles/archive/0.1.3.tar.gz'
         'einfo-color.patch'
         'inittab')
+options=('!mirror')
 
 _makeargs=(BRANDING='Entropy GNU/Linux')
 # _makeargs+=(MKPAM=pam)
@@ -54,5 +57,27 @@ src_install() {
 
     make DESTDIR="$INSTALL_DIR" "${_makeargs[@]}" install
 
+    cd "$SOURCE_DIR/opentmpfiles-0.1.3"
+    make DESTDIR="$INSTALL_DIR" install
+
+    install -vDm744 openrc/opentmpfiles-dev.confd \
+        "$INSTALL_DIR/etc/conf.d/opentmpfiles-dev"
+    install -vDm744 openrc/opentmpfiles-setup.confd \
+        "$INSTALL_DIR/etc/conf.d/opentmpfiles-setup"
+
+    install -vDm744 openrc/opentmpfiles-dev.initd \
+        "$INSTALL_DIR/etc/init.d/opentmpfiles-dev"
+    install -vDm744 openrc/opentmpfiles-setup.initd \
+        "$INSTALL_DIR/etc/init.d/opentmpfiles-setup"
+
     install -vm644 "$SOURCE_DIR/inittab" "$INSTALL_DIR/etc/inittab"
-} 
+}
+
+post_install() {
+    rc-update add opentmpfiles-dev sysinit
+    rc-update add opentmpfiles-setup boot
+}
+
+post_upgrade() {
+    post_install
+}

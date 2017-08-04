@@ -6,17 +6,14 @@
 # http://git.busybox.net/busybox/plain/miscutils/fbsplash.c
 # http://git.busybox.net/busybox/plain/miscutils/fbsplash.cfg
 
-version=1.25.1
+version=1.26.2
 description="Utilities for rescue and embedded systems"
 makedepends=('glibc' 'make' 'gcc' 'ncurses')
-# http://www.busybox.net/downloads/snapshots/busybox-snapshot.tar.bz2
 sources=("http://www.busybox.net/downloads/busybox-$version.tar.bz2"
-        'config' 'mdev.conf' 'syslog.conf' 'sysklogd.init' 'sysklogd.conf'
-        "https://busybox.net/downloads/fixes-$version/busybox-$version-setfiles.patch")
+        'config' 'mdev.conf' 'syslog.conf' 'sysklogd.init' 'sysklogd.conf')
 
 src_prepare() {
     cd "$SOURCE_DIR/busybox-$version"
-    patch -Np1 -i "$SOURCE_DIR/busybox-$version-setfiles.patch"
 }
 
 src_compile() {

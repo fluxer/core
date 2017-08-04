@@ -2,8 +2,7 @@
 
 # http://www.linuxfromscratch.org/lfs/view/development/chapter06/glibc.html
 
-version=2.25
-release=2
+version=2.26
 description="GNU C library"
 depends=('filesystem' 'linux-api-headers' 'tzdata')
 makedepends=('gawk')
@@ -15,7 +14,6 @@ sources=("http://ftp.gnu.org/gnu/glibc/glibc-$version.tar.xz"
         'locale-gen'
         'nscd.init')
 pgpkeys=('BC7C7372637EC10C57D7AA6579C43DFBF1CF2187')
-options=('debug')
 backup=('etc/ld.so.conf'
         'etc/nsswitch.conf'
         'etc/locale.conf'
