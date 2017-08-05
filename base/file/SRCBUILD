@@ -2,7 +2,7 @@
 
 # http://www.linuxfromscratch.org/lfs/view/development/chapter06/file.html
 
-version=5.29
+version=5.31
 description="File type identification utility"
 depends=('zlib' 'glibc')
 sources=("ftp://ftp.astron.com/pub/file/file-$version.tar.gz")

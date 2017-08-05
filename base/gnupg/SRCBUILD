@@ -2,7 +2,7 @@
 
 # http://www.linuxfromscratch.org/blfs/view/svn/postlfs/gnupg.html
 
-version=1.4.21
+version=1.4.22
 description='Complete and free implementation of the OpenPGP standard'
 depends=('zlib' 'bzip2' 'curl' 'readline')
 # makedepends=('openldap' 'libusbx')
