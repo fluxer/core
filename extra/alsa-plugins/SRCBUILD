@@ -3,7 +3,7 @@
 # TODO: optdepends - jack
 # http://www.linuxfromscratch.org/blfs/view/svn/multimedia/alsa-plugins.html
 
-version=1.1.1
+version=1.1.4
 description="Extra ALSA plugins"
 depends=('alsa-lib' 'ffmpeg')
 optdepends=('speex' 'pulseaudio')
