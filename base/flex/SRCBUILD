@@ -2,7 +2,7 @@
 
 # http://www.linuxfromscratch.org/lfs/view/development/chapter06/flex.html
 
-version=2.6.3
+version=2.6.4
 description="Fast lexical analyser generator"
 depends=('glibc')
 # makedepends=('texinfo')
