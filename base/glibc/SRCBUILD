@@ -3,6 +3,7 @@
 # http://www.linuxfromscratch.org/lfs/view/development/chapter06/glibc.html
 
 version=2.26
+release=2
 description="GNU C library"
 depends=('filesystem' 'linux-api-headers' 'tzdata')
 makedepends=('gawk')
@@ -11,14 +12,11 @@ sources=("http://ftp.gnu.org/gnu/glibc/glibc-$version.tar.xz"
         'ld.so.conf'
         'nsswitch.conf'
         'locale.conf'
-        'locale-gen'
-        'nscd.init')
+        'locale-gen')
 pgpkeys=('BC7C7372637EC10C57D7AA6579C43DFBF1CF2187')
 backup=('etc/ld.so.conf'
         'etc/nsswitch.conf'
-        'etc/locale.conf'
-        'etc/nscd.conf'
-        'etc/tmpfiles.d/nscd.conf')
+        'etc/locale.conf')
 
 src_compile() {
     cd "$SOURCE_DIR/glibc-$version"
@@ -27,8 +25,10 @@ src_compile() {
     export CC=gcc CXX=g++
 
     # for x86_64, to avoid lib64
-    echo "rtlddir=/lib" >> configparms
-    echo "slibdir=/usr/lib" >> configparms
+    if [ "$(uname -m)" = "x86_64" ];then
+        echo "rtlddir=/lib" >> configparms
+        echo "slibdir=/usr/lib" >> configparms
+    fi
 
     mkdir -pv ../glibc-build && cd ../glibc-build
     "../glibc-$version/configure" \
@@ -39,6 +39,8 @@ src_compile() {
         --enable-stackguard-randomization \
         --enable-obsolete-rpc \
         --disable-timezone-tools \
+        --disable-build-nscd \
+        --disable-nscd \
         --disable-multi-arch \
         --disable-profile \
         --disable-selinux \
@@ -55,16 +57,12 @@ src_check() {
 src_install(){
     cd "$SOURCE_DIR/glibc-build"
 
-    make install_root="$INSTALL_DIR" install 
-    mkdir -pv "$INSTALL_DIR/var/cache/nscd"
+    make install_root="$INSTALL_DIR" install
 
     # install configuration files
     install -vdm755 "$INSTALL_DIR/etc/tmpfiles.d/"
     install -vm644 "$SOURCE_DIR/ld.so.conf" "$INSTALL_DIR/etc/"
     install -vm644 "$SOURCE_DIR/nsswitch.conf" "$INSTALL_DIR/etc/"
-    install -vm644 "$SOURCE_DIR/glibc-$version/nscd/nscd.conf" "$INSTALL_DIR/etc/"
-    install -vm644 "$SOURCE_DIR/glibc-$version/nscd/nscd.tmpfiles" \
-        "$INSTALL_DIR/etc/tmpfiles.d/nscd.conf"
 
     # install locale generator
     install -vdm755 "$INSTALL_DIR/"{sbin,lib/locale}
@@ -77,26 +75,13 @@ src_install(){
     for string in 'en_US ISO-8859-1' 'en_US.UTF-8 UTF-8';do
         sed -e "s|^#$string|$string|" -i "$INSTALL_DIR/etc/locale.conf"
     done
-
-    # install init script
-    install -vDm744 "$SOURCE_DIR/nscd.init" "$INSTALL_DIR/etc/init.d/nscd"
-}
-
-post_install() {
-    rc-update add nscd default
 }
 
 post_upgrade() {
-    post_install
-
     echo
     echo " >> If what you just installed is a new major version"
     echo " >> then you should rebuild your toolchain:"
     echo
     echo " # spm source -aD toolchain"
     echo
-}
-
-post_remove() {
-    rc-update del nscd default
 }
