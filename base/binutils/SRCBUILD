@@ -2,14 +2,13 @@
 
 # http://www.linuxfromscratch.org/lfs/view/development/chapter06/binutils.html
 
-version=2.26.1
-release=3
+version=2.28.1
 description="Collection of binary tools"
 depends=('zlib' 'glibc')
 sources=("http://ftp.gnu.org/gnu/binutils/binutils-$version.tar.bz2"
         "http://ftp.gnu.org/gnu/binutils/binutils-$version.tar.bz2.sig"
         '91_all_libiberty-pic.patch')
-pgpkeys=('C3126D3B4AE55E93')
+pgpkeys=('EAF1C276A747E9ED86210CBAC3126D3B4AE55E93')
 
 src_prepare() {
     cd "$SOURCE_DIR/binutils-$version"
