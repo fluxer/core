@@ -8,8 +8,8 @@ version=6.4.0
 description="GNU compiler collection, includes the C and C++ frontends"
 depends=('glibc' 'zlib' 'mpc' 'mpfr')
 checkdepends=('dejagnu')
-sources=("http://ftp.gnu.org/gnu/gcc/gcc-$version/gcc-$version.tar.bz2"
-        "http://ftp.gnu.org/gnu/gcc/gcc-$version/gcc-$version.tar.bz2.sig")
+sources=("http://ftp.gnu.org/gnu/gcc/gcc-$version/gcc-$version.tar.xz"
+        "http://ftp.gnu.org/gnu/gcc/gcc-$version/gcc-$version.tar.xz.sig")
 pgpkeys=('33C235A34C46AA3FFB293709A328C3A2C3C45C06')
 
 src_prepare() {
