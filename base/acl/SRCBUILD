@@ -2,11 +2,11 @@
 
 # http://www.linuxfromscratch.org/lfs/view/development/chapter06/acl.html
 
-version=2.2.52
+version=2.2.53
 description="Access control list utilities, libraries and headers"
 depends=('attr')
-sources=("http://download.savannah.gnu.org/releases/acl/acl-$version.src.tar.gz"
-        "http://download.savannah.gnu.org/releases/acl/acl-$version.src.tar.gz.sig")
+sources=("http://download.savannah.gnu.org/releases/acl/acl-$version.tar.gz"
+        "http://download.savannah.gnu.org/releases/acl/acl-$version.tar.gz.sig")
 pgpkeys=('154343260542DF34')
 
 src_compile() {
@@ -26,5 +26,5 @@ src_check() {
 
 src_install() {
     cd "$SOURCE_DIR/acl-$version"
-    make DIST_ROOT="$INSTALL_DIR" install install-lib install-dev
+    make DESTDIR="$INSTALL_DIR" install
 }

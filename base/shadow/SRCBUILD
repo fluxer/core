@@ -2,27 +2,20 @@
 
 # http://www.linuxfromscratch.org/lfs/view/development/chapter06/shadow.html
 
-version=4.2.1
-release=2
+version=4.6
 description="Password and account management tool suite with support for shadow files and PAM"
 depends=('bash' 'acl')
-sources=("http://pkg-shadow.alioth.debian.org/releases/shadow-$version.tar.xz"
-        "http://pkg-shadow.alioth.debian.org/releases/shadow-$version.tar.xz.sig"
+sources=("https://github.com/shadow-maint/shadow/releases/download/$version/shadow-$version.tar.xz"
+        "https://github.com/shadow-maint/shadow/releases/download/$version/shadow-$version.tar.xz.asc"
         login.defs
         useradd.defaults
-        xstrdup.patch
-        shadow-strncpy-usage.patch
         lastlog.tmpfiles)
 pgpkeys=('872F702C4D6E25A8')
 backup=('etc/login.defs'
         'etc/default/useradd')
 
 src_compile() {
-    cd "shadow-$version"
-
-    # need to offer these upstream
-    patch -Np1 -i "$SOURCE_DIR/xstrdup.patch"
-    patch -Np1 -i "$SOURCE_DIR/shadow-strncpy-usage.patch"
+    cd "$SOURCE_DIR/shadow-$version"
 
     sed -i 's/groups$(EXEEXT) //' src/Makefile.in
     find man -name Makefile.in -exec sed -i 's/groups\.1 / /' {} \;
@@ -39,7 +32,7 @@ src_compile() {
 }
 
 src_install() {
-    cd "shadow-$version"
+    cd "$SOURCE_DIR/shadow-$version"
 
     make DESTDIR="$INSTALL_DIR" install
 

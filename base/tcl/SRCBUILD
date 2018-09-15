@@ -2,7 +2,7 @@
 
 # http://www.linuxfromscratch.org/blfs/view/svn/general/tcl.html
 
-version=8.6.6
+version=8.6.8
 description="The Tcl scripting language"
 depends=('zlib')
 sources=("http://downloads.sf.net/tcl/tcl$version-src.tar.gz")
@@ -35,14 +35,14 @@ src_install() {
         -e "s#$SOURCE_DIR/tcl$version#/usr/include#" \
         -i "$INSTALL_DIR/usr/lib/tclConfig.sh"
 
-    _tdbcver="1.0.4"
+    _tdbcver="1.0.6"
     sed -e "s#$SOURCE_DIR/tcl$version/unix/pkgs/tdbc${_tdbcver}#/usr/lib/tdbc${_tdbcver}#" \
         -e "s#$SOURCE_DIR/tcl$version/pkgs/tdbc${_tdbcver}/generic#/usr/include#" \
         -e "s#$SOURCE_DIR/tcl$version/pkgs/tdbc${_tdbcver}/library#/usr/lib/tcl${version%.*}#" \
         -e "s#$SOURCE_DIR/tcl$version/pkgs/tdbc${_tdbcver}#/usr/include#" \
         -i "$INSTALL_DIR/usr/lib/tdbc${_tdbcver}/tdbcConfig.sh"
 
-    _itclver="4.0.5"
+    _itclver="4.1.1"
     sed -e "s#$SOURCE_DIR/tcl$version/unix/pkgs/itcl${_itclver}#/usr/lib/itcl${_itclver}#" \
         -e "s#$SOURCE_DIR/tcl$version/pkgs/itcl${_itclver}/generic#/usr/include#" \
         -e "s#$SOURCE_DIR/tcl$version/pkgs/itcl${_itclver}#/usr/include#" \

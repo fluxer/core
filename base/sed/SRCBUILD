@@ -2,12 +2,12 @@
 
 # http://www.linuxfromscratch.org/lfs/view/development/chapter06/sed.html
 
-version=4.2.2
+version=4.5
 description='GNU stream editor'
 depends=('glibc' 'acl' 'attr')
 makedepends=('gettext')
-sources=("ftp://ftp.gnu.org/pub/gnu/sed/sed-$version.tar.gz"
-        "ftp://ftp.gnu.org/pub/gnu/sed/sed-4.2.2.tar.gz.sig")
+sources=("https://ftp.gnu.org/pub/gnu/sed/sed-$version.tar.xz"
+        "https://ftp.gnu.org/pub/gnu/sed/sed-$version.tar.xz.sig")
 pgpkeys=('2684F9ACA750566F')
 
 src_compile() {

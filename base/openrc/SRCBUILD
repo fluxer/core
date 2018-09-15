@@ -1,6 +1,6 @@
 # Maintainer:  Ivailo Monev <xakepa10@gmail.com>
 
-version=0.24.2
+version=0.35.5
 description='Dependency based init system that works with sysvinit.'
 depends=('sysvinit' 'busybox')
 optdepends=('net-tools')

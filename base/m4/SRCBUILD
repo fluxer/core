@@ -2,18 +2,12 @@
 
 # http://www.linuxfromscratch.org/lfs/view/development/chapter06/m4.html
 
-version=1.4.17
+version=1.4.18
 description="Implementation of the traditional Unix macro processor"
 depends=('glibc')
 sources=("http://ftp.gnu.org/gnu/m4/m4-$version.tar.xz"
-        "http://ftp.gnu.org/gnu/m4/m4-$version.tar.xz.sig"
-        'm4-1.4.17-posix_spawn.patch')
+        "http://ftp.gnu.org/gnu/m4/m4-$version.tar.xz.sig")
 pgpkeys=('151308092983D606')
-
-src_prepare() {
-    cd "$SOURCE_DIR/m4-$version"
-    patch -Np1 -i "$SOURCE_DIR/m4-1.4.17-posix_spawn.patch"
-}
 
 src_compile() {
     cd "$SOURCE_DIR/m4-$version"

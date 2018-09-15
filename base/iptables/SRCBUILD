@@ -2,7 +2,7 @@
 
 # http://www.linuxfromscratch.org/blfs/view/svn/postlfs/iptables.html
 
-version=1.6.1
+version=1.6.2
 description='Linux kernel packet control tool'
 depends=('glibc' 'bash')
 makedepends=('linux-api-headers')

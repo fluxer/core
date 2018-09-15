@@ -6,16 +6,19 @@ depends=('ncurses')
 sources=("http://downloads.sf.net/psmisc/psmisc-$version.tar.gz"
         'psmisc-fuser.patch')
 
-src_compile() {
-    cd psmisc-$version
+src_prepare() {
+    cd "$SOURCE_DIR/psmisc-$version"
+    patch -p1 -i "$SOURCE_DIR/psmisc-fuser.patch"
+}
 
-    patch -p1 -i ../psmisc-fuser.patch
+src_compile() {
+    cd "$SOURCE_DIR/psmisc-$version"
 
     ./configure --prefix=/usr
     make
 }
 
 src_install() {
-    cd psmisc-$version
+    cd "$SOURCE_DIR/psmisc-$version"
     make DESTDIR="$INSTALL_DIR" install
 }

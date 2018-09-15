@@ -1,6 +1,6 @@
 # Maintainer: Ivailo Monev <xakepa10@gmail.com>
 
-version=1.8
+version=1.9
 description='GNU compression utility'
 depends=('glibc' 'bash' 'less')
 sources=("ftp://ftp.gnu.org/pub/gnu/gzip/gzip-$version.tar.xz"
@@ -8,18 +8,19 @@ sources=("ftp://ftp.gnu.org/pub/gnu/gzip/gzip-$version.tar.xz"
 pgpkeys=('7FD9FCCB000BEEEE')
 
 src_compile() {
-    cd gzip-$version
+    cd "$SOURCE_DIR/gzip-$version"
+
     ./configure --prefix=/usr
     make
 }
 
 src_check() {
-    cd gzip-$version
+    cd "$SOURCE_DIR/gzip-$version"
     make check
 }
 
 src_install() {
-    cd gzip-$version
+    cd "$SOURCE_DIR/gzip-$version"
     make prefix="$INSTALL_DIR/usr" install
 }
 

@@ -2,12 +2,12 @@
 
 # http://www.linuxfromscratch.org/lfs/view/development/chapter06/less.html
 
-version=487
+version=530
 description='A terminal based program for viewing text files'
 depends=('glibc' 'ncurses')
 optdepends=('pcre')
 sources=("http://www.greenwoodsoftware.com/less/less-$version.tar.gz"
-        "http://www.greenwoodsoftware.com/less/less-$version.tar.gz.sig")
+        "http://www.greenwoodsoftware.com/less/less-$version.sig")
 pgpkeys=('F153A7C833235259')
 
 src_compile() {

@@ -2,14 +2,21 @@
 
 # http://www.linuxfromscratch.org/lfs/view/development/chapter06/procps-ng.html
 
-version=3.3.12
+version=3.3.15
 description='Utilities for monitoring your system and its processes'
 depends=('ncurses' 'eudev')
-sources=("http://downloads.sf.net/procps-ng/Production/procps-ng-$version.tar.xz")
+sources=("http://downloads.sf.net/procps-ng/Production/procps-ng-$version.tar.xz"
+        "http://downloads.sf.net/procps-ng/Production/procps-ng-$version.tar.xz.asc")
+
+src_prepare() {
+    cd "$SOURCE_DIR/procps-ng-$version"
+
+    sed 's:<ncursesw/:<:g' -i watch.c
+}
 
 src_compile() {
     cd "$SOURCE_DIR/procps-ng-$version"
-    sed 's:<ncursesw/:<:g' -i watch.c
+
     ./configure --prefix=/usr \
         --exec-prefix=/ \
         --sysconfdir=/etc \

@@ -2,47 +2,21 @@
 
 # http://www.linuxfromscratch.org/lfs/view/development/chapter06/bash.html
 
-version=4.3.48
-_version=4.3.30
+version=4.4.23
+_version=4.4.18
 description="sh-compatible shell that incorporates useful features from the Korn shell (ksh) and C shell (csh)"
 depends=('glibc' 'ncurses' 'readline')
 sources=("http://ftp.gnu.org/gnu/bash/bash-$_version.tar.gz"
-        'http://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-031'
-        'http://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-031.sig'
-        'http://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-032'
-        'http://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-032.sig'
-        'http://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-033'
-        'http://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-033.sig'
-        'http://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-034'
-        'http://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-034.sig'
-        'http://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-035'
-        'http://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-035.sig'
-        'http://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-036'
-        'http://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-036.sig'
-        'http://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-037'
-        'http://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-037.sig'
-        'http://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-038'
-        'http://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-038.sig'
-        'http://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-039'
-        'http://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-039.sig'
-        'http://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-040'
-        'http://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-040.sig'
-        'http://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-041'
-        'http://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-041.sig'
-        'http://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-042'
-        'http://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-042.sig'
-        'http://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-043'
-        'http://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-043.sig'
-        'http://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-044'
-        'http://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-044.sig'
-        'http://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-045'
-        'http://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-045.sig'
-        'http://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-046'
-        'http://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-046.sig'
-        'http://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-047'
-        'http://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-047.sig'
-        'http://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-048'
-        'http://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-048.sig'
+        'http://ftp.gnu.org/gnu/bash/bash-4.4-patches/bash44-019'
+        'http://ftp.gnu.org/gnu/bash/bash-4.4-patches/bash44-019.sig'
+        'http://ftp.gnu.org/gnu/bash/bash-4.4-patches/bash44-020'
+        'http://ftp.gnu.org/gnu/bash/bash-4.4-patches/bash44-020.sig'
+        'http://ftp.gnu.org/gnu/bash/bash-4.4-patches/bash44-021'
+        'http://ftp.gnu.org/gnu/bash/bash-4.4-patches/bash44-021.sig'
+        'http://ftp.gnu.org/gnu/bash/bash-4.4-patches/bash44-022'
+        'http://ftp.gnu.org/gnu/bash/bash-4.4-patches/bash44-022.sig'
+        'http://ftp.gnu.org/gnu/bash/bash-4.4-patches/bash44-023'
+        'http://ftp.gnu.org/gnu/bash/bash-4.4-patches/bash44-023.sig'
         'bashrc')
 pgpkeys=('BB5869F064EA74AB')
 backup=('etc/bashrc')
@@ -50,24 +24,11 @@ backup=('etc/bashrc')
 src_prepare() {
     cd "$SOURCE_DIR/bash-$_version"
 
-    patch -Np0 -i ../bash43-031
-    patch -Np0 -i ../bash43-032
-    patch -Np0 -i ../bash43-033
-    patch -Np0 -i ../bash43-034
-    patch -Np0 -i ../bash43-035
-    patch -Np0 -i ../bash43-036
-    patch -Np0 -i ../bash43-037
-    patch -Np0 -i ../bash43-038
-    patch -Np0 -i ../bash43-039
-    patch -Np0 -i ../bash43-040
-    patch -Np0 -i ../bash43-041
-    patch -Np0 -i ../bash43-042
-    patch -Np0 -i ../bash43-043
-    patch -Np0 -i ../bash43-044
-    patch -Np0 -i ../bash43-045
-    patch -Np0 -i ../bash43-046
-    patch -Np0 -i ../bash43-047
-    patch -Np0 -i ../bash43-048
+    patch -Np0 -i ../bash44-019
+    patch -Np0 -i ../bash44-020
+    patch -Np0 -i ../bash44-021
+    patch -Np0 -i ../bash44-022
+    patch -Np0 -i ../bash44-023
 }
 
 src_compile() {

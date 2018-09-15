@@ -2,16 +2,13 @@
 
 # http://www.linuxfromscratch.org/blfs/view/svn/general/expect.html
 
-version=5.45
+version=5.45.4
 description="Tool for automating interactive applications such as telnet, ftp, passwd, fsck, rlogin, tip, etc"
 depends=('tcl')
 sources=("http://downloads.sf.net/expect/expect$version.tar.gz")
 
 src_compile() {
     cd "$SOURCE_DIR/expect$version"
-
-    # FIXME: format-security
-    unset CPPFLAGS
 
     ./configure --prefix=/usr \
         --mandir=/usr/share/man \

@@ -1,6 +1,6 @@
 # Maintainer: Ivailo Monev <xakepa10@gmail.com>
 
-version=20170401
+version=20180915
 description='pkgconfig compatible utility which does not depend on glib'
 sources=("https://github.com/pkgconf/pkgconf.git")
 

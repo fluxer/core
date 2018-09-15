@@ -2,7 +2,7 @@
 
 # https://sources.gentoo.org/cgi-bin/viewvc.cgi/gentoo-x86/sys-libs/timezone-data/files/timezone-data-2015c-makefile.patch
 
-version=2016g
+version=2018e
 description="Data for Time Zone and daylight saving time from IANA"
 # tzcodes is required for leapseconds.awk file that is not yet part of tzdata
 sources=("http://www.iana.org/time-zones/repository/releases/tzdata$version.tar.gz"
@@ -20,16 +20,10 @@ src_install() {
     cd "$SOURCE_DIR"
     make CFLAGS="$CFLAGS" \
         DESTDIR="$INSTALL_DIR" \
-        TOPDIR=/usr \
         TZDIR=/usr/share/zoneinfo \
-        ETCDIR=/usr/sbin \
         MANDIR=/usr/share/man \
         install
 
     # provided by man-pages
-    rm -r "$INSTALL_DIR/usr/share/man/"man{5,8}
-
-    # move tzselect to /usr/bin
-    install -d "$INSTALL_DIR/usr/bin"
-    mv "$INSTALL_DIR/usr/"{sbin/tzselect,bin}
+    rm -vr "$INSTALL_DIR/usr/share/man/"man{5,8}
 }

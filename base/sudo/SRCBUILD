@@ -2,7 +2,7 @@
 
 # http://www.linuxfromscratch.org/blfs/view/svn/postlfs/sudo.html
 
-version=1.8.15
+version=1.8.25
 description="Method of controlling/auditing Root access"
 depends=('glibc' 'busybox' 'shadow')
 backup=('etc/sudoers')

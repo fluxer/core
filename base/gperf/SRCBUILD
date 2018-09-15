@@ -2,7 +2,7 @@
 
 # http://www.linuxfromscratch.org/blfs/view/svn/general/gperf.html
 
-version=3.0.4
+version=3.1
 description="Perfect hash function generator"
 sources=("http://ftp.gnu.org/pub/gnu/gperf/gperf-$version.tar.gz"
         "http://ftp.gnu.org/pub/gnu/gperf/gperf-$version.tar.gz.sig")
@@ -12,15 +12,15 @@ src_compile() {
     cd "$SOURCE_DIR/gperf-$version"
 
     ./configure --prefix=/usr
-    make -j1
+    make
 }
 
 src_check() {
     cd "$SOURCE_DIR/gperf-$version"
-    make -j1 check
+    make check
 }
 
 src_install() {
      cd "$SOURCE_DIR/gperf-$version"
-    make -j1 DESTDIR="$INSTALL_DIR" install
+    make DESTDIR="$INSTALL_DIR" install
 }

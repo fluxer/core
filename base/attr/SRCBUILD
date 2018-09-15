@@ -2,25 +2,19 @@
 
 # http://www.linuxfromscratch.org/lfs/view/development/chapter06/attr.html
 
-version=2.4.47
+version=2.4.48
 description="Extended attribute support library for ACL support"
 depends=('glibc')
-sources=("http://download.savannah.gnu.org/releases/attr/attr-$version.src.tar.gz"
-        "http://download.savannah.gnu.org/releases/attr/attr-$version.src.tar.gz.sig"
-        'attr-cdefs.patch')
+sources=("http://download.savannah.gnu.org/releases/attr/attr-$version.tar.gz"
+        "http://download.savannah.gnu.org/releases/attr/attr-$version.tar.gz.sig")
 pgpkeys=('154343260542DF34')
-
-src_prepare() {
-    cd "$SOURCE_DIR/attr-$version"
-
-    patch -Np1 -i "$SOURCE_DIR/attr-cdefs.patch"
-}
 
 src_compile() {
     cd "$SOURCE_DIR/attr-$version"
 
     export INSTALL_USER=root INSTALL_GROUP=root
     ./configure --prefix=/usr \
+        --sysconfdir=/etc \
         --disable-static
     make
 }
@@ -28,7 +22,7 @@ src_compile() {
 src_install() {
     cd "$SOURCE_DIR/attr-$version"
 
-    make DIST_ROOT="$INSTALL_DIR" install install-lib install-dev
+    make DESTDIR="$INSTALL_DIR" install
 
     chmod -v 755 "$INSTALL_DIR/usr/lib/libattr.so"
 

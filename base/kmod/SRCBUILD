@@ -2,7 +2,7 @@
 
 # http://www.linuxfromscratch.org/lfs/view/development/chapter06/kmod.html
 
-version=24
+version=25
 description="Linux kernel module handling"
 depends=('glibc' 'zlib' 'xz')
 # checkdepends=('linux-sources' 'libxslt')

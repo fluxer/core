@@ -2,7 +2,7 @@
 
 # http://www.linuxfromscratch.org/blfs/view/svn/general/dejagnu.html
 
-version=1.5.3
+version=1.6.1
 description="Framework for testing other programs"
 depends=('busybox' 'expect')
 sources=("http://ftp.gnu.org/gnu/dejagnu/dejagnu-$version.tar.gz"

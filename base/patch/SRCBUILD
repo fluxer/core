@@ -2,7 +2,7 @@
 
 # http://www.linuxfromscratch.org/lfs/view/development/chapter06/patch.html
 
-version=2.7.5
+version=2.7.6
 description='A utility to apply patch files to original sources'
 depends=('glibc')
 sources=("ftp://ftp.gnu.org/gnu/patch/patch-$version.tar.xz"

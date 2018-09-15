@@ -2,7 +2,7 @@
 
 # http://www.linuxfromscratch.org/lfs/view/development/chapter06/coreutils.html
 
-version=8.28
+version=8.30
 description='The basic file, shell and text manipulation utilities of the GNU operating system'
 depends=('glibc' 'acl' 'gmp' 'libcap' 'openssl')
 sources=("http://ftp.gnu.org/gnu/coreutils/coreutils-$version.tar.xz"

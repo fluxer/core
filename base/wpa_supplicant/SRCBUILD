@@ -2,13 +2,13 @@
 
 # http://www.linuxfromscratch.org/blfs/view/svn/basicnet/wpa_supplicant.html
 
-version=2.5
+version=2.6
 description="Utility providing key negotiation for WPA wireless networks"
 depends=('readline' 'libnl' 'openssl')
 optdepends=('dbus')
 backup=('etc/wpa_supplicant.conf')
 sources=("http://w1.fi/releases/wpa_supplicant-$version.tar.gz"
-    'config')
+        'config')
 
 src_compile() {
     cd "$SOURCE_DIR/wpa_supplicant-$version/wpa_supplicant"

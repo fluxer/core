@@ -2,13 +2,14 @@
 
 # http://www.linuxfromscratch.org/lfs/view/development/chapter06/expat.html
 
-version=2.1.1
+version=2.2.6
 description="XML parser library written in C"
 depends=('glibc')
 sources=("http://downloads.sf.net/expat/expat-$version.tar.bz2")
 
 src_compile() {
     cd "$SOURCE_DIR/expat-$version"
+
     ./configure --prefix=/usr \
         --disable-static
     make

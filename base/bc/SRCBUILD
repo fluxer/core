@@ -2,15 +2,25 @@
 
 # http://www.linuxfromscratch.org/lfs/view/development/chapter06/bc.html
 
-version=1.06.95
+version=1.07.1
 description="Arbitrary precision numeric processing language"
 depends=('readline')
-sources=("http://alpha.gnu.org/gnu/bc/bc-$version.tar.bz2"
-        'bc-1.06.95-void_uninitialized.patch')
+sources=("https://ftp.gnu.org/gnu/bc/bc-$version.tar.gz")
 
 src_prepare() {
     cd "$SOURCE_DIR/bc-$version"
-    patch -p0 -i "$SOURCE_DIR/bc-1.06.95-void_uninitialized.patch"
+
+cat > bc/fix-libmath_h << "EOF"
+#! /bin/bash
+sed -e '1   s/^/{"/' \
+    -e     's/$/",/' \
+    -e '2,$ s/^/"/'  \
+    -e   '$ d'       \
+    -i libmath.h
+
+sed -e '$ s/$/0}/' \
+    -i libmath.h
+EOF
 }
 
 src_compile() {

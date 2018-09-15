@@ -1,13 +1,13 @@
 # Maintainer: Ivailo Monev <xakepa10@gmail.com>
 
-version=1.74
+version=1.76
 description="Utility to detect other Operating Systems on a set of drives"
 depends=('bash')
 sources=("http://ftp.debian.org/debian/pool/main/o/os-prober/os-prober_$version.tar.xz"
         'distro.patch')
 
 src_compile() {
-    cd "$SOURCE_DIR/os-prober"
+    cd "$SOURCE_DIR/os-prober-$version"
 
     # adjust lib dir to allow detection of 64-bit distros
     sed -i -e "s:/lib/ld\*\.so\*:/lib*/ld*.so*:g" os-probes/mounted/common/90linux-distro
@@ -20,7 +20,7 @@ src_compile() {
 }
 
 src_install() {
-    cd "$SOURCE_DIR/os-prober"
+    cd "$SOURCE_DIR/os-prober-$version"
 
     install -vDm755 linux-boot-prober "$INSTALL_DIR/usr/bin/linux-boot-prober"
     install -vDm755 os-prober "$INSTALL_DIR/usr/bin/os-prober"
