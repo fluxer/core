@@ -58,7 +58,7 @@ src_install() {
     make DESTDIR="$INSTALL_DIR" install
 
     rm -vf "$INSTALL_DIR/lib/"{libcurses.so,libncurses.so,libncursesw.so}
-    echo "INPUT(libcurses.so.5 -ltinfo)" > "$INSTALL_DIR/lib/libcurses.so"
-    echo "INPUT(libncurses.so.5 -ltinfo)" > "$INSTALL_DIR/lib/libncurses.so"
-    echo "INPUT(libncursesw.so.5 -ltinfo)" > "$INSTALL_DIR/lib/libncursesw.so"
+    echo "INPUT(libcurses.so.6 -ltinfo)" > "$INSTALL_DIR/lib/libcurses.so"
+    echo "INPUT(libncurses.so.6 -ltinfo)" > "$INSTALL_DIR/lib/libncurses.so"
+    echo "INPUT(libncursesw.so.6 -ltinfo)" > "$INSTALL_DIR/lib/libncursesw.so"
 }
