@@ -7,12 +7,21 @@ version=2.25
 description="POSIX 1003.1e capabilities"
 depends=('glibc' 'attr')
 sources=("https://www.kernel.org/pub/linux/libs/security/linux-privs/libcap2/libcap-$version.tar.xz"
-        "https://www.kernel.org/pub/linux/libs/security/linux-privs/libcap2/libcap-$version.tar.sign")
+        "https://www.kernel.org/pub/linux/libs/security/linux-privs/libcap2/libcap-$version.tar.sign"
+        'libcap-2.25-gperf.patch')
 pgpkeys=('38A644698C69787344E954CE29EE848AE2CCF3F4')
+
+
+src_prepare() {
+    cd "$SOURCE_DIR/libcap-$version"
+
+    patch -Np1 -i "$SOURCE_DIR/libcap-2.25-gperf.patch"
+    sed -i '/install.*STALIBNAME/d' libcap/Makefile
+}
+
 
 src_compile() {
     cd "$SOURCE_DIR/libcap-$version"
-    sed -i '/install.*STALIBNAME/d' libcap/Makefile
     make
 }
 
