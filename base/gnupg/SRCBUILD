@@ -21,7 +21,8 @@ src_compile() {
         --enable-large-secmem \
         --enable-noexecstack \
         --disable-rpath \
-        --disable-nls
+        --disable-nls \
+        --disable-agent-support
     make
 }
 
