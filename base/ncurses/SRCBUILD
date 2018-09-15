@@ -12,53 +12,34 @@ pgpkeys=('C52048C0C0748FEE227D47A2702353E0F7E48EDB')
 src_compile() {
     cd "$SOURCE_DIR/ncurses-$version"
 
-    mkdir -p "$SOURCE_DIR/"ncurses{,w}-build
-
-    [ "$(uname -m)" = "x86_64" ] && CONFIGFLAG="--with-chtype=long"
-    cd "$SOURCE_DIR/ncursesw-build"
-    ../ncurses-$version/configure --prefix=/usr \
+    ./configure --prefix=/usr \
         --exec-prefix=/ \
         --mandir=/usr/share/man \
+        --with-pkg-config-libdir=/usr/lib/pkgconfig \
         --with-shared \
         --with-normal \
-        --with-termlib \
         --without-debug \
         --without-ada \
         --enable-widec \
         --enable-pc-files \
         --enable-symlinks \
-        --enable-overwrite \
         --with-cxx-binding \
-        --with-cxx-shared $CONFIGFLAG
-    # add --enable-ext-colors and --enable-ext-mouse with next soname bump
-    make
-
-    cd "$SOURCE_DIR/ncurses-build"
-    ../ncurses-$version/configure --prefix=/usr \
-        --exec-prefix=/ \
-        --mandir=/usr/share/man \
-        --with-shared \
-        --with-normal \
-        --with-termlib \
-        --without-debug \
-        --without-ada \
-        --enable-pc-files \
-        --enable-symlinks \
-        --enable-overwrite \
-        --with-cxx-binding \
-        --with-cxx-shared $CONFIGFLAG
+        --with-cxx-shared
     make
 }
 
 src_install() {
-    cd "$SOURCE_DIR/ncurses-build"
+    cd "$SOURCE_DIR/ncurses-$version"
+
     make DESTDIR="$INSTALL_DIR" install
 
-    cd "$SOURCE_DIR/ncursesw-build"
-    make DESTDIR="$INSTALL_DIR" install
+    # linker scripts and .pc files for non-wide ncurses
+    for lib in ncurses form panel menu ; do
+       echo "INPUT(-l${lib}w)" > "$INSTALL_DIR/lib/lib${lib}.so"
+       ln -vs "${lib}w.pc" "$INSTALL_DIR/usr/lib/pkgconfig/${lib}.pc"
+    done
 
-    rm -vf "$INSTALL_DIR/lib/"{libcurses.so,libncurses.so,libncursesw.so}
-    echo "INPUT(libcurses.so.6 -ltinfo)" > "$INSTALL_DIR/lib/libcurses.so"
-    echo "INPUT(libncurses.so.6 -ltinfo)" > "$INSTALL_DIR/lib/libncurses.so"
-    echo "INPUT(libncursesw.so.6 -ltinfo)" > "$INSTALL_DIR/lib/libncursesw.so"
+    # linker script for the curses library
+    echo "INPUT(-lncursesw)" > "$INSTALL_DIR/lib/libcursesw.so"
+    ln -vs libncurses.so "$INSTALL_DIR/usr/lib/libcurses.so"
 }
