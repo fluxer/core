@@ -6,7 +6,7 @@ version=2.90
 description='Linux System V Init'
 depends=('glibc' 'procps-ng')
 sources=("http://download.savannah.gnu.org/releases/sysvinit/sysvinit-$version.tar.xz"
-        "sysvinit-2.$version-consolidated-1.patch")
+        "sysvinit-$version-consolidated-1.patch")
 
 src_prepare() {
     cd "$SOURCE_DIR/sysvinit-$version"
