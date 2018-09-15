@@ -2,7 +2,7 @@
 
 # http://www.linuxfromscratch.org/lfs/view/development/chapter06/man-db.html
 
-version=2.7.6
+version=2.7.6.1
 description="A utility for reading man pages"
 depends=('bash' 'gdbm' 'zlib' 'groff' 'libpipeline' 'less')
 optdepends=('gzip')
@@ -20,6 +20,7 @@ src_compile() {
         --libexecdir=/usr/lib \
         --with-db=gdbm \
         --disable-setuid \
+        --disable-cache-owner \
         --enable-mandirs=GNU \
         --with-sections="1 n l 8 3 0 2 5 4 9 6 7"
     make

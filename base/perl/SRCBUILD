@@ -2,8 +2,7 @@
 
 # http://www.linuxfromscratch.org/lfs/view/development/chapter06/perl.html
 
-version=5.22.2
-release=2
+version=5.24.4
 description="Highly capable, feature-rich programming language"
 depends=('glibc' 'zlib' 'busybox' 'gdbm')
 sources=("http://www.cpan.org/src/5.0/perl-$version.tar.gz")
@@ -19,6 +18,7 @@ src_compile() {
         -Dman3dir=/usr/share/man/man3 \
         -Dpager="/usr/bin/less -isR"  \
         -Duseshrplib \
+        -Dusethreads \
         -Doptimize="$CFLAGS" \
         -Dldflags="$LDFLAGS"
     make
