@@ -2,12 +2,12 @@
 
 # http://www.linuxfromscratch.org/blfs/view/svn/x/mesa.html
 
-version=13.0.6
+version=17.3.9
 description="OpenGL compatible 3D graphics library"
 makedepends=('xorg-libraries' 'xorg-makeutils' 'xorg-protocol-headers'
         'libdrm' 'python' 'expat' 'libxml2' 'elfutils' 'openssl')
-sources=("https://mesa.freedesktop.org/archive/$version/mesa-$version.tar.xz"
-        "https://mesa.freedesktop.org/archive/$version/mesa-$version.tar.xz.sig")
+sources=("https://mesa.freedesktop.org/archive/mesa-$version.tar.xz"
+        "https://mesa.freedesktop.org/archive/mesa-$version.tar.xz.sig")
 pgpkeys=('8703B6700E7EE06D7A39B8D6EDAE37B02CEB490D')
 
 src_prepare() {
