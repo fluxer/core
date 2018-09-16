@@ -8,7 +8,7 @@ description="X.Org routines libraries"
 depends=('glibc' 'eudev' 'fontconfig' 'freetype2' 'zlib')
 makedepends=('xorg-makeutils' 'xorg-protocol-headers' 'gettext')
 sources=("http://xorg.freedesktop.org/releases/individual/lib/libXau-1.0.8.tar.bz2"
-        "http://xorg.freedesktop.org/releases/individual/xcb/libxcb-1.12.tar.bz2"
+        "http://xorg.freedesktop.org/releases/individual/xcb/libxcb-1.13.tar.bz2"
         "http://xorg.freedesktop.org/releases/individual/lib/xtrans-1.3.5.tar.bz2"
         "http://xorg.freedesktop.org/releases/individual/lib/libX11-1.6.4.tar.bz2"
         "http://xorg.freedesktop.org/releases/individual/lib/libXext-1.3.3.tar.bz2"
@@ -45,19 +45,16 @@ sources=("http://xorg.freedesktop.org/releases/individual/lib/libXau-1.0.8.tar.b
         "http://xorg.freedesktop.org/releases/individual/lib/libxshmfence-1.2.tar.bz2"
         "http://xorg.freedesktop.org//releases/individual/lib/libXdmcp-1.1.2.tar.bz2")
 
-_packages=(libXau libxcb xtrans libX11 libXext libFS libICE libSM libXScrnSaver libXt libXmu \
-        libXp libXpm libXaw libXfixes libXcomposite libXrender libXcursor libXdamage \
-        libfontenc libXfont libXfont2 libXft libXi libXinerama libXrandr libXres libXtst \
-        libXv libXvMC libXxf86dga libXxf86vm libdmx libpciaccess libxkbfile libxshmfence libXdmcp)
 src_compile() {
+    _packages=$(find "$SOURCE_DIR" -mindepth 1 -maxdepth 1 -type d)
     # some libraries build with clang cause crashes
     export CC=gcc CXX=g++
 
-    for _pkg in "${_packages[@]}";do
-        cd "$SOURCE_DIR/$_pkg-"*
+    for _pkg in $_packages;do
+        cd "$_pkg"
         echo "Configuring $_pkg..."
         case "$_pkg" in
-            libxcb)        sed -e "s/pthread-stubs//" -i configure.ac
+            *libxcb)        sed -e "s/pthread-stubs//" -i configure.ac
                                 autoreconf -fiv
                                 ./configure --prefix=/usr \
                                     --sysconfdir=/etc \
@@ -66,7 +63,7 @@ src_compile() {
                                     --enable-xinput \
                                     --enable-xkb \
                                     --without-doxygen ;;
-            libXt)    ./configure --prefix=/usr \
+            *libXt)    ./configure --prefix=/usr \
                                     --sysconfdir=/etc \
                                     --localstatedir=/var \
                                     --disable-static \
@@ -89,16 +86,18 @@ src_compile() {
 }
 
 src_check() {
-    for _pkg in "${_packages[@]}";do
-        cd "$SOURCE_DIR/$_pkg-"*
+    _packages=$(find "$SOURCE_DIR" -mindepth 1 -maxdepth 1 -type d)
+    for _pkg in $_packages;do
+        cd "$_pkg"
         echo "Checking $_pkg..."
         make check
     done
 }
 
 src_install() {
-    for _pkg in "${_packages[@]}";do
-        cd "$SOURCE_DIR/$_pkg-"*
+    _packages=$(find "$SOURCE_DIR" -mindepth 1 -maxdepth 1 -type d)
+    for _pkg in $_packages;do
+        cd "$_pkg"
         echo "Installing $_pkg (package)..."
         make DESTDIR="$INSTALL_DIR" install
     done

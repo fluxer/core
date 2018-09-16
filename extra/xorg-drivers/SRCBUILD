@@ -27,46 +27,47 @@ pgpkeys=('B09FAF35BE914521980951145A81AF8E6ADBB200'
         '90D027AEAF33CBABC140735BC1F5D3CDF5176580'
         '3C2C43D9447D5938EF4551EBE23B7E70B467F0BF')
 
-_packages=(ati intel nouveau vesa vmware evdev libinput)
 src_compile() {
+    _packages=$(find "$SOURCE_DIR" -mindepth 1 -maxdepth 1 -type d)
+
     # build fails with clang
     export CC=gcc
 
     # https://bugs.gentoo.org/show_bug.cgi?id=488906
     LDFLAGS="$LDFLAGS -Wl,-z,lazy"
 
-    for _pkg in "${_packages[@]}";do
-        cd "$SOURCE_DIR/xf86-"*-$_pkg-*
+    for _pkg in $_packages;do
+        cd "$_pkg"
         echo "Compiling $_pkg..."
-        if [ "$_pkg" = "ati" ];then
-            ./configure --prefix=/usr \
+
+        case "$_pkg" in
+            *ati) ./configure --prefix=/usr \
                         --sysconfdir=/etc \
                         --localstatedir=/var \
                         --disable-static \
-                        --enable-glamor
-        elif [ "$_pkg" = "intel" ];then
-            patch -Np1 -i "$SOURCE_DIR/intel-fixes.patch"
-            ./configure --prefix=/usr \
-                        --sysconfdir=/etc \
-                        --localstatedir=/var \
-                        --libexecdir=/usr/lib/intel \
-                        --disable-static \
-                        --enable-kms-only \
-                        --with-default-accel=sna \
-                        --enable-glamor
-        else
-            ./configure --prefix=/usr \
-                        --sysconfdir=/etc \
-                        --localstatedir=/var \
-                        --disable-static
-        fi
+                        --enable-glamor ;;
+            *intel) patch -Np1 -i "$SOURCE_DIR/intel-fixes.patch"
+                       ./configure --prefix=/usr \
+                           --sysconfdir=/etc \
+                            --localstatedir=/var \
+                            --libexecdir=/usr/lib/intel \
+                            --disable-static \
+                           --enable-kms-only \
+                            --with-default-accel=sna \
+                            --enable-glamor ;;
+                *)     ./configure --prefix=/usr \
+                            --sysconfdir=/etc \
+                            --localstatedir=/var \
+                            --disable-static ;;
+        esac
         make
     done
 }
 
 src_install() {
-    for _pkg in "${_packages[@]}";do
-        cd "$SOURCE_DIR/xf86-"*-$_pkg-*
+    _packages=$(find "$SOURCE_DIR" -mindepth 1 -maxdepth 1 -type d)
+    for _pkg in $_packages;do
+        cd "$_pkg"
         echo "Installing $_pkg files..."
         make DESTDIR="$INSTALL_DIR" install
     done

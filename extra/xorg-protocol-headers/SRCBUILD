@@ -6,7 +6,7 @@ version=1.18.4
 release=2
 description="X.Org protocol headers"
 depends=('eudev')
-sources=("http://xorg.freedesktop.org/releases/individual/xcb/xcb-proto-1.12.tar.bz2"
+sources=("http://xorg.freedesktop.org/releases/individual/xcb/xcb-proto-1.13.tar.bz2"
         "http://xorg.freedesktop.org/releases/individual/proto/bigreqsproto-1.1.2.tar.bz2"
         "http://xorg.freedesktop.org/releases/individual/proto/compositeproto-0.4.2.tar.bz2"
         "http://xorg.freedesktop.org/releases/individual/proto/damageproto-1.2.1.tar.bz2"
@@ -35,13 +35,10 @@ sources=("http://xorg.freedesktop.org/releases/individual/xcb/xcb-proto-1.12.tar
         "http://xorg.freedesktop.org/releases/individual/proto/xproto-7.0.31.tar.bz2"
         "http://xorg.freedesktop.org/releases/individual/proto/presentproto-1.0.tar.bz2")
 
-_packages=(xcb-proto bigreqsproto compositeproto damageproto dmxproto dri2proto dri3proto
-        fixesproto fontsproto glproto inputproto kbproto randrproto recordproto renderproto
-        resourceproto scrnsaverproto videoproto xcmiscproto xextproto xf86bigfontproto
-        xf86dgaproto xf86driproto xf86vidmodeproto xineramaproto printproto xproto presentproto)
 src_compile() {
-    for _pkg in "${_packages[@]}";do
-        cd "$SOURCE_DIR/$_pkg-"*
+    _packages=$(find "$SOURCE_DIR" -mindepth 1 -maxdepth 1 -type d)
+    for _pkg in $_packages;do
+        cd "$_pkg"
         echo "Compiling $_pkg..."
         ./configure --prefix=/usr \
              --sysconfdir=/etc \
@@ -51,8 +48,9 @@ src_compile() {
 }
 
 src_install() {
-    for _pkg in "${_packages[@]}";do
-        cd "$SOURCE_DIR/$_pkg-"*
+    _packages=$(find "$SOURCE_DIR" -mindepth 1 -maxdepth 1 -type d)
+    for _pkg in $_packages;do
+        cd "$_pkg"
         echo "Installing $_pkg files..."
         make -j1 DESTDIR="$INSTALL_DIR" install
     done

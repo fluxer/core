@@ -47,20 +47,18 @@ sources=("http://xorg.freedesktop.org/releases/individual/app/bdftopcf-1.0.5.tar
         "http://xorg.freedesktop.org/releases/individual/app/xwud-1.0.4.tar.bz2"
         'luit-fixes.patch')
 
-_packages=(bdftopcf iceauth luit mkfontdir mkfontscale sessreg setxkbmap smproxy \
-        x11perf xauth xbacklight xcmsdb xcursorgen xdpyinfo xdriinfo xev xgamma \
-        xhost xinput xkbcomp xkbevd xkbutils xkill xlsatoms xlsclients xmessage
-        xmodmap xpr xprop xrandr xrdb xrefresh xset xsetroot xvinfo xwd xwininfo
-        xwud xcompmgr)
+
 src_compile() {
-    for _pkg in "${_packages[@]}";do
-        cd "$SOURCE_DIR/$_pkg-"*
-        if [ "$_pkg" = "luit" ];then
-            patch -Np1 -i "$SOURCE_DIR/luit-fixes.patch"
-            autoreconf -fi
-        elif [ "$_pkg" = "sessreg" ];then
-            sed 's|$(CPP) $(DEFS)|$(CPP) -P $(DEFS)|' -i man/Makefile.in
-        fi
+    _packages=$(find "$SOURCE_DIR" -mindepth 1 -maxdepth 1 -type d)
+    for _pkg in $_packages;do
+        cd "$_pkg"
+
+        case "$_pkg" in
+	*luit) patch -Np1 -i "$SOURCE_DIR/luit-fixes.patch"
+                          autoreconf -fi ;;
+                 *sessreg) sed 's|$(CPP) $(DEFS)|$(CPP) -P $(DEFS)|' -i man/Makefile.in ;;
+        esac
+
         echo "Configuring $_pkg..."
         ./configure --prefix=/usr \
                     --sysconfdir=/etc \
@@ -79,8 +77,9 @@ src_compile() {
 }
 
 src_install() {
-    for _pkg in "${_packages[@]}";do
-        cd "$SOURCE_DIR/$_pkg-"*
+    _packages=$(find "$SOURCE_DIR" -mindepth 1 -maxdepth 1 -type d)
+    for _pkg in $_packages;do
+        cd "$_pkg"
         echo "Installing $_pkg (package)..."
         make DESTDIR="$INSTALL_DIR" install
     done

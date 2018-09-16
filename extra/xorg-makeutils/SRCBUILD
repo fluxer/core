@@ -14,13 +14,12 @@ sources=("http://xorg.freedesktop.org/releases/individual/util/imake-1.0.7.tar.b
         'http://xorg.freedesktop.org/releases/individual/util/util-macros-1.19.0.tar.bz2'
         'linuxconfig.patch')
 
-_packages=(imake gccmakedep lndir makedepend xorg-cf-files util-macros)
 src_compile() {
-    for _pkg in "${_packages[@]}";do
-        cd "$SOURCE_DIR/$_pkg-"*
-
+    _packages=$(find "$SOURCE_DIR" -mindepth 1 -maxdepth 1 -type d)
+    for _pkg in $_packages;do
+        cd "$_pkg"
         case "$_pkg" in
-            xorg-cf-files) patch -p1 -i "$SOURCE_DIR/linuxconfig.patch" ;;
+            *xorg-cf-files) patch -p1 -i "$SOURCE_DIR/linuxconfig.patch" ;;
         esac
 
         echo "Configuring $_pkg..."
@@ -35,16 +34,18 @@ src_compile() {
 }
 
 src_check() {
-    for _pkg in "${_packages[@]}";do
-        cd "$SOURCE_DIR/$_pkg-"*
+    _packages=$(find "$SOURCE_DIR" -mindepth 1 -maxdepth 1 -type d)
+    for _pkg in $_packages;do
+        cd "$_pkg"
         echo "Checking $_pkg..."
         make check
     done
 }
 
 src_install() {
-    for _pkg in "${_packages[@]}";do
-        cd "$SOURCE_DIR/$_pkg-"*
+    _packages=$(find "$SOURCE_DIR" -mindepth 1 -maxdepth 1 -type d)
+    for _pkg in $_packages;do
+        cd "$_pkg"
         echo "Installing $_pkg..."
         make DESTDIR="$INSTALL_DIR" install
     done

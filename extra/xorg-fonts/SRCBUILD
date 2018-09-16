@@ -40,16 +40,11 @@ sources=("http://xorg.freedesktop.org/releases/individual/font/font-util-1.3.1.t
         "http://xorg.freedesktop.org/releases/individual/font/font-xfree86-type1-1.0.4.tar.bz2")
 pgpkeys=('CFDF148828C642A7')
 
-_packages=(font-util encodings font-adobe-75dpi font-adobe-utopia-75dpi font-adobe-utopia-type1 \
-        font-alias font-arabic-misc font-bh-75dpi font-bh-lucidatypewriter-75dpi font-bh-ttf \
-        font-bh-type1 font-bitstream-75dpi font-bitstream-type1 font-cronyx-cyrillic font-cursor-misc \
-        font-daewoo-misc font-dec-misc font-ibm-type1 font-isas-misc font-jis-misc font-micro-misc \
-        font-misc-cyrillic font-misc-ethiopic font-misc-meltho font-misc-misc font-mutt-misc \
-        font-schumacher-misc font-screen-cyrillic font-sony-misc font-sun-misc font-winitzki-cyrillic \
-        font-xfree86-type1)
+
 src_compile() {
-    for _pkg in "${_packages[@]}";do
-        cd "$SOURCE_DIR/$_pkg-"*
+    _packages=$(find "$SOURCE_DIR" -mindepth 1 -maxdepth 1 -type d)
+    for _pkg in $_packages;do
+        cd "$_pkg"
         echo "Configuring $_pkg..."
         ./configure --prefix=/usr \
                     --sysconfdir=/etc \
@@ -69,16 +64,17 @@ src_compile() {
 }
 
 src_install() {
-    for _pkg in "${_packages[@]}";do
-        cd "$SOURCE_DIR/$_pkg-"*
+    _packages=$(find "$SOURCE_DIR" -mindepth 1 -maxdepth 1 -type d)
+    for _pkg in $_packages;do
+        cd "$_pkg"
         echo "Installing $_pkg files..."
         make DESTDIR="$INSTALL_DIR" install
     done
-    
+
     install -vdm755 "$INSTALL_DIR/usr/share/fonts"
     ln -svfn X11/OTF "$INSTALL_DIR/usr/share/fonts/X11-OTF"
     ln -svfn X11/TTF "$INSTALL_DIR/usr/share/fonts/X11-TTF"
-    
+
     # those will conflict so will be made in post_install()
     rm -vf "$INSTALL_DIR/usr/share/fonts/X11/"*/fonts.*
 }
@@ -86,7 +82,7 @@ src_install() {
 post_install() {
     echo " >> Updating font cache. This may take a while..."
     fc-cache --force
-  
+
     echo " >> Creating fonts directories..."
     mkfontscale /usr/share/fonts/X11/75dpi
     mkfontdir /usr/share/fonts/X11/75dpi
