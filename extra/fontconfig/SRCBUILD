@@ -2,17 +2,13 @@
 
 # http://www.linuxfromscratch.org/blfs/view/svn/general/fontconfig.html
 
-version=2.11.1
+version=2.12.6
 description="A library for configuring and customizing font access"
 depends=('expat' 'freetype2')
 sources=("http://www.fontconfig.org/release/fontconfig-$version.tar.bz2")
 
 src_compile() {
     cd "$SOURCE_DIR/fontconfig-$version"
-
-    # make sure there's no rpath trouble and sane .so versioning
-    libtoolize -f
-    autoreconf -fi
 
     ./configure --prefix=/usr \
         --sysconfdir=/etc \
