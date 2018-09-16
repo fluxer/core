@@ -2,12 +2,12 @@
 
 # http://www.linuxfromscratch.org/blfs/view/svn/x/xterm.html
 
-version=324
+version=335
 description="X Terminal Emulator"
 depends=('xorg-libraries' 'ncurses' 'fontconfig')
 makedepends=('xorg-protocol-headers')
-sources=("ftp://invisible-island.net/xterm/xterm-$version.tgz"
-        "ftp://invisible-island.net/xterm/xterm-$version.tgz.asc")
+sources=("https://invisible-mirror.net/archives/xterm/xterm-$version.tgz"
+        "https://invisible-mirror.net/archives/xterm/xterm-$version.tgz.asc")
 pgpkeys=('702353E0F7E48EDB')
 
 src_compile() {
@@ -18,7 +18,7 @@ src_compile() {
     # FIXME: use patch
     #    sed -i '/v0/,+1s/new:/new:kb=^?:/' termcap
     #    echo -e '\tkbs=\\177,' >> terminfo
-    TERMINFO=/share/terminfo \
+    TERMINFO=/usr/share/terminfo \
     ./configure --prefix=/usr \
         --sysconfdir=/etc \
         --localstatedir=/var \
