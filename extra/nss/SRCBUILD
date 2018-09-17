@@ -2,11 +2,11 @@
 
 # http://www.linuxfromscratch.org/blfs/view/svn/postlfs/nss.html
 
-version=3.23
+version=3.37.3
 description="Mozilla Network Security Services"
 depends=("nspr" 'sqlite' 'zlib' 'bash')
 makedepends=('perl')
-sources=("http://ftp.mozilla.org/pub/security/nss/releases/NSS_3_24_RTM/src/nss-$version.tar.gz"
+sources=("http://ftp.mozilla.org/pub/security/nss/releases/NSS_3_37_3_RTM/src/nss-$version.tar.gz"
         'nss.pc.in' 'nss-config.in')
 
 src_compile() {
@@ -17,9 +17,12 @@ src_compile() {
         -i nss/coreconf/rules.mk
 
     export BUILD_OPT=1
+    export NSS_ENABLE_WERROR=0
     export PKG_CONFIG_ALLOW_SYSTEM_LIBS=1
     export PKG_CONFIG_ALLOW_SYSTEM_CFLAGS=1
     export NSS_USE_SYSTEM_SQLITE=1
+    export USE_SYSTEM_ZLIB=1
+    export ZLIB_LIBS=-lz
     export NSS_ENABLE_ECC=1
     export NSPR_INCLUDE_DIR="$(nspr-config --includedir)"
     export NSPR_LIB_DIR="$(nspr-config --libdir)"
