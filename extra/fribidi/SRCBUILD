@@ -1,6 +1,6 @@
 # Maintainer: Ivailo Monev <xakepa10@gmail.com>
 
-version=0.19.6
+version=0.19.7
 description="A Free Implementation of the Unicode Bidirectional Algorithm"
 depends=('glibc')
 sources=("http://fribidi.org/download/fribidi-$version.tar.bz2")
