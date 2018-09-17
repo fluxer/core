@@ -2,10 +2,10 @@
 
 # http://www.linuxfromscratch.org/blfs/view/svn/multimedia/ffmpeg.html
 
-version=3.1.7
+version=3.4.4
 description="Complete and free Internet live audio and video broadcasting solution for Linux/Unix"
 depends=('alsa-lib' 'bzip2' 'fontconfig' 'lame' 'libass' 'libtheora' 'zlib'
-        'libvorbis' 'zlib' 'xvidcore' 'x264' 'libvpx' 'faac')
+        'libvorbis' 'zlib' 'xvidcore' 'x264' 'libvpx')
 makedepends=('yasm')
 optdepends=('libbluray' 'x265' 'libssh' 'pulseaudio' 'speex')
 checkdepends=('rsync')
@@ -25,8 +25,7 @@ src_compile() {
     [ "$OPTIONAL_PULSEAUDIO" = "yes" ] && _options+=" --enable-libpulse"
     [ "$OPTIONAL_SPEEX" = "yes" ] && _options+=" --enable-libspeex"
 
-    sed 's/-lflite"/-lflite -lasound"/' -i configure
-    bash ./configure --prefix=/usr \
+    ./configure --prefix=/usr \
         --enable-libass \
         --enable-fontconfig \
         --enable-gpl \
@@ -39,11 +38,9 @@ src_compile() {
         --enable-postproc \
         --enable-libx264 \
         --enable-libxvid \
-        --enable-libfaac \
         --enable-runtime-cpudetect \
         --enable-shared \
         --enable-version3 \
-        --enable-x11grab \
         --enable-openssl \
         --enable-nonfree \
         --disable-static \
