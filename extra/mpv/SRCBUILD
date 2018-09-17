@@ -1,9 +1,9 @@
 # Maintainer: Ivailo Monev <xakepa10@gmail.com>
 
-version=0.20.0
+version=0.27.2
 description='Video player based on MPlayer/mplayer2'
 depends=('ffmpeg' 'lcms2' 'libdvdread' 'xorg-libraries'
-         'mpg123' 'libdvdnav' 'hicolor-icon-theme' 'lua'
+         'mpg123' 'libdvdnav' 'hicolor-icon-theme' 'luajit'
          'libass' 'libbluray')
 makedepends=('mesalib')
 options=('!mirror')
