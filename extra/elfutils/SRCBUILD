@@ -2,7 +2,7 @@
 
 # http://www.linuxfromscratch.org/blfs/view/svn/general/elfutils.html
 
-version=0.163
+version=0.174
 description="Libraries and utilities to handle ELF object files and DWARF debugging information"
 depends=('gcc' 'zlib' 'bzip2' 'xz')
 sources=("https://fedorahosted.org/releases/e/l/elfutils/$version/elfutils-$version.tar.bz2"
