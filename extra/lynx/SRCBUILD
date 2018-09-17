@@ -2,15 +2,14 @@
 
 # http://www.linuxfromscratch.org/blfs/view/svn/basicnet/lynx.html
 
-version=2.8.8
-release=2
+version=2.8.9
 description="Text browser for the World Wide Web"
 depends=('ncurses' 'openssl')
 backup=('etc/lynx.cfg')
-sources=("ftp://lynx.isc.org/lynx/tarballs/lynx${version}rel.2.tar.bz2")
+sources=("https://invisible-mirror.net/archives/lynx/tarballs/lynx${version}rel.1.tar.bz2")
 
 src_compile() {
-    cd "$SOURCE_DIR/lynx2-8-8"
+    cd "$SOURCE_DIR/lynx${version}rel.1"
 
     ./configure --prefix=/usr \
         --sysconfdir=/etc/lynx \
@@ -22,6 +21,6 @@ src_compile() {
 }
 
 src_install() {
-    cd "$SOURCE_DIR/lynx2-8-8"
+    cd "$SOURCE_DIR/lynx${version}rel.1"
     make DESTDIR="$INSTALL_DIR" install
 }
