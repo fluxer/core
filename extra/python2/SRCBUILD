@@ -1,0 +1,45 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+# http://www.linuxfromscratch.org/blfs/view/svn/general/python3.html
+
+version=2.7.15
+description="Interpreted, interactive, object-oriented programming language"
+depends=('bzip2' 'zlib' 'bash' 'gdbm' 'readline' 'openssl' 'glibc' 'expat')
+optdepends=('libffi' 'sqlite')
+sources=("http://www.python.org/ftp/python/$version/Python-$version.tar.xz"
+        "http://www.python.org/ftp/python/$version/Python-$version.tar.xz.asc")
+pgpkeys=('97FC712E4C024BBEA48A61ED3A5CA953F73C700D')
+
+src_compile() {
+    cd "$SOURCE_DIR/Python-$version"
+
+    _options="--without-system-ffi"
+    [ "$OPTIONAL_LIBFFI" = "yes" ] && _options+=" --with-system-ffi"
+    [ "$OPTIONAL_SQLITE" = "yes" ] && _options+=" --enable-loadable-sqlite-extensions"
+    ./configure --prefix=/usr \
+        --with-threads \
+        --enable-shared \
+        --enable-ipv6 \
+        --with-system-expat \
+        $_options
+    make
+}
+
+src_check() {
+    cd "$SOURCE_DIR/Python-$version"
+    make test
+}
+
+src_install() {
+    cd "$SOURCE_DIR/Python-$version"
+
+    make -j1 DESTDIR="$INSTALL_DIR" install
+
+    chmod -v 755 "$INSTALL_DIR/usr/lib/libpython2.7m.so"
+    chmod -v 755 "$INSTALL_DIR/usr/lib/libpython2.so"
+
+    # saves ~40MB
+    find "$INSTALL_DIR" -name test -exec rm -vrf {} +
+    find "$INSTALL_DIR" -name tests -exec rm -vrf {} +
+}
+
