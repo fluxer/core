@@ -33,10 +33,20 @@ src_check() {
 src_install() {
     cd "$SOURCE_DIR/Python-$version"
 
-    make -j1 DESTDIR="$INSTALL_DIR" install
+    make DESTDIR="$INSTALL_DIR" altinstall maninstall
 
-    chmod -v 755 "$INSTALL_DIR/usr/lib/libpython2.7m.so"
-    chmod -v 755 "$INSTALL_DIR/usr/lib/libpython2.so"
+    rm -v "$INSTALL_DIR/usr/share/man/man1/python.1"
+
+    ln -vsf python2.7 "$INSTALL_DIR/usr/bin/python2"
+    ln -vsf python2.7-config "$INSTALL_DIR/usr/bin/python2-config"
+    ln -vsf python2.7.1 "$INSTALL_DIR/usr/share/man/man1/python2.1"
+
+    ln -sf python-2.7.pc "$INSTALL_DIR/usr/lib/pkgconfig/python2.pc"
+
+    # fix conflicts with python
+    mv "$INSTALL_DIR/usr/bin/"idle{,2}
+    mv "$INSTALL_DIR/usr/bin/"pydoc{,2}
+    mv "$INSTALL_DIR/usr/bin/"2to3{,-2.7}
 
     # saves ~40MB
     find "$INSTALL_DIR" -name test -exec rm -vrf {} +
