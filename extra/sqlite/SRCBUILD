@@ -2,11 +2,11 @@
 
 # http://www.linuxfromscratch.org/blfs/view/svn/server/sqlite.html
 
-_amalgamationver=3140200
-version=3.14.2
+_amalgamationver=3230100
+version=3.23.1
 description="C library that implements an SQL database engine"
 makedepends=('readline')
-sources=("http://www.sqlite.org/2016/sqlite-autoconf-$_amalgamationver.tar.gz")
+sources=("http://www.sqlite.org/2018/sqlite-autoconf-$_amalgamationver.tar.gz")
 
 src_compile() {
     export CPPFLAGS="$CPPFLAGS -DSQLITE_ENABLE_FTS3=1 -DSQLITE_ENABLE_COLUMN_METADATA=1"
