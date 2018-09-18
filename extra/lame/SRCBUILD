@@ -2,7 +2,7 @@
 
 # http://www.linuxfromscratch.org/blfs/view/svn/multimedia/lame.html
 
-version=3.99.5
+version=3.100
 description="A high quality MPEG Audio Layer III (MP3) encoder"
 depends=('ncurses')
 makedepends=('nasm')
@@ -10,9 +10,6 @@ sources=("http://downloads.sf.net/lame/lame-$version.tar.gz")
 
 src_compile() {
     cd "$SOURCE_DIR/lame-$version"
-
-    # fix a compiler error introduced by gcc-4.9.0 on 32-bit machines
-    [ "$(uname -m)" = "i686" ] && sed -i -e '/xmmintrin\.h/d' configure
 
     ./configure --prefix=/usr \
         --enable-nasm \

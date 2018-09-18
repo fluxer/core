@@ -2,30 +2,24 @@
 
 # http://www.linuxfromscratch.org/blfs/view/svn/general/jasper.html
 
-version=1.900.1
+version=2.0.14
 description="A software-based implementation of the codec specified in the emerging JPEG-2000 Part-1 standard"
 depends=('libjpeg-turbo')
-makedepends=('freeglut' 'xorg-libraries' 'glu')
-sources=(http://www.ece.uvic.ca/~mdadams/jasper/software/jasper-$version.zip
-        patch-libjasper-stepsizes-overflow.diff jasper-1.900.1-CVE-2008-3520.patch
-        jpc_dec.c.patch jasper-1.900.1-CVE-2008-3522.patch)
+makedepends=('freeglut' 'xorg-libraries' 'glu' 'cmake')
+sources=("http://www.ece.uvic.ca/~frodo/jasper/software/jasper-$version.tar.gz")
 
 src_compile() {
-    cd "$SOURCE_DIR/jasper-$version"
+    cd "$SOURCE_DIR/jasper-version-$version"
 
-    patch -p1 -i "$SOURCE_DIR/jpc_dec.c.patch"
-    patch -p1 -i "$SOURCE_DIR/patch-libjasper-stepsizes-overflow.diff"
-    patch -p1 -i "$SOURCE_DIR/jasper-1.900.1-CVE-2008-3520.patch"
-    patch -p1 -i "$SOURCE_DIR/jasper-1.900.1-CVE-2008-3522.patch"
-
-    sh ./configure --prefix=/usr \
-        --mandir=/usr/share/man \
-        --enable-shared \
-        --disable-static
+    mkdir -p build && cd build
+    cmake ../ -DCMAKE_INSTALL_PREFIX=/usr \
+        -DCMAKE_BUILD_TYPE=Release \
+        -DCMAKE_SKIP_INSTALL_RPATH=YES \
+        -DJAS_ENABLE_DOC=NO
     make
 }
 
 src_install() {
-    cd "$SOURCE_DIR/jasper-$version"
+    cd "$SOURCE_DIR/jasper-version-$version/build"
     make DESTDIR="$INSTALL_DIR" install
 }
