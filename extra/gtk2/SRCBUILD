@@ -1,6 +1,8 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
 # http://www.linuxfromscratch.org/blfs/view/svn/x/gtk2.html
 
-version=2.24.31
+version=2.24.32
 description="GTK+ is a multi-platform toolkit (v2)"
 depends=('atk' 'pango' 'xorg-libraries' 'shared-mime-info' 'cairo' 'cups')
 makedepends=('gdk-pixbuf' 'python') # 'gobject-introspection'
