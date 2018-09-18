@@ -2,7 +2,7 @@
 
 # http://www.linuxfromscratch.org/blfs/view/svn/general/libjpeg.html
 
-version=1.5.1
+version=1.5.3
 description="JPEG image codec that uses SIMD instructions (MMX, SSE2, NEON) to accelerate baseline JPEG compression and decompression"
 depends=('glibc')
 makedepends=('nasm')
