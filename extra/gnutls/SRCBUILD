@@ -22,6 +22,7 @@ src_compile() {
         --disable-guile \
         --disable-nls \
         --without-p11-kit \
+        --with-included-unistring \
         $_options
     make
 }
