@@ -2,11 +2,11 @@
 
 # http://www.linuxfromscratch.org/blfs/view/svn/general/pcre.html
 
-version=8.39
+version=8.42
 description="Library that implements Perl 5-style regular expressions"
 depends=('gcc')
-sources=("ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/pcre-$version.tar.bz2"
-        "ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/pcre-$version.tar.bz2.sig")
+sources=("https://ftp.pcre.org/pub/pcre/pcre-$version.tar.bz2"
+        "https://ftp.pcre.org/pub/pcre/pcre-$version.tar.bz2.sig")
 pgpkeys=('45F68D54BBE23FB3039B46E59766E084FB0F43D8')
 
 src_compile() {
