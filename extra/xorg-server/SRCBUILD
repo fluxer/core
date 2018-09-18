@@ -2,8 +2,7 @@
 
 # http://www.linuxfromscratch.org/blfs/view/svn/x/xorg-server.html
 
-version=1.18.4
-release=2
+version=1.19.6
 description="X.Org server"
 depends=('xorg-libraries' 'xkeyboard-config' 'pixman' 'libdrm'
          'freetype2' 'fontconfig' 'mesalib' 'openssl' 'libepoxy')

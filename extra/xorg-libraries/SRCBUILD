@@ -2,8 +2,7 @@
 
 # http://www.linuxfromscratch.org/blfs/view/svn/x/x7lib.html
 
-version=1.18.4
-release=6
+version=1.19.6
 description="X.Org routines libraries"
 depends=('glibc' 'eudev' 'fontconfig' 'freetype2' 'zlib')
 makedepends=('xorg-makeutils' 'xorg-protocol-headers' 'gettext')

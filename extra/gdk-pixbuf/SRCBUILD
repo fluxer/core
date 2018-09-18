@@ -3,7 +3,7 @@
 # TODO: introspection
 # http://www.linuxfromscratch.org/blfs/view/svn/x/gdk-pixbuf.html
 
-version=2.32.3
+version=2.36.12
 description="An image loading library"
 depends=('glib' 'libpng' 'libtiff' 'libjpeg-turbo' 'xorg-libraries')
 makedepends=('xorg-protocol-headers')

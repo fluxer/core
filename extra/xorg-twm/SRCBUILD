@@ -2,7 +2,7 @@
 
 # http://www.linuxfromscratch.org/blfs/view/svn/x/twm.html
 
-version=1.0.9
+version=1.0.10
 description="Classic window manager for the X Window System"
 depends=('xorg-libraries')
 backup=('etc/X11/twm/system.twmrc')
