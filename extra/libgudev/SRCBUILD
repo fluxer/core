@@ -2,7 +2,7 @@
 
 # http://www.linuxfromscratch.org/blfs/view/svn/general/libgudev.html
 
-version=230
+version=232
 description="GObject bindings for libudev"
 depends=('eudev' 'glib')
 sources=("https://download.gnome.org/sources/libgudev/$version/libgudev-$version.tar.xz")
@@ -15,7 +15,7 @@ src_compile() {
             --disable-introspection \
             --disable-static  \
             --disable-gtk-doc-html \
-
+            --disable-umockdev
     make
 }
 
