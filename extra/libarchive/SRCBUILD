@@ -2,15 +2,10 @@
 
 # http://www.linuxfromscratch.org/blfs/view/svn/general/libarchive.html
 
-version=3.2.2
+version=3.3.3
 description="Multi-format archive and compression library"
 makedepends=('zlib' 'bzip2' 'xz' 'glibc' 'acl' 'attr')
 sources=("http://www.libarchive.org/downloads/libarchive-$version.tar.gz")
-
-src_prepare() {
-    cd "$SOURCE_DIR/libarchive-$version"
-    autoreconf -fi
-}
 
 src_compile() {
     cd "$SOURCE_DIR/libarchive-$version"

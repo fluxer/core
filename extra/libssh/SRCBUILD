@@ -1,9 +1,9 @@
-version=0.6.5
+version=0.7.5
 description="Library for accessing ssh client services through C libraries"
 depends=('zlib' 'openssl')
 makedepends=('cmake' 'cmocka' 'doxygen')
 checkdepends=('openssh')
-sources=("https://red.libssh.org/attachments/download/121/libssh-$version.tar.xz")
+sources=("https://www.libssh.org/files/0.7/libssh-$version.tar.xz")
 
 src_compile() {
     mkdir -p build && cd build

@@ -2,7 +2,7 @@
 
 # http://www.linuxfromscratch.org/blfs/view/svn/general/libxml2.html
 
-version=2.9.4
+version=2.9.8
 description="XML C parser and toolkit"
 depends=('zlib' 'readline' 'ncurses' 'xz')
 makedepends=('python')
