@@ -3,7 +3,7 @@
 # TODO: use npth
 # http://www.linuxfromscratch.org/blfs/view/svn/postlfs/gnupg.html
 
-version=2.0.29
+version=2.2.10
 description='Complete and free implementation of the OpenPGP standard'
 depends=('curl' 'pth' 'bzip2' 'libassuan' 'readline' 'libksba' 'libgcrypt' 'pinentry')
 makedepends=('openldap' 'libusbx')
@@ -35,7 +35,4 @@ src_install() {
     cd "$SOURCE_DIR/gnupg-$version"
 
     make DESTDIR="$INSTALL_DIR" install
-    # resolve conflicts with gnupg1
-    mv -v "$INSTALL_DIR/usr/share/man/man1/gpg-zip.1" \
-        "$INSTALL_DIR/usr/share/man/man1/gpg2-zip.1"
 }

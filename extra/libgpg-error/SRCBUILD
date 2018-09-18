@@ -1,6 +1,6 @@
 # Maintainer: Ivailo Monev <xakepa10@gmail.com>
 
-version=1.20
+version=1.32
 description="Small library that defines common error values for all GnuPG components"
 depends=('glibc' 'bash')
 sources=("ftp://ftp.gnupg.org/gcrypt/libgpg-error/libgpg-error-$version.tar.bz2"
