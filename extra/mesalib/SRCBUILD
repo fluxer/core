@@ -32,8 +32,8 @@ src_compile() {
         --enable-gles1 \
         --enable-gles2 \
         --enable-egl \
-        --disable-xa \
-        --disable-gbm \
+        --enable-gbm \
+        --enable-xa \
         --disable-gallium-llvm \
         --disable-vdpau \
         --disable-nine \
