@@ -6,7 +6,8 @@ version=1.19.6
 description="X.Org protocol headers"
 depends=('eudev')
 sources=("http://xorg.freedesktop.org/releases/individual/xcb/xcb-proto-1.13.tar.bz2"
-        "https://www.x.org/releases/individual/proto/xorgproto-2018.4.tar.gz")
+        "https://www.x.org/releases/individual/proto/xorgproto-2018.4.tar.gz"
+        "http://xorg.freedesktop.org/releases/individual/proto/printproto-1.0.5.tar.bz2")
 
 src_compile() {
     _packages=$(find "$SOURCE_DIR" -mindepth 1 -maxdepth 1 -type d)
