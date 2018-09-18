@@ -6,7 +6,7 @@ version=1.19.6
 description="X.Org misc tools and utilities"
 depends=('libpng' 'mesalib' 'xcb-util' 'xbitmaps' 'xorg-libraries')
 makedepends=('xorg-makeutils' 'xorg-protocol-headers' 'xorg-makeutils' 'fontconfig' 'freetype2')
-sources=("http://xorg.freedesktop.org/releases/individual/app/bdftopcf-1.1.1.tar.bz2"
+sources=("http://xorg.freedesktop.org/releases/individual/app/bdftopcf-1.1.tar.bz2"
         "http://xorg.freedesktop.org/releases/individual/app/iceauth-1.0.8.tar.bz2"
         "http://xorg.freedesktop.org/releases/individual/app/luit-1.1.1.tar.bz2"
         "http://xorg.freedesktop.org/releases/individual/app/mkfontdir-1.0.7.tar.bz2"
