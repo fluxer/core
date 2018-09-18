@@ -2,12 +2,12 @@
 
 # http://www.linuxfromscratch.org/blfs/view/svn/x/pango.html
 
-version=1.36.8
+version=1.42.4
 description="Library for layout and rendering of text"
 # TODO: 'libthai'
 depends=('cairo' 'xorg-libraries' 'harfbuzz')
 makedepends=('fontconfig' 'xorg-protocol-headers')
-sources=("http://download.gnome.org/sources/pango/1.36/pango-$version.tar.xz"
+sources=("http://download.gnome.org/sources/pango/1.42/pango-$version.tar.xz"
         "http://download.gnome.org/sources/pangox-compat/0.0/pangox-compat-0.0.2.tar.xz")
 
 src_compile() {
