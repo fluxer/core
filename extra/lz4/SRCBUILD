@@ -1,9 +1,9 @@
-version=r131
+version=1.8.3
 description='Very fast lossless compression algorithm'
 makedepends=('git')
 checkdepends=('diffutils')
 depends=('glibc')
-sources=("https://github.com/Cyan4973/lz4/archive/lz4-$version.tar.gz")
+sources=("https://github.com/lz4/lz4/archive/v$version.tar.gz")
 
 src_compile() {
     cd "$SOURCE_DIR/lz4-$version"
