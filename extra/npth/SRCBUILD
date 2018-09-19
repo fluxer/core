@@ -1,0 +1,24 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+version=1.6
+description='New portable threads library'
+depends=('busybox')
+sources=("ftp://ftp.gnupg.org/gcrypt/npth/npth-$version.tar.bz2")
+
+src_compile() {
+    cd "$SOURCE_DIR/npth-$version"
+
+    ./configure --prefix=/usr \
+        --enable-maintainer-mode
+    make
+}
+
+src_check() {
+    cd "$SOURCE_DIR/npth-$version"
+    make check
+}
+
+src_install() {
+    cd "$SOURCE_DIR/npth-$version"
+    make DESTDIR="$INSTALL_DIR" install
+}

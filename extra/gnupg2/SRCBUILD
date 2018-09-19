@@ -1,11 +1,10 @@
 # Maintainer: Ivailo Monev <xakepa10@gmail.com>
 
-# TODO: use npth
 # http://www.linuxfromscratch.org/blfs/view/svn/postlfs/gnupg.html
 
 version=2.2.10
 description='Complete and free implementation of the OpenPGP standard'
-depends=('curl' 'pth' 'bzip2' 'libassuan' 'readline' 'libksba' 'libgcrypt' 'pinentry')
+depends=('curl' 'pth' 'bzip2' 'libassuan' 'readline' 'libksba' 'libgcrypt' 'pinentry' 'npth')
 makedepends=('openldap' 'libusbx')
 sources=("https://gnupg.org/ftp/gcrypt/gnupg/gnupg-$version.tar.bz2"
         "https://gnupg.org/ftp/gcrypt/gnupg/gnupg-$version.tar.bz2.sig")
@@ -22,6 +21,7 @@ src_compile() {
         --libexecdir=/usr/lib \
         --enable-large-secmem \
         --enable-symcryptrun \
+        --enable-gpg-is-gpg2 \
         --disable-rpath
     make
 }
