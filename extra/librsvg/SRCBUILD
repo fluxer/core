@@ -2,7 +2,7 @@
 
 # http://www.linuxfromscratch.org/blfs/view/svn/general/librsvg.html
 
-version=2.40.16
+version=2.40.18
 description="Library to render SVG files using cairo"
 depends=('gdk-pixbuf' 'pango' 'libcroco')
 makedepends=('intltool' 'xorg-protocol-headers')
