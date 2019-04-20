@@ -1,0 +1,22 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+version=1.19.1
+description="A cross-platform 3D audio library"
+depends=('glibc')
+makedepends=('alsa-lib' 'sdl' 'cmake')
+sources=("http://kcat.strangesoft.net/openal-releases/openal-soft-$version.tar.bz2")
+
+src_compile() {
+    cd "$SOURCE_DIR/openal-soft-$version"
+    mkdir -vp build && cd build
+    cmake -DCMAKE_INSTALL_PREFIX= \
+        -DCMAKE_BUILD_TYPE=Release \
+        ..
+    make
+}
+
+src_install() {
+    cd "$SOURCE_DIR/openal-soft-$version/build"
+    make DESTDIR="$INSTALL_DIR/usr" install
+    install -v env-vars.txt hrtf.txt "$INSTALL_DIR/usr/share/openal/"
+}

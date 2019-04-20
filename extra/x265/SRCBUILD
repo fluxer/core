@@ -1,18 +1,22 @@
-version=2.1
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+# http://www.linuxfromscratch.org/blfs/view/svn/multimedia/x265.html
+
+version=3.0
 description='Open Source H265/HEVC video encoder'
 depends=('gcc')
 makedepends=('yasm' 'cmake')
-sources=("https://bitbucket.org/multicoreware/x265/get/$version.tar.bz2")
+sources=("https://bitbucket.org/multicoreware/x265/downloads/x265_$version.tar.gz")
 options=('!mirror')
 
 src_compile() {
-    cd multicoreware-x265-*/build/linux
+    cd "$SOURCE_DIR/x265_$version/build/linux"
     cmake ../../source \
         -DCMAKE_INSTALL_PREFIX=/usr
     make
 }
 
 src_install() {
-    cd multicoreware-x265-*/build/linux
+    cd "$SOURCE_DIR/x265_$version/build/linux"
     make DESTDIR="$INSTALL_DIR" install
 }

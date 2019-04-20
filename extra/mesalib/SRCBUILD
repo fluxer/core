@@ -2,7 +2,7 @@
 
 # http://www.linuxfromscratch.org/blfs/view/svn/x/mesa.html
 
-version=17.3.9
+version=18.3.6
 description="OpenGL compatible 3D graphics library"
 makedepends=('xorg-libraries' 'xorg-makeutils' 'xorg-protocol-headers'
         'libdrm' 'python' 'expat' 'libxml2' 'elfutils' 'openssl')
@@ -24,19 +24,21 @@ src_compile() {
         --sysconfdir=/etc \
         --with-sha1=libcrypto \
         --with-gallium-drivers="$_drivers" \
+        --with-platforms="drm,x11" \
         --enable-texture-float \
         --enable-osmesa \
         --enable-glx \
         --enable-glx-tls \
         --enable-dri \
+        --enable-dri3 \
         --enable-gles1 \
         --enable-gles2 \
         --enable-egl \
         --enable-gbm \
         --enable-xa \
+        --enable-nine \
         --disable-gallium-llvm \
         --disable-vdpau \
-        --disable-nine \
         --disable-valgrind
     make
 }

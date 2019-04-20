@@ -2,10 +2,10 @@
 
 # http://www.linuxfromscratch.org/blfs/view/svn/general/icu.html
 
-version=60.2
+version=64.2
 description="International Components for Unicode library"
 depends=('gcc' 'busybox')
-sources=("http://download.icu-project.org/files/icu4c/$version/icu4c-60_2-src.tgz")
+sources=("http://download.icu-project.org/files/icu4c/$version/icu4c-64_2-src.tgz")
 
 src_prepare() {
     cd "$SOURCE_DIR/icu/source"

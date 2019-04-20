@@ -8,7 +8,7 @@ depends=('glibc')
 checkdepends=('dejagnu')
 sources=("ftp://sourceware.org/pub/libffi/libffi-$version.tar.gz")
 
-src_compile() {
+src_prepare() {
     cd "$SOURCE_DIR/libffi-$version"
 
     sed -e '/^includesdir/ s/$(libdir).*$/$(includedir)/' \
@@ -17,6 +17,10 @@ src_compile() {
     sed -e '/^includedir/ s/=.*$/=@includedir@/' \
         -e 's/^Cflags: -I${includedir}/Cflags:/' \
         -i libffi.pc.in
+}
+
+src_compile() {
+    cd "$SOURCE_DIR/libffi-$version"
 
     ./configure --prefix=/usr \
         --disable-static

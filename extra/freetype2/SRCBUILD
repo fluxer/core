@@ -2,7 +2,7 @@
 
 # http://www.linuxfromscratch.org/blfs/view/svn/general/freetype2.html
 
-version=2.9.1
+version=2.10.0
 description="TrueType font rendering library"
 depends=('zlib' 'bzip2' 'bash' 'libpng')
 optdepends=('harfbuzz')

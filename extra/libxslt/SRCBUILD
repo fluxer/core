@@ -2,7 +2,7 @@
 
 # http://www.linuxfromscratch.org/blfs/view/svn/general/libxslt.html
 
-version=1.1.28
+version=1.1.33
 description="XSLT C library"
 depends=('libxml2')
 makedepends=('python')

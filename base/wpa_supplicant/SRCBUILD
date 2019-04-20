@@ -2,7 +2,7 @@
 
 # http://www.linuxfromscratch.org/blfs/view/svn/basicnet/wpa_supplicant.html
 
-version=2.6
+version=2.7
 description="Utility providing key negotiation for WPA wireless networks"
 depends=('readline' 'libnl' 'openssl')
 optdepends=('dbus')

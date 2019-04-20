@@ -2,14 +2,14 @@
 
 # http://www.linuxfromscratch.org/blfs/view/cvs/x/util-macros.html
 
-version=1.19.6
+version=1.19.7
 description="X.Org imake program and related utilities"
 depends=('glibc')
 makedepends=('pkgconf' 'perl' 'xorg-protocol-headers')
-sources=("http://xorg.freedesktop.org/releases/individual/util/imake-1.0.7.tar.bz2"
+sources=("http://xorg.freedesktop.org/releases/individual/util/imake-1.0.8.tar.bz2"
         'http://xorg.freedesktop.org/releases/individual/util/gccmakedep-1.0.3.tar.bz2'
         'http://xorg.freedesktop.org/releases/individual/util/lndir-1.0.3.tar.bz2'
-        'http://xorg.freedesktop.org/releases/individual/util/makedepend-1.0.5.tar.bz2'
+        'http://xorg.freedesktop.org/releases/individual/util/makedepend-1.0.6.tar.bz2'
         'http://xorg.freedesktop.org/releases/individual/util/xorg-cf-files-1.0.6.tar.bz2'
         'http://xorg.freedesktop.org/releases/individual/util/util-macros-1.19.2.tar.bz2'
         'linuxconfig.patch')

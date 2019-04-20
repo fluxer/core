@@ -1,19 +1,19 @@
 # Maintainer: Ivailo Monev <xakepa10@gmail.com>
 
-version=2.0.5
+version=2.0.9
 description="Simple DirectMedia Layer (Version 2)"
 depends=('glibc' 'xorg-libraries' 'mesalib' 'alsa-lib')
 optdepends=('pulseaudio')
 sources=("http://www.libsdl.org/release/SDL2-$version.tar.gz"
         "http://www.libsdl.org/release/SDL2-$version.tar.gz.sig"
-        'libsdl2-$version-static-libs.patch')
+        "libsdl2-static-libs.patch")
 pgpkeys=('30A59377A7763BE6')
 
 src_prepare(){
     cd "$SOURCE_DIR/SDL2-$version"
 
     # patch from Gentoo
-    patch -Np1 -i "$SOURCE_DIR/libsdl2-$version-static-libs.patch"
+    patch -Np1 -i "$SOURCE_DIR/libsdl2-static-libs.patch"
 }
 
 src_compile(){

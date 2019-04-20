@@ -1,0 +1,42 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+version=4.6
+description="A compatibility layer for running Windows programs"
+depends=('fontconfig' 'xorg-libraries' 'gettext' 'freetype2' 'glu' 'gcc')
+makedepends=('giflib' 'libpng' 'gnutls' 'xorg-libraries' 'libxml2'
+        'openldap' 'lcms2' 'mpg123' 'openal' 'alsa-lib' 'mesalib')
+sources=("http://dl.winehq.org/wine/source/4.x/wine-$version.tar.xz"
+        "http://dl.winehq.org/wine/source/4.x/wine-$version.tar.xz.sign"
+        '30-win32-aliases.conf')
+pgpkeys=('DA23579A74D4AD9AF9D3F945CEFAC8EAAF17519D')
+
+src_compile() {
+    cd "$SOURCE_DIR/wine-$version"
+
+    # These additional CPPFLAGS solve FS#27662 and FS#34195
+    export CPPFLAGS="${CPPFLAGS/-D_FORTIFY_SOURCE=2/} -D_FORTIFY_SOURCE=0"
+
+    # Building with clang fails
+    export CC=gcc CXX=g++
+
+    [ "$(uname -m)" = "x86_64" ] && _options="--enable-win64"
+    ./configure --prefix=/usr \
+        --with-x \
+        --without-gstreamer \
+        $_options
+
+    make
+}
+
+src_install() {
+    cd "$SOURCE_DIR/wine-$version"
+
+    make prefix="$INSTALL_DIR/usr" install
+
+    # Font aliasing settings for Win32 applications
+    install -vd "$INSTALL_DIR/etc/fonts/conf."{avail,d}
+    install -vm644 "$SOURCE_DIR/30-win32-aliases.conf" \
+        "$INSTALL_DIR/etc/fonts/conf.avail"
+    ln -vs ../conf.avail/30-win32-aliases.conf \
+        "$INSTALL_DIR/etc/fonts/conf.d/30-win32-aliases.conf"
+}

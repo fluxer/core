@@ -2,7 +2,7 @@
 
 # http://www.linuxfromscratch.org/blfs/view/svn/general/tk.html
 
-version=8.6.6
+version=8.6.9
 description="A windowing toolkit for use with tcl"
 depends=("tcl" 'xorg-libraries')
 sources=("http://downloads.sf.net/tcl/tk$version-src.tar.gz")

@@ -2,8 +2,8 @@
 
 # http://www.linuxfromscratch.org/blfs/view/svn/server/sqlite.html
 
-_amalgamationver=3230100
-version=3.23.1
+_amalgamationver=3250100
+version=3.25.3
 description="C library that implements an SQL database engine"
 makedepends=('readline')
 sources=("http://www.sqlite.org/2018/sqlite-autoconf-$_amalgamationver.tar.gz")

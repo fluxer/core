@@ -2,10 +2,10 @@
 
 # http://www.linuxfromscratch.org/blfs/view/svn/multimedia/x264.html
 
-version=20160827
+version=20190209
 description="Free library for encoding H264/AVC video streams"
 depends=('glibc')
-makedepends=('yasm')
+makedepends=('nasm')
 sources=("http://download.videolan.org/pub/videolan/x264/snapshots/x264-snapshot-$version-2245.tar.bz2")
 
 src_compile() {

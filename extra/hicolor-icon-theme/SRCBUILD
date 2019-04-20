@@ -1,6 +1,8 @@
 # Maintainer: Ivailo Monev <xakepa10@gmail.com>
 
-version=0.12
+# http://www.linuxfromscratch.org/blfs/view/svn/x/hicolor-icon-theme.html
+
+version=0.17
 description="Freedesktop.org Hicolor icon theme"
 sources=("http://icon-theme.freedesktop.org/releases/hicolor-icon-theme-$version.tar.gz")
 

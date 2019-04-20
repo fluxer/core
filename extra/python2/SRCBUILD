@@ -1,8 +1,8 @@
 # Maintainer: Ivailo Monev <xakepa10@gmail.com>
 
-# http://www.linuxfromscratch.org/blfs/view/svn/general/python3.html
+# http://www.linuxfromscratch.org/blfs/view/svn/general/python2.html
 
-version=2.7.15
+version=2.7.16
 description="Interpreted, interactive, object-oriented programming language"
 depends=('bzip2' 'zlib' 'bash' 'gdbm' 'readline' 'openssl' 'glibc' 'expat')
 optdepends=('libffi' 'sqlite')

@@ -3,7 +3,7 @@
 # TODO: optdepends - jack
 # http://www.linuxfromscratch.org/blfs/view/svn/multimedia/mpg123.html
 
-version=1.23.8
+version=1.25.10
 description="Fast console MPEG Audio Player and decoder library"
 depends=('glibc' 'libtool' 'alsa-lib')
 optdepends=('pulseaudio')

@@ -2,7 +2,7 @@
 
 # http://www.linuxfromscratch.org/blfs/view/svn/x/x7driver.html#libinput
 
-version=1.8.4
+version=1.13.1
 description="library that handles input devices for display servers and other applications that need to directly deal with input devices."
 depends=('mtdev' 'eudev' 'libevdev')
 sources=("http://freedesktop.org/software/libinput/libinput-$version.tar.xz"

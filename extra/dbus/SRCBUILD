@@ -2,7 +2,7 @@
 
 # http://www.linuxfromscratch.org/blfs/view/svn/general/dbus.html
 
-version=1.13.6
+version=1.12.12
 description="Freedesktop.org message bus system"
 depends=('expat' 'busybox' 'filesystem' 'xorg-libraries')
 makedepends=('xorg-protocol-headers')
