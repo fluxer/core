@@ -2,8 +2,7 @@
 
 # http://www.linuxfromscratch.org/lfs/view/development/chapter06/glibc.html
 
-version=2.26
-release=2
+version=2.28
 description="GNU C library"
 depends=('filesystem' 'linux-api-headers' 'tzdata')
 makedepends=('gawk')

@@ -2,7 +2,7 @@
 
 # http://www.linuxfromscratch.org/lfs/view/development/chapter06/kmod.html
 
-version=25
+version=26
 description="Linux kernel module handling"
 depends=('glibc' 'zlib' 'xz')
 # checkdepends=('linux-sources' 'libxslt')
@@ -11,7 +11,7 @@ sources=("https://www.kernel.org/pub/linux/utils/kernel/kmod/kmod-$version.tar.x
 pgpkeys=('EAB33C9690013C733916AC839BA2A5A630CBEA53')
 
 src_compile() {
-    cd "kmod-$version"
+    cd "$SOURCE_DIR/kmod-$version"
 
     ./configure --prefix=/usr \
         --sysconfdir=/etc \
@@ -24,7 +24,7 @@ src_compile() {
 }
 
 src_install() {
-    cd "kmod-$version"
+    cd "$SOURCE_DIR/kmod-$version"
 
     make DESTDIR="$INSTALL_DIR" install
 

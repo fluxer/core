@@ -2,7 +2,7 @@
 
 # http://kernel.org/
 
-version=4.14.69
+version=4.19.35
 description="Linux Kernel and modules"
 depends=('linux-firmware')
 makedepends=('bc' 'busybox')
@@ -28,7 +28,7 @@ src_compile() {
     cd "$SOURCE_DIR/linux-$version"
 
     echo "Configuring kernel..."
-    make oldconfig
+    make olddefconfig
     make menuconfig
 
     echo "Building kernel..."

@@ -5,8 +5,8 @@
 version=2.7.6
 description='A utility to apply patch files to original sources'
 depends=('glibc')
-sources=("ftp://ftp.gnu.org/gnu/patch/patch-$version.tar.xz"
-        "ftp://ftp.gnu.org/gnu/patch/patch-$version.tar.xz.sig")
+sources=("http://ftp.gnu.org/gnu/libtool/patch-$version.tar.xz"
+        "http://ftp.gnu.org/gnu/libtool/patch-$version.tar.xz.sig")
 pgpkeys=('C4C927CD5D1B36D7')
 
 src_compile() {
