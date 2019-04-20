@@ -44,7 +44,8 @@ src_compile() {
                         --localstatedir=/var \
                         --disable-static \
                         --enable-glamor ;;
-            *intel*) ./configure --prefix=/usr \
+            *intel*) autoreconf -fi
+                     ./configure --prefix=/usr \
                            --sysconfdir=/etc \
                             --localstatedir=/var \
                             --libexecdir=/usr/lib/intel \

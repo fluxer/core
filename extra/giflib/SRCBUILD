@@ -10,8 +10,6 @@ sources=("http://dl.sourceforge.net/giflib/giflib-$version.tar.bz2")
 src_compile() {
     cd "$SOURCE_DIR/giflib-$version"
 
-    ./configure --prefix=/usr \
-        --disable-static
     make
 }
 
@@ -22,5 +20,5 @@ src_check() {
 
 src_install() {
     cd "$SOURCE_DIR/giflib-$version"
-    make DESTDIR="$INSTALL_DIR" install
+    make DESTDIR="$INSTALL_DIR" PREFIX=/usr install
 }

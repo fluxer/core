@@ -8,6 +8,7 @@ sources=("https://github.com/anholt/libepoxy/releases/download/$version/libepoxy
 
 src_compile() {
     cd "$SOURCE_DIR/libepoxy-$version"
+    autoreconf -fi
     PYTHON=/usr/bin/python ./configure --prefix=/usr
 }
 

@@ -7,9 +7,7 @@ version=1.6.37
 description="Libraries for reading and writing PNG files"
 depends=('bash' 'zlib')
 sources=("http://download.sf.net/libpng/libpng16/$version/libpng-$version.tar.xz"
-        "http://download.sf.net/libpng/libpng16/$version/libpng-$version.tar.xz.asc"
         "http://download.sf.net/apng/libpng16/libpng-$version-apng.patch.gz")
-pgpkeys=('8048643BA2C840F4F92A195FF54984BFA16C640F')
 
 src_prepare() {
     cd "$SOURCE_DIR/libpng-$version"

@@ -12,7 +12,7 @@ sources=("ftp://ftp.gnutls.org/gcrypt/gnutls/v3.6/gnutls-$version.tar.xz"
 pgpkeys=('A812CBFDFCDC4D0BE7A093129D5EAAF69013B842')
 
 src_compile() {
-    cd "$SOURCE_DIR/gnutls-$version"
+    cd "$SOURCE_DIR/gnutls-3.6.7"
 
     _options=""
     [ "$OPTIONAL_LIBTASN1" = "no" ] && _options+=" --with-included-libtasn1"
@@ -28,11 +28,11 @@ src_compile() {
 }
 
 src_check() {
-    cd "$SOURCE_DIR/gnutls-$version"
+    cd "$SOURCE_DIR/gnutls-3.6.7"
     make check
 }
 
 src_install() {
-    cd "$SOURCE_DIR/gnutls-$version"
+    cd "$SOURCE_DIR/gnutls-3.6.7"
     make DESTDIR="$INSTALL_DIR" install
 }
