@@ -1,6 +1,7 @@
 # Maintainer: Ivailo Monev <xakepa10@gmail.com>
 
-# http://www.linuxfromscratch.org/blfs/view/svn/x/x7proto.html
+# http://www.linuxfromscratch.org/blfs/view/stable/x/xorgproto.html
+# http://www.linuxfromscratch.org/blfs/view/stable/x/xcb-proto.html
 
 version=1.19.7
 description="X.Org protocol headers"
