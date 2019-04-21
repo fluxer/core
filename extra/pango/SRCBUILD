@@ -5,7 +5,7 @@
 version=1.42.4
 description="Library for layout and rendering of text"
 # TODO: 'libthai'
-depends=('cairo' 'xorg-libraries' 'harfbuzz')
+depends=('cairo' 'xorg-libraries' 'harfbuzz' 'fribidi')
 makedepends=('fontconfig' 'xorg-protocol-headers')
 sources=("http://download.gnome.org/sources/pango/1.42/pango-$version.tar.xz"
         "http://download.gnome.org/sources/pangox-compat/0.0/pangox-compat-0.0.2.tar.xz")

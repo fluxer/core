@@ -4,7 +4,7 @@
 
 version=0.17
 description="Freedesktop.org Hicolor icon theme"
-sources=("http://icon-theme.freedesktop.org/releases/hicolor-icon-theme-$version.tar.gz")
+sources=("http://icon-theme.freedesktop.org/releases/hicolor-icon-theme-$version.tar.xz")
 
 src_compile() {
     cd "$SOURCE_DIR/hicolor-icon-theme-$version"

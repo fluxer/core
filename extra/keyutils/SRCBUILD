@@ -1,6 +1,6 @@
 # Maintainer: Ivailo Monev <xakepa10@gmail.com>
 
-version=1.5.9
+version=1.6
 description="Linux Key Management Utilities"
 depends=('glibc' 'busybox')
 sources=("http://people.redhat.com/~dhowells/keyutils/keyutils-$version.tar.bz2")
