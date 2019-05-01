@@ -42,7 +42,7 @@ pgpkeys=('CFDF148828C642A7')
 
 
 src_compile() {
-    _packages=$(find "$SOURCE_DIR" -mindepth 1 -maxdepth 1 -type d)
+    _packages="$SOURCE_DIR/font-util-1.3.1 $SOURCE_DIR/encodings-1.0.4 $(find "$SOURCE_DIR" -mindepth 1 -maxdepth 1 -type d)"
     for _pkg in $_packages;do
         cd "$_pkg"
         echo "Configuring $_pkg..."
