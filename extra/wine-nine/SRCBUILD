@@ -1,0 +1,41 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+version=20190501
+description="Gallium Nine Standalone"
+depends=('wine' 'mesalib')
+makedepends=('meson' 'ninja' 'git')
+sources=("http://github.com/iXit/wine-nine-standalone.git")
+
+src_prepare() {
+    cd "$SOURCE_DIR/wine-nine-standalone.git"
+
+    sed 's|@PKG_CONFIG@|pkg-config|g' tools/cross-wine32.in > tools/cross-wine32
+    sed 's|@PKG_CONFIG@|pkg-config|g' tools/cross-wine64.in > tools/cross-wine64
+}
+
+src_compile() {
+    cd "$SOURCE_DIR/wine-nine-standalone.git"
+
+    _crossfile="cross-wine32"
+    [ "$(uname -m)" == "x86_64" ] && _crossfile="cross-wine64"
+    meson build --prefix /usr \
+        --cross-file "tools/$_crossfile"
+    ninja -C build
+}
+
+src_install() {
+    cd "$SOURCE_DIR/wine-nine-standalone.git"
+
+    install -vdm755 "$INSTALL_DIR/usr/lib/wine/fakedlls"
+
+    install -vm755 build/ninewinecfg/ninewinecfg.exe.so \
+        "$INSTALL_DIR/usr/lib/wine/ninewinecfg.exe.so"
+    install -vm755 build/ninewinecfg/ninewinecfg.exe.fake \
+        "$INSTALL_DIR/usr/lib/wine/fakedlls/ninewinecfg.exe"
+
+
+    install -vm755 build/d3d9-nine/d3d9-nine.dll.so \
+        "$INSTALL_DIR/usr/lib/wine/d3d9-nine.dll.so"
+    install -vm755 build/d3d9-nine/d3d9-nine.dll.fake \
+        "$INSTALL_DIR/usr/lib/wine/fakedlls/d3d9-nine.dll"
+}
