@@ -44,13 +44,18 @@ sources=("http://xorg.freedesktop.org/releases/individual/lib/libXau-1.0.9.tar.b
         "http://xorg.freedesktop.org/releases/individual/lib/libxshmfence-1.3.tar.bz2"
         "http://xorg.freedesktop.org/releases/individual/lib/libXdmcp-1.1.3.tar.bz2")
 
+_packages=(libXau libxcb xtrans libICE libSM libX11 libXrender libXext libXrandr
+        libXres libXpm libXfixes libXcursor libfontenc libXi libXtst libxshmfence
+        libXdmcp libXft libXv libXvMC libXt libXmu libdmx libXp libFS libXxf86vm
+        libxkbfile libXScrnSaver libXfont2 libXcomposite libXaw libXfont libXdamage
+        libpciaccess libXinerama libXxf86dga)
+
 src_compile() {
-    _packages=$(find "$SOURCE_DIR" -mindepth 1 -maxdepth 1 -type d)
     # some libraries build with clang cause crashes
     export CC=gcc CXX=g++
 
-    for _pkg in $_packages;do
-        cd "$_pkg"
+    for _pkg in ${_packages[@]};do
+        cd "$SOURCE_DIR/$_pkg"-*/
         echo "Configuring $_pkg..."
         case "$_pkg" in
             *libxcb*)        sed -e "s/pthread-stubs//" -i configure.ac
@@ -82,18 +87,16 @@ src_compile() {
 }
 
 src_check() {
-    _packages=$(find "$SOURCE_DIR" -mindepth 1 -maxdepth 1 -type d)
-    for _pkg in $_packages;do
-        cd "$_pkg"
+    for _pkg in ${_packages[@]};do
+        cd "$SOURCE_DIR/$_pkg"-*/
         echo "Checking $_pkg..."
         make check
     done
 }
 
 src_install() {
-    _packages=$(find "$SOURCE_DIR" -mindepth 1 -maxdepth 1 -type d)
-    for _pkg in $_packages;do
-        cd "$_pkg"
+    for _pkg in ${_packages[@]};do
+        cd "$SOURCE_DIR/$_pkg"-*/
         echo "Installing $_pkg (package)..."
         make DESTDIR="$INSTALL_DIR" install
     done
