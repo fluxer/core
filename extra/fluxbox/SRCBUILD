@@ -1,0 +1,21 @@
+version=1.3.7
+description="A lightweight and highly-configurable window manager"
+depends=('xorg-libraries' 'gcc' 'fribidi')
+sources=("http://downloads.sf.net/fluxbox/fluxbox-$version.tar.xz"
+        fluxbox.desktop)
+
+src_compile() {
+    cd fluxbox-$version
+    ./configure --prefix=/usr \
+        --enable-xft \
+        --enable-xinerama \
+        --enable-nls
+  make
+}
+
+src_install() {
+    cd fluxbox-$version
+    make DESTDIR="$INSTALL_DIR" install
+    install -vDm644 "$SOURCE_DIR/fluxbox.desktop" \
+        "$INSTALL_DIR/usr/share/xsessions/fluxbox.desktop"
+}
