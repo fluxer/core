@@ -9,8 +9,7 @@ makedepends=('groff')
 backup=('etc/openldap/ldap.conf'
         'etc/openldap/slapd.conf'
         'etc/openldap/slapd.ldif')
-sources=("ftp://ftp.openldap.org/pub/OpenLDAP/openldap-release/openldap-$version.tgz"
-        'slapd.tmpfiles' 'slapd.init' 'slapd.confd')
+sources=("ftp://ftp.openldap.org/pub/OpenLDAP/openldap-release/openldap-$version.tgz")
 
 src_compile() {
     cd "$SOURCE_DIR/openldap-$version"
