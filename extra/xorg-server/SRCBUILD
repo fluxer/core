@@ -3,6 +3,7 @@
 # http://www.linuxfromscratch.org/blfs/view/svn/x/xorg-server.html
 
 version=1.19.7
+release=2
 description="X.Org server"
 depends=('xorg-libraries' 'xkeyboard-config' 'pixman' 'libdrm'
          'freetype2' 'fontconfig' 'mesalib' 'openssl' 'libepoxy')
@@ -33,6 +34,7 @@ src_compile() {
         --enable-dri2 \
         --enable-dri3 \
         --enable-glamor \
+        --enable-thread-input \
         --disable-kdrive \
         --disable-xvfb \
         --disable-tcp-transport \
