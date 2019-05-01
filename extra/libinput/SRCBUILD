@@ -14,6 +14,7 @@ src_compile() {
 
     autoreconf -fi
     ./configure --prefix=/usr \
+        --libexec=/usr/lib \
         --disable-libwacom \
         --disable-static \
         --disable-documentation \

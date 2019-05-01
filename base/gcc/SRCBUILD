@@ -27,10 +27,11 @@ src_prepare() {
     # for x86_64, to avoid lib64
     sed -i '/m64=/s/lib64/lib/' gcc/config/i386/t-linux64
 
-    # in case they break ABI build without linking to them
-    cp -a "../gmp-$_gmp" gmp
-    cp -a "../mpc-$_mpc" mpc
-    cp -a "../mpfr-$_mpfr" mpfr
+    # in case they break ABI build without linking to them,
+    # this is upgrade path
+    # cp -a "../gmp-$_gmp" gmp
+    # cp -a "../mpc-$_mpc" mpc
+    # cp -a "../mpfr-$_mpfr" mpfr
 }
 
 src_compile() {
@@ -46,6 +47,7 @@ src_compile() {
     mkdir -pv "$SOURCE_DIR/gcc-build" && cd "$SOURCE_DIR/gcc-build"
     ../gcc-$version/configure \
         --prefix=/usr \
+        --libexec=/usr/lib \
         --enable-clocale=gnu \
         --enable-threads=posix \
         --enable-__cxa_atexit \

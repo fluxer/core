@@ -13,6 +13,7 @@ src_compile() {
     cd "$SOURCE_DIR/coreutils-$version"
 
     FORCE_UNSAFE_CONFIGURE=1 ./configure --prefix=/usr \
+        --libexec=/usr/lib \
         --with-openssl \
         --enable-no-install-program=kill,uptime \
         --disable-nls
