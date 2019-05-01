@@ -2,7 +2,7 @@
 
 # http://www.linuxfromscratch.org/blfs/view/svn/general/llvm.html
 
-version=3.8.1
+version=7.0.1
 description="Low Level Virtual Machine"
 depends=('perl' 'python' 'libffi' 'zlib')
 makedepends=('ncurses' 'cmake')
@@ -22,8 +22,8 @@ src_prepare() {
     # At the present, clang must reside inside the LLVM source code tree to build
     # See http://llvm.org/bugs/show_bug.cgi?id=4840
     cp -a "$SOURCE_DIR/cfe-$version.src" tools/clang
-    cp -a "$SOURCE_DIR/compiler-rt-$version.src" projects/compiler-rt
-    cp -a "$SOURCE_DIR/clang-tools-extra-$version.src" tools/clang/tools/extra
+    # cp -a "$SOURCE_DIR/compiler-rt-$version.src" projects/compiler-rt
+    # cp -a "$SOURCE_DIR/clang-tools-extra-$version.src" tools/clang/tools/extra
 }
 
 src_compile() {
@@ -38,9 +38,9 @@ src_compile() {
     cmake -DCMAKE_INSTALL_PREFIX=/usr \
         -DCMAKE_BUILD_TYPE=Release \
         -DLLVM_TARGETS_TO_BUILD="host;AMDGPU" \
-        -DLLVM_INCLUDE_EXAMPLES=OFF \
-        -DLLVM_INCLUDE_DOCS=OFF \
-        -DLLVM_INCLUDE_TESTS=OFF \
+        -DLLVM_BUILD_EXAMPLES=OFF \
+        -DLLVM_BUILD_DOCS=OFF \
+        -DLLVM_BUILD_TESTS=OFF \
         -DLLVM_ENABLE_FFI=ON \
         -DLLVM_ENABLE_ZLIB=ON \
         -DLLVM_ENABLE_RTTI=ON \
