@@ -2,7 +2,7 @@
 
 # http://www.linuxfromscratch.org/blfs/view/svn/postlfs/openssl.html
 
-version=1.0.2r
+version=1.1.1b
 description='Secure Sockets Layer and Transport Layer Security tools'
 makedepends=('zlib')
 sources=("http://www.openssl.org/source/openssl-$version.tar.gz"
@@ -11,7 +11,6 @@ pgpkeys=('8657ABB260F056B1E5190839D9C4D26D0E604491')
 
 src_compile() {
     cd "$SOURCE_DIR/openssl-$version"
-    export MAKEFLAGS="$MAKEFLAGS -j1"
 
     _options=""
     [ "$(uname -m)" = "x86_64" ] && _options="enable-ec_nistp_64_gcc_128"
@@ -20,8 +19,6 @@ src_compile() {
         shared \
         zlib-dynamic \
         $_options
-
-     sed -i "s|-O3|$CFLAGS|" Makefile
 
      make depend
      make
@@ -34,10 +31,10 @@ src_check() {
 
 src_install() {
     cd "$SOURCE_DIR/openssl-$version"
-    make -j1 INSTALL_PREFIX="$INSTALL_DIR" \
+    make DESTDIR="$INSTALL_DIR" \
         LIBDIR=lib \
         MANDIR=/usr/share/man \
-        MANSUFFIX=ssl install
+        MANSUFFIX=ssl install_sw install_ssldirs
 
     find "$INSTALL_DIR" -name '*.a' -exec rm -vf {} +
     rm -vrf "$INSTALL_DIR/usr/share/man"
