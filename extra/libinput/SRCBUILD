@@ -2,7 +2,7 @@
 
 # http://www.linuxfromscratch.org/blfs/view/svn/x/x7driver.html#libinput
 
-version=1.13.1
+version=1.8.4
 description="library that handles input devices for display servers and other applications that need to directly deal with input devices."
 depends=('mtdev' 'eudev' 'libevdev')
 sources=("http://freedesktop.org/software/libinput/libinput-$version.tar.xz"
@@ -12,6 +12,7 @@ pgpkeys=('3C2C43D9447D5938EF4551EBE23B7E70B467F0BF')
 src_compile() {
     cd "$SOURCE_DIR/libinput-$version"
 
+    autoreconf -fi
     ./configure --prefix=/usr \
         --disable-libwacom \
         --disable-static \
