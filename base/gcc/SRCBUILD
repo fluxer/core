@@ -5,11 +5,17 @@
 # http://gcc.gnu.org/git/?p=gcc.git;a=summary
 
 version=7.4.0
+_gmp=6.1.2
+_mpc=1.1.0
+_mpfr=4.0.2
 description="GNU compiler collection, includes the C and C++ frontends"
 depends=('glibc' 'zlib' 'mpc' 'mpfr')
 checkdepends=('dejagnu')
 sources=("http://ftp.gnu.org/gnu/gcc/gcc-$version/gcc-$version.tar.xz"
-        "http://ftp.gnu.org/gnu/gcc/gcc-$version/gcc-$version.tar.xz.sig")
+        "http://ftp.gnu.org/gnu/gcc/gcc-$version/gcc-$version.tar.xz.sig"
+        "https://ftp.gnu.org/gnu/gmp/gmp-$_gmp.tar.xz"
+        "https://ftp.gnu.org/gnu/mpc/mpc-$_mpc.tar.gz"
+        "http://www.mpfr.org/mpfr-$_mpfr/mpfr-$_mpfr.tar.xz")
 pgpkeys=('33C235A34C46AA3FFB293709A328C3A2C3C45C06')
 
 src_prepare() {
@@ -20,6 +26,11 @@ src_prepare() {
 
     # for x86_64, to avoid lib64
     sed -i '/m64=/s/lib64/lib/' gcc/config/i386/t-linux64
+
+    # in case they break ABI build without linking to them
+    cp -a "../gmp-$_gmp" gmp
+    cp -a "../mpc-$_mpc" mpc
+    cp -a "../mpfr-$_mpfr" mpfr
 }
 
 src_compile() {

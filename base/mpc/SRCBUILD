@@ -2,7 +2,7 @@
 
 # http://www.linuxfromscratch.org/lfs/view/development/chapter06/mpc.html
 
-version=1.0.3
+version=1.1.0
 description="C library for the arithmetic of complex numbers with arbitrarily high precision and correct rounding of the result"
 depends=('glibc' 'mpfr')
 sources=("https://ftp.gnu.org/gnu/mpc/mpc-$version.tar.gz"
