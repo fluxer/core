@@ -3,13 +3,13 @@
 # TODO: OpenRC services
 # http://www.linuxfromscratch.org/blfs/view/svn/postlfs/mitkrb.html
 
-version=1.13.7
+version=1.16.3
 description="The Kerberos network authentication system"
 depends=('e2fsprogs' 'openldap' 'keyutils')
 makedepends=('perl')
 backup=('etc/krb5.conf' 'var/lib/krb5kdc/kdc.conf')
-sources=("http://web.mit.edu/kerberos/dist/krb5/1.13/krb5-$version.tar.gz"
-        "http://web.mit.edu/kerberos/dist/krb5/1.13/krb5-$version.tar.gz.asc"
+sources=("http://web.mit.edu/kerberos/dist/krb5/1.16/krb5-$version.tar.gz"
+        "http://web.mit.edu/kerberos/dist/krb5/1.16/krb5-$version.tar.gz.asc"
         'krb5-config_LDFLAGS.patch'
         'krb5-kadmind' 'krb5-kdc' 'krb5-kpropd')
 pgpkeys=('2C732B1C0DBEF678AB3AF606A32F17FD0055C305')
