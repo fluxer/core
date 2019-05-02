@@ -1,0 +1,21 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+# http://www.linuxfromscratch.org/blfs/view/svn/general/unzip.html
+
+version=6.0
+description="ZIP extraction utilities"
+depends=('bzip2')
+sources=("http://downloads.sourceforge.net/infozip/unzip60.tar.gz")
+
+src_compile() {
+    cd "$SOURCE_DIR/unzip60"
+    
+    make -j1 -f unix/Makefile LOCAL_ZIP="$CFLAGS $CPPFLAGS" prefix=/usr generic_gcc
+}
+
+src_install() {
+    cd "$SOURCE_DIR/unzip60"
+    make -j1 -f unix/Makefile install \
+        prefix="$INSTALL_DIR/usr" \
+        MANDIR=$INSTALL_DIR/usr/share/man/man1
+}
