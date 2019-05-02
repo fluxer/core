@@ -48,7 +48,7 @@ src_compile() {
 
     make
     make tools/qt-faststart
-    make doc/ff{mpeg,play,server}.1
+    make doc/ff{mpeg,play}.1
 }
 
 src_check() {
@@ -61,5 +61,4 @@ src_install() {
 
     make DESTDIR="$INSTALL_DIR" install install-man
     install -vDm755 tools/qt-faststart "$INSTALL_DIR/usr/bin/qt-faststart"
-    install -vDm644 doc/ffserver.conf "$INSTALL_DIR/etc/ffserver.conf"
 }
