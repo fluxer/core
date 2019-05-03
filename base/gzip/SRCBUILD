@@ -1,6 +1,8 @@
 # Maintainer: Ivailo Monev <xakepa10@gmail.com>
 
-version=1.9
+# https://linuxfromscratch.org/lfs/view/development/chapter06/gzip.html
+
+version=1.10
 description='GNU compression utility'
 depends=('glibc' 'bash' 'less')
 sources=("ftp://ftp.gnu.org/pub/gnu/gzip/gzip-$version.tar.xz"
