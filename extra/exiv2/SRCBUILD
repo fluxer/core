@@ -2,19 +2,18 @@
 
 # http://www.linuxfromscratch.org/blfs/view/svn/general/exiv2.html
 
-version=0.25
+version=0.27.1
 description="Exif and Iptc metadata manipulation library and tools"
 depends=('gcc' 'zlib' 'expat')
 makedepends=('cmake')
-sources=("http://www.exiv2.org/exiv2-$version.tar.gz")
+sources=("http://github.com/Exiv2/exiv2/archive/$version.tar.gz")
 
 src_compile() {
     mkdir "$SOURCE_DIR/build" && cd "$SOURCE_DIR/build"
-    sed -i "s:man/man1:share/man/man1:" ../exiv2-$version/src/CMakeLists.txt
     cmake ../exiv2-$version \
-        -DCMAKE_BUILD_TYPE=RelWithDebInfo \
+        -DCMAKE_BUILD_TYPE=Release \
         -DCMAKE_INSTALL_PREFIX=/usr \
-        -DEXIV2_ENABLE_BUILD_PO:BOOL=ON \
+        -DEXIV2_ENABLE_BUILD_PO=ON \
         -DEXIV2_ENABLE_BUILD_SAMPLES=OFF
     make
 }
