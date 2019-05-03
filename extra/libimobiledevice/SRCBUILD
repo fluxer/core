@@ -1,13 +1,19 @@
 # Maintainer: Ivailo Monev <xakepa10@gmail.com>
 
-version=1.1.7
-release=2
+version=20190502
 description="Is a software library that talks the protocols to support iPhone and iPod Touch devices on Linux"
 depends=('libusbmuxd' 'gnutls' 'libgcrypt')
-sources=("http://libimobiledevice.org/downloads/libimobiledevice-$version.tar.bz2")
+makedepends=('git')
+sources=("https://github.com/libimobiledevice/libimobiledevice.git")
+
+src_prepare() {
+    cd "$SOURCE_DIR/libimobiledevice.git"
+
+    NOCONFIGURE=1 ./autogen.sh
+}
 
 src_compile() {
-    cd "$SOURCE_DIR/libimobiledevice-$version"
+    cd "$SOURCE_DIR/libimobiledevice.git"
 
     ./configure --prefix=/usr \
         --disable-static \
@@ -16,6 +22,6 @@ src_compile() {
 }
 
 src_install() {
-    cd "$SOURCE_DIR/libimobiledevice-$version"
+    cd "$SOURCE_DIR/libimobiledevice.git"
     make DESTDIR="$INSTALL_DIR" install
 }
