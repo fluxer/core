@@ -1,0 +1,57 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+version=20190501
+description="Open source web brpwser based pm Firefox focusing on efficiency"
+depends=('gtk2' 'dbus-glib' 'xorg-libraries' 'alsa-lib' 'ffmpeg' 'hunspell')
+makedepends=('git' 'autoconf2.13' 'python2' 'xorg-protocol-headers' 'unzip' 'zip' 'yasm')
+sources=("https://github.com/MoonchildProductions/UXP.git"
+        'mozconfig'
+        'palemoon.desktop')
+
+export MOZBUILD_STATE_PATH="$SOURCE_DIR/mozbuild"
+export MOZCONFIG="$SOURCE_DIR/UXP.git/mozconfig"
+
+src_prepare() {
+    cd "$SOURCE_DIR/UXP.git"
+
+    cp -vf "$SOURCE_DIR/mozconfig" mozconfig
+    sed 's|%SRCDIR%|'"$SOURCE_DIR"'|g' -i mozconfig
+    sed 's|%MAKEFLAGS%|'"$MAKEFLAGS"'|g' -i mozconfig
+    sed 's|%CFLAGS%|'"$CFLAGS"'|g' -i mozconfig
+
+    chmod -R +x build/autoconf/* python/*
+    find -name '*.sh' -exec chmod -v +x {} +
+}
+
+src_compile() {
+    cd "$SOURCE_DIR/UXP.git"
+
+    python2 mach build
+}
+
+src_install() {
+    cd "$SOURCE_DIR/pmbuild"
+
+    make package
+
+    cd dist
+    install -vd "$INSTALL_DIR/usr/bin" "$INSTALL_DIR/usr/lib/palemoon"
+    cp -vr palemoon/* "$INSTALL_DIR/usr/lib/palemoon/"
+    ln -vs "../lib/palemoon/palemoon" "$INSTALL_DIR/usr/bin/palemoon"
+
+    install -vDm644 "$SOURCE_DIR/palemoon.desktop" \
+        "$INSTALL_DIR/usr/share/applications/palemoon.desktop"
+    for res in 16 32 48;do
+        install -vDm644 "palemoon/browser/chrome/icons/default/default$res.png" \
+            "$INSTALL_DIR/usr/share/icons/hicolor/${res}x${res}/apps/palemoon.png"
+    done
+
+    # use system provided dictionaries
+    rm -vrf "$INSTALL_DIR/usr/lib/palemoon/"{dictionaries,hyperhenation}
+    ln -vs /usr/share/hunspell "$INSTALL_DIR/usr/lib/palemoon/dictionaries"
+    ln -vs /usr/share/hyphen "$INSTALL_DIR/usr/lib/palemoon/hyphenation"
+
+    # avoid duplicate binaries
+    # https://bugzilla.mozilla.org/show_bug.cgi?id=658850
+    rm -vf "$INSTALL_DIR/usr/lib/palemoon/palemoon-bin"
+}
