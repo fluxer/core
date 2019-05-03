@@ -64,6 +64,7 @@ src_compile() {
         --disable-nls \
         --disable-libssp \
         --disable-symvers \
+        --with-linker-hash-style=gnu \
         --with-system-zlib
     make
 }
