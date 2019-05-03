@@ -25,6 +25,7 @@ src_compile() {
     mkdir -v "$SOURCE_DIR/binutils-build" && cd "$SOURCE_DIR/binutils-build"
     "$SOURCE_DIR/binutils-$version/configure" \
         --prefix=/usr \
+        --enable-default-hash-style=gnu \
         --enable-shared \
         --enable-threads \
         --enable-lto \
