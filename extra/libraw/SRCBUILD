@@ -2,10 +2,15 @@
 
 # http://www.linuxfromscratch.org/blfs/view/cvs/general/libraw.html
 
-version=0.18.2
+version=0.19.2
 description="A library for reading RAW files obtained from digital photo cameras (CRW/CR2, NEF, RAF, DNG, and others)"
 depends=('lcms2' 'jasper')
 sources=("http://www.libraw.org/data/LibRaw-$version.tar.gz")
+
+src_prepare() {
+    cd "$SOURCE_DIR/LibRaw-$version"
+    autoreconf -fi
+}
 
 src_compile() {
     cd "$SOURCE_DIR/LibRaw-$version"
