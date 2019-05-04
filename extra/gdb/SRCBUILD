@@ -2,7 +2,7 @@
 
 # http://www.linuxfromscratch.org/blfs/view/svn/general/gdb.html
 
-version=8.1.1
+version=8.2.1
 description="The GNU Debugger"
 depends=('ncurses' 'expat' 'python')
 checkdepends=('dejagnu')
