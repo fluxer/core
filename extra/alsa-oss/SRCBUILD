@@ -2,10 +2,10 @@
 
 # http://www.linuxfromscratch.org/blfs/view/svn/multimedia/alsa-oss.html
 
-version=1.1.9
+version=1.1.8
 description="OSS compatibility library"
 depends=('alsa-lib')
-sources=("ftp://ftp.alsa-project.org/pub/oss-lib/alsa-oss-$version.tar.bz2")
+sources=("ftp://ftp.alsa-project.org/pub/oss-lib/alsa-oss-$version.tar.xz")
 
 src_compile() {
     cd "$SOURCE_DIR/alsa-oss-$version"
