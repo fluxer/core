@@ -2,7 +2,7 @@
 
 # http://www.linuxfromscratch.org/blfs/view/svn/x/mesa.html
 
-version=18.3.6
+version=19.0.4
 description="OpenGL compatible 3D graphics library"
 makedepends=('xorg-libraries' 'xorg-makeutils' 'xorg-protocol-headers'
         'libdrm' 'python' 'expat' 'libxml2' 'elfutils' 'openssl')
@@ -22,10 +22,9 @@ src_compile() {
 
     ./autogen.sh --prefix=/usr \
         --sysconfdir=/etc \
-        --with-sha1=libcrypto \
         --with-gallium-drivers="$_drivers" \
         --with-platforms="drm,x11" \
-        --enable-texture-float \
+        --enable-autotools \
         --enable-osmesa \
         --enable-glx \
         --enable-glx-tls \
