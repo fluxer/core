@@ -2,7 +2,7 @@
 
 # http://www.linuxfromscratch.org/blfs/view/svn/multimedia/alsa-utils.html
 
-version=1.1.8
+version=1.1.9
 description="Extra ALSA utilities"
 depends=('alsa-lib' 'ncurses' 'busybox')
 makedepends=('docbook-xsl' 'xmlto')

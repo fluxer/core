@@ -2,7 +2,7 @@
 
 # http://www.linuxfromscratch.org/blfs/view/svn/multimedia/alsa-oss.html
 
-version=1.1.8
+version=1.1.9
 description="OSS compatibility library"
 depends=('alsa-lib')
 sources=("ftp://ftp.alsa-project.org/pub/oss-lib/alsa-oss-$version.tar.bz2")
