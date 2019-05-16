@@ -5,7 +5,13 @@
 version=5.24.4
 description="Highly capable, feature-rich programming language"
 depends=('musl' 'zlib' 'busybox' 'gdbm')
-sources=("http://www.cpan.org/src/5.0/perl-$version.tar.gz")
+sources=("http://www.cpan.org/src/5.0/perl-$version.tar.gz"
+        'stack-protector.patch')
+
+src_prepare() {
+    cd "$SOURCE_DIR/perl-$version"
+    patch -Np1 -i "$SOURCE_DIR/stack-protector.patch"
+}
 
 src_compile() {
     cd "$SOURCE_DIR/perl-$version"
