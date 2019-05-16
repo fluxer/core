@@ -4,7 +4,7 @@
 
 version=3.0.4
 description="An open source reference implementation of the icalendar data type and serialization format"
-depends=('glibc')
+depends=('musl')
 makedepends=('cmake')
 sources=("https://github.com/libical/libical/archive/v$version.tar.gz")
 options=('!mirror')

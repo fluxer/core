@@ -3,7 +3,7 @@
 # http://www.linuxfromscratch.org/blfs/view/svn/general/libusb.html
 
 version=1.0.20
-depends=('glibc' 'eudev')
+depends=('musl' 'eudev')
 description="Library that provides generic access to USB devices"
 sources=("http://downloads.sf.net/libusb/libusb-$version.tar.bz2")
 

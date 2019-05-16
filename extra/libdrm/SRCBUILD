@@ -4,7 +4,7 @@
 
 version=2.4.98
 description="Userspace library for accessing the DRM"
-depends=('glibc' 'xorg-libraries')
+depends=('musl' 'xorg-libraries')
 optdepends=('valgrind')
 sources=("http://dri.freedesktop.org/libdrm/libdrm-$version.tar.bz2"
         "http://dri.freedesktop.org/libdrm/libdrm-$version.tar.bz2.sig")

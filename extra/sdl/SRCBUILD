@@ -2,7 +2,7 @@
 
 version=2.0.9
 description="Simple DirectMedia Layer (Version 2)"
-depends=('glibc' 'xorg-libraries' 'mesalib' 'alsa-lib')
+depends=('musl' 'xorg-libraries' 'mesalib' 'alsa-lib')
 optdepends=('pulseaudio')
 sources=("http://www.libsdl.org/release/SDL2-$version.tar.gz"
         "http://www.libsdl.org/release/SDL2-$version.tar.gz.sig"

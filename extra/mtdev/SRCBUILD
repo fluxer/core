@@ -4,7 +4,7 @@
 
 version=1.1.5
 description="Stand-alone library which transforms all variants of kernel MT events to the slotted type B protocol"
-depends=('glibc')
+depends=('musl')
 sources=("http://bitmath.org/code/mtdev/mtdev-$version.tar.bz2")
 
 src_compile() {

@@ -4,7 +4,7 @@
 
 version=1.0.6
 description="Freely available, patent free, high-quality data compressor"
-depends=('glibc')
+depends=('musl')
 sources=("http://www.bzip.org/$version/bzip2-$version.tar.gz"
         "bzip2-1.0.6-install_docs-1.patch")
 

@@ -4,7 +4,7 @@
 
 version=5.2.4
 description="Free general-purpose data compression software with high compression ratio"
-depends=('bash' 'glibc')
+depends=('bash' 'musl')
 sources=("http://tukaani.org/xz/xz-$version.tar.xz"
         "http://tukaani.org/xz/xz-$version.tar.xz.sig")
 pgpkeys=('3690C240CE51B4670D30AD1C38EE757D69184620')

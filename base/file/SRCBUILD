@@ -4,7 +4,7 @@
 
 version=5.34
 description="File type identification utility"
-depends=('zlib' 'glibc')
+depends=('zlib' 'musl')
 sources=("ftp://ftp.astron.com/pub/file/file-$version.tar.gz")
 
 src_compile() {

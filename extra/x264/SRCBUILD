@@ -4,7 +4,7 @@
 
 version=20190209
 description="Free library for encoding H264/AVC video streams"
-depends=('glibc')
+depends=('musl')
 makedepends=('nasm')
 sources=("http://download.videolan.org/pub/videolan/x264/snapshots/x264-snapshot-$version-2245.tar.bz2")
 

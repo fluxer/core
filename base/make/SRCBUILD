@@ -4,7 +4,7 @@
 
 version=4.2.1
 description="Tool which controls the generation of executables and other non-source files of a program"
-depends=('glibc')
+depends=('musl')
 sources=("http://ftp.gnu.org/gnu/make/make-$version.tar.bz2"
         "http://ftp.gnu.org/gnu/make/make-$version.tar.bz2.sig")
 pgpkeys=('3D2554F0A15338AB9AF1BB9D96B047156338B6D4')

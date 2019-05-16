@@ -9,7 +9,7 @@ _gmp=6.1.2
 _mpc=1.1.0
 _mpfr=4.0.2
 description="GNU compiler collection, includes the C and C++ frontends"
-depends=('glibc' 'zlib' 'mpc' 'mpfr')
+depends=('musl' 'zlib' 'mpc' 'mpfr')
 checkdepends=('dejagnu')
 sources=("http://ftp.gnu.org/gnu/gcc/gcc-$version/gcc-$version.tar.xz"
         "http://ftp.gnu.org/gnu/gcc/gcc-$version/gcc-$version.tar.xz.sig"

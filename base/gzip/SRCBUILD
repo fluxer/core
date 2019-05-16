@@ -4,7 +4,7 @@
 
 version=1.10
 description='GNU compression utility'
-depends=('glibc' 'bash' 'less')
+depends=('musl' 'bash' 'less')
 sources=("ftp://ftp.gnu.org/pub/gnu/gzip/gzip-$version.tar.xz"
         "ftp://ftp.gnu.org/pub/gnu/gzip/gzip-$version.tar.xz.sig")
 pgpkeys=('7FD9FCCB000BEEEE')

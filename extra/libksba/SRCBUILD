@@ -4,7 +4,7 @@
 
 version=1.3.5
 description="A CMS and X.509 access library"
-depends=('bash' 'libgpg-error' 'glibc')
+depends=('bash' 'libgpg-error' 'musl')
 sources=("ftp://ftp.gnupg.org/gcrypt/libksba/libksba-$version.tar.bz2"
         "ftp://ftp.gnupg.org/gcrypt/libksba/libksba-$version.tar.bz2.sig")
 pgpkeys=('249B39D24F25E3B6')

@@ -4,7 +4,7 @@
 
 version=1.7.0
 description="Client-side C library implementing the SSH2 protocol"
-depends=('openssl' 'zlib' 'glibc')
+depends=('openssl' 'zlib' 'musl')
 sources=("http://www.libssh2.org/download/libssh2-$version.tar.gz"
         "http://www.libssh2.org/download/libssh2-$version.tar.gz.asc")
 pgpkeys=('914C533DF9B2ADA2204F586D78E11C6B279D5C91')

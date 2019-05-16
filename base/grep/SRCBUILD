@@ -4,7 +4,7 @@
 
 version=2.28
 description='A string search utility'
-depends=('glibc')
+depends=('musl')
 optdepends=('pcre')
 # makedepends=('texinfo')
 sources=("http://ftp.gnu.org/gnu/grep/grep-$version.tar.xz"

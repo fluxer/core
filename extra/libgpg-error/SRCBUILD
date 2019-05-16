@@ -2,7 +2,7 @@
 
 version=1.32
 description="Small library that defines common error values for all GnuPG components"
-depends=('glibc' 'bash')
+depends=('musl' 'bash')
 sources=("ftp://ftp.gnupg.org/gcrypt/libgpg-error/libgpg-error-$version.tar.bz2"
         "ftp://ftp.gnupg.org/gcrypt/libgpg-error/libgpg-error-$version.tar.bz2.sig")
 pgpkeys=('249B39D24F25E3B6')

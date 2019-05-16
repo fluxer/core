@@ -1,0 +1,33 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+version=1.1.22
+description='Lightweight implementation of C standard library'
+sources=("http://www.musl-libc.org/releases/musl-$version.tar.gz"
+        "http://www.musl-libc.org/releases/musl-$version.tar.gz.asc")
+pgpkeys=('836489290BB6B70F99FFDA0556BCDB593020450F')
+
+src_compile() {
+    cd musl-$version
+    ./configure --prefix=/usr \
+        --exec-prefix=/ \
+        --libdir=/lib \
+        --enable-optimize=internal,malloc,string,math
+    make
+}
+
+src_install() {
+    cd musl-$version
+    make DESTDIR="$INSTALL_DIR" install
+
+    # musl provides ldd via a sym link to its ld.so
+    mkdir -vp "$pkgdir/usr/bin"
+    cd "$pkgdir/usr/bin"
+    case $CARCH in
+        i686)
+        ln -vsf ../../lib/ld-musl-i386.so.1 ldd
+        ;;
+        x86_64)
+        ln -vsf ../../lib/ld-musl-x86_64.so.1 ldd
+        ;;
+    esac
+}

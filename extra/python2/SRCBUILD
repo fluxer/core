@@ -4,7 +4,7 @@
 
 version=2.7.16
 description="Interpreted, interactive, object-oriented programming language"
-depends=('bzip2' 'zlib' 'bash' 'gdbm' 'readline' 'openssl' 'glibc' 'expat')
+depends=('bzip2' 'zlib' 'bash' 'gdbm' 'readline' 'openssl' 'musl' 'expat')
 optdepends=('libffi' 'sqlite')
 sources=("http://www.python.org/ftp/python/$version/Python-$version.tar.xz"
         "http://www.python.org/ftp/python/$version/Python-$version.tar.xz.asc")

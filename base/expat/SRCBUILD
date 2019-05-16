@@ -4,7 +4,7 @@
 
 version=2.2.6
 description="XML parser library written in C"
-depends=('glibc')
+depends=('musl')
 sources=("http://downloads.sf.net/expat/expat-$version.tar.bz2")
 
 src_compile() {

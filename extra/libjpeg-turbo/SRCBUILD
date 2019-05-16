@@ -4,7 +4,7 @@
 
 version=1.5.3
 description="JPEG image codec that uses SIMD instructions (MMX, SSE2, NEON) to accelerate baseline JPEG compression and decompression"
-depends=('glibc')
+depends=('musl')
 makedepends=('nasm')
 sources=("http://download.sf.net/libjpeg-turbo/$version/libjpeg-turbo-$version.tar.gz")
 

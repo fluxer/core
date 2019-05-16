@@ -4,7 +4,7 @@
 
 version=4.18.0
 description="IP Routing Utilities"
-depends=('glibc') # 'iptables'
+depends=('musl') # 'iptables'
 # makedepends=('linux-atm')
 backup=('etc/iproute2/ematch_map'
         'etc/iproute2/rt_dsfield'

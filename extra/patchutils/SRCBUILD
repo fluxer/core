@@ -2,7 +2,7 @@
 
 version=0.3.4
 description="A small collection of programs that operate on patch files"
-depends=('glibc' 'bash' 'perl')
+depends=('musl' 'bash' 'perl')
 sources=("http://cyberelk.net/tim/data/patchutils/stable/patchutils-$version.tar.xz"
         "http://cyberelk.net/tim/data/patchutils/stable/patchutils-$version.tar.xz.sig"
         'format-security.patch')

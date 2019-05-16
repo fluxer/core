@@ -8,7 +8,7 @@
 
 version=1.30.1
 description="Utilities for rescue and embedded systems"
-makedepends=('glibc' 'make' 'gcc' 'ncurses')
+makedepends=('musl' 'make' 'gcc' 'ncurses')
 sources=("http://www.busybox.net/downloads/busybox-$version.tar.bz2"
         'config' 'mdev.conf' 'syslog.conf' 'sysklogd.init' 'sysklogd.conf')
 

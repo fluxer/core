@@ -4,7 +4,7 @@
 
 version=3.2.25
 description="Collection of libraries providing APIs to netlink protocol based Linux kernel interfaces"
-depends=('glibc')
+depends=('musl')
 backup=('etc/libnl/classid' 'etc/libnl/pktloc')
 sources=("http://www.infradead.org/~tgr/libnl/files/libnl-$version.tar.gz"
         "http://www.infradead.org/~tgr/libnl/files/libnl-$version.tar.gz.sig")

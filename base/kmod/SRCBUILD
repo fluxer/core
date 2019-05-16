@@ -4,7 +4,7 @@
 
 version=26
 description="Linux kernel module handling"
-depends=('glibc' 'zlib' 'xz')
+depends=('musl' 'zlib' 'xz')
 # checkdepends=('linux-sources' 'libxslt')
 sources=("https://www.kernel.org/pub/linux/utils/kernel/kmod/kmod-$version.tar.xz"
         "https://www.kernel.org/pub/linux/utils/kernel/kmod/kmod-$version.tar.sign")

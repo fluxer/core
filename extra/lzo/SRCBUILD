@@ -1,6 +1,6 @@
 version=2.10
 description="Portable lossless data compression library"
-depends=('glibc')
+depends=('musl')
 sources=("http://www.oberhumer.com/opensource/lzo/download/lzo-$version.tar.gz")
 
 src_compile() {

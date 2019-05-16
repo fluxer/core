@@ -4,7 +4,7 @@
 
 version=5.24.4
 description="Highly capable, feature-rich programming language"
-depends=('glibc' 'zlib' 'busybox' 'gdbm')
+depends=('musl' 'zlib' 'busybox' 'gdbm')
 sources=("http://www.cpan.org/src/5.0/perl-$version.tar.gz")
 
 src_compile() {

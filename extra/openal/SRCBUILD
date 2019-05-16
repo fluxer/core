@@ -2,7 +2,7 @@
 
 version=1.19.1
 description="A cross-platform 3D audio library"
-depends=('glibc')
+depends=('musl')
 makedepends=('alsa-lib' 'sdl' 'cmake')
 sources=("http://kcat.strangesoft.net/openal-releases/openal-soft-$version.tar.bz2")
 

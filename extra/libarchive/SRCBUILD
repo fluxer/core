@@ -4,7 +4,7 @@
 
 version=3.3.3
 description="Multi-format archive and compression library"
-makedepends=('zlib' 'bzip2' 'xz' 'glibc' 'acl' 'attr')
+makedepends=('zlib' 'bzip2' 'xz' 'musl' 'acl' 'attr')
 sources=("http://www.libarchive.org/downloads/libarchive-$version.tar.gz")
 
 src_compile() {

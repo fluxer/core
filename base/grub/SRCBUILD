@@ -4,7 +4,7 @@
 
 version=2.02
 description="Multiboot boot loader"
-depends=('glibc' 'busybox' 'xz' 'os-prober')
+depends=('musl' 'busybox' 'xz' 'os-prober')
 makedepends=('bison' 'flex')
 optdepends=('fuse')
 checkdepends=('qemu')

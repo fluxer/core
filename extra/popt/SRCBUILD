@@ -2,7 +2,7 @@
 
 version=1.16
 description="Command-line option parser"
-depends=('glibc')
+depends=('musl')
 sources=("http://rpm5.org/files/popt/popt-$version.tar.gz")
 
 src_compile() {

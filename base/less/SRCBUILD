@@ -4,7 +4,7 @@
 
 version=530
 description='A terminal based program for viewing text files'
-depends=('glibc' 'ncurses')
+depends=('musl' 'ncurses')
 optdepends=('pcre')
 sources=("http://www.greenwoodsoftware.com/less/less-$version.tar.gz"
         "http://www.greenwoodsoftware.com/less/less-$version.sig")

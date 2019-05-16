@@ -4,7 +4,7 @@
 
 version=3.0.5
 description="General-purpose parser generator"
-depends=('glibc')
+depends=('musl')
 sources=("http://ftp.gnu.org/gnu/bison/bison-$version.tar.xz"
         "http://ftp.gnu.org/gnu/bison/bison-$version.tar.xz.sig")
 pgpkeys=('7DF84374B1EE1F9764BBE25D0DDCAA3278D5264E')

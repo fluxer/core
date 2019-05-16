@@ -4,7 +4,7 @@
 
 version=2.4.6
 description="Generic library support script"
-depends=('glibc' 'bash')
+depends=('musl' 'bash')
 sources=("http://ftp.gnu.org/gnu/libtool/libtool-$version.tar.xz"
         "http://ftp.gnu.org/gnu/libtool/libtool-$version.tar.xz.sig")
 pgpkeys=('CFE2BE707B538E8B26757D84151308092983D606')

@@ -1,5 +1,5 @@
-glibc
+musl
 binutils
 gcc
 binutils
-glibc
+musl

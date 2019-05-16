@@ -4,7 +4,7 @@
 
 version=0.6.21
 description="Library for parsing, editing, and saving EXIF data"
-depends=('glibc')
+depends=('musl')
 sources=("http://downloads.sf.net/libexif/libexif-$version.tar.bz2")
 
 src_compile() {

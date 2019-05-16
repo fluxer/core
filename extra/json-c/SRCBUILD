@@ -1,6 +1,6 @@
 version=0.12
 description="A JSON implementation in C"
-depends=('glibc')
+depends=('musl')
 sources=("https://s3.amazonaws.com/json-c_releases/releases/json-c-$version.tar.gz")
 
 src_compile() {

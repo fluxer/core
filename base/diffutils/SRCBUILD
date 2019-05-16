@@ -4,7 +4,7 @@
 
 version=3.7
 description='Utility programs used for creating patch files'
-depends=('glibc' 'bash')
+depends=('musl' 'bash')
 sources=("http://ftp.gnu.org/gnu/diffutils/diffutils-$version.tar.xz"
         "http://ftp.gnu.org/gnu/diffutils/diffutils-$version.tar.xz.sig")
 pgpkeys=('7FD9FCCB000BEEEE')

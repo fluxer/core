@@ -2,7 +2,7 @@
 
 version=2.1.2
 description="Provides an API to the Linux IEEE1394 (FireWire) driver"
-depends=('glibc')
+depends=('musl')
 sources=("https://www.kernel.org/pub/linux/libs/ieee1394/libraw1394-$version.tar.xz"
         "https://www.kernel.org/pub/linux/libs/ieee1394/libraw1394-$version.tar.sign")
 pgpkeys=('955C0098E5C46EF9A152481479F36FB2545D79D0')

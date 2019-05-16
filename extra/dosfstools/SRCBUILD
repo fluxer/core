@@ -2,7 +2,7 @@
 
 version=3.0.28
 description="Utilities for making and checking MS-DOS FAT filesystems"
-depends=('glibc')
+depends=('musl')
 sources=("https://github.com/dosfstools/dosfstools/releases/download/v$version/dosfstools-$version.tar.xz"
         "https://github.com/dosfstools/dosfstools/releases/download/v$version/dosfstools-$version.tar.xz.sig")
 pgpkeys=('25714AECDBFDACEE1CE95FE77F6022516E869F64')

@@ -4,7 +4,7 @@
 
 version=5.43
 description='Daemons for the bluetooth protocol stack'
-depends=('glibc' 'dbus' 'glib' 'libical' 'eudev')
+depends=('musl' 'dbus' 'glib' 'libical' 'eudev')
 sources=("http://www.kernel.org/pub/linux/bluetooth/bluez-$version.tar.xz"
         "http://www.kernel.org/pub/linux/bluetooth/bluez-$version.tar.sign")
 pgpkeys=('E932D120BC2AEC444E558F0106CA9F5D1DCF2659')

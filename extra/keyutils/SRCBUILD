@@ -2,7 +2,7 @@
 
 version=1.6
 description="Linux Key Management Utilities"
-depends=('glibc' 'busybox')
+depends=('musl' 'busybox')
 sources=("http://people.redhat.com/~dhowells/keyutils/keyutils-$version.tar.bz2")
 backup=('etc/request-key.conf')
 

@@ -5,7 +5,7 @@
 
 version=2.25
 description="POSIX 1003.1e capabilities"
-depends=('glibc' 'attr')
+depends=('musl' 'attr')
 sources=("https://www.kernel.org/pub/linux/libs/security/linux-privs/libcap2/libcap-$version.tar.xz"
         "https://www.kernel.org/pub/linux/libs/security/linux-privs/libcap2/libcap-$version.tar.sign"
         'libcap-2.25-gperf.patch')

@@ -4,7 +4,7 @@
 
 version=1.4.0
 description="The VP8 Codec SDK"
-depends=('glibc')
+depends=('musl')
 makedepends=('yasm')
 sources=("http://storage.googleapis.com/downloads.webmproject.org/releases/webm/libvpx-$version.tar.bz2")
 

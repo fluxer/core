@@ -4,7 +4,7 @@
 
 version=1.19.7
 description="X.Org routines libraries"
-depends=('glibc' 'eudev' 'fontconfig' 'freetype2' 'zlib')
+depends=('musl' 'eudev' 'fontconfig' 'freetype2' 'zlib')
 makedepends=('xorg-makeutils' 'xorg-protocol-headers' 'gettext')
 sources=("http://xorg.freedesktop.org/releases/individual/lib/libXau-1.0.9.tar.bz2"
         "http://xorg.freedesktop.org/releases/individual/xcb/libxcb-1.13.1.tar.bz2"

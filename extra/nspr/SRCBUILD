@@ -4,7 +4,7 @@
 
 version=4.20
 description="Netscape Portable Runtime"
-depends=('glibc')
+depends=('musl')
 makedepends=('zip')
 sources=("http://ftp.mozilla.org/pub/mozilla.org/nspr/releases/v$version/src/nspr-$version.tar.gz")
 

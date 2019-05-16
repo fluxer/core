@@ -4,7 +4,7 @@
 
 version=1.3.4
 description="XviD is an open source MPEG-4 video codec"
-depends=('glibc')
+depends=('musl')
 makedepends=('nasm')
 sources=("http://downloads.xvid.org/downloads/xvidcore-$version.tar.bz2")
 

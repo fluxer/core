@@ -4,7 +4,7 @@
 
 version=4.4.2
 description="GNU utilities to locate files"
-depends=('glibc')
+depends=('musl')
 sources=("ftp://ftp.gnu.org/pub/gnu/findutils/findutils-$version.tar.gz")
 
 src_compile() {

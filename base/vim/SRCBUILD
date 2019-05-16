@@ -6,7 +6,7 @@
 version=7.4.2225
 release=2
 description="Highly configurable text editor built to enable efficient text editing"
-depends=('glibc' 'ncurses' 'busybox')
+depends=('musl' 'ncurses' 'busybox')
 backup=('etc/vimrc')
 sources=("http://crux.nu/files/distfiles/vim-$version.tar.xz"
         'vimrc')

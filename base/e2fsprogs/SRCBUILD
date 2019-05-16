@@ -4,7 +4,7 @@
 
 version=1.44.6
 description="Filesystem utilities for use with the ext2/3/4 filesystems"
-depends=('glibc')
+depends=('musl')
 backup=('etc/mke2fs.conf')
 sources=("http://prdownloads.sf.net/e2fsprogs/e2fsprogs-$version.tar.gz"
         "http://prdownloads.sf.net/e2fsprogs/e2fsprogs-$version.tar.gz.asc")

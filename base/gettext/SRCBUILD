@@ -4,7 +4,7 @@
 
 version=0.19.8.1
 description="Internationalization and localization (i18n) system"
-depends=('gcc' 'glibc' 'ncurses' 'bash')
+depends=('gcc' 'musl' 'ncurses' 'bash')
 sources=("http://ftp.gnu.org/gnu/gettext/gettext-$version.tar.gz"
         "http://ftp.gnu.org/gnu/gettext/gettext-$version.tar.gz.sig")
 pgpkeys=('462225C3B46F34879FC8496CD605848ED7E69871')

@@ -4,7 +4,7 @@
 
 version=8.31
 description='The basic file, shell and text manipulation utilities of the GNU operating system'
-depends=('glibc' 'acl' 'gmp' 'libcap' 'openssl')
+depends=('musl' 'acl' 'gmp' 'libcap' 'openssl')
 sources=("http://ftp.gnu.org/gnu/coreutils/coreutils-$version.tar.xz"
         "http://ftp.gnu.org/gnu/coreutils/coreutils-$version.tar.xz.sig")
 pgpkeys=('6C37DC12121A5006BC1DB804DF6FD971306037D9')

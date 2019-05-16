@@ -1,6 +1,6 @@
 version=1.0.1
 description='an elegant unit testing framework for C with support for mock objects'
-depends=('glibc')
+depends=('musl')
 makedepends=('cmake')
 sources=("http://git.cryptomilk.org/projects/cmocka.git/snapshot/cmocka-$version.zip")
 

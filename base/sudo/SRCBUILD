@@ -4,7 +4,7 @@
 
 version=1.8.25
 description="Method of controlling/auditing Root access"
-depends=('glibc' 'busybox' 'shadow')
+depends=('musl' 'busybox' 'shadow')
 backup=('etc/sudoers')
 sources=("http://www.sudo.ws/sudo/dist/sudo-$version.tar.gz"
         "http://www.sudo.ws/sudo/dist/sudo-$version.tar.gz.sig"

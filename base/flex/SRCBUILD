@@ -4,7 +4,7 @@
 
 version=2.6.4
 description="Fast lexical analyser generator"
-depends=('glibc')
+depends=('musl')
 # makedepends=('texinfo')
 sources=("https://github.com/westes/flex/releases/download/v$version/flex-$version.tar.gz")
 

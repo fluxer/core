@@ -4,7 +4,7 @@
 
 version=1.30
 description='Utility used to store, backup, and transport files'
-depends=('glibc' 'acl' 'attr')
+depends=('musl' 'acl' 'attr')
 sources=("ftp://ftp.gnu.org/gnu/tar/tar-$version.tar.xz"
         "ftp://ftp.gnu.org/gnu/tar/tar-$version.tar.xz.sig")
 pgpkeys=('3602B07F55D0C732')

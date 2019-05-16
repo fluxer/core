@@ -4,7 +4,7 @@
 
 version=1.4.6
 description="Wrapper library for evdev devices"
-depends=('glibc')
+depends=('musl')
 makedepends=('python')
 checkdepends=('check' 'valgrind')
 sources=("http://freedesktop.org/software/libevdev/libevdev-$version.tar.xz"

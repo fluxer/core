@@ -4,7 +4,7 @@
 
 version=4.2.1
 description="Upwardly compatible Unix awk version of Brian Kernighan (gawk)"
-depends=('glibc' 'readline')
+depends=('musl' 'readline')
 sources=("http://ftp.gnu.org/gnu/gawk/gawk-$version.tar.xz"
         "http://ftp.gnu.org/gnu/gawk/gawk-$version.tar.xz.sig")
 pgpkeys=('DF597815937EC0D2')
