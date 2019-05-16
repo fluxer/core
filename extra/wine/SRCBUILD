@@ -7,8 +7,16 @@ makedepends=('giflib' 'libpng' 'gnutls' 'xorg-libraries' 'libxml2'
         'openldap' 'lcms2' 'mpg123' 'openal' 'alsa-lib' 'mesalib')
 sources=("http://dl.winehq.org/wine/source/4.x/wine-$version.tar.xz"
         "http://dl.winehq.org/wine/source/4.x/wine-$version.tar.xz.sign"
+        'wine-dlclose-bug41703.patch'
         '30-win32-aliases.conf')
 pgpkeys=('DA23579A74D4AD9AF9D3F945CEFAC8EAAF17519D')
+
+src_prepare() {
+    cd "$SOURCE_DIR/wine-$version"
+
+    patch -Np1 -i ../wine-dlclose-bug41703.patch
+    autoreconf -fi
+}
 
 src_compile() {
     cd "$SOURCE_DIR/wine-$version"
