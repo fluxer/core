@@ -45,8 +45,8 @@ sources=("http://xorg.freedesktop.org/releases/individual/app/bdftopcf-1.1.tar.b
         "http://xorg.freedesktop.org/releases/individual/app/xwd-1.0.7.tar.bz2"
         "http://xorg.freedesktop.org/releases/individual/app/xwininfo-1.1.4.tar.bz2"
         "http://xorg.freedesktop.org/releases/individual/app/xwud-1.0.5.tar.bz2"
-        'luit-fixes.patch')
-
+        'luit-fixes.patch'
+        'missing_path_wtmpx.patch')
 
 src_compile() {
     _packages=$(find "$SOURCE_DIR" -mindepth 1 -maxdepth 1 -type d)
@@ -54,9 +54,10 @@ src_compile() {
         cd "$_pkg"
 
         case "$_pkg" in
-	*luit*) patch -Np1 -i "$SOURCE_DIR/luit-fixes.patch"
+            *luit*) patch -Np1 -i "$SOURCE_DIR/luit-fixes.patch"
                           autoreconf -fi ;;
-                 *sessreg*) sed 's|$(CPP) $(DEFS)|$(CPP) -P $(DEFS)|' -i man/Makefile.in ;;
+            *sessreg*) sed 's|$(CPP) $(DEFS)|$(CPP) -P $(DEFS)|' -i man/Makefile.in
+                       patch -Np1 -i "$SOURCE_DIR/missing_path_wtmpx.patch" ;;
         esac
 
         echo "Configuring $_pkg..."
