@@ -7,8 +7,14 @@ description="Interpreted, interactive, object-oriented programming language"
 depends=('bzip2' 'zlib' 'bash' 'gdbm' 'readline' 'openssl' 'musl' 'expat')
 optdepends=('libffi' 'sqlite')
 sources=("http://www.python.org/ftp/python/$version/Python-$version.tar.xz"
-        "http://www.python.org/ftp/python/$version/Python-$version.tar.xz.asc")
+        "http://www.python.org/ftp/python/$version/Python-$version.tar.xz.asc"
+        'musl-find_library.patch')
 pgpkeys=('97FC712E4C024BBEA48A61ED3A5CA953F73C700D')
+
+src_prepare() {
+    cd "$SOURCE_DIR/Python-$version"
+    patch -Np1 -i ../musl-find_library.patch
+}
 
 src_compile() {
     cd "$SOURCE_DIR/Python-$version"
