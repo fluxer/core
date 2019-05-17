@@ -3,7 +3,7 @@
 # FIXME: python-pygobject must have gobject introspection support
 # http://www.linuxfromscratch.org/blfs/view/svn/general/upower.html
 
-version=20151224
+version=20190517
 description="Abstraction for enumerating power devices, listening to device events and querying history and statistics"
 depends=('libgudev' 'libusbx' 'pm-utils' 'dbus-glib' 'libimobiledevice')
 makedepends=('intltool' 'docbook-xsl')
