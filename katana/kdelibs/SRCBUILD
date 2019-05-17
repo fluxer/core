@@ -8,7 +8,7 @@ description="KDE Core Libraries"
 depends=('xorg-libraries' 'strigi' 'exiv2' 'libraw' 'libpng' 'shared-mime-info'
         'docbook-xsl' 'enchant' 'upower' 'udisks' 'mpv' 'gamin' 'libwebp'
         'katie')
-makedepends=('cmake' 'mesalib')
+makedepends=('cmake' 'mesalib' 'xorg-protocol-headers')
 optdepends=('libdbusmenu-qt' 'qtwebkit')
 sources=("https://github.com/fluxer/kdelibs.git")
 

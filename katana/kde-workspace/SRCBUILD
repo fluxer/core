@@ -9,7 +9,7 @@ depends=('kdelibs' 'libmtp' 'xorg-libraries' 'xorg-applications' 'xdg-utils'
          'xcb-util-renderutil' 'xcb-util-image' 'freetype2' 'libusbx'
          'xcb-util-keysyms' 'xcb-util-wm' 'busybox' 'libraw1394' 'ariya-icons'
          'kde-baseapps' 'ttf-dejavu')
-makedepends=('cmake')
+makedepends=('cmake'  'xorg-protocol-headers')
 # TODO: optdepends=('gpsd')
 sources=("https://github.com/fluxer/kde-workspace.git"
         'kdm.init' 'terminate-server.patch' 'etc-scripts.patch')
