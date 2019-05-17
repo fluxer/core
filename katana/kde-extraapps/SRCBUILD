@@ -22,7 +22,7 @@ src_compile() {
     [ "$OPTIONAL_GPGME" = "yes" ] && _options+=" -DBUILD_kgpg=TRUE"
     [ "$OPTIONAL_LIBVNCSERVER" = "yes" ] && _options+=" -DBUILD_krfb=TRUE"
     cmake ../kde-extraapps.git \
-        -DCMAKE_BUILD_TYPE=RelWithDebInfo \
+        -DCMAKE_BUILD_TYPE=Release \
         -DCMAKE_SKIP_INSTALL_RPATH=ON \
         -DCMAKE_INSTALL_PREFIX=/usr \
         -DKDE4_BUILD_TESTS=OFF \

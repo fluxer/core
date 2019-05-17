@@ -10,7 +10,7 @@ sources=("https://github.com/fluxer/ariya-icons.git")
 src_compile() {
     mkdir -v "$SOURCE_DIR/build" && cd "$SOURCE_DIR/build"
     cmake ../ariya-icons.git \
-        -DCMAKE_BUILD_TYPE=RelWithDebInfo \
+        -DCMAKE_BUILD_TYPE=Release \
         -DENABLE_TESTING=OFF \
         -DCMAKE_INSTALL_PREFIX=/usr
     make

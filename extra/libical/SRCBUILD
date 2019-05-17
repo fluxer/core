@@ -12,7 +12,7 @@ options=('!mirror')
 src_compile() {
     mkdir "$SOURCE_DIR/build" && cd "$SOURCE_DIR/build"
     cmake ../libical-$version \
-        -DCMAKE_BUILD_TYPE=RelWithDebInfo \
+        -DCMAKE_BUILD_TYPE=Release \
         -DCMAKE_INSTALL_PREFIX=/usr \
         -DSHARED_ONLY=ON
     make

@@ -14,7 +14,7 @@ src_compile() {
     mkdir "$SOURCE_DIR/build" && cd "$SOURCE_DIR/build"
     cmake ../taglib-$version \
         -DCMAKE_INSTALL_PREFIX=/usr \
-        -DCMAKE_BUILD_TYPE=RelWithDebInfo \
+        -DCMAKE_BUILD_TYPE=Release \
         -DWITH_MP4=ON \
         -DWITH_ASF=ON
     make

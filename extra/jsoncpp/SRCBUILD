@@ -8,7 +8,7 @@ options=('!mirror')
 src_compile() {
     mkdir -p build && cd build
     cmake ../jsoncpp-$version \
-        -DCMAKE_BUILD_TYPE=RelWithDebInfo \
+        -DCMAKE_BUILD_TYPE=Release \
         -DCMAKE_INSTALL_PREFIX=/usr \
         -DJSONCPP_LIB_BUILD_SHARED=ON \
         -DJSONCPP_WITH_TESTS=OFF

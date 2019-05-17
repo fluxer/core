@@ -30,7 +30,7 @@ src_compile() {
 
     mkdir -p "$SOURCE_DIR/build" && cd "$SOURCE_DIR/build"
     cmake ../kde-workspace.git \
-        -DCMAKE_BUILD_TYPE=RelWithDebInfo \
+        -DCMAKE_BUILD_TYPE=Release \
         -DCMAKE_SKIP_INSTALL_RPATH=ON \
         -DCMAKE_INSTALL_PREFIX=/usr \
         -DSYSCONF_INSTALL_DIR=/etc \
