@@ -2,7 +2,7 @@
 
 # http://www.linuxfromscratch.org/lfs/view/development/chapter06/findutils.html
 
-version=4.4.2
+version=4.6.0
 description="GNU utilities to locate files"
 depends=('musl')
 sources=("ftp://ftp.gnu.org/pub/gnu/findutils/findutils-$version.tar.gz")
