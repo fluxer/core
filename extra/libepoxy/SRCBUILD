@@ -6,10 +6,16 @@ depends=('glibc')
 makedepends=('xorg-makeutils' 'python' 'mesalib')
 sources=("https://github.com/anholt/libepoxy/releases/download/$version/libepoxy-$version.tar.xz")
 
-src_compile() {
+src_prepare() {
     cd "$SOURCE_DIR/libepoxy-$version"
     autoreconf -fi
+}
+
+src_compile() {
+    cd "$SOURCE_DIR/libepoxy-$version"
+
     PYTHON=/usr/bin/python ./configure --prefix=/usr
+    make
 }
 
 src_check() {
