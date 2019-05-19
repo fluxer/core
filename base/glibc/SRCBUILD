@@ -12,7 +12,8 @@ sources=("http://ftp.gnu.org/gnu/glibc/glibc-$version.tar.xz"
         'nsswitch.conf'
         'locale.conf'
         'locale-gen')
-pgpkeys=('BC7C7372637EC10C57D7AA6579C43DFBF1CF2187')
+pgpkeys=('7273542B39962DF7B299931416792B4EA25340F8'
+        'BC7C7372637EC10C57D7AA6579C43DFBF1CF2187')
 backup=('etc/ld.so.conf'
         'etc/nsswitch.conf'
         'etc/locale.conf')
