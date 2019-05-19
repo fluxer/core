@@ -2,12 +2,15 @@
 
 # http://www.linuxfromscratch.org/lfs/view/development/chapter06/glibc.html
 
-version=2.28
+version=2.29
 description="GNU C library"
 depends=('filesystem' 'linux-api-headers' 'tzdata')
-makedepends=('gawk')
+makedepends=('gawk' 'python')
 sources=("http://ftp.gnu.org/gnu/glibc/glibc-$version.tar.xz"
         "http://ftp.gnu.org/gnu/glibc/glibc-$version.tar.xz.sig"
+        '0001-Revert-elf-Correct-absolute-SHN_ABS-symbol-run-time-.patch'
+        'bz20338.patch'
+        'file-truncated-while-reading-soname-after-patchelf.patch'
         'ld.so.conf'
         'nsswitch.conf'
         'locale.conf'
@@ -17,7 +20,16 @@ pgpkeys=('7273542B39962DF7B299931416792B4EA25340F8'
 backup=('etc/ld.so.conf'
         'etc/nsswitch.conf'
         'etc/locale.conf')
+# valgrind requires unstripped ld.so
+# options=('!binaries' '!shared')
 
+src_prepare() {
+    cd "$SOURCE_DIR/glibc-$version"
+
+    patch -Np1 -i ../0001-Revert-elf-Correct-absolute-SHN_ABS-symbol-run-time-.patch
+    patch -Np1 -i ../bz20338.patch
+    patch -Np1 -i ../file-truncated-while-reading-soname-after-patchelf.patch
+}
 src_compile() {
     cd "$SOURCE_DIR/glibc-$version"
 
