@@ -2,7 +2,7 @@
 
 # http://www.linuxfromscratch.org/blfs/view/svn/postlfs/qemu.html
 
-version=2.6.2
+version=3.0.1
 description="A generic and open source processor emulator which achieves a good emulation speed by using dynamic translation."
 depends=('perl' 'python')
 sources=("http://wiki.qemu.org/download/qemu-$version.tar.bz2"

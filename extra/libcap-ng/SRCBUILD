@@ -1,0 +1,25 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+version=0.7.9
+description="A library making programming with POSIX capabilities easier than traditional libcap"
+depends=('glibc')
+sources=("http://people.redhat.com/sgrubb/libcap-ng/libcap-ng-$version.tar.gz")
+
+src_compile() {
+    cd "$SOURCE_DIR/libcap-ng-$version"
+
+    ./configure --prefix=/usr \
+        --disable-static
+    make
+}
+
+src_check() {
+    cd "$SOURCE_DIR/libcap-ng-$version"
+    make check
+}
+
+
+src_install() {
+    cd "$SOURCE_DIR/libcap-ng-$version"
+    make DESTDIR="$INSTALL_DIR" install
+}

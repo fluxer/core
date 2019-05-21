@@ -5,7 +5,7 @@
 version=4.10.3
 description="SMB Fileserver and AD Domain server"
 depends=('db' 'popt' 'cups' 'libcap' 'gnutls')
-makedepends=('python' 'readline' 'acl' 'openldap' 'krb5' 'dbus')
+makedepends=('python' 'readline' 'acl' 'openldap' 'dbus')
 optdepends=('libaio' 'gamin')
 sources=("https://download.samba.org/pub/samba/stable/samba-$version.tar.gz"
         "https://download.samba.org/pub/samba/stable/samba-$version.tar.asc"
@@ -24,15 +24,10 @@ src_compile() {
         --with-piddir=/run/samba \
         --without-pam \
         --without-systemd \
-        --enable-fhs \
-        --enable-selftest \
-        --with-system-mitkrb5
+        --without-ad-dc \
+        --without-json \
+        --enable-fhs
     make
-}
-
-src_check() {
-    cd "$SOURCE_DIR/samba-$version"
-    make quicktest
 }
 
 src_install() {
