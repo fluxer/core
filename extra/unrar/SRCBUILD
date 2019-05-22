@@ -1,14 +1,12 @@
 # Maintainer: Ivailo Monev <xakepa10@gmail.com>
 
-version=5.0.14
+version=5.7.5
 description="RAR uncompressor"
 makedepends=('gcc')
-sources=("http://www.rarlab.com/rar/unrarsrc-$version.tar.gz"
-        'unrar-5.0.14-soname.patch')
+sources=("http://www.rarlab.com/rar/unrarsrc-$version.tar.gz")
 
 src_compile() {
     cd "$SOURCE_DIR/unrar"
-    patch -Np1 -i "$SOURCE_DIR/unrar-5.0.14-soname.patch"
 
     make CXXFLAGS="-fPIC ${CXXFLAGS}" STRIP="true"
 }
