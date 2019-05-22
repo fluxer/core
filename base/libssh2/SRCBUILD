@@ -2,15 +2,16 @@
 
 # http://cblfs.cross-lfs.org/index.php/Libssh2
 
-version=1.7.0
+version=1.8.2
 description="Client-side C library implementing the SSH2 protocol"
 depends=('openssl' 'zlib' 'glibc')
 sources=("http://www.libssh2.org/download/libssh2-$version.tar.gz"
         "http://www.libssh2.org/download/libssh2-$version.tar.gz.asc")
-pgpkeys=('914C533DF9B2ADA2204F586D78E11C6B279D5C91')
+pgpkeys=('914C533DF9B2ADA2204F586D78E11C6B279D5C91'
+        '27EDEAF22F3ABCEB50DB9A125CC908FDB71E12C2')
 
 src_compile() {
-    cd "libssh2-$version"
+    cd "$SOURCE_DIR/libssh2-$version"
 
     ./configure --prefix=/usr \
         --disable-static
@@ -18,6 +19,6 @@ src_compile() {
 }
 
 src_install() {
-    cd "libssh2-$version"
+    cd "$SOURCE_DIR/libssh2-$version"
     make DESTDIR="$INSTALL_DIR" install
 }
