@@ -2,7 +2,7 @@
 
 # http://www.linuxfromscratch.org/blfs/view/svn/general/libical.html
 
-version=3.0.4
+version=3.0.5
 description="An open source reference implementation of the icalendar data type and serialization format"
 depends=('glibc')
 makedepends=('cmake')
@@ -14,7 +14,8 @@ src_compile() {
     cmake ../libical-$version \
         -DCMAKE_BUILD_TYPE=Release \
         -DCMAKE_INSTALL_PREFIX=/usr \
-        -DSHARED_ONLY=ON
+        -DSHARED_ONLY=ON \
+        -DENABLE_GTK_DOC=OFF
     make
 }
 
