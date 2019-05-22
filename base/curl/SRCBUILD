@@ -20,6 +20,7 @@ src_compile() {
     ./configure --prefix=/usr \
         --disable-static \
         --enable-threaded-resolver \
+        --with-libssh2 \
         --with-ca-bundle=/etc/ssl/certs/ca-certificates.crt \
         $_options
     make
