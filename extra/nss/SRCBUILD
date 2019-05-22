@@ -2,19 +2,23 @@
 
 # http://www.linuxfromscratch.org/blfs/view/svn/postlfs/nss.html
 
-version=3.37.3
+version=3.44
 description="Mozilla Network Security Services"
 depends=("nspr" 'sqlite' 'zlib' 'bash')
 makedepends=('perl')
-sources=("http://ftp.mozilla.org/pub/security/nss/releases/NSS_3_37_3_RTM/src/nss-$version.tar.gz"
+sources=("http://ftp.mozilla.org/pub/security/nss/releases/NSS_3_44_RTM/src/nss-$version.tar.gz"
         'nss.pc.in' 'nss-config.in')
 
-src_compile() {
+src_prepare() {
     cd "$SOURCE_DIR/nss-$version"
 
     # Respect LDFLAGS
     sed -e 's/\$(MKSHLIB) -o/\$(MKSHLIB) \$(LDFLAGS) -o/g' \
         -i nss/coreconf/rules.mk
+}
+
+src_compile() {
+    cd "$SOURCE_DIR/nss-$version"
 
     export BUILD_OPT=1
     export NSS_ENABLE_WERROR=0
