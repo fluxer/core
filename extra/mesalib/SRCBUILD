@@ -2,7 +2,7 @@
 
 # http://www.linuxfromscratch.org/blfs/view/svn/x/mesa.html
 
-version=19.0.4
+version=19.0.5
 description="OpenGL compatible 3D graphics library"
 makedepends=('xorg-libraries' 'xorg-makeutils' 'xorg-protocol-headers'
         'libdrm' 'python' 'expat' 'libxml2' 'elfutils' 'openssl')
