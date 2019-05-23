@@ -2,7 +2,7 @@
 
 # http://www.linuxfromscratch.org/blfs/view/svn/basicnet/samba.html
 
-version=4.10.3
+version=4.10.4
 description="SMB Fileserver and AD Domain server"
 depends=('db' 'popt' 'cups' 'libcap' 'gnutls')
 makedepends=('python' 'readline' 'acl' 'openldap' 'dbus')
