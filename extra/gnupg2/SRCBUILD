@@ -4,7 +4,7 @@
 
 version=2.2.15
 description='Complete and free implementation of the OpenPGP standard'
-depends=('curl' 'pth' 'bzip2' 'libassuan' 'readline' 'libksba' 'libgcrypt' 'pinentry' 'npth')
+depends=('curl' 'bzip2' 'libassuan' 'readline' 'libksba' 'libgcrypt' 'pinentry' 'npth')
 makedepends=('openldap' 'libusbx')
 sources=("https://gnupg.org/ftp/gcrypt/gnupg/gnupg-$version.tar.bz2"
         "https://gnupg.org/ftp/gcrypt/gnupg/gnupg-$version.tar.bz2.sig")
