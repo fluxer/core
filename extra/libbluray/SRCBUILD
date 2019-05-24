@@ -1,6 +1,6 @@
 # Maintainer: Ivailo Monev <xakepa10@gmail.com>
 
-version=0.6.2
+version=1.1.1
 description='Library to access Blu-Ray disks for video playback'
 depends=('libxml2' 'freetype2')
 sources=("ftp://ftp.videolan.org/pub/videolan/libbluray/$version/libbluray-$version.tar.bz2")
@@ -9,7 +9,10 @@ src_compile() {
     cd "$SOURCE_DIR/libbluray-$version"
 
     ./configure --prefix=/usr \
-        --disable-static
+        --disable-static \
+        --disable-bdjava-jar \
+        --disable-doxygen-doc \
+        --disable-examples
     make
 }
 
