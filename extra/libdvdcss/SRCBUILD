@@ -3,9 +3,7 @@
 version=1.4.2
 description="Portable abstraction library for DVD decryption"
 depends=('glibc')
-sources=("http://download.videolan.org/pub/libdvdcss/$version/libdvdcss-$version.tar.bz2"
-        "http://download.videolan.org/pub/libdvdcss/$version/libdvdcss-$version.tar.bz2.asc")
-pgpkeys=('7180713BE58D1ADC')
+sources=("http://download.videolan.org/pub/libdvdcss/$version/libdvdcss-$version.tar.bz2")
 
 src_compile() {
     cd "$SOURCE_DIR/libdvdcss-$version"
