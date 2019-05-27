@@ -5,13 +5,22 @@
 version=5.3.28
 description="Berkeley DB embedded database system"
 makedepends=('gcc')
-sources=("http://download.oracle.com/berkeley-db/db-$version.tar.gz")
+sources=("http://download.oracle.com/berkeley-db/db-$version.tar.gz"
+        'atomic.patch')
 
-src_compile() {
+src_prepare() {
+    cd "$SOURCE_DIR/db-$version"
+
+    patch -Np0 -i "$SOURCE_DIR/atomic.patch"
+
     cd "$SOURCE_DIR/db-$version/build_unix"
 
     # don't bother installing API docs
     sed 's|install_docs||' -i ../dist/Makefile.in
+}
+
+src_compile() {
+    cd "$SOURCE_DIR/db-$version/build_unix"
 
     ../dist/configure --prefix=/usr \
         --enable-compat185 \

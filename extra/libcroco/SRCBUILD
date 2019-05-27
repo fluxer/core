@@ -2,7 +2,7 @@
 
 # http://www.linuxfromscratch.org/blfs/view/svn/general/libcroco.html
 
-version=0.6.12
+version=0.6.13
 description="General CSS parsing and manipulation library written in C"
 depends=('glib' 'libxml2')
 makedepends=('intltool')

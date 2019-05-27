@@ -1,9 +1,9 @@
 # Maintainer: Ivailo Monev <xakepa10@gmail.com>
 
-version=4.7
+version=4.9
 description="A compatibility layer for running Windows programs"
 depends=('fontconfig' 'xorg-libraries' 'gettext' 'freetype2' 'glu' 'gcc')
-makedepends=('giflib' 'libpng' 'gnutls' 'xorg-libraries' 'libxml2'
+makedepends=('giflib' 'libpng' 'gnutls' 'xorg-protocol-headers' 'libxml2'
         'openldap' 'lcms2' 'mpg123' 'openal' 'alsa-lib' 'mesalib')
 sources=("http://dl.winehq.org/wine/source/4.x/wine-$version.tar.xz"
         "http://dl.winehq.org/wine/source/4.x/wine-$version.tar.xz.sign"

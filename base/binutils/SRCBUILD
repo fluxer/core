@@ -9,7 +9,8 @@ depends=('zlib' 'musl')
 sources=("http://ftp.gnu.org/gnu/binutils/binutils-$version.tar.xz"
         "http://ftp.gnu.org/gnu/binutils/binutils-$version.tar.xz.sig"
         '91_all_libiberty-pic.patch')
-pgpkeys=('EAF1C276A747E9ED86210CBAC3126D3B4AE55E93')
+pgpkeys=('EAF1C276A747E9ED86210CBAC3126D3B4AE55E93'
+        '3A24BC1E8FB409FA9F14371813FCEF89DD9E3C4F')
 
 src_prepare() {
     cd "$SOURCE_DIR/binutils-$version"

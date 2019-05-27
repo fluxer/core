@@ -12,7 +12,7 @@ sources=("https://github.com/fluxer/kde-baseapps.git")
 src_compile() {
     mkdir -p "$SOURCE_DIR/build" && cd "$SOURCE_DIR/build"
     cmake ../kde-baseapps.git \
-        -DCMAKE_BUILD_TYPE=RelWithDebInfo \
+        -DCMAKE_BUILD_TYPE=Release \
         -DCMAKE_SKIP_INSTALL_RPATH=ON \
         -DCMAKE_INSTALL_PREFIX=/usr
     make

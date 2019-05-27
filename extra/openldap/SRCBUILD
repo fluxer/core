@@ -4,7 +4,7 @@
 
 version=2.4.47
 description="Lightweight Directory Access Protocol (LDAP)"
-depends=('db' 'libtool' 'cyrus-sasl' 'openssl')
+depends=('libtool' 'cyrus-sasl' 'openssl')
 makedepends=('groff')
 backup=('etc/openldap/ldap.conf'
         'etc/openldap/slapd.conf'

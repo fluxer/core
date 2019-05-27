@@ -1,7 +1,11 @@
-version=0.9.7
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+# http://www.linuxfromscratch.org/blfs/view/svn/general/pinentry.html
+
+version=1.1.0
 description="a collection of simple PIN or passphrase entry dialogs which utilize the Assuan protocol"
 depends=('ncurses' 'libcap')
-optdepends=('qt4' 'gtk2')
+optdepends=('qt5' 'gtk2')
 sources=("ftp://ftp.gnupg.org/gcrypt/pinentry/pinentry-$version.tar.bz2"
         "ftp://ftp.gnupg.org/gcrypt/pinentry/pinentry-$version.tar.bz2.sig")
 pgpkeys=('249B39D24F25E3B6')
@@ -11,9 +15,9 @@ src_compile() {
 
     sed 's|#include <ncursesw/|#include <|g' -i pinentry/pinentry-curses.c
 
-    _options="--disable-pinentry-gtk2 --disable-pinentry-qt4"
+    _options="--disable-pinentry-gtk2 --disable-pinentry-qt"
     [ "$OPTIONAL_GTK2" = "yes" ] && _options+=" --enable-pinentry-gtk2" 
-    [ "$OPTIONAL_QT4" = "yes" ] && _options+=" --enable-pinentry-qt4"
+    [ "$OPTIONAL_QT5" = "yes" ] && _options+=" --enable-pinentry-qt"
     ./configure --prefix=/usr \
         --enable-pinentry-curses \
         --enable-fallback-curses \

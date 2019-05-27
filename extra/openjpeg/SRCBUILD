@@ -1,6 +1,6 @@
 # Maintainer: Ivailo Monev <xakepa10@gmail.com>
 
-# http://www.linuxfromscratch.org/blfs/view/svn/general/openjpeg.html
+# http://www.linuxfromscratch.org/blfs/view/stable/general/openjpeg2.html
 
 version=1.5.2
 description="An open source JPEG 2000 codec"

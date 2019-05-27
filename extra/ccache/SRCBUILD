@@ -1,0 +1,37 @@
+version=3.7.1
+description="A compiler cache"
+depends=('zlib')
+sources=("https://github.com/ccache/ccache/releases/download/v$version/ccache-$version.tar.xz"
+        "https://github.com/ccache/ccache/releases/download/v$version/ccache-$version.tar.xz.asc"
+        'profile.sh')
+pgpkeys=('5A939A71A46792CF57866A51996DDA075594ADB8')
+
+src_compile() {
+    cd "$SOURCE_DIR/ccache-$version"
+
+    ./configure --prefix=/usr \
+        --sysconfdir=/etc
+
+    make
+}
+
+src_install() {
+    cd "$SOURCE_DIR/ccache-$version"
+
+    install -vDm 755 ccache "$INSTALL_DIR/usr/bin/ccache"
+    install -vDm 644 doc/ccache.1 "$INSTALL_DIR/usr/share/man/man1/ccache.1"
+
+    install -vd "$INSTALL_DIR/usr/lib/ccache/bin"
+    ln -vsf /usr/bin/ccache "$INSTALL_DIR/usr/lib/ccache/bin/cc"
+    ln -vsf /usr/bin/ccache "$INSTALL_DIR/usr/lib/ccache/bin/gcc"
+    ln -vsf /usr/bin/ccache "$INSTALL_DIR/usr/lib/ccache/bin/g++"
+    ln -vsf /usr/bin/ccache "$INSTALL_DIR/usr/lib/ccache/bin/cpp"
+    ln -vsf /usr/bin/ccache "$INSTALL_DIR/usr/lib/ccache/bin/c++"
+    ln -vsf /usr/bin/ccache "$INSTALL_DIR/usr/lib/ccache/bin/${CHOST}-cc"
+    ln -vsf /usr/bin/ccache "$INSTALL_DIR/usr/lib/ccache/bin/${CHOST}-gcc"
+    ln -vsf /usr/bin/ccache "$INSTALL_DIR/usr/lib/ccache/bin/${CHOST}-g++"
+    ln -vsf /usr/bin/ccache "$INSTALL_DIR/usr/lib/ccache/bin/${CHOST}-cpp"
+    ln -vsf /usr/bin/ccache "$INSTALL_DIR/usr/lib/ccache/bin/${CHOST}-c++"
+
+    install -vDm 755 "$SOURCE_DIR/profile.sh" "$INSTALL_DIR/etc/profile.d/ccache.sh"
+}
