@@ -1,7 +1,6 @@
 # Maintainer: Ivailo Monev <xakepa10@gmail.com>
 
 # http://www.linuxfromscratch.org/blfs/view/svn/general/libpng.html
-# http://downloads.sf.net/libpng-apng/libpng-1.6.16-apng.patch.gz
 
 version=1.6.37
 description="Libraries for reading and writing PNG files"
