@@ -1,8 +1,8 @@
 # Maintainer: Ivailo Monev <xakepa10@gmail.com>
 
-version=20180915
+version=20190613
 description='pkgconfig compatible utility which does not depend on glib'
-sources=("https://github.com/pkgconf/pkgconf.git")
+sources=("https://git.dereferenced.org/pkgconf/pkgconf.git")
 
 src_compile() {
     cd "$SOURCE_DIR/pkgconf.git"
