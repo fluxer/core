@@ -2,7 +2,7 @@
 
 # http://www.linuxfromscratch.org/blfs/view/svn/postlfs/gpgme.html
 
-version=1.13.0
+version=1.13.1
 description="A C wrapper library for GnuPG"
 depends=('gnupg2')
 makedepends=('libgpg-error' 'libassuan')
