@@ -12,6 +12,8 @@ makedepends=('cmake' 'mesalib' 'xorg-protocol-headers')
 optdepends=('libdbusmenu-qt' 'qtwebkit')
 sources=("https://github.com/fluxer/kdelibs.git")
 
+export CFLAGS="$CFLAGS -Ofast -flto" CXXFLAGS="$CXXFLAGS -Ofast -flto"
+
 src_compile() {
     mkdir -p "$SOURCE_DIR/build" && cd "$SOURCE_DIR/build"
     cmake ../kdelibs.git \

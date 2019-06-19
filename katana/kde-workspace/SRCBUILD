@@ -15,6 +15,8 @@ sources=("https://github.com/fluxer/kde-workspace.git"
         'kdm.init' 'terminate-server.patch' 'etc-scripts.patch')
 backup=('share/config/kdm/kdmrc')
 
+export CFLAGS="$CFLAGS -Ofast -flto" CXXFLAGS="$CXXFLAGS -Ofast -flto"
+
 src_prepare() {
     cd "$SOURCE_DIR/kde-workspace.git"
 

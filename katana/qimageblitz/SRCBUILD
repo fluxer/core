@@ -8,6 +8,8 @@ depends=('katie')
 makedepends=('cmake' 'git')
 sources=("https://github.com/fluxer/qimageblitz.git")
 
+export CFLAGS="$CFLAGS -Ofast -flto" CXXFLAGS="$CXXFLAGS -Ofast -flto"
+
 src_compile() {
     mkdir "$SOURCE_DIR/build" && cd "$SOURCE_DIR/build"
     cmake ../qimageblitz.git \

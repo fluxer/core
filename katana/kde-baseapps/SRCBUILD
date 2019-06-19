@@ -9,6 +9,8 @@ makedepends=('cmake')
 optdepends=('qtwebkit')
 sources=("https://github.com/fluxer/kde-baseapps.git")
 
+export CFLAGS="$CFLAGS -Ofast -flto" CXXFLAGS="$CXXFLAGS -Ofast -flto"
+
 src_compile() {
     mkdir -p "$SOURCE_DIR/build" && cd "$SOURCE_DIR/build"
     cmake ../kde-baseapps.git \

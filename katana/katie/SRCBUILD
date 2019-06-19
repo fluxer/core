@@ -9,7 +9,7 @@ makedepends=('python' 'xorg-protocol-headers')
 optdepends=('mariadb' 'unixodbc' 'postgresql')
 sources=("https://github.com/fluxer/katie.git")
 
-export CFLAGS="$CFLAGS -Ofast" CXXFLAGS="$CXXFLAGS -Ofast"
+export CFLAGS="$CFLAGS -Ofast -flto" CXXFLAGS="$CXXFLAGS -Ofast -flto"
 
 src_compile() {
     mkdir -p build && cd build
