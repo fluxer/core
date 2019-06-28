@@ -1,0 +1,18 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+version=1.4.0
+description='A fast and efficient compression algorithm.'
+depends=('glibc')
+sources=("https://github.com/facebook/zstd/releases/download/v$version/zstd-$version.tar.gz")
+
+src_compile() {
+    cd "$SOURCE_DIR/zstd-$version"
+    make
+}
+
+src_install() {
+    cd "$SOURCE_DIR/zstd-$version"
+    make PREFIX=/usr DESTDIR="$INSTALL_DIR/" install
+}
+
+ 
