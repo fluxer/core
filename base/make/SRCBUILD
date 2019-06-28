@@ -6,14 +6,25 @@ version=4.2.1
 description="Tool which controls the generation of executables and other non-source files of a program"
 depends=('glibc')
 sources=("http://ftp.gnu.org/gnu/make/make-$version.tar.bz2"
-        "http://ftp.gnu.org/gnu/make/make-$version.tar.bz2.sig")
+        "http://ftp.gnu.org/gnu/make/make-$version.tar.bz2.sig"
+        'make-4.2.1-glob1.patch'
+        'make-4.2.1-glob2.patch')
 pgpkeys=('3D2554F0A15338AB9AF1BB9D96B047156338B6D4')
+
+src_prepare() {
+    cd "$SOURCE_DIR/make-$version"
+
+    patch -Np1 -i ../make-4.2.1-glob1.patch
+    patch -Np1 -i ../make-4.2.1-glob2.patch
+    autoreconf -fi
+}
 
 src_compile() {
     cd "$SOURCE_DIR/make-$version"
 
     ./configure --prefix=/usr \
-        --disable-rpath
+        --disable-rpath \
+        --disable-nls
     make
 }
 
