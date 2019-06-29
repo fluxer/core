@@ -6,8 +6,7 @@ version=4.18.0
 release=4
 description="KDE Core Libraries"
 depends=('xorg-libraries' 'strigi' 'exiv2' 'libraw' 'libpng' 'shared-mime-info'
-        'docbook-xsl' 'enchant' 'upower' 'udisks' 'mpv' 'gamin' 'libwebp'
-        'katie')
+        'docbook-xsl' 'enchant' 'upower' 'udisks' 'mpv' 'libwebp' 'katie')
 makedepends=('cmake' 'mesalib' 'xorg-protocol-headers')
 optdepends=('libdbusmenu-qt' 'qtwebkit')
 sources=("https://github.com/fluxer/kdelibs.git")
@@ -20,8 +19,7 @@ src_compile() {
         -DCMAKE_BUILD_TYPE=Release \
         -DCMAKE_SKIP_INSTALL_RPATH=ON \
         -DCMAKE_INSTALL_PREFIX=/usr \
-        -DSYSCONF_INSTALL_DIR=/etc \
-        -DWITH_FAM=ON
+        -DSYSCONF_INSTALL_DIR=/etc
     make
 }
 
