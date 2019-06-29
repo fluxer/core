@@ -2,7 +2,7 @@
 
 version=20190613
 description='pkgconfig compatible utility which does not depend on glib'
-sources=("https://git.dereferenced.org/pkgconf/pkgconf.git")
+sources=("https://github.com/pkgconf/pkgconf.git")
 
 src_compile() {
     cd "$SOURCE_DIR/pkgconf.git"
