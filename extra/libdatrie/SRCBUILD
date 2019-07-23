@@ -1,0 +1,19 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+version=0.2.12
+description="Implementation of double-array structure for representing trie, as proposed by Junichi Aoe"
+depends=('glibc')
+sources=("https://linux.thai.net/pub/thailinux/software/libthai/libdatrie-$version.tar.xz")
+
+src_compile() {
+    cd "$SOURCE_DIR/libdatrie-$version"
+
+    ./configure --prefix=/usr \
+        --disable-static
+    make
+}
+
+src_install() {
+    cd "$SOURCE_DIR/libdatrie-$version"
+    make DESTDIR="$INSTALL_DIR" install
+}
