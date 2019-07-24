@@ -1,0 +1,11 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+version=12.1.01
+description="GNU Unifont Glyphs"
+depends=('fontconfig' 'xorg-fonts')
+sources=("https://ftp.gnu.org/gnu/unifont/unifont-$version/unifont-$version.bdf.gz")
+
+src_install() {
+  install -vDm644 "$SOURCE_DIR/unifont-$version.bdf" \
+        "$INSTALL_DIR/usr/share/fonts/misc/unifont.bdf"
+}
