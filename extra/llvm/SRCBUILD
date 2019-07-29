@@ -2,20 +2,21 @@
 
 # http://www.linuxfromscratch.org/blfs/view/svn/general/llvm.html
 
-version=8.0.0
+version=8.0.1
 description="Low Level Virtual Machine"
 depends=('perl' 'python' 'libffi' 'zlib')
 makedepends=('ncurses' 'cmake')
-sources=("http://llvm.org/releases/$version/llvm-$version.src.tar.xz"
-        "http://llvm.org/releases/$version/cfe-$version.src.tar.xz"
-        "http://llvm.org/releases/$version/compiler-rt-$version.src.tar.xz"
-        "http://llvm.org/releases/$version/clang-tools-extra-$version.src.tar.xz"
-        "http://llvm.org/releases/$version/llvm-$version.src.tar.xz.sig"
-        "http://llvm.org/releases/$version/cfe-$version.src.tar.xz.sig"
-        "http://llvm.org/releases/$version/compiler-rt-$version.src.tar.xz.sig"
-        "http://llvm.org/releases/$version/clang-tools-extra-$version.src.tar.xz.sig")
+sources=("https://github.com/llvm/llvm-project/releases/download/llvmorg-$version/llvm-$version.src.tar.xz"
+        "https://github.com/llvm/llvm-project/releases/download/llvmorg-$version/cfe-$version.src.tar.xz"
+        "https://github.com/llvm/llvm-project/releases/download/llvmorg-$version/compiler-rt-$version.src.tar.xz"
+        "https://github.com/llvm/llvm-project/releases/download/llvmorg-$version/clang-tools-extra-$version.src.tar.xz"
+        "https://github.com/llvm/llvm-project/releases/download/llvmorg-$version/llvm-$version.src.tar.xz.sig"
+        "https://github.com/llvm/llvm-project/releases/download/llvmorg-$version/cfe-$version.src.tar.xz.sig"
+        "https://github.com/llvm/llvm-project/releases/download/llvmorg-$version/compiler-rt-$version.src.tar.xz.sig"
+        "https://github.com/llvm/llvm-project/releases/download/llvmorg-$version/clang-tools-extra-$version.src.tar.xz.sig")
 pgpkeys=('11E521D646982372EB577A1F8F0871F202119294'
-        'B6C8F98282B944E3B0D5C2530FC3042E345AD05D')
+        'B6C8F98282B944E3B0D5C2530FC3042E345AD05D'
+        '474E22316ABF4785A88C6E8EA2C794A986419D8A')
 
 src_prepare() {
     cd "$SOURCE_DIR/llvm-$version.src"
