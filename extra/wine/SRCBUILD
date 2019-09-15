@@ -1,6 +1,6 @@
 # Maintainer: Ivailo Monev <xakepa10@gmail.com>
 
-version=4.9
+version=4.16
 description="A compatibility layer for running Windows programs"
 depends=('fontconfig' 'xorg-libraries' 'gettext' 'freetype2' 'glu' 'gcc')
 makedepends=('giflib' 'libpng' 'gnutls' 'xorg-protocol-headers' 'libxml2'
