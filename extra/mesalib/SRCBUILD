@@ -2,52 +2,48 @@
 
 # http://www.linuxfromscratch.org/blfs/view/svn/x/mesa.html
 
-version=19.0.5
+version=19.1.6
 description="OpenGL compatible 3D graphics library"
 makedepends=('xorg-libraries' 'xorg-makeutils' 'xorg-protocol-headers'
-        'libdrm' 'python' 'expat' 'libxml2' 'elfutils' 'openssl')
+        'libdrm' 'python' 'expat' 'libxml2' 'elfutils' 'openssl'
+        'meson' 'ninja' 'llvm')
 sources=("https://mesa.freedesktop.org/archive/mesa-$version.tar.xz"
         "https://mesa.freedesktop.org/archive/mesa-$version.tar.xz.sig")
 pgpkeys=('8703B6700E7EE06D7A39B8D6EDAE37B02CEB490D')
 
-src_prepare() {
-    cd "$SOURCE_DIR/mesa-$version"
-    sed "/pthread_stubs_possible=/s/yes/no/" -i configure.ac
-}
-
 src_compile() {
     cd "$SOURCE_DIR/mesa-$version"
 
-    _drivers="i915,r600,nouveau,svga,swrast"
+    _dri="i915,i965,r100,r200,nouveau"
+    _gallium="r300,r600,radeonsi,nouveau,virgl,svga,swrast"
+    _vulkan=""
 
-    ./autogen.sh --prefix=/usr \
-        --sysconfdir=/etc \
-        --with-gallium-drivers="$_drivers" \
-        --with-platforms="drm,x11" \
-        --enable-autotools \
-        --enable-osmesa \
-        --enable-glx \
-        --enable-glx-tls \
-        --enable-dri \
-        --enable-dri3 \
-        --enable-gles1 \
-        --enable-gles2 \
-        --enable-egl \
-        --enable-gbm \
-        --enable-xa \
-        --enable-nine \
-        --disable-gallium-llvm \
-        --disable-vdpau \
-        --disable-valgrind
-    make
-}
-
-src_check() {
-    cd "$SOURCE_DIR/mesa-$version"
-    make check
+    meson ../build --buildtype plain \
+        --prefix /usr \
+        -Db_ndebug=true \
+        -Ddri-drivers="$_dri" \
+        -Dgallium-drivers="$_gallium" \
+        -Dvulkan-drivers="$_vulkan" \
+        -Dplatforms="drm,x11" \
+        -Dshared-glapi=true \
+        -Dosmesa=gallium \
+        -Dglx=dri \
+        -Ddri3=true \
+        -Degl=true \
+        -Dgbm=true \
+        -Dgallium-xa=true \
+        -Dgallium-va=false \
+        -Dgallium-nine=true \
+        -Dllvm=true \
+        -Dgles1=true \
+        -Dgles2=true \
+        -Dgallium-vdpau=false \
+        -Dvalgrind=false \
+        -Dgallium-xvmc=false
+    ninja -C ../build
 }
 
 src_install() {
     cd "$SOURCE_DIR/mesa-$version"
-    make DESTDIR="$INSTALL_DIR" install
+    DESTDIR="$INSTALL_DIR" ninja -C ../build install
 }
