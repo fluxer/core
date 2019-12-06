@@ -2,10 +2,10 @@
 
 # http://www.linuxfromscratch.org/lfs/view/development/chapter06/bzip2.html
 
-version=1.0.6
+version=1.0.8
 description="Freely available, patent free, high-quality data compressor"
 depends=('glibc')
-sources=("http://www.bzip.org/$version/bzip2-$version.tar.gz"
+sources=("https://sourceware.org/pub/bzip2/bzip2-$version.tar.gz"
         "bzip2-1.0.6-install_docs-1.patch")
 
 src_compile() {
