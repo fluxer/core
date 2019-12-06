@@ -1,6 +1,6 @@
 # Maintainer: Ivailo Monev <xakepa10@gmail.com>
 
-version=1.76
+version=1.77
 description="Utility to detect other Operating Systems on a set of drives"
 depends=('bash')
 sources=("http://ftp.debian.org/debian/pool/main/o/os-prober/os-prober_$version.tar.xz"
