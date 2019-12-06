@@ -2,12 +2,12 @@
 
 # http://www.linuxfromscratch.org/blfs/view/svn/general/freetype2.html
 
-version=2.10.0
+version=2.10.1
 description="TrueType font rendering library"
 depends=('zlib' 'bzip2' 'bash' 'libpng')
 optdepends=('harfbuzz')
-sources=("http://download.savannah.gnu.org/releases/freetype/freetype-$version.tar.bz2"
-        "http://download.savannah.gnu.org/releases/freetype/freetype-$version.tar.bz2.sig")
+sources=("http://download.savannah.gnu.org/releases/freetype/freetype-$version.tar.xz"
+        "http://download.savannah.gnu.org/releases/freetype/freetype-$version.tar.xz.sig")
 pgpkeys=('C1A60EACE707FDA5')
 
 src_compile() {
