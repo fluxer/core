@@ -1,6 +1,6 @@
 # Maintainer: Ivailo Monev <xakepa10@gmail.com>
 
-version=1.4.0
+version=1.4.4
 description='A fast and efficient compression algorithm.'
 depends=('glibc')
 sources=("https://github.com/facebook/zstd/releases/download/v$version/zstd-$version.tar.gz")
