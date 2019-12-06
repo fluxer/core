@@ -2,7 +2,7 @@
 
 # http://www.linuxfromscratch.org/blfs/view/svn/x/xcursor-themes.html
 
-version=1.0.4
+version=1.0.6
 description="X.org cursors data"
 makedepends=('xorg-applications' 'xorg-protocol-headers')
 sources=("http://xorg.freedesktop.org/releases/individual/data/xcursor-themes-$version.tar.bz2")
