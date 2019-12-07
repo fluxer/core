@@ -2,7 +2,7 @@
 
 # http://www.linuxfromscratch.org/blfs/view/svn/general/check.html
 
-version=0.12.0
+version=0.13.0
 description="Unit testing framework for C"
 depends=('glibc' 'gawk')
 sources=("https://github.com/libcheck/check/releases/download/$version/check-$version.tar.gz")
