@@ -2,19 +2,23 @@
 
 # http://www.linuxfromscratch.org/lfs/view/development/chapter06/readline.html
 
-version=6.3.8
+version=8.1
 description="Set of functions for use by applications that allow users to edit command lines as they are typed in"
 depends=('glibc' 'ncurses')
-sources=("http://ftp.gnu.org/gnu/readline/readline-6.3.tar.gz"
-        "http://ftp.gnu.org/gnu/readline/readline-6.3.tar.gz.sig"
-        'readline-6.3.8.patch')
+sources=("https://ftp.gnu.org/gnu/readline/readline-8.0.tar.gz"
+        "https://ftp.gnu.org/gnu/readline/readline-8.0.tar.gz.sig"
+        "https://ftp.gnu.org/gnu/readline/readline-8.0-patches/readline80-001"
+        "https://ftp.gnu.org/gnu/readline/readline-8.0-patches/readline80-001.sig")
 pgpkeys=('BB5869F064EA74AB')
 
-src_compile() {
-    cd "$SOURCE_DIR/readline-6.3"
+src_prepare() {
+    cd "$SOURCE_DIR/readline-8.0"
 
-    # upstream patches pulled from CRUX
-    patch -Np0 -i "$SOURCE_DIR/readline-6.3.8.patch"
+    patch -Np0 -i "$SOURCE_DIR//readline80-001"
+}
+
+src_compile() {
+    cd "$SOURCE_DIR/readline-8.0"
 
     ./configure --prefix=/usr \
         --exec-prefix=/ \
@@ -23,6 +27,6 @@ src_compile() {
 }
 
 src_install() {
-    cd "$SOURCE_DIR/readline-6.3"
+    cd "$SOURCE_DIR/readline-8.0"
     make DESTDIR="$INSTALL_DIR" install 
 }
