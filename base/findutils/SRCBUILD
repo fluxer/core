@@ -2,10 +2,10 @@
 
 # http://www.linuxfromscratch.org/lfs/view/development/chapter06/findutils.html
 
-version=4.4.2
+version=4.7.0
 description="GNU utilities to locate files"
 depends=('glibc')
-sources=("ftp://ftp.gnu.org/pub/gnu/findutils/findutils-$version.tar.gz")
+sources=("https://ftp.gnu.org/pub/gnu/findutils/findutils-$version.tar.xz")
 
 src_compile() {
     cd "$SOURCE_DIR/findutils-$version"
