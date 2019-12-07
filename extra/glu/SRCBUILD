@@ -2,10 +2,10 @@
 
 # http://www.linuxfromscratch.org/blfs/view/svn/x/glu.html
 
-version=9.0.0
+version=9.0.1
 description="Mesa OpenGL Utility library"
 depends=('mesalib')
-sources=("ftp://ftp.freedesktop.org/pub/mesa/glu/glu-$version.tar.bz2")
+sources=("ftp://ftp.freedesktop.org/pub/mesa/glu/glu-$version.tar.xz")
 
 src_compile() {
     cd "$SOURCE_DIR/glu-$version"
