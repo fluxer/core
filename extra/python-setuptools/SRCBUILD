@@ -8,6 +8,7 @@ options=('!mirror')
 
 src_compile() {
     cd "$SOURCE_DIR/setuptools-$version"
+    python bootstrap.py
     python setup.py build
 }
 
