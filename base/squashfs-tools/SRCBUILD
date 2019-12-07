@@ -1,6 +1,6 @@
 # Maintainer: Ivailo Monev <xakepa10@gmail.com>
 
-version=4.3
+version=4.4
 description="Highly compressed read-only filesystem for Linux"
 depends=('zlib' 'xz')
 optdepends=('lzo' 'lz4')
