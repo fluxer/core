@@ -7,6 +7,12 @@ description="Unit testing framework for C"
 depends=('glibc' 'gawk')
 sources=("https://github.com/libcheck/check/releases/download/$version/check-$version.tar.gz")
 
+src_prepare() {
+    cd "$SOURCE_DIR/check-$version"
+
+    autoreconf -fi
+}
+
 src_compile() {
     cd "$SOURCE_DIR/check-$version"
 
