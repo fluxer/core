@@ -1,20 +1,26 @@
 # Maintainer : Ivailo Monev <xakepa10@gmail.com"
 
-version=1.12
+version=20191207
 description="A library to handle Apple Property List format whereas its binary or XML"
-depends=('glib' 'libxml2')
-sources=("http://www.libimobiledevice.org/downloads/libplist-$version.tar.bz2")
+depends=('glib')
+sources=("git://github.com/libimobiledevice/libplist.git")
+
+src_prepare() {
+    cd "$SOURCE_DIR/libplist.git"
+
+    NOCONFIGURE=1 ./autogen.sh
+}
 
 src_compile() {
-    cd "$SOURCE_DIR/libplist-$version"
+    cd "$SOURCE_DIR/libplist.git"
 
     ./configure --prefix=/usr \
         --disable-static \
         --without-cython
-    make -j1
+    make
 }
 
 src_install() {
-    cd "$SOURCE_DIR/libplist-$version"
-    make -j1 DESTDIR="$INSTALL_DIR" install
+    cd "$SOURCE_DIR/libplist.git"
+    make DESTDIR="$INSTALL_DIR" install
 }
