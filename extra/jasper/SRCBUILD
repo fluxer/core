@@ -9,7 +9,7 @@ makedepends=('freeglut' 'xorg-libraries' 'glu' 'cmake')
 sources=("http://www.ece.uvic.ca/~frodo/jasper/software/jasper-$version.tar.gz")
 
 src_compile() {
-    cd "$SOURCE_DIR/jasper-version-$version"
+    cd "$SOURCE_DIR/jasper-$version"
 
     mkdir -p build && cd build
     cmake ../ -DCMAKE_INSTALL_PREFIX=/usr \
@@ -20,6 +20,6 @@ src_compile() {
 }
 
 src_install() {
-    cd "$SOURCE_DIR/jasper-version-$version/build"
+    cd "$SOURCE_DIR/jasper-$version/build"
     make DESTDIR="$INSTALL_DIR" install
 }
