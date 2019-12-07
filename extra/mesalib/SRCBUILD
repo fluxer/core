@@ -2,11 +2,12 @@
 
 # http://www.linuxfromscratch.org/blfs/view/svn/x/mesa.html
 
-version=19.1.6
+version=19.2.7
 description="OpenGL compatible 3D graphics library"
 makedepends=('xorg-libraries' 'xorg-makeutils' 'xorg-protocol-headers'
         'libdrm' 'python' 'expat' 'libxml2' 'elfutils' 'openssl'
-        'meson' 'ninja' 'llvm' 'python-mako')
+        'meson' 'ninja' 'python-mako')
+optdepends=('llvm')
 sources=("https://mesa.freedesktop.org/archive/mesa-$version.tar.xz"
         "https://mesa.freedesktop.org/archive/mesa-$version.tar.xz.sig")
 pgpkeys=('8703B6700E7EE06D7A39B8D6EDAE37B02CEB490D')
@@ -14,9 +15,16 @@ pgpkeys=('8703B6700E7EE06D7A39B8D6EDAE37B02CEB490D')
 src_compile() {
     cd "$SOURCE_DIR/mesa-$version"
 
-    _dri="i915,i965,r100,r200,nouveau"
-    _gallium="r300,r600,radeonsi,nouveau,virgl,svga,swrast"
+    _dri="i915,i965,r100,r200,nouveau,swrast"
+    _gallium=""
     _vulkan=""
+    _options="-Dosmesa=classic -Dllvm=false"
+
+    if [ "$OPTIONAL_LLVM" = "yes" ];then
+        _dri="i915,i965,r100,r200,nouveau"
+        _gallium="r300,r600,radeonsi,nouveau,virgl,svga,swrast"
+        _options="-Dosmesa=gallium -Dllvm=true -Dgallium-xa=true -Dgallium-nine=true"
+    fi
 
     meson ../build --buildtype plain \
         --prefix /usr \
@@ -26,20 +34,17 @@ src_compile() {
         -Dvulkan-drivers="$_vulkan" \
         -Dplatforms="drm,x11" \
         -Dshared-glapi=true \
-        -Dosmesa=gallium \
         -Dglx=dri \
         -Ddri3=true \
         -Degl=true \
         -Dgbm=true \
-        -Dgallium-xa=true \
         -Dgallium-va=false \
-        -Dgallium-nine=true \
-        -Dllvm=true \
         -Dgles1=true \
         -Dgles2=true \
         -Dgallium-vdpau=false \
+        -Dgallium-xvmc=false \
         -Dvalgrind=false \
-        -Dgallium-xvmc=false
+        $_options
     ninja -C ../build
 }
 
