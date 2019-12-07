@@ -16,5 +16,5 @@ src_compile() {
 
 src_install() {
     cd "$SOURCE_DIR/nasm-$version"
-    make INSTALLROOT="$INSTALL_DIR" install install_rdf
+    make DESTDIR="$INSTALL_DIR" install install_rdf
 }
