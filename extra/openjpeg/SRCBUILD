@@ -2,31 +2,22 @@
 
 # http://www.linuxfromscratch.org/blfs/view/stable/general/openjpeg2.html
 
-version=1.5.2
+version=2.1.0
 description="An open source JPEG 2000 codec"
 depends=('zlib')
-makedepends=('libtiff' 'lcms2' 'libpng')
+makedepends=('libtiff' 'lcms2' 'libpng' 'cmake')
 sources=("http://downloads.sourceforge.net/openjpeg.mirror/openjpeg-$version.tar.gz")
 
-src_prepare() {
-    cd "$SOURCE_DIR/openjpeg-$version"
-
-    autoreconf -fi
-    # make sure we use system libs
-    rm -rf thirdparty
-}
-
 src_compile() {
-    cd "$SOURCE_DIR/openjpeg-$version"
-
-    ./configure --prefix=/usr \
-        --enable-shared \
-        --disable-static \
-        --disable-silent-rules
+    mkdir -p "$SOURCE_DIR/build" && cd "$SOURCE_DIR/build"
+    cmake ../openjpeg-$version \
+        -DCMAKE_BUILD_TYPE=Release \
+        -DCMAKE_INSTALL_PREFIX=/usr \
+        -DBUILD_SHARED_LIBS=ON
     make
 }
 
 src_install() {
-    cd "$SOURCE_DIR/openjpeg-$version"
+    cd "$SOURCE_DIR/build"
     make DESTDIR="$INSTALL_DIR" install
 }
