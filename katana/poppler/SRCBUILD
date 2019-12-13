@@ -5,16 +5,16 @@
 version=0.32.0
 release=2
 description="PDF rendering library based on xpdf 3.0"
-depends=('libjpeg-turbo' 'openjpeg' 'gcc' 'cairo' 'fontconfig')
+depends=('libjpeg-turbo' 'openjpeg' 'gcc' 'fontconfig' 'katie')
 makedepends=('icu' 'git' 'cmake')
-optdepends=('katie' 'gtk2')
+optdepends=('cairo')
 sources=("https://github.com/fluxer/poppler.git"
         'git://git.freedesktop.org/git/poppler/test')
 
 src_compile() {
     cd "$SOURCE_DIR/poppler.git"
 
-    cmake -DCMAKE_BUILD_TYPE=RelWithDbgInfo \
+    cmake -DCMAKE_BUILD_TYPE=Release \
         -DCMAKE_INSTALL_PREFIX=/usr
     make
 }
