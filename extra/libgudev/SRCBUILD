@@ -2,7 +2,7 @@
 
 # http://www.linuxfromscratch.org/blfs/view/svn/general/libgudev.html
 
-version=232
+version=233
 description="GObject bindings for libudev"
 depends=('eudev' 'glib')
 sources=("https://download.gnome.org/sources/libgudev/$version/libgudev-$version.tar.xz")
