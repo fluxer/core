@@ -2,14 +2,13 @@
 
 # http://www.linuxfromscratch.org/blfs/view/svn/multimedia/libvorbis.html
 
-version=1.3.5
+version=1.3.6
 description="General purpose audio and music encoding format contemporary to MPEG-4 AAC and TwinVQ"
 depends=('libogg')
 sources=("http://downloads.xiph.org/releases/vorbis/libvorbis-$version.tar.xz")
 
 src_prepare() {
     cd "$SOURCE_DIR/libvorbis-$version"
-    sed -i '/components.png \\/{n;d}' doc/Makefile.in
 }
 
 src_compile() {
