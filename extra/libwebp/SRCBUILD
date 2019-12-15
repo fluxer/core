@@ -1,11 +1,11 @@
 # Maintainer: Ivailo Monev <xakepa10@gmail.com>
 
-# TODO: optional libtiff and giflib support
 # http://www.linuxfromscratch.org/blfs/view/svn/general/libwebp.html
 
-version=1.0.2
+version=1.0.3
 description="WebP library and conversion tools"
 depends=('libpng' 'libjpeg-turbo')
+optdepends=('libtiff' 'giflib')
 sources=("http://downloads.webmproject.org/releases/webp/libwebp-$version.tar.gz"
         "http://downloads.webmproject.org/releases/webp/libwebp-$version.tar.gz.asc")
 pgpkeys=('F9C3D6BDB8232B5D')

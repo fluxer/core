@@ -2,11 +2,11 @@
 
 # http://www.linuxfromscratch.org/blfs/view/svn/multimedia/libvpx.html
 
-version=1.4.0
+version=1.8.1
 description="The VP8 Codec SDK"
 depends=('glibc')
 makedepends=('yasm')
-sources=("http://storage.googleapis.com/downloads.webmproject.org/releases/webm/libvpx-$version.tar.bz2")
+sources=("https://github.com/webmproject/libvpx/archive/v$version/libvpx-$version.tar.gz")
 
 src_compile() {
     cd "$SOURCE_DIR/libvpx-$version"
