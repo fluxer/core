@@ -6,7 +6,7 @@ version=4.10.4
 description="SMB Fileserver and AD Domain server"
 depends=('db' 'popt' 'cups' 'libcap' 'gnutls')
 makedepends=('python' 'readline' 'acl' 'openldap' 'dbus')
-optdepends=('libaio' 'gamin')
+optdepends=('libaio')
 sources=("https://download.samba.org/pub/samba/stable/samba-$version.tar.gz"
         "https://download.samba.org/pub/samba/stable/samba-$version.tar.asc"
         'swat.xinetd' 'samba.tmpfiles' 'samba.confd' 'samba.initd' 'smb.conf')
