@@ -2,12 +2,12 @@
 
 # http://www.linuxfromscratch.org/blfs/view/svn/general/libxslt.html
 
-version=1.1.33
+version=1.1.34
 description="XSLT C library"
 depends=('libxml2')
 makedepends=('python')
 checkdepends=('docbook-xml')
-sources=("ftp://xmlsoft.org/libxslt/libxslt-$version.tar.gz")
+sources=("http://xmlsoft.org/sources/libxslt-$version.tar.gz")
 
 src_compile() {
     cd "$SOURCE_DIR/libxslt-$version"
