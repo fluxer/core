@@ -2,10 +2,12 @@
 
 # http://www.linuxfromscratch.org/lfs/view/development/chapter06/expat.html
 
-version=2.2.6
+version=2.2.9
 description="XML parser library written in C"
 depends=('glibc')
-sources=("http://downloads.sf.net/expat/expat-$version.tar.bz2")
+sources=("http://downloads.sf.net/expat/expat-$version.tar.xz"
+         "http://downloads.sf.net/expat/expat-$version.tar.xz.asc")
+pgpkeys=('3176EF7DB2367F1FCA4F306B1F9B0E909AF37285')
 
 src_compile() {
     cd "$SOURCE_DIR/expat-$version"
