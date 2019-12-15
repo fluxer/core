@@ -2,11 +2,10 @@
 
 # http://www.linuxfromscratch.org/lfs/view/development/chapter06/procps-ng.html
 
-version=3.3.15
+version=3.3.16
 description='Utilities for monitoring your system and its processes'
 depends=('ncurses' 'eudev')
-sources=("http://downloads.sf.net/procps-ng/Production/procps-ng-$version.tar.xz"
-        "http://downloads.sf.net/procps-ng/Production/procps-ng-$version.tar.xz.asc")
+sources=("http://downloads.sf.net/procps-ng/Production/procps-ng-$version.tar.xz")
 
 src_prepare() {
     cd "$SOURCE_DIR/procps-ng-$version"
