@@ -2,7 +2,7 @@
 
 # http://www.linuxfromscratch.org/lfs/view/development/chapter06/iproute2.html
 
-version=4.18.0
+version=5.4.0
 description="IP Routing Utilities"
 depends=('glibc') # 'iptables'
 # makedepends=('linux-atm')
