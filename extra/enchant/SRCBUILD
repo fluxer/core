@@ -2,11 +2,11 @@
 
 # http://www.linuxfromscratch.org/blfs/view/svn/general/enchant.html
 
-version=1.6.0
+version=2.2.7
 description="A wrapper library for generic spell checking"
 depends=('dbus-glib')
 optdepends=('hunspell')
-sources=("http://www.abisource.com/downloads/enchant/$version/enchant-$version.tar.gz")
+sources=("https://github.com/AbiWord/enchant/releases/download/v$version/enchant-$version.tar.gz")
 
 src_compile() {
     cd "$SOURCE_DIR/enchant-$version"
