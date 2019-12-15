@@ -2,12 +2,12 @@
 
 # http://www.linuxfromscratch.org/blfs/view/svn/general/libxml2.html
 
-version=2.9.9
+version=2.9.10
 description="XML C parser and toolkit"
 depends=('zlib' 'readline' 'ncurses' 'xz')
 makedepends=('python')
-sources=("ftp://ftp.xmlsoft.org/libxml2/libxml2-$version.tar.gz"
-        "ftp://ftp.xmlsoft.org/libxml2/libxml2-$version.tar.gz.asc"
+sources=("http://xmlsoft.org/sources/libxml2-$version.tar.gz"
+        "http://xmlsoft.org/sources/libxml2-$version.tar.gz.asc"
         'http://www.w3.org/XML/Test/xmlts20130923.tar.gz')
 pgpkeys=('4606B8A5DE95BC1F')
 
