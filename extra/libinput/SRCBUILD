@@ -14,7 +14,8 @@ src_compile() {
     cd "$SOURCE_DIR/libinput-$version"
 
     mkdir -p build
-    meson build -Dudev-dir=/usr/lib/udev \
+    meson build -Dprefix=/usr \
+        -Dudev-dir=/usr/lib/udev \
         -Dlibwacom=false \
         -Ddebug-gui=false \
         -Dtests=false \
