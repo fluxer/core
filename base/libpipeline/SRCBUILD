@@ -2,11 +2,11 @@
 
 # http://www.linuxfromscratch.org/lfs/view/development/chapter06/libpipeline.html
 
-version=1.4.2
+version=1.5.1
 description="a C library for manipulating pipelines of subprocesses in a flexible and convenient way"
 depends=('glibc')
 sources=("http://download.savannah.gnu.org/releases/libpipeline/libpipeline-$version.tar.gz"
-        "http://download.savannah.gnu.org/releases/libpipeline/libpipeline-$version.tar.gz.sig")
+        "http://download.savannah.gnu.org/releases/libpipeline/libpipeline-$version.tar.gz.asc")
 pgpkeys=('AC0A4FF12611B6FCCF01C111393587D97D86500B')
 
 src_compile() {

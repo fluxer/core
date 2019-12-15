@@ -2,13 +2,13 @@
 
 # http://www.linuxfromscratch.org/lfs/view/development/chapter06/man-db.html
 
-version=2.7.6.1
+version=2.8.7
 description="A utility for reading man pages"
 depends=('bash' 'gdbm' 'zlib' 'groff' 'libpipeline' 'less')
 optdepends=('gzip')
 backup=('etc/man_db.conf')
 sources=("http://download-mirror.savannah.gnu.org/releases/man-db/man-db-$version.tar.xz"
-        "http://download-mirror.savannah.gnu.org/releases/man-db/man-db-$version.tar.xz.sig")
+        "http://download-mirror.savannah.gnu.org/releases/man-db/man-db-$version.tar.xz.asc")
 pgpkeys=('393587D97D86500B')
 
 src_compile() {
