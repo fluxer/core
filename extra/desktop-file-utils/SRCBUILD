@@ -2,10 +2,12 @@
 
 # http://www.linuxfromscratch.org/blfs/view/svn/general/desktop-file-utils.html
 
-version=0.23
+version=0.24
 description="Command line utilities for working with desktop entries"
 depends=('glib')
-sources=("http://www.freedesktop.org/software/desktop-file-utils/releases/desktop-file-utils-$version.tar.xz")
+sources=("http://www.freedesktop.org/software/desktop-file-utils/releases/desktop-file-utils-$version.tar.xz"
+         "http://www.freedesktop.org/software/desktop-file-utils/releases/desktop-file-utils-$version.tar.xz.asc")
+pgpkeys=('C01EDE5BB0D91E26D003662EC76BB9FEEAD12EA7')
 
 src_compile() {
     cd "$SOURCE_DIR/desktop-file-utils-$version"
