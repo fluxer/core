@@ -45,7 +45,7 @@ src_compile() {
         --prefix=/usr \
         --libexecdir=/usr/lib/glibc \
         --enable-kernel=4.7.0 \
-        --enable-oldest-abi=2.23 \
+        --enable-oldest-abi=2.27 \
         --enable-stackguard-randomization \
         --enable-obsolete-rpc \
         --disable-timezone-tools \
@@ -53,6 +53,7 @@ src_compile() {
         --disable-nscd \
         --disable-multi-arch \
         --disable-profile \
+        --disable-tunables \
         --disable-selinux \
         --disable-werror
     make
