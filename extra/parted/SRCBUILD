@@ -1,20 +1,11 @@
 # Maintainer: Ivailo Monev <xakepa10@gmail.com>
 
-version=3.2
+version=3.3
 description="A program for creating, destroying, resizing, checking and copying partitions"
 depends=('e2fsprogs')
 sources=("http://ftp.gnu.org/gnu/parted/parted-$version.tar.xz"
-        "http://ftp.gnu.org/gnu/parted/parted-$version.tar.xz.sig"
-        'parted-3.2-devmapper.patch'
-        '0002-include.patch')
+        "http://ftp.gnu.org/gnu/parted/parted-$version.tar.xz.sig")
 pgpkeys=('8E45A0223348AAF0')
-
-src_prepare() {
-    cd "$SOURCE_DIR/parted-$version"
-
-    patch -Np1 -i "$SOURCE_DIR/parted-3.2-devmapper.patch"
-    patch -Np1 -i "$SOURCE_DIR/0002-include.patch"
-}
 
 src_compile() {
     cd "$SOURCE_DIR/parted-$version"
