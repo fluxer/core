@@ -2,7 +2,7 @@
 
 # http://www.linuxfromscratch.org/blfs/view/svn/general/python3.html
 
-version=3.6.8
+version=3.6.10
 description="Interpreted, interactive, object-oriented programming language"
 depends=('bzip2' 'zlib' 'bash' 'gdbm' 'readline' 'openssl' 'glibc' 'expat')
 optdepends=('libffi' 'sqlite')
@@ -42,7 +42,7 @@ src_install() {
     ln -vs python3-config        "$INSTALL_DIR/usr/bin/python-config"
     ln -vs idle3                 "$INSTALL_DIR/usr/bin/idle"
     ln -vs pydoc3                "$INSTALL_DIR/usr/bin/pydoc"
-    ln -vs python3.6.8 "$INSTALL_DIR/usr/share/man/man1/python.1"
+    ln -vs python$version "$INSTALL_DIR/usr/share/man/man1/python.1"
 
     # saves ~40MB
     find "$INSTALL_DIR" -name test -exec rm -vrf {} +
