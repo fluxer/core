@@ -47,4 +47,7 @@ src_install() {
         -e "s#$SOURCE_DIR/tcl$version/pkgs/itcl${_itclver}/generic#/usr/include#" \
         -e "s#$SOURCE_DIR/tcl$version/pkgs/itcl${_itclver}#/usr/include#" \
         -i "$INSTALL_DIR/usr/lib/itcl${_itclver}/itclConfig.sh"
+
+    # conflicts with perl
+    rm -vf "$INSTALL_DIR/usr/share/man/man3/Thread.3"
 }
