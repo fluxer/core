@@ -2,10 +2,10 @@
 
 # http://www.linuxfromscratch.org/lfs/view/development/chapter06/perl.html
 
-version=5.24.4
+version=5.30.1
 description="Highly capable, feature-rich programming language"
 depends=('glibc' 'zlib' 'busybox' 'gdbm')
-sources=("http://www.cpan.org/src/5.0/perl-$version.tar.gz")
+sources=("http://www.cpan.org/src/5.0/perl-$version.tar.xz")
 
 src_compile() {
     cd "$SOURCE_DIR/perl-$version"
