@@ -2,7 +2,7 @@
 
 # http://www.linuxfromscratch.org/blfs/view/svn/basicnet/wpa_supplicant.html
 
-version=2.7
+version=2.9
 description="Utility providing key negotiation for WPA wireless networks"
 depends=('readline' 'libnl' 'openssl')
 optdepends=('dbus')
@@ -40,7 +40,7 @@ src_install() {
     if [ "$OPTIONAL_DBUS" = "yes" ];then
         install -vdm755 "$INSTALL_DIR/usr/share/dbus-1/system-services" \
             "$INSTALL_DIR/etc/dbus-1/system.d"
-        install -m644 dbus/fi.{epitest.hostap.WPASupplicant,w1.wpa_supplicant1}.service \
+        install -m644 dbus/fi.w1.wpa_supplicant1.service \
             "$INSTALL_DIR/usr/share/dbus-1/system-services/"
         install -vm644 dbus/dbus-wpa_supplicant.conf \
             "$INSTALL_DIR/etc/dbus-1/system.d/wpa_supplicant.conf"
