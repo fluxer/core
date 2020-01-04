@@ -2,12 +2,12 @@
 
 # http://www.linuxfromscratch.org/blfs/view/svn/basicnet/libnl.html
 
-version=3.2.25
+version=3.5.0
 description="Collection of libraries providing APIs to netlink protocol based Linux kernel interfaces"
 depends=('glibc')
 backup=('etc/libnl/classid' 'etc/libnl/pktloc')
-sources=("http://www.infradead.org/~tgr/libnl/files/libnl-$version.tar.gz"
-        "http://www.infradead.org/~tgr/libnl/files/libnl-$version.tar.gz.sig")
+sources=("https://github.com/thom311/libnl/releases/download/libnl3_5_0/libnl-$version.tar.gz"
+        "https://github.com/thom311/libnl/releases/download/libnl3_5_0/libnl-$version.tar.gz.sig")
 pgpkeys=('29C2366E4DFC5728')
 
 src_compile() {
