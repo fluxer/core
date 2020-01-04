@@ -2,11 +2,11 @@
 
 # http://www.linuxfromscratch.org/blfs/view/svn/multimedia/xvid.html
 
-version=1.3.5
+version=1.3.7
 description="XviD is an open source MPEG-4 video codec"
 depends=('glibc')
 makedepends=('nasm')
-sources=("http://downloads.xvid.org/downloads/xvidcore-$version.tar.bz2")
+sources=("http://downloads.xvid.com/downloads/xvidcore-$version.tar.gz")
 
 src_compile() {
     cd "$SOURCE_DIR/xvidcore/build/generic"
