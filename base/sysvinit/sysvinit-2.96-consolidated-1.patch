@@ -6,23 +6,28 @@ Origin: Self
 Description: Remove programs superceeded by other packages: wall, mountpoint, 
              last, lastb, mesg, sulogin, and utmpdump.
 
-diff -Naur sysvinit-2.90.orig/src/Makefile sysvinit-2.90/src/Makefile
---- sysvinit-2.90.orig/src/Makefile	2018-06-18 18:25:26.000000000 -0500
-+++ sysvinit-2.90/src/Makefile	2018-06-25 11:30:12.281123097 -0500
-@@ -24,18 +24,21 @@
+Rediffed for vsrsion 2.94.
+Remove logsave also.
+
+--- sysvinit-2.94/src/Makefile.orig	2019-03-07 22:47:42.220455043 -0600
++++ sysvinit-2.94/src/Makefile	2019-03-07 22:48:45.925130823 -0600
+@@ -23,19 +23,22 @@
+ 
  # For some known distributions we do not build all programs, otherwise we do.
  BIN	=
- SBIN	= init halt shutdown runlevel killall5 fstab-decode
--USRBIN	= last mesg
-+#USRBIN	= last mesg
+-SBIN	= init halt shutdown runlevel killall5 fstab-decode logsave
+-USRBIN	= last mesg readbootlog
++SBIN	= init halt shutdown runlevel killall5 fstab-decode
++#USRBIN	= last mesg readbootlog
  
--MAN1	= last.1 lastb.1 mesg.1
-+#MAN1	= last.1 lastb.1 mesg.1
+-MAN1	= last.1 lastb.1 mesg.1 readbootlog.1
++#MAN1	= last.1 lastb.1 mesg.1 readbootlog.1
  MAN5	= initscript.5 inittab.5 initctl.5
 -MAN8	= halt.8 init.8 killall5.8 pidof.8 poweroff.8 reboot.8 runlevel.8
+-MAN8	+= shutdown.8 telinit.8 fstab-decode.8 logsave.8
 +#MAN8	= halt.8 init.8 killall5.8 pidof.8 poweroff.8 reboot.8 runlevel.8
 +MAN8	= halt.8 init.8 killall5.8         poweroff.8 reboot.8 runlevel.8
- MAN8	+= shutdown.8 telinit.8 fstab-decode.8
++MAN8	+= shutdown.8 telinit.8 fstab-decode.8 
  
  ifeq ($(DISTRO),)
 -SBIN	+= sulogin bootlogd
@@ -38,7 +43,7 @@ diff -Naur sysvinit-2.90.orig/src/Makefile sysvinit-2.90/src/Makefile
  endif
  
  ifeq ($(DISTRO),Debian)
-@@ -192,10 +195,10 @@
+@@ -206,10 +209,10 @@
  		ln -sf halt $(ROOT)/sbin/reboot
  		ln -sf halt $(ROOT)/sbin/poweroff
  		ln -sf init $(ROOT)/sbin/telinit
@@ -53,12 +58,7 @@ diff -Naur sysvinit-2.90.orig/src/Makefile sysvinit-2.90/src/Makefile
  		$(INSTALL_DIR) $(ROOT)/usr/include/
  		$(INSTALL_DATA) initreq.h $(ROOT)/usr/include/
  		$(INSTALL_DIR) $(ROOT)$(MANDIR)/man1/
-@@ -213,12 +216,12 @@
- 			$(INSTALL_DATA) ../man/$$man $(ROOT)$(MANDIR)/man8/; \
- 			sed -i "1{ $(MANDB); }" $(ROOT)$(MANDIR)/man8/$$man ; \
- 		done
--ifeq ($(ROOT),)
-+#ifeq ($(ROOT),)
+@@ -231,8 +234,8 @@
  		#
  		# This part is skipped on Debian systems, the
  		# debian.preinst script takes care of it.
@@ -66,9 +66,8 @@ diff -Naur sysvinit-2.90.orig/src/Makefile sysvinit-2.90/src/Makefile
 -		 echo "Creating /run/initctl"; \
 -		 rm -f /run/initctl; \
 -		 mknod -m 600 /run/initctl p; fi
--endif
 +		#@if [ ! -p /run/initctl ]; then \
-+		# echo "Creating /run/initctl"; \
-+		# rm -f /run/initctl; \
-+		# mknod -m 600 /run/initctl p; fi
-+#endif
++		#echo "Creating /run/initctl"; \
++		#rm -f /run/initctl; \
++		#mknod -m 600 /run/initctl p; fi
+ endif

@@ -2,7 +2,7 @@
 
 # http://www.linuxfromscratch.org/lfs/view/development/chapter06/sysvinit.html
 
-version=2.90
+version=2.96
 description='Linux System V Init'
 depends=('glibc' 'procps-ng')
 sources=("http://download.savannah.gnu.org/releases/sysvinit/sysvinit-$version.tar.xz"
