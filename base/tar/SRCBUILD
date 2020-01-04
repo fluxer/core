@@ -2,7 +2,7 @@
 
 # http://www.linuxfromscratch.org/lfs/view/development/chapter06/tar.html
 
-version=1.30
+version=1.32
 description='Utility used to store, backup, and transport files'
 depends=('glibc' 'acl' 'attr')
 sources=("ftp://ftp.gnu.org/gnu/tar/tar-$version.tar.xz"
