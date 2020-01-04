@@ -2,12 +2,11 @@
 
 # http://www.linuxfromscratch.org/blfs/view/svn/multimedia/x265.html
 
-version=3.0
+version=3.2.1
 description='Open Source H265/HEVC video encoder'
 depends=('gcc')
 makedepends=('yasm' 'cmake')
-sources=("https://bitbucket.org/multicoreware/x265/downloads/x265_$version.tar.gz")
-options=('!mirror')
+sources=("http://ftp.videolan.org/pub/videolan/x265/x265_$version.tar.gz")
 
 src_compile() {
     cd "$SOURCE_DIR/x265_$version/build/linux"
