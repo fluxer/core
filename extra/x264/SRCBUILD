@@ -2,7 +2,7 @@
 
 # http://www.linuxfromscratch.org/blfs/view/svn/multimedia/x264.html
 
-version=20190209
+version=20190815
 description="Free library for encoding H264/AVC video streams"
 depends=('glibc')
 makedepends=('nasm')
