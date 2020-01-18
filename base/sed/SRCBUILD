@@ -2,7 +2,7 @@
 
 # http://www.linuxfromscratch.org/lfs/view/development/chapter06/sed.html
 
-version=4.5
+version=4.8
 description='GNU stream editor'
 depends=('glibc' 'acl' 'attr')
 makedepends=('gettext')
