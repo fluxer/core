@@ -1,6 +1,6 @@
 # Maintainer: Ivailo Monev <xakepa10@gmail.com>
 
-version=1.18.0
+version=1.19.0
 depends=('glibc' 'popt')
 description="Clientside library to implement the iSCSI protocol"
 sources=("https://github.com/sahlberg/libiscsi/archive/$version.tar.gz")
@@ -17,6 +17,7 @@ src_compile() {
 
     ./configure --prefix=/usr \
         --disable-static \
+        --disable-werror \
         --libdir=/usr/lib 
     make
 }
