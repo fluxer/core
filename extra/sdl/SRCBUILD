@@ -1,19 +1,23 @@
 # Maintainer: Ivailo Monev <xakepa10@gmail.com>
 
-version=2.0.9
+# http://www.linuxfromscratch.org/blfs/view/svn/multimedia/sdl2.html
+
+version=2.0.10
 description="Simple DirectMedia Layer (Version 2)"
 depends=('glibc' 'xorg-libraries' 'mesalib' 'alsa-lib')
 optdepends=('pulseaudio')
 sources=("http://www.libsdl.org/release/SDL2-$version.tar.gz"
         "http://www.libsdl.org/release/SDL2-$version.tar.gz.sig"
-        "libsdl2-static-libs.patch")
+        "SDL2-2.0.10-opengl_include_fix-1.patch")
 pgpkeys=('30A59377A7763BE6')
 
 src_prepare(){
     cd "$SOURCE_DIR/SDL2-$version"
 
-    # patch from Gentoo
-    patch -Np1 -i "$SOURCE_DIR/libsdl2-static-libs.patch"
+    # patch from BLFS
+    case $(uname -m) in
+        i?86) patch -Np1 -i "$SOURCE_DIR/SDL2-2.0.10-opengl_include_fix-1.patch" ;;
+    esac
 }
 
 src_compile(){
