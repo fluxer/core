@@ -4,12 +4,12 @@
 
 # TODO: openrc conf/init file
 
-version=7.3p1
+version=7.9p1
 description='Free version of the SSH connectivity tools'
 makedepends=('linux')
 depends=('openssl' 'xorg-applications')
-sources=(" http://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-$version.tar.gz"
-        " http://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-$version.tar.gz.asc"
+sources=("http://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-$version.tar.gz"
+        "http://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-$version.tar.gz.asc"
         'sshd.tmpfiles')
 pgpkeys=('D3E5F56B6D920D30')
 backup=('etc/ssh/ssh_config'
