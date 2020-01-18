@@ -2,7 +2,7 @@
 
 # http://www.linuxfromscratch.org/lfs/view/development/chapter06/less.html
 
-version=530
+version=551
 description='A terminal based program for viewing text files'
 depends=('glibc' 'ncurses')
 optdepends=('pcre')
