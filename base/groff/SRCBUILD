@@ -2,7 +2,7 @@
 
 # http://www.linuxfromscratch.org/lfs/view/development/chapter06/groff.html
 
-version=1.22.3
+version=1.22.4
 description="Typesetting package which reads plain text mixed with formatting commands and produces formatted output"
 depends=('glibc' 'busybox' 'perl' 'gcc')
 sources=("http://ftp.gnu.org/gnu/groff/groff-$version.tar.gz"
