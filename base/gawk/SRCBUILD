@@ -2,7 +2,7 @@
 
 # http://www.linuxfromscratch.org/lfs/view/development/chapter06/gawk.html
 
-version=4.2.1
+version=5.0.1
 description="Upwardly compatible Unix awk version of Brian Kernighan (gawk)"
 depends=('glibc' 'readline')
 sources=("http://ftp.gnu.org/gnu/gawk/gawk-$version.tar.xz"
