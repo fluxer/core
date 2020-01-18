@@ -2,7 +2,7 @@
 
 # http://www.linuxfromscratch.org/blfs/view/svn/server/openldap.html
 
-version=2.4.47
+version=2.4.48
 description="Lightweight Directory Access Protocol (LDAP)"
 depends=('libtool' 'cyrus-sasl' 'openssl')
 makedepends=('groff')
