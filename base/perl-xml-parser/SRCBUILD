@@ -1,6 +1,6 @@
 # Maintainer: Ivailo Monev <xakepa10@gmail.com>
 
-version=2.44
+version=2.46
 description="Interface to James Clark XML parser, expat"
 depends=('perl' 'expat')
 sources=("http://search.cpan.org/CPAN/authors/id/T/TO/TODDR/XML-Parser-$version.tar.gz")
