@@ -1,6 +1,6 @@
 # Maintainer: Ivailo Monev <xakepa10@gmail.com>
 
-version=2.4.1
+version=2.4.2
 description='Enhanced seccomp library'
 depends=('glibc')
 sources=("https://github.com/seccomp/libseccomp/releases/download/v$version/libseccomp-$version.tar.gz"
