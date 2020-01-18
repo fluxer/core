@@ -2,7 +2,7 @@
 
 # http://www.linuxfromscratch.org/lfs/view/development/chapter06/grep.html
 
-version=2.28
+version=3.4
 description='A string search utility'
 depends=('glibc')
 optdepends=('pcre')
@@ -10,11 +10,6 @@ optdepends=('pcre')
 sources=("http://ftp.gnu.org/gnu/grep/grep-$version.tar.xz"
          "http://ftp.gnu.org/gnu/grep/grep-$version.tar.xz.sig")
 pgpkeys=('155D3FC500C834486D1EEA677FD9FCCB000BEEEE')
-
-src_prepare() {
-    cd "$SOURCE_DIR/grep-$version"
-    autoreconf -fi
-}
 
 src_compile() {
     cd "$SOURCE_DIR/grep-$version"
@@ -24,7 +19,7 @@ src_compile() {
     ./configure --prefix=/usr \
         --bindir=/bin \
         $_options
-    make MAKEINFO=true
+    make
 }
 
 src_check() {
@@ -34,6 +29,6 @@ src_check() {
 
 src_install() {
     cd "$SOURCE_DIR/grep-$version"
-    make DESTDIR=$INSTALL_DIR MAKEINFO=true install
+    make DESTDIR=$INSTALL_DIR install
 }
 
