@@ -2,7 +2,7 @@
 
 # http://www.linuxfromscratch.org/lfs/view/development/chapter06/texinfo.html
 
-version=6.1
+version=6.7
 description='GNU documentation system for on-line information and printed output'
 depends=('ncurses' 'findutils' 'gzip' 'perl' 'busybox')
 sources=("ftp://ftp.gnu.org/pub/gnu/texinfo/texinfo-$version.tar.xz"
