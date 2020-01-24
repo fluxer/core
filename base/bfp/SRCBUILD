@@ -2,7 +2,7 @@
 
 version=20190501
 description="Big Fucking Projects"
-depends=('busybox' 'python' 'file' 'git' 'binutils' 'gcc' 'gnupg')
+depends=('busybox' 'python' 'file' 'git' 'binutils' 'gcc' 'gnupg' 'mkinitfs')
 sources=('https://github.com/fluxer/bfp.git')
 
 src_compile() {
