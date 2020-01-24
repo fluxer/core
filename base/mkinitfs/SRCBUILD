@@ -1,0 +1,17 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+version=20190501
+description="Initial RAM filesystem image creator"
+depends=('busybox' 'file')
+makedepends=('git')
+sources=('https://github.com/fluxer/mkinitfs.git')
+
+src_compile() {
+    cd "$SOURCE_DIR/mkinitfs.git"
+    make
+}
+
+src_install() {
+    cd "$SOURCE_DIR/mkinitfs.git"
+    make DESTDIR="$INSTALL_DIR" install
+}

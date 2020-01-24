@@ -72,6 +72,7 @@ xz
 zlib
 pkgconf
 openrc
+mkinitfs
 bfp
 busybox
 libssh2
