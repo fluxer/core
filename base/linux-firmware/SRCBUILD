@@ -1,12 +1,12 @@
 # Maintainer: Ivailo Monev <xakepa10@gmail.com>
 
-version=20190409
+version=20191215
 description="Linux kernel firmware files"
 sources=("http://distfiles.gentoo.org/distfiles/linux-firmware-$version.tar.gz")
 options=('!binaries' '!shared' '!static')
 
 src_install() {
-    cd "$SOURCE_DIR/linux-firmware-260cb35b11a968e7896f911565b75e411636ad69"
+    cd "$SOURCE_DIR/linux-firmware-f1100ddf581f49aa79a54b56fe6ef0815a7ae57e"
 
     install -vdm755 "$INSTALL_DIR/lib/firmware"
     cp -va * "$INSTALL_DIR/lib/firmware/"
