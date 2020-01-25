@@ -1,6 +1,6 @@
 # Maintainer: Ivailo Monev <xakepa10@gmail.com>
 
-version=20190501
+version=20200125
 description="Initial RAM filesystem image creator"
 depends=('busybox' 'file')
 makedepends=('git')
