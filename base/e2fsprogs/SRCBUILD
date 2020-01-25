@@ -3,6 +3,7 @@
 # http://www.linuxfromscratch.org/lfs/view/development/chapter06/e2fsprogs.html
 
 version=1.44.6
+release=2
 description="Filesystem utilities for use with the ext2/3/4 filesystems"
 depends=('glibc')
 backup=('etc/mke2fs.conf')
@@ -20,11 +21,13 @@ src_compile() {
         --with-root-prefix="" \
         --enable-elf-shlibs \
         --enable-symlink-install \
+        --enable-symlink-build \
         --disable-libblkid \
         --disable-libuuid \
         --disable-uuidd \
         --disable-fsck \
-        --disable-rpath
+        --disable-rpath \
+        --disable-nls
     make
 }
 
