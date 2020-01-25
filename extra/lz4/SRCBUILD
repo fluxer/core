@@ -1,9 +1,11 @@
-version=1.8.3
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+version=1.9.2
 description='Very fast lossless compression algorithm'
-makedepends=('git')
-checkdepends=('diffutils')
 depends=('glibc')
+makedepends=('git')
 sources=("https://github.com/lz4/lz4/archive/v$version.tar.gz")
+options=('!mirror')
 
 src_compile() {
     cd "$SOURCE_DIR/lz4-$version"
