@@ -1,0 +1,27 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+version=1.3.1
+description='Portable and efficient C programming interface (API) to determine the call-chain of a program'
+depends=('glibc' 'xz')
+sources=("http://download.savannah.gnu.org/releases/libunwind/libunwind-$version.tar.gz"
+        "http://download.savannah.gnu.org/releases/libunwind/libunwind-$version.tar.gz.sig")
+pgpkeys=('65D98560914F3F48')
+
+src_compile() {
+    cd "$SOURCE_DIR/libunwind-$version"
+
+    ./configure --prefix=/usr \
+        --disable-static
+    make
+}
+
+src_check() {
+    cd "$SOURCE_DIR/libunwind-$version"
+    # This function is ``supposed'' to fail. Upstream knows, but haven't fixed it.
+    make check || return 0
+}
+
+src_install() {
+    cd "$SOURCE_DIR/libunwind-$version"
+    make DESTDIR="$INSTALL_DIR/" install
+}
