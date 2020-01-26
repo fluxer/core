@@ -10,7 +10,7 @@ depends=('kdelibs' 'libmtp' 'xorg-libraries' 'xorg-applications' 'xdg-utils'
          'xcb-util-keysyms' 'xcb-util-wm' 'busybox' 'libraw1394' 'ariya-icons'
          'kde-baseapps' 'ttf-dejavu')
 makedepends=('cmake'  'xorg-protocol-headers')
-# TODO: optdepends=('gpsd')
+optdepends=('libdbusmenu' 'gpsd')
 sources=("https://github.com/fluxer/kde-workspace.git"
         'kdm.init' 'terminate-server.patch' 'etc-scripts.patch')
 backup=('share/config/kdm/kdmrc')
@@ -36,7 +36,8 @@ src_compile() {
         -DCMAKE_SKIP_INSTALL_RPATH=ON \
         -DCMAKE_INSTALL_PREFIX=/usr \
         -DSYSCONF_INSTALL_DIR=/etc \
-        -DWITH_Xmms=OFF
+        -DWITH_DBusMenuQt=$OPTIONAL_LIBDBUSMENU_BOOL \
+        -DWITH_LibGPS=$OPTIONAL_GPSD_BOOL
     make
 }
 
