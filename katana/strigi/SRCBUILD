@@ -2,11 +2,11 @@
 
 # http://www.linuxfromscratch.org/blfs/view/svn/general/strigi.html
 
-version=20160330
-description="Fast crawling desktop search engine with Qt GUI"
-depends=('dbus' 'libxml2' 'bzip2' 'exiv2' 'ffmpeg')
+version=20200130
+description="Fast crawling desktop search engine"
+depends=('dbus' 'libxml2' 'bzip2' 'exiv2' 'ffmpeg' 'file')
 makedepends=('cmake' 'git')
-sources=("http://github.com/fluxer/strigi.git")
+sources=("https://github.com/fluxer/strigi.git")
 
 src_compile() {
     mkdir -p "$SOURCE_DIR/build"
@@ -17,13 +17,7 @@ src_compile() {
         -DCMAKE_INSTALL_PREFIX=/usr \
         -DCMAKE_SKIP_RPATH=ON \
         -DCMAKE_INSTALL_LIBDIR=lib \
-        -DENABLE_INOTIFY=ON \
-        -DENABLE_FFMPEG=ON \
-        -DENABLE_LOG4CXX=OFF \
-        -DENABLE_FAM=OFF \
-        -DENABLE_CLUCENE=OFF \
-        -DENABLE_CLUCENE_NG=OFF \
-        -DENABLE_QT4=OFF
+        -DENABLE_FFMPEG=ON
     make
 }
 
