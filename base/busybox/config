@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
 # Busybox version: 1.30.1
-# Sat Apr 20 00:07:47 2019
+# Thu Jan 30 01:50:17 2020
 #
 CONFIG_HAVE_DOT_CONFIG=y
 
@@ -505,9 +505,9 @@ CONFIG_FEATURE_INIT_MODIFY_CMDLINE=y
 #
 # Login/Password Management Utilities
 #
-# CONFIG_FEATURE_SHADOWPASSWDS is not set
-# CONFIG_USE_BB_PWD_GRP is not set
-# CONFIG_USE_BB_SHADOW is not set
+CONFIG_FEATURE_SHADOWPASSWDS=y
+CONFIG_USE_BB_PWD_GRP=y
+CONFIG_USE_BB_SHADOW=y
 # CONFIG_USE_BB_CRYPT is not set
 # CONFIG_USE_BB_CRYPT_SHA is not set
 # CONFIG_ADD_SHELL is not set
