@@ -7,15 +7,16 @@ makedepends=('git' 'cmake')
 sources=("https://github.com/fluxer/libdbusmenu-qt.git")
 
 src_compile() {
-    cd "$SOURCE_DIR/libdbusmenu-qt.git"
+    mkdir -p build && cd build
 
-    cmake -DCMAKE_BUILD_TYPE=Release \
+    cmake ../libdbusmenu-qt.git \
+        -DCMAKE_BUILD_TYPE=Release \
         -DCMAKE_INSTALL_PREFIX=/usr \
         -DWITH_DOC=OFF
     make
 }
 
 src_install() {
-    cd "$SOURCE_DIR/libdbusmenu-qt.git"
+    cd "$SOURCE_DIR/build"
     make DESTDIR="$INSTALL_DIR" install
 }
