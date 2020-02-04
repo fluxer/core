@@ -5,8 +5,8 @@
 version=4.18.0
 description="KDE extra applications"
 depends=('kdelibs' 'kde-workspace' 'ffmpeg' 'poppler' 'libgcrypt'
-    'ebook-tools' 'libspectre' 'lcms2' 'parted' 'unrar' 'hunspell'
-    'djvulibre' 'bluez' 'qca' 'taglib' 'flac' 'gdb')
+    'ebook-tools' 'libspectre' 'lcms2' 'parted' 'unrar'
+    'djvulibre' 'bluez' 'qca' 'taglib' 'flac')
 makedepends=('cmake')
 optdepends=('pulseaudio' 'libcanberra' 'subversion' 'cvs'
     'speech-dispatcher' 'sane' 'gpgme' 'libvncserver')

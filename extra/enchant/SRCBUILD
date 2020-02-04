@@ -4,12 +4,12 @@
 
 version=2.2.7
 description="A wrapper library for generic spell checking"
-depends=('dbus-glib')
-optdepends=('hunspell')
+depends=('dbus-glib' 'hunspell')
 sources=("https://github.com/AbiWord/enchant/releases/download/v$version/enchant-$version.tar.gz")
 
 src_compile() {
     cd "$SOURCE_DIR/enchant-$version"
+
     ./configure --prefix=/usr \
         --disable-static \
         --disable-ispell \
