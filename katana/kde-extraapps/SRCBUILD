@@ -18,7 +18,7 @@ src_compile() {
     mkdir -p "$SOURCE_DIR/build" && cd "$SOURCE_DIR/build"
 
     _options="-DBUILD_kolourpaint=FALSE -DBUILD_kuassel=FALSE"
-    _options+="-DBUILD_jovie=FALSE -DBUILD_libksane=FALSE -DBUILD_skanlite=FALSE -DBUILD_kgpg=FALSE -DBUILD_krfb=FALSE -DBUILD_print-manager=FALSE"
+    _options+=" -DBUILD_jovie=FALSE -DBUILD_libksane=FALSE -DBUILD_skanlite=FALSE -DBUILD_kgpg=FALSE -DBUILD_krfb=FALSE -DBUILD_print-manager=FALSE"
     [ "$OPTIONAL_SPEECH_DISPATCHER" = "yes" ] && _options+=" -DBUILD_jovie=TRUE"
     [ "$OPTIONAL_SANE" = "yes" ] && _options+=" -DBUILD_libksane=TRUE -DBUILD_skanlite=TRUE"
     [ "$OPTIONAL_GPGME" = "yes" ] && _options+=" -DBUILD_kgpg=TRUE"
