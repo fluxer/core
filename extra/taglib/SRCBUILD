@@ -15,6 +15,7 @@ src_compile() {
     cmake ../taglib-$version \
         -DCMAKE_INSTALL_PREFIX=/usr \
         -DCMAKE_BUILD_TYPE=Release \
+        -DBUILD_SHARED_LIBS=ON \
         -DWITH_MP4=ON \
         -DWITH_ASF=ON
     make
