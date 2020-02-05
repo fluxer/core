@@ -9,7 +9,7 @@ depends=('kdelibs' 'kde-workspace' 'ffmpeg' 'poppler' 'libgcrypt'
     'djvulibre' 'bluez' 'qca' 'taglib' 'flac')
 makedepends=('cmake')
 optdepends=('pulseaudio' 'libcanberra' 'subversion' 'cvs'
-    'speech-dispatcher' 'sane' 'gpgme' 'libvncserver')
+    'speech-dispatcher' 'sane' 'gpgme' 'libvncserver' 'cups')
 sources=("https://github.com/fluxer/kde-extraapps.git")
 
 export CFLAGS="$CFLAGS -Ofast -flto" CXXFLAGS="$CXXFLAGS -Ofast -flto"
@@ -18,16 +18,17 @@ src_compile() {
     mkdir -p "$SOURCE_DIR/build" && cd "$SOURCE_DIR/build"
 
     _options="-DBUILD_kolourpaint=FALSE -DBUILD_kuassel=FALSE"
-    _options+="-DBUILD_jovie=FALSE -DBUILD_libksane=FALSE -DBUILD_skanlite=FALSE -DBUILD_kgpg=FALSE -DBUILD_krfb=FALSE"
+    _options+="-DBUILD_jovie=FALSE -DBUILD_libksane=FALSE -DBUILD_skanlite=FALSE -DBUILD_kgpg=FALSE -DBUILD_krfb=FALSE -DBUILD_print-manager=FALSE"
     [ "$OPTIONAL_SPEECH_DISPATCHER" = "yes" ] && _options+=" -DBUILD_jovie=TRUE"
     [ "$OPTIONAL_SANE" = "yes" ] && _options+=" -DBUILD_libksane=TRUE -DBUILD_skanlite=TRUE"
     [ "$OPTIONAL_GPGME" = "yes" ] && _options+=" -DBUILD_kgpg=TRUE"
     [ "$OPTIONAL_LIBVNCSERVER" = "yes" ] && _options+=" -DBUILD_krfb=TRUE"
+    [ "$OPTIONAL_CUPS" = "yes" ] && _options+=" -DBUILD_print-manager=TRUE"
     cmake ../kde-extraapps.git \
         -DCMAKE_BUILD_TYPE=Release \
         -DCMAKE_SKIP_INSTALL_RPATH=ON \
         -DCMAKE_INSTALL_PREFIX=/usr \
-        -DKDE4_BUILD_TESTS=OFF \
+        -DENABLE_TESTING=OFF \
         $_options
     make
 }
