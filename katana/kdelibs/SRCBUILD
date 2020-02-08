@@ -8,7 +8,7 @@ description="KDE Core Libraries"
 depends=('xorg-libraries' 'strigi' 'exiv2' 'libraw' 'libpng' 'shared-mime-info'
         'docbook-xsl' 'enchant' 'upower' 'udisks' 'mpv' 'libwebp' 'katie')
 makedepends=('cmake' 'mesalib' 'xorg-protocol-headers')
-optdepends=('libdbusmenu-qt' 'qtwebkit')
+optdepends=('libdbusmenu')
 sources=("https://github.com/fluxer/kdelibs.git")
 
 export CFLAGS="$CFLAGS -Ofast -flto" CXXFLAGS="$CXXFLAGS -Ofast -flto"

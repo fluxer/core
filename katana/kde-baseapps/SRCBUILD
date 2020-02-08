@@ -4,9 +4,8 @@
 
 version=4.18.0
 description="KDE base applications"
-depends=('kdelibs' 'glib' 'sudo')
+depends=('kdelibs' 'sudo')
 makedepends=('cmake')
-optdepends=('qtwebkit')
 sources=("https://github.com/fluxer/kde-baseapps.git")
 
 export CFLAGS="$CFLAGS -Ofast -flto" CXXFLAGS="$CXXFLAGS -Ofast -flto"
