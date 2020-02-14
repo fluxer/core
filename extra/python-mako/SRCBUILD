@@ -1,6 +1,6 @@
 # Maintainer: Ivailo Monev <xakepa10@gmail.com>
 
-version=1.0.0
+version=1.0.14
 description="Hyperfast and lightweight templating for the Python2 platform"
 depends=('python-markupsafe' 'python-beaker')
 makedepends=('python-setuptools')
