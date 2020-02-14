@@ -1,6 +1,8 @@
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
 # FIXME: initscript daemon
 
-version=0.8.5
+version=0.8.8
 description="High-level device independent layer for speech synthesis interface"
 depends=('glib' 'libtool' 'dotconf' 'alsa-lib') # FIXME: 'python-xdg'
 makedepends=('intltool' 'espeak')
