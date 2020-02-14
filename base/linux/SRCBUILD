@@ -1,13 +1,11 @@
 # Maintainer: Ivailo Monev <xakepa10@gmail.com>
 
-# http://kernel.org/
-
-version=4.19.97
+version=5.4.19
 description="Linux Kernel and modules"
 depends=('linux-firmware')
 makedepends=('bc' 'busybox')
-sources=("https://www.kernel.org/pub/linux/kernel/v4.x/linux-$version.tar.xz"
-        "https://www.kernel.org/pub/linux/kernel/v4.x/linux-$version.tar.sign"
+sources=("https://www.kernel.org/pub/linux/kernel/v5.x/linux-$version.tar.xz"
+        "https://www.kernel.org/pub/linux/kernel/v5.x/linux-$version.tar.sign"
         'config.i686' 'config.x86_64')
 pgpkeys=('ABAF11C65A2970B130ABE3C479BE3E4300411886'
          '647F28654894E3BD457199BE38DBBDC86092693E')
