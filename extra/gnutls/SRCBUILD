@@ -2,17 +2,17 @@
 
 # http://www.linuxfromscratch.org/blfs/view/svn/postlfs/gnutls.html
 
-version=3.6.7.1
+version=3.6.12
 description="A library which provides a secure layer over a reliable transport layer"
 makedepends=('gcc' 'readline' 'zlib' 'nettle')
 optdepends=('libtasn1')
 checkdepends=('valgrind')
-sources=("ftp://ftp.gnutls.org/gcrypt/gnutls/v3.6/gnutls-$version.tar.xz"
-        "ftp://ftp.gnutls.org/gcrypt/gnutls/v3.6/gnutls-$version.tar.xz.sig")
+sources=("https://www.gnupg.org/ftp/gcrypt/gnutls/v3.6/gnutls-$version.tar.xz"
+        "https://www.gnupg.org/ftp/gcrypt/gnutls/v3.6/gnutls-$version.tar.xz.sig")
 pgpkeys=('A812CBFDFCDC4D0BE7A093129D5EAAF69013B842')
 
 src_compile() {
-    cd "$SOURCE_DIR/gnutls-3.6.7"
+    cd "$SOURCE_DIR/gnutls-$version"
 
     _options=""
     [ "$OPTIONAL_LIBTASN1" = "no" ] && _options+=" --with-included-libtasn1"
@@ -28,11 +28,11 @@ src_compile() {
 }
 
 src_check() {
-    cd "$SOURCE_DIR/gnutls-3.6.7"
+    cd "$SOURCE_DIR/gnutls-$version"
     make check
 }
 
 src_install() {
-    cd "$SOURCE_DIR/gnutls-3.6.7"
+    cd "$SOURCE_DIR/gnutls-$version"
     make DESTDIR="$INSTALL_DIR" install
 }
