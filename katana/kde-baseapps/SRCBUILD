@@ -2,7 +2,7 @@
 
 # http://www.linuxfromscratch.org/blfs/view/svn/kde/kde-baseapps.html
 
-version=4.18.0
+version=4.19.0
 description="KDE base applications"
 depends=('kdelibs' 'sudo')
 makedepends=('cmake')
@@ -17,11 +17,6 @@ src_compile() {
         -DCMAKE_SKIP_INSTALL_RPATH=ON \
         -DCMAKE_INSTALL_PREFIX=/usr
     make
-}
-
-src_check() {
-    cd "$SOURCE_DIR/build"
-    make test
 }
 
 src_install() {

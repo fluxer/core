@@ -2,8 +2,7 @@
 
 # http://www.linuxfromscratch.org/blfs/view/svn/kde/kdelibs.html
 
-version=4.18.0
-release=4
+version=4.19.0
 description="KDE Core Libraries"
 depends=('xorg-libraries' 'exiv2' 'libraw' 'libpng' 'shared-mime-info'
         'docbook-xsl' 'enchant' 'upower' 'udisks' 'mpv' 'libwebp' 'katie')
@@ -25,11 +24,6 @@ src_compile() {
         -DCMAKE_INSTALL_PREFIX=/usr \
         -DSYSCONF_INSTALL_DIR=/etc
     make
-}
-
-src_check() {
-    cd "$SOURCE_DIR/build"
-    make test
 }
 
 src_install() {

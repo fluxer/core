@@ -2,7 +2,7 @@
 
 # http://www.linuxfromscratch.org/blfs/view/svn/kde/add.html
 
-version=4.18.0
+version=4.19.0
 description="KDE extra applications"
 depends=('kdelibs' 'kde-workspace' 'ffmpeg' 'poppler' 'libgcrypt'
     'ebook-tools' 'libspectre' 'lcms2' 'parted' 'unrar'

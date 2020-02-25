@@ -2,7 +2,7 @@
 
 # http://www.linuxfromscratch.org/blfs/view/svn/kde/oxygen-icons.html
 
-version=4.18.0
+version=4.19.0
 description="The Ariya Icon Theme"
 makedepends=('cmake')
 sources=("https://github.com/fluxer/ariya-icons.git")
