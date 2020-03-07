@@ -44,7 +44,7 @@ src_compile() {
     "../glibc-$version/configure" \
         --prefix=/usr \
         --libexecdir=/usr/lib/glibc \
-        --enable-kernel=4.7.0 \
+        --enable-kernel=4.19.0 \
         --enable-oldest-abi=2.27 \
         --enable-stackguard-randomization \
         --enable-obsolete-rpc \
