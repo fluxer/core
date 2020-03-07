@@ -2,7 +2,7 @@
 
 # http://www.linuxfromscratch.org/blfs/view/svn/basicnet/dhcpcd.html
 
-version=6.11.5
+version=7.2.5
 description="RFC2131 compliant DHCP client daemon"
 depends=('glibc' 'busybox')
 backup=('etc/dhcpcd.conf')
@@ -16,11 +16,6 @@ src_compile() {
         --dbdir=/var/lib/dhcpcd \
         --rundir=/run
     make
-}
-
-src_check() {
-    cd "$SOURCE_DIR/dhcpcd-$version"
-    make test
 }
 
 src_install() {
