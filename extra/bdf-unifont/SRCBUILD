@@ -1,6 +1,6 @@
 # Maintainer: Ivailo Monev <xakepa10@gmail.com>
 
-version=12.1.02
+version=12.1.04
 description="GNU Unifont Glyphs"
 depends=('fontconfig' 'xorg-fonts')
 sources=("https://ftp.gnu.org/gnu/unifont/unifont-$version/unifont-$version.bdf.gz")
