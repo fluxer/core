@@ -1,12 +1,12 @@
 # Maintainer: Ivailo Monev <xakepa10@gmail.com>
 
-version=4.21
+version=5.3
 description="A compatibility layer for running Windows programs"
 depends=('fontconfig' 'xorg-libraries' 'gettext' 'freetype2' 'glu' 'gcc')
 makedepends=('giflib' 'libpng' 'gnutls' 'xorg-protocol-headers' 'libxml2'
         'openldap' 'lcms2' 'mpg123' 'openal' 'alsa-lib' 'mesalib')
-sources=("http://dl.winehq.org/wine/source/4.x/wine-$version.tar.xz"
-        "http://dl.winehq.org/wine/source/4.x/wine-$version.tar.xz.sign"
+sources=("http://dl.winehq.org/wine/source/5.x/wine-$version.tar.xz"
+        "http://dl.winehq.org/wine/source/5.x/wine-$version.tar.xz.sign"
         '30-win32-aliases.conf')
 pgpkeys=('DA23579A74D4AD9AF9D3F945CEFAC8EAAF17519D')
 
