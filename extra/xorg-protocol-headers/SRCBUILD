@@ -3,7 +3,7 @@
 # http://www.linuxfromscratch.org/blfs/view/stable/x/xorgproto.html
 # http://www.linuxfromscratch.org/blfs/view/stable/x/xcb-proto.html
 
-version=1.20.6
+version=1.20.7
 description="X.Org protocol headers"
 depends=('eudev')
 sources=("http://xorg.freedesktop.org/releases/individual/xcb/xcb-proto-1.13.tar.bz2"
