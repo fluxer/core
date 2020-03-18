@@ -8,7 +8,7 @@ description="An image loading library"
 depends=('glib' 'libpng' 'libtiff' 'libjpeg-turbo' 'xorg-libraries')
 makedepends=('xorg-protocol-headers')
 optdepends=('jasper')
-sources=("http://download.gnome.org/sources/gdk-pixbuf/2.32/gdk-pixbuf-$version.tar.xz")
+sources=("http://download.gnome.org/sources/gdk-pixbuf/2.36/gdk-pixbuf-$version.tar.xz")
 
 src_compile() {
     cd "$SOURCE_DIR/gdk-pixbuf-$version"
