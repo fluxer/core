@@ -2,14 +2,13 @@
 
 # http://www.linuxfromscratch.org/lfs/view/development/chapter06/glibc.html
 
-version=2.30
+version=2.31
 description="GNU C library"
 depends=('filesystem' 'linux-api-headers' 'tzdata')
 makedepends=('gawk' 'python')
 sources=("http://ftp.gnu.org/gnu/glibc/glibc-$version.tar.xz"
         "http://ftp.gnu.org/gnu/glibc/glibc-$version.tar.xz.sig"
         'bz20338.patch'
-        'file-truncated-while-reading-soname-after-patchelf.patch'
         'ld.so.conf'
         'nsswitch.conf'
         'locale.conf'
@@ -26,7 +25,6 @@ src_prepare() {
     cd "$SOURCE_DIR/glibc-$version"
 
     patch -Np1 -i ../bz20338.patch
-    patch -Np1 -i ../file-truncated-while-reading-soname-after-patchelf.patch
 }
 src_compile() {
     cd "$SOURCE_DIR/glibc-$version"
