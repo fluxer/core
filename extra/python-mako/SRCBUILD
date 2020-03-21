@@ -1,9 +1,8 @@
 # Maintainer: Ivailo Monev <xakepa10@gmail.com>
 
 version=1.0.14
-description="Hyperfast and lightweight templating for the Python2 platform"
+description="Hyperfast and lightweight templating for Python"
 depends=('python-markupsafe' 'python-beaker')
-makedepends=('python-setuptools')
 sources=("https://pypi.python.org/packages/source/M/Mako/Mako-$version.tar.gz"
         "https://pypi.python.org/packages/source/M/Mako/Mako-$version.tar.gz.asc")
 pgpkeys=('330239C1C4DAFEE1')

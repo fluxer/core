@@ -3,7 +3,6 @@
 version=0.23
 description="Implements a XML/HTML/XHTML Markup safe string for Python"
 depends=('python')
-makedepends=('python-setuptools')
 sources=("http://pypi.python.org/packages/source/M/MarkupSafe/MarkupSafe-$version.tar.gz")
 
 src_compile() {
