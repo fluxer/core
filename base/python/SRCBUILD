@@ -2,7 +2,7 @@
 
 # http://www.linuxfromscratch.org/blfs/view/svn/general/python3.html
 
-version=3.6.10
+version=3.7.7
 description="Interpreted, interactive, object-oriented programming language"
 depends=('bzip2' 'zlib' 'bash' 'gdbm' 'readline' 'openssl' 'glibc' 'expat')
 optdepends=('libffi' 'sqlite')
@@ -21,6 +21,7 @@ src_compile() {
         --enable-shared \
         --enable-ipv6 \
         --with-system-expat \
+        --with-ensurepip=yes \
         $_options
     make
 }
@@ -35,7 +36,7 @@ src_install() {
 
     make -j1 DESTDIR="$INSTALL_DIR" install
 
-    chmod -v 755 "$INSTALL_DIR/usr/lib/libpython3.6m.so"
+    chmod -v 755 "$INSTALL_DIR/usr/lib/libpython3.7m.so"
     chmod -v 755 "$INSTALL_DIR/usr/lib/libpython3.so"
 
     ln -vs python3               "$INSTALL_DIR/usr/bin/python"
