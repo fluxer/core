@@ -9,7 +9,7 @@ depends=('kdelibs' 'kde-workspace' 'ffmpeg' 'poppler' 'libgcrypt'
     'djvulibre' 'bluez' 'qca' 'taglib' 'flac')
 makedepends=('cmake')
 optdepends=('pulseaudio' 'libcanberra' 'subversion' 'cvs'
-    'speech-dispatcher' 'sane' 'gpgme' 'libvncserver' 'cups')
+    'speech-dispatcher' 'sane' 'gpgme' 'libvncserver' 'cups' 'boost')
 sources=("https://github.com/fluxer/kde-extraapps.git")
 
 export CFLAGS="$CFLAGS -Ofast -flto" CXXFLAGS="$CXXFLAGS -Ofast -flto"
@@ -19,11 +19,13 @@ src_compile() {
 
     _options="-DBUILD_kuassel=FALSE -DBUILD_jovie=FALSE -DBUILD_libksane=FALSE -DBUILD_skanlite=FALSE"
     _options+=" -DBUILD_kgpg=FALSE -DBUILD_krfb=FALSE -DBUILD_print-manager=FALSE"
+    _options+=" -DBUILD_libktorrent=FALSE -DBUILD_kget=FALSE -DBUILD_akregator=FALSE -DBUILD_syndication=FALSE" # boost copy is not usefull
     [ "$OPTIONAL_SPEECH_DISPATCHER" = "yes" ] && _options+=" -DBUILD_jovie=TRUE"
     [ "$OPTIONAL_SANE" = "yes" ] && _options+=" -DBUILD_libksane=TRUE -DBUILD_skanlite=TRUE"
     [ "$OPTIONAL_GPGME" = "yes" ] && _options+=" -DBUILD_kgpg=TRUE"
     [ "$OPTIONAL_LIBVNCSERVER" = "yes" ] && _options+=" -DBUILD_krfb=TRUE"
     [ "$OPTIONAL_CUPS" = "yes" ] && _options+=" -DBUILD_print-manager=TRUE"
+    [ "$OPTIONAL_BOOST" = "yes" ] && _options+=" -DBUILD_libktorrent=TRUE -DBUILD_kget=TRUE -DBUILD_akregator=TRUE -DBUILD_syndication=TRUE"
     cmake ../kde-extraapps.git \
         -DCMAKE_BUILD_TYPE=Release \
         -DCMAKE_SKIP_INSTALL_RPATH=ON \
