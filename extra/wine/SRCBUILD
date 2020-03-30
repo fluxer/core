@@ -1,6 +1,6 @@
 # Maintainer: Ivailo Monev <xakepa10@gmail.com>
 
-version=5.4
+version=5.5
 description="A compatibility layer for running Windows programs"
 depends=('fontconfig' 'xorg-libraries' 'gettext' 'freetype2' 'glu' 'gcc')
 makedepends=('giflib' 'libpng' 'gnutls' 'xorg-protocol-headers' 'libxml2'
@@ -23,6 +23,7 @@ src_compile() {
     ./configure --prefix=/usr \
         --with-x \
         --without-gstreamer \
+        --disable-tests \
         $_options
 
     make
