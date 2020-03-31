@@ -3,7 +3,7 @@
 # http://www.linuxfromscratch.org/lfs/view/development/chapter06/libcap.html
 # http://www.linuxfromscratch.org/blfs/view/svn/postlfs/libcap.html
 
-version=2.31
+version=2.33
 description="POSIX 1003.1e capabilities"
 depends=('glibc' 'attr')
 sources=("https://www.kernel.org/pub/linux/libs/security/linux-privs/libcap2/libcap-$version.tar.xz"
