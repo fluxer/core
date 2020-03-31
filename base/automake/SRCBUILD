@@ -1,8 +1,8 @@
 # Maintainer: Ivailo Monev <xakepa10@gmail.com>
 
-# http://www.linuxfromscratch.org/lfs/view/7.3/chapter06/automake.html
+# http://www.linuxfromscratch.org/lfs/view/development/chapter06/automake.html
 
-version=1.16.1
+version=1.16.2
 description="Tool for automatically generating Makefile.in files compliant with the GNU Coding Standards"
 depends=('busybox' 'perl')
 sources=("http://ftp.gnu.org/gnu/automake/automake-$version.tar.xz"
