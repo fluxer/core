@@ -2,9 +2,8 @@
 
 version=20190517
 description='C++ toolkit derived from the Qt 4.8 framework'
-depends=('libtiff' 'libpng' 'libmng' 'libjpeg-turbo' 'sqlite' 'ca-certificates'
-        'dbus' 'fontconfig' 'xorg-libraries' 'hicolor-icon-theme' 'icu' 'pcre'
-        'zstd')
+depends=('libtiff' 'libpng' 'libjpeg-turbo' 'sqlite' 'ca-certificates' 'dbus'
+         'fontconfig' 'xorg-libraries' 'hicolor-icon-theme' 'icu' 'pcre' 'zstd')
 makedepends=('xorg-protocol-headers' 'cmake')
 optdepends=('mariadb' 'unixodbc' 'postgresql' 'cups')
 sources=("https://github.com/fluxer/katie.git")
