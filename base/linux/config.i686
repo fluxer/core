@@ -1,6 +1,6 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# Linux/x86 5.4.26 Kernel Configuration
+# Linux/x86 5.4.31 Kernel Configuration
 #
 
 #
@@ -224,7 +224,7 @@ CONFIG_PERF_EVENTS=y
 # end of Kernel Performance Events And Counters
 
 CONFIG_VM_EVENT_COUNTERS=y
-CONFIG_SLUB_DEBUG=y
+# CONFIG_SLUB_DEBUG is not set
 # CONFIG_SLUB_MEMCG_SYSFS_ON is not set
 # CONFIG_COMPAT_BRK is not set
 # CONFIG_SLAB is not set
@@ -873,6 +873,7 @@ CONFIG_ARCH_HAS_PTE_SPECIAL=y
 CONFIG_NET=y
 CONFIG_NET_INGRESS=y
 CONFIG_NET_EGRESS=y
+CONFIG_NET_REDIRECT=y
 CONFIG_SKB_EXTENSIONS=y
 
 #
@@ -7497,7 +7498,6 @@ CONFIG_DEBUG_KERNEL=y
 # CONFIG_PAGE_POISONING is not set
 # CONFIG_DEBUG_RODATA_TEST is not set
 # CONFIG_DEBUG_OBJECTS is not set
-# CONFIG_SLUB_DEBUG_ON is not set
 # CONFIG_SLUB_STATS is not set
 CONFIG_HAVE_DEBUG_KMEMLEAK=y
 # CONFIG_DEBUG_KMEMLEAK is not set
