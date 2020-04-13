@@ -1,6 +1,6 @@
 # Maintainer: Ivailo Monev <xakepa10@gmail.com>
 
-version=5.4.31
+version=5.4.32
 description="Linux Kernel and modules"
 depends=('linux-firmware')
 makedepends=('bc' 'busybox')
