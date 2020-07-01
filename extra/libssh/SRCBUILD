@@ -1,17 +1,19 @@
-version=0.7.5
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+version=0.9.4
 description="Library for accessing ssh client services through C libraries"
 depends=('zlib' 'openssl')
 makedepends=('cmake' 'cmocka' 'doxygen')
 checkdepends=('openssh')
-sources=("https://www.libssh.org/files/0.7/libssh-$version.tar.xz")
+sources=("https://www.libssh.org/files/0.9/libssh-$version.tar.xz")
 
 src_compile() {
     mkdir -p build && cd build
     cmake ../libssh-$version \
         -DCMAKE_INSTALL_PREFIX=/usr \
-        -DCMAKE_BUILD_TYPE=RelWithDbgInfo \
+        -DCMAKE_BUILD_TYPE=Release \
         -DWITH_GSSAPI=OFF \
-        -DWITH_TESTING=ON
+        -DWITH_EXAMPLES=OFF
     make
 }
 
