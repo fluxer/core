@@ -5,28 +5,21 @@
 version=2.4.102
 description="Userspace library for accessing the DRM"
 depends=('glibc' 'xorg-libraries')
+makedepends=('meson')
 optdepends=('valgrind')
-sources=("http://dri.freedesktop.org/libdrm/libdrm-$version.tar.bz2"
-        "http://dri.freedesktop.org/libdrm/libdrm-$version.tar.bz2.sig")
+sources=("http://dri.freedesktop.org/libdrm/libdrm-$version.tar.xz"
+        "http://dri.freedesktop.org/libdrm/libdrm-$version.tar.xz.sig")
 pgpkeys=('8703B6700E7EE06D7A39B8D6EDAE37B02CEB490D')
 
 src_compile() {
     cd "$SOURCE_DIR/libdrm-$version"
 
-    _options="--disable-valgrind"
-    [ "$OPTIONAL_VALGRIND" = "yes" ] && _options+=" --enable-valgrind"
-    ./configure --prefix=/usr \
-        --enable-udev \
-        $_options
-    make
-}
-
-src_check() {
-    cd "$SOURCE_DIR/libdrm-$version"
-    make check
+    meson ../build --buildtype plain \
+        --prefix /usr
+    ninja -C ../build
 }
 
 src_install() {
     cd "$SOURCE_DIR/libdrm-$version"
-    make DESTDIR="$INSTALL_DIR" install
+    DESTDIR="$INSTALL_DIR" ninja -C ../build install
 }
