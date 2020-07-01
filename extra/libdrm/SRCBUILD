@@ -2,7 +2,7 @@
 
 # http://www.linuxfromscratch.org/blfs/view/svn/x/libdrm.html
 
-version=2.4.100
+version=2.4.102
 description="Userspace library for accessing the DRM"
 depends=('glibc' 'xorg-libraries')
 optdepends=('valgrind')

@@ -2,7 +2,7 @@
 
 # http://www.linuxfromscratch.org/blfs/view/svn/general/harfbuzz.html
 
-version=2.6.4
+version=2.6.7
 description="OpenType text shaping engine."
 depends=('glib' 'freetype2' 'icu')
 optdepends=('graphite' 'cairo')

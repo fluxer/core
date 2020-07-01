@@ -2,7 +2,7 @@
 
 # http://www.linuxfromscratch.org/blfs/view/svn/x/x7driver.html#libevdev
 
-version=1.4.6
+version=1.7.0
 description="Wrapper library for evdev devices"
 depends=('glibc')
 makedepends=('python')
