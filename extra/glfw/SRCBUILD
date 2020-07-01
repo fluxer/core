@@ -1,6 +1,6 @@
 # Maintainer: Ivailo Monev <xakepa10@gmail.com>
 
-version=3.3
+version=3.3.2
 description="A free, open source, portable framework for graphical application development"
 depends=('xorg-libraries' 'mesalib')
 makedepends=('cmake' 'xorg-protocol-headers')
