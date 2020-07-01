@@ -2,7 +2,7 @@
 
 # http://www.linuxfromscratch.org/blfs/view/svn/general/nasm.html
 
-version=2.14.02
+version=2.15.01
 description="80x86 and x86-64 assembler designed for portability and modularity"
 depends=('glibc')
 sources=("http://www.nasm.us/pub/nasm/releasebuilds/$version/nasm-$version.tar.xz")
