@@ -1,20 +1,11 @@
 # Maintainer: Ivailo Monev <xakepa10@gmail.com>
 
-version=1.36
+version=1.38
 description="Small library that defines common error values for all GnuPG components"
 depends=('glibc' 'bash')
 sources=("ftp://ftp.gnupg.org/gcrypt/libgpg-error/libgpg-error-$version.tar.bz2"
-        "ftp://ftp.gnupg.org/gcrypt/libgpg-error/libgpg-error-$version.tar.bz2.sig"
-        'gawk5.diff')
+        "ftp://ftp.gnupg.org/gcrypt/libgpg-error/libgpg-error-$version.tar.bz2.sig")
 pgpkeys=('249B39D24F25E3B6')
-
-src_prepare() {
-    cd "$SOURCE_DIR/libgpg-error-$version"
-
-    # upstream fix to allow build with gawk 5.x
-    patch -Np1 -i ../gawk5.diff
-    autoreconf -vfi
-}
 
 src_compile() {
     cd "$SOURCE_DIR/libgpg-error-$version"
