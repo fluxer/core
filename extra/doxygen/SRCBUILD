@@ -12,7 +12,7 @@ src_compile() {
     cd "$SOURCE_DIR/build"
 
     cmake "../doxygen-Release_1_8_17" \
-        -DCMAKE_INSTALL_PREFIX:PATH=/usr \
+        -DCMAKE_INSTALL_PREFIX=/usr \
         -Dbuild_doc=OFF \
         -Dbuild_wizard=OFF
 

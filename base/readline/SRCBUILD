@@ -20,10 +20,10 @@ pgpkeys=('BB5869F064EA74AB')
 src_prepare() {
     cd "$SOURCE_DIR/readline-8.0"
 
-    patch -Np0 -i "$SOURCE_DIR//readline80-001"
-    patch -Np0 -i "$SOURCE_DIR//readline80-002"
-    patch -Np0 -i "$SOURCE_DIR//readline80-003"
-    patch -Np0 -i "$SOURCE_DIR//readline80-004"
+    patch -Np0 -i "$SOURCE_DIR/readline80-001"
+    patch -Np0 -i "$SOURCE_DIR/readline80-002"
+    patch -Np0 -i "$SOURCE_DIR/readline80-003"
+    patch -Np0 -i "$SOURCE_DIR/readline80-004"
 }
 
 src_compile() {
