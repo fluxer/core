@@ -4,7 +4,7 @@
 
 # TODO: openrc conf/init file
 
-version=7.9p1
+version=8.3p1
 description='Free version of the SSH connectivity tools'
 makedepends=('linux')
 depends=('openssl' 'xorg-applications')
