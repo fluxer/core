@@ -2,8 +2,8 @@
 
 # https://wiki.winehq.org/Wine-Staging
 
-version=5.11
-description="A compatibility layer for running Windows programs"
+version=5.12
+description="A compatibility layer for running Windows programs (staging version)"
 depends=('fontconfig' 'xorg-libraries' 'gettext' 'freetype2' 'glu' 'gcc')
 makedepends=('giflib' 'libpng' 'gnutls' 'xorg-protocol-headers' 'libxml2'
         'openldap' 'lcms2' 'mpg123' 'openal' 'alsa-lib' 'mesalib')
