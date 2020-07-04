@@ -2,7 +2,7 @@
 
 # http://www.linuxfromscratch.org/blfs/view/svn/x/xkeyboard-config.html
 
-version=2.28
+version=2.30
 description="Keyboard configuration database for the X Window System"
 depends=('xorg-libraries' 'xorg-applications')
 makedepends=('intltool' 'xorg-protocol-headers')

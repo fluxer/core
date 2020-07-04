@@ -2,7 +2,7 @@
 
 # http://www.linuxfromscratch.org/blfs/view/svn/server/openldap.html
 
-version=2.4.48
+version=2.4.50
 description="Lightweight Directory Access Protocol (LDAP)"
 depends=('libtool' 'cyrus-sasl' 'openssl')
 makedepends=('groff')
@@ -17,8 +17,9 @@ src_compile() {
     ./configure --prefix=/usr \
         --sysconfdir=/etc     \
         --localstatedir=/var  \
-        --libexecdir=/usr/lib     \
+        --libexecdir=/usr/lib \
         --disable-static      \
+        --disable-debug       \
         --enable-dynamic      \
         --enable-crypt        \
         --enable-spasswd      \
