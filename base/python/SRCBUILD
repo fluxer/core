@@ -13,11 +13,10 @@ pgpkeys=('97FC712E4C024BBEA48A61ED3A5CA953F73C700D')
 src_compile() {
     cd "$SOURCE_DIR/Python-$version"
 
-    _options="--without-system-ffi"
+    _options="--without-system-ffi --disable-loadable-sqlite-extensions"
     [ "$OPTIONAL_LIBFFI" = "yes" ] && _options+=" --with-system-ffi"
     [ "$OPTIONAL_SQLITE" = "yes" ] && _options+=" --enable-loadable-sqlite-extensions"
     ./configure --prefix=/usr \
-        --with-threads \
         --enable-shared \
         --enable-ipv6 \
         --with-system-expat \
