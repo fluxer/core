@@ -2,7 +2,7 @@
 
 # http://www.linuxfromscratch.org/lfs/view/development/chapter06/gettext.html
 
-version=0.20.1
+version=0.20.2
 description="Internationalization and localization (i18n) system"
 depends=('gcc' 'glibc' 'ncurses' 'bash')
 sources=("http://ftp.gnu.org/gnu/gettext/gettext-$version.tar.xz"
