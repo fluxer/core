@@ -6,7 +6,7 @@ _amalgamationver=3300100
 version=3.30.1
 description="C library that implements an SQL database engine"
 makedepends=('readline')
-sources=("http://www.sqlite.org/2018/sqlite-autoconf-$_amalgamationver.tar.gz")
+sources=("http://www.sqlite.org/2019/sqlite-autoconf-$_amalgamationver.tar.gz")
 
 src_compile() {
     export CPPFLAGS="$CPPFLAGS -DSQLITE_ENABLE_FTS3=1 -DSQLITE_ENABLE_COLUMN_METADATA=1"
