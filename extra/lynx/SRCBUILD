@@ -15,6 +15,7 @@ src_compile() {
         --sysconfdir=/etc/lynx \
         --with-zlib \
         --with-bzlib \
+        --with-ssl \
         --with-screen=ncursesw \
         --enable-locale-charset
     make
