@@ -1,8 +1,8 @@
 # Maintainer: Ivailo Monev <xakepa10@gmail.com>
 
-# http://www.linuxfromscratch.org/lfs/view/development/chapter06/iproute2.html
+# http://www.linuxfromscratch.org/lfs/view/development/chapter08/iproute2.html
 
-version=5.4.0
+version=5.8.0
 description="IP Routing Utilities"
 depends=('glibc') # 'iptables'
 # makedepends=('linux-atm')
@@ -13,21 +13,16 @@ backup=('etc/iproute2/ematch_map'
         'etc/iproute2/rt_scopes'
         'etc/iproute2/rt_tables')
 sources=("http://www.kernel.org/pub/linux/utils/net/iproute2/iproute2-$version.tar.xz"
-        "http://www.kernel.org/pub/linux/utils/net/iproute2/iproute2-$version.tar.sign"
-        'iproute2-fhs.patch')
+        "http://www.kernel.org/pub/linux/utils/net/iproute2/iproute2-$version.tar.sign")
 pgpkeys=('9F6FC345B05BE7E766B83C8F80A77F6095CDE47E')
 
 src_prepare() {
     cd "$SOURCE_DIR/iproute2-$version"
 
-    # set correct fhs structure
-    patch -Np1 -i "$SOURCE_DIR/iproute2-fhs.patch"
-
     # do not treat warnings as errors
     sed -i 's/-Werror//' Makefile
 
     # avoid db requirement
-    sed -i '/^TARGETS/s@arpd@@g' misc/Makefile
     sed -i /ARPD/d Makefile
     sed -i 's/arpd.8//' man/man8/Makefile
 }
