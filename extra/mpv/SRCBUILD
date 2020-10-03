@@ -1,6 +1,6 @@
 # Maintainer: Ivailo Monev <xakepa10@gmail.com>
 
-version=0.29.1
+version=0.32.0
 description='Video player based on MPlayer/mplayer2'
 depends=('ffmpeg' 'lcms2' 'libdvdread' 'xorg-libraries'
          'mpg123' 'libdvdnav' 'hicolor-icon-theme' 'luajit'
@@ -11,7 +11,7 @@ sources=("https://github.com/mpv-player/mpv/archive/v$version.tar.gz")
 
 src_prepare() {
     cd "$SOURCE_DIR/mpv-$version"
-    curl https://waf.io/waf-2.0.15 > waf
+    curl https://waf.io/waf-2.0.20 > waf
 }
 
 src_compile() {
