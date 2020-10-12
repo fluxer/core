@@ -2,13 +2,13 @@
 
 # http://www.linuxfromscratch.org/blfs/view/svn/pst/cups.html
 
-version=2.1.4
+version=2.2.13
 description="Common Unix Printing System"
 depends=('openssl' 'libtiff' 'libpng' 'krb5' 'acl' 'bc' 'libusbx'
         'dbus' 'eudev' 'hicolor-icon-theme' 'xdg-utils')
 # makedepends=('xinetd')
-sources=("https://github.com/apple/cups/releases/download/release-$version/cups-$version-source.tar.gz"
-        "https://github.com/apple/cups/releases/download/release-$version/cups-$version-source.tar.gz.sig"
+sources=("https://github.com/apple/cups/releases/download/v$version/cups-$version-source.tar.gz"
+        "https://github.com/apple/cups/releases/download/v$version/cups-$version-source.tar.gz.sig"
         'cups-1.4.4-nostrip.patch' 'cupsd.init')
 pgpkeys=('08D76223')
 backup=('etc/cups/client.confetc/cups/cupsd.conf'
