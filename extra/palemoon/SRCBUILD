@@ -1,32 +1,34 @@
 # Maintainer: Ivailo Monev <xakepa10@gmail.com>
 
-version=20190501
+version=20201121
 description="Open source web brpwser based pm Firefox focusing on efficiency"
 depends=('gtk2' 'dbus-glib' 'xorg-libraries' 'alsa-lib' 'ffmpeg' 'hunspell')
 makedepends=('git' 'autoconf2.13' 'python2' 'xorg-protocol-headers' 'unzip' 'zip' 'yasm')
-sources=("https://github.com/MoonchildProductions/UXP.git"
+sources=("https://repo.palemoon.org/MoonchildProductions/Pale-Moon.git"
         'mozconfig'
         'palemoon.desktop')
 
 export MOZBUILD_STATE_PATH="$SOURCE_DIR/mozbuild"
-export MOZCONFIG="$SOURCE_DIR/UXP.git/mozconfig"
+export MOZCONFIG="$SOURCE_DIR/Pale-Moon.git/mozconfig"
 
 src_prepare() {
-    cd "$SOURCE_DIR/UXP.git"
+    cd "$SOURCE_DIR/Pale-Moon.git"
+
+    git submodule init && git submodule update
 
     cp -vf "$SOURCE_DIR/mozconfig" mozconfig
     sed 's|%SRCDIR%|'"$SOURCE_DIR"'|g' -i mozconfig
     sed 's|%MAKEFLAGS%|'"$MAKEFLAGS"'|g' -i mozconfig
     sed 's|%CFLAGS%|'"$CFLAGS"'|g' -i mozconfig
 
-    chmod -R +x build/autoconf/* python/*
+    chmod -R +x build/autoconf/* platform/build/autoconf/* platform/python/*
     find -name '*.sh' -exec chmod -v +x {} +
 }
 
 src_compile() {
-    cd "$SOURCE_DIR/UXP.git"
+    cd "$SOURCE_DIR/Pale-Moon.git"
 
-    python2 mach build
+    python2 platform/mach build
 }
 
 src_install() {
@@ -42,7 +44,7 @@ src_install() {
     install -vDm644 "$SOURCE_DIR/palemoon.desktop" \
         "$INSTALL_DIR/usr/share/applications/palemoon.desktop"
     for res in 16 32 48;do
-        install -vDm644 "palemoon/browser/chrome/icons/default/default$res.png" \
+        install -vDm644 "palemoon/branding/official/default$res.png" \
             "$INSTALL_DIR/usr/share/icons/hicolor/${res}x${res}/apps/palemoon.png"
     done
 
