@@ -2,7 +2,7 @@
 
 # http://www.linuxfromscratch.org/lfs/view/development/chapter06/binutils.html
 
-version=2.33.1
+version=2.35.1
 description="Collection of binary tools"
 depends=('zlib' 'glibc')
 sources=("http://ftp.gnu.org/gnu/binutils/binutils-$version.tar.xz"
