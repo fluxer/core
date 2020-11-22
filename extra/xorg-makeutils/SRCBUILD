@@ -2,7 +2,7 @@
 
 # http://www.linuxfromscratch.org/blfs/view/cvs/x/util-macros.html
 
-version=1.20.7
+version=1.20.9
 description="X.Org imake program and related utilities"
 depends=('glibc')
 makedepends=('pkgconf' 'perl' 'xorg-protocol-headers')
