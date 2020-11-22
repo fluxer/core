@@ -43,6 +43,8 @@ src_install() {
 
     install -vDm644 "$SOURCE_DIR/palemoon.desktop" \
         "$INSTALL_DIR/usr/share/applications/palemoon.desktop"
+
+    cd "$SOURCE_DIR/Pale-Moon.git"
     for res in 16 32 48;do
         install -vDm644 "palemoon/branding/official/default$res.png" \
             "$INSTALL_DIR/usr/share/icons/hicolor/${res}x${res}/apps/palemoon.png"
