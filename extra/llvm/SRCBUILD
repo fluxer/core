@@ -2,16 +2,16 @@
 
 # http://www.linuxfromscratch.org/blfs/view/svn/general/llvm.html
 
-version=8.0.1
+version=10.0.1
 description="Low Level Virtual Machine"
 depends=('perl' 'python' 'libffi' 'zlib')
 makedepends=('ncurses' 'cmake')
 sources=("https://github.com/llvm/llvm-project/releases/download/llvmorg-$version/llvm-$version.src.tar.xz"
-        "https://github.com/llvm/llvm-project/releases/download/llvmorg-$version/cfe-$version.src.tar.xz"
+        "https://github.com/llvm/llvm-project/releases/download/llvmorg-$version/clang-$version.src.tar.xz"
         "https://github.com/llvm/llvm-project/releases/download/llvmorg-$version/compiler-rt-$version.src.tar.xz"
         "https://github.com/llvm/llvm-project/releases/download/llvmorg-$version/clang-tools-extra-$version.src.tar.xz"
         "https://github.com/llvm/llvm-project/releases/download/llvmorg-$version/llvm-$version.src.tar.xz.sig"
-        "https://github.com/llvm/llvm-project/releases/download/llvmorg-$version/cfe-$version.src.tar.xz.sig"
+        "https://github.com/llvm/llvm-project/releases/download/llvmorg-$version/clang-$version.src.tar.xz.sig"
         "https://github.com/llvm/llvm-project/releases/download/llvmorg-$version/compiler-rt-$version.src.tar.xz.sig"
         "https://github.com/llvm/llvm-project/releases/download/llvmorg-$version/clang-tools-extra-$version.src.tar.xz.sig")
 pgpkeys=('11E521D646982372EB577A1F8F0871F202119294'
@@ -23,7 +23,7 @@ src_prepare() {
 
     # At the present, clang must reside inside the LLVM source code tree to build
     # See http://llvm.org/bugs/show_bug.cgi?id=4840
-    cp -a "$SOURCE_DIR/cfe-$version.src" tools/clang
+    cp -a "$SOURCE_DIR/clang-$version.src" tools/clang
     cp -a "$SOURCE_DIR/compiler-rt-$version.src" projects/compiler-rt
     # cp -a "$SOURCE_DIR/clang-tools-extra-$version.src" tools/clang/tools/extra
 }
