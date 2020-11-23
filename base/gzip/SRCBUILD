@@ -5,8 +5,8 @@
 version=1.10
 description='GNU compression utility'
 depends=('glibc' 'bash' 'less')
-sources=("ftp://ftp.gnu.org/pub/gnu/gzip/gzip-$version.tar.xz"
-        "ftp://ftp.gnu.org/pub/gnu/gzip/gzip-$version.tar.xz.sig")
+sources=("http://ftp.gnu.org/pub/gnu/gzip/gzip-$version.tar.xz"
+        "http://ftp.gnu.org/pub/gnu/gzip/gzip-$version.tar.xz.sig")
 pgpkeys=('7FD9FCCB000BEEEE')
 
 src_compile() {
