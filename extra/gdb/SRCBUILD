@@ -18,12 +18,7 @@ src_compile() {
         --with-system-readline \
         --disable-nls \
         --disable-rpath
-    make
-}
-
-src_check() {
-    cd "$SOURCE_DIR/gdb-$version"
-    make check
+    make MAKEINFO=true
 }
 
 src_install() {
