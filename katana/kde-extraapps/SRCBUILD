@@ -12,8 +12,6 @@ optdepends=('pulseaudio' 'libcanberra' 'subversion' 'cvs'
     'speech-dispatcher' 'sane' 'gpgme' 'libvncserver' 'cups' 'boost')
 sources=("https://github.com/fluxer/kde-extraapps.git")
 
-export CFLAGS="$CFLAGS -Ofast -flto" CXXFLAGS="$CXXFLAGS -Ofast -flto"
-
 src_compile() {
     mkdir -p "$SOURCE_DIR/build" && cd "$SOURCE_DIR/build"
 

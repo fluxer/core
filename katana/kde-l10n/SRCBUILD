@@ -4,6 +4,7 @@ version=4.19.0
 description='KDE localizations'
 makedepends=('cmake' 'kdelibs')
 sources=("https://github.com/fluxer/kde-l10n.git")
+
 src_compile() {
     mkdir -p "$SOURCE_DIR/build" && cd "$SOURCE_DIR/build"
     cmake "$SOURCE_DIR/kde-l10n.git" \
