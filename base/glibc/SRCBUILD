@@ -2,13 +2,12 @@
 
 # http://www.linuxfromscratch.org/lfs/view/development/chapter06/glibc.html
 
-version=2.31
+version=2.32
 description="GNU C library"
 depends=('filesystem' 'linux-api-headers' 'tzdata')
 makedepends=('gawk' 'python')
 sources=("http://ftp.gnu.org/gnu/glibc/glibc-$version.tar.xz"
         "http://ftp.gnu.org/gnu/glibc/glibc-$version.tar.xz.sig"
-        'bz20338.patch'
         'ld.so.conf'
         'nsswitch.conf'
         'locale.conf'
@@ -21,11 +20,6 @@ backup=('etc/ld.so.conf'
 # valgrind requires unstripped ld.so
 # options=('!binaries' '!shared')
 
-src_prepare() {
-    cd "$SOURCE_DIR/glibc-$version"
-
-    patch -Np1 -i ../bz20338.patch
-}
 src_compile() {
     cd "$SOURCE_DIR/glibc-$version"
 
@@ -45,7 +39,6 @@ src_compile() {
         --enable-kernel=4.19.0 \
         --enable-oldest-abi=2.27 \
         --enable-stackguard-randomization \
-        --enable-obsolete-rpc \
         --disable-timezone-tools \
         --disable-build-nscd \
         --disable-nscd \
@@ -55,12 +48,6 @@ src_compile() {
         --disable-selinux \
         --disable-werror
     make
-}
-
-src_check() {
-    cd "$SOURCE_DIR/glibc-build"
-
-    TIMEOUTFACTOR=30 make check
 }
 
 src_install(){
