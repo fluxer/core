@@ -1,17 +1,16 @@
 # Maintainer: Ivailo Monev <xakepa10@gmail.com>
 
-version=1.8.17
+version=1.8.20
 description="A documentation system for C++, C, Java, IDL and PHP"
 depends=('gcc') # 'graphviz'
-makedepends=('flex' 'bison' 'ghostscript' 'python' 'cmake')
-sources=("https://github.com/doxygen/doxygen/archive/Release_1_8_17.tar.gz")
-options=('!mirror')
+makedepends=('flex' 'bison' 'python' 'cmake')
+sources=("http://doxygen.nl/files/doxygen-$version.src.tar.gz")
 
 src_compile() {
     mkdir -p "$SOURCE_DIR/build"
     cd "$SOURCE_DIR/build"
 
-    cmake "../doxygen-Release_1_8_17" \
+    cmake "../doxygen-$version" \
         -DCMAKE_INSTALL_PREFIX=/usr \
         -Dbuild_doc=OFF \
         -Dbuild_wizard=OFF
