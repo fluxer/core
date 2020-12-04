@@ -3,22 +3,23 @@
 # http://www.linuxfromscratch.org/blfs/view/svn/x/x7driver.html
 
 version=1.20.9
+release=2
 description="X.Org video and input devices drivers"
 depends=('eudev' 'xorg-server' 'libinput')
 makedepends=('xorg-protocol-headers')
 sources=("http://xorg.freedesktop.org/releases/individual/driver/xf86-video-ati-19.1.0.tar.bz2"
         "http://xorg.freedesktop.org/releases/individual/driver/xf86-video-ati-19.1.0.tar.bz2.sig"
-        "http://anduin.linuxfromscratch.org/BLFS/xf86-video-intel/xf86-video-intel-20190723.tar.xz"
+        "http://anduin.linuxfromscratch.org/BLFS/xf86-video-intel/xf86-video-intel-20200817.tar.xz"
         "http://xorg.freedesktop.org/releases/individual/driver/xf86-video-nouveau-1.0.16.tar.bz2"
         "http://xorg.freedesktop.org/releases/individual/driver/xf86-video-nouveau-1.0.16.tar.bz2.sig"
-        "http://xorg.freedesktop.org/releases/individual/driver/xf86-video-vesa-2.4.0.tar.bz2"
-        "http://xorg.freedesktop.org/releases/individual/driver/xf86-video-vesa-2.4.0.tar.bz2.sig"
+        "http://xorg.freedesktop.org/releases/individual/driver/xf86-video-vesa-2.5.0.tar.bz2"
+        "http://xorg.freedesktop.org/releases/individual/driver/xf86-video-vesa-2.5.0.tar.bz2.sig"
         "http://xorg.freedesktop.org/releases/individual/driver/xf86-video-vmware-13.3.0.tar.bz2"
         "http://xorg.freedesktop.org/releases/individual/driver/xf86-video-vmware-13.3.0.tar.bz2.sig"
         "http://xorg.freedesktop.org/releases/individual/driver/xf86-input-evdev-2.10.6.tar.gz"
         "http://xorg.freedesktop.org/releases/individual/driver/xf86-input-evdev-2.10.6.tar.gz.sig"
-        "http://xorg.freedesktop.org/releases/individual/driver/xf86-input-libinput-0.28.2.tar.bz2"
-        "http://xorg.freedesktop.org/releases/individual/driver/xf86-input-libinput-0.28.2.tar.bz2.sig")
+        "http://xorg.freedesktop.org/releases/individual/driver/xf86-input-libinput-0.30.0.tar.bz2"
+        "http://xorg.freedesktop.org/releases/individual/driver/xf86-input-libinput-0.30.0.tar.bz2.sig")
 pgpkeys=('B09FAF35BE914521980951145A81AF8E6ADBB200'
         'B97BD6A80CAC4981091AE547FE558C72A67013C3'
         'DD38563A8A8224537D1F90E45B8A2D50A0ECD0D3'
