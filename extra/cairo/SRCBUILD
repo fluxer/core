@@ -2,11 +2,18 @@
 
 # http://www.linuxfromscratch.org/blfs/view/svn/x/cairo.html
 
-version=1.14.12
+version=1.16.0
 description="Cairo vector graphics library"
 depends=('libpng' 'xorg-libraries' 'fontconfig' 'pixman' 'glib')
-makedepends=('libdrm' 'mesalib' 'xorg-protocol-headers')
-sources=("http://cairographics.org/releases/cairo-$version.tar.xz")
+makedepends=('xorg-protocol-headers')
+sources=("http://cairographics.org/releases/cairo-$version.tar.xz"
+        'cairo-1.16.0-binutils-2.34.patch')
+
+src_prepare() {
+    cd "$SOURCE_DIR/cairo-$version"
+
+    patch -Np1 -i ../cairo-1.16.0-binutils-2.34.patch
+}
 
 src_compile() {
     cd "$SOURCE_DIR/cairo-$version"
@@ -21,11 +28,6 @@ src_compile() {
         --disable-static \
         --disable-gtk-doc-html
     make
-}
-
-src_check() {
-    cd "$SOURCE_DIR/cairo-$version"
-    make -j1 check
 }
 
 src_install() {
