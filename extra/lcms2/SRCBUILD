@@ -2,7 +2,7 @@
 
 # http://www.linuxfromscratch.org/blfs/view/svn/general/lcms2.html
 
-version=2.9
+version=2.11
 description="Small-footprint color management engine, version 2"
 depends=('libtiff')
 sources=("http://dl.sourceforge.net/lcms/lcms2-$version.tar.gz")
