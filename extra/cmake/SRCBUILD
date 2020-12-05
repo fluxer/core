@@ -2,11 +2,11 @@
 
 # http://www.linuxfromscratch.org/blfs/view/svn/general/cmake.html
 
-version=3.14.5
+version=3.18.5
 description="A cross-platform open-source make system"
 depends=('shared-mime-info' 'curl' 'expat')
 optdepends=('jsoncpp' 'libarchive')
-sources=("http://www.cmake.org/files/v3.14/cmake-$version.tar.gz")
+sources=("http://www.cmake.org/files/v3.18/cmake-$version.tar.gz")
 
 src_compile() {
     cd "$SOURCE_DIR/cmake-$version"
