@@ -2,11 +2,11 @@
 
 # http://www.linuxfromscratch.org/blfs/view/svn/general/libffi.html
 
-version=3.2.1
+version=3.3
 description="Portable Foreign Function Interface Library"
 depends=('glibc')
 checkdepends=('dejagnu')
-sources=("ftp://sourceware.org/pub/libffi/libffi-$version.tar.gz")
+sources=("https://sourceware.org/pub/libffi/libffi-$version.tar.gz")
 
 src_prepare() {
     cd "$SOURCE_DIR/libffi-$version"
