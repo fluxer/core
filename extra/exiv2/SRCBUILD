@@ -2,7 +2,7 @@
 
 # http://www.linuxfromscratch.org/blfs/view/svn/general/exiv2.html
 
-version=0.27.2
+version=0.27.3
 description="Exif and Iptc metadata manipulation library and tools"
 depends=('gcc' 'zlib' 'expat')
 makedepends=('cmake')
