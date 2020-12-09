@@ -2,14 +2,14 @@
 
 # http://www.linuxfromscratch.org/blfs/view/svn/multimedia/x264.html
 
-version=20190815
+version=20200819
 description="Free library for encoding H264/AVC video streams"
 depends=('glibc')
 makedepends=('nasm')
-sources=("http://download.videolan.org/pub/videolan/x264/snapshots/x264-snapshot-$version-2245.tar.bz2")
+sources=("https://code.videolan.org/videolan/x264.git")
 
 src_compile() {
-    cd "$SOURCE_DIR/x264-snapshot-$version-2245"
+    cd "$SOURCE_DIR/x264.git"
 
     ./configure --prefix=/usr \
         --enable-shared \
@@ -17,6 +17,6 @@ src_compile() {
     make
 }
 src_install() {
-    cd "$SOURCE_DIR/x264-snapshot-$version-2245"
+    cd "$SOURCE_DIR/x264.git"
     make DESTDIR="$INSTALL_DIR" install
 }
