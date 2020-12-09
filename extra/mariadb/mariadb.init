@@ -1,0 +1,13 @@
+#!/sbin/openrc-run
+# Copyright 2017 Ivailo Monev <xakepa10@gmail.com>
+# All rights reserved. Released under the 2-clause BSD license.
+
+command=/usr/sbin/mysqld
+pidfile=/run/mysqld/mysqld.pid
+start_stop_daemon_args="--background --user=mysql"
+name="MariaDB Server Daemon"
+
+depend() {
+    use net.lo
+    need localmount
+}
