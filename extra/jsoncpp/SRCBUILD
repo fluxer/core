@@ -1,4 +1,6 @@
-version=1.4.4
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+version=1.9.4
 description='A C++ library for interacting with JSON'
 depends=('gcc')
 makedepends=('cmake')
@@ -10,7 +12,8 @@ src_compile() {
     cmake ../jsoncpp-$version \
         -DCMAKE_BUILD_TYPE=Release \
         -DCMAKE_INSTALL_PREFIX=/usr \
-        -DJSONCPP_LIB_BUILD_SHARED=ON \
+        -DBUILD_SHARED_LIBS=ON \
+        -DBUILD_STATIC_LIBS=ON \
         -DJSONCPP_WITH_TESTS=OFF
     make
 }
