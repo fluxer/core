@@ -2,14 +2,14 @@
 
 # http://www.linuxfromscratch.org/blfs/view/svn/server/openldap.html
 
-version=2.4.50
+version=2.4.56
 description="Lightweight Directory Access Protocol (LDAP)"
 depends=('libtool' 'cyrus-sasl' 'openssl')
 makedepends=('groff')
 backup=('etc/openldap/ldap.conf'
         'etc/openldap/slapd.conf'
         'etc/openldap/slapd.ldif')
-sources=("ftp://ftp.openldap.org/pub/OpenLDAP/openldap-release/openldap-$version.tgz")
+sources=("https://openldap.org/software/download/OpenLDAP/openldap-release/openldap-$version.tgz")
 
 src_compile() {
     cd "$SOURCE_DIR/openldap-$version"
@@ -32,11 +32,6 @@ src_compile() {
         --disable-slapd
     make -j1 depend
     make -j1
-}
-
-src_check() {
-    cd "$SOURCE_DIR/openldap-$version"
-    make -j1 test
 }
 
 src_install() {
