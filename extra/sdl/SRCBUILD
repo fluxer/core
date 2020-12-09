@@ -2,7 +2,7 @@
 
 # http://www.linuxfromscratch.org/blfs/view/svn/multimedia/sdl2.html
 
-version=2.0.10
+version=2.0.12
 description="Simple DirectMedia Layer (Version 2)"
 depends=('glibc' 'xorg-libraries' 'mesalib' 'alsa-lib')
 optdepends=('pulseaudio')
