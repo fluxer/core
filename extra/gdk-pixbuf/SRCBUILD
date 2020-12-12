@@ -6,7 +6,7 @@
 version=2.42.2
 description="An image loading library"
 depends=('glib' 'libpng' 'libtiff' 'libjpeg-turbo' 'xorg-libraries')
-makedepends=('xorg-protocol-headers' 'meson' 'ninja')
+makedepends=('xorg-protocol-headers' 'meson')
 sources=("http://download.gnome.org/sources/gdk-pixbuf/2.42/gdk-pixbuf-$version.tar.xz")
 
 src_compile() {
