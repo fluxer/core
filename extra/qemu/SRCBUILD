@@ -2,23 +2,17 @@
 
 # http://www.linuxfromscratch.org/blfs/view/svn/postlfs/qemu.html
 
-version=4.1.1
+version=4.2.1
 description="A generic and open source processor emulator which achieves a good emulation speed by using dynamic translation."
 depends=('perl' 'python')
 sources=("http://wiki.qemu.org/download/qemu-$version.tar.xz"
         "http://wiki.qemu.org/download/qemu-$version.tar.xz.sig"
-        '65-kvm.rules'
-        'stime.patch')
+        '65-kvm.rules')
 pgpkeys=('3353C9CEF108B584')
 makedepends=('pixman' 'libjpeg-turbo' 'libpng' 'sdl' 'alsa-lib' 'glib' 'libaio'
         'gnutls' 'curl' 'cyrus-sasl' 'mesalib' 'libcap-ng' 'libseccomp'
         'libiscsi' 'libssh2' 'samba')
 options=('!binaries' '!shared' '!static')
-
-src_prepare() {
-    cd "$SOURCE_DIR/qemu-$version"
-    patch -Np1 -i ../stime.patch
-}
 
 src_compile() {
     cd "$SOURCE_DIR/qemu-$version"
