@@ -3,8 +3,8 @@
 version=1.7.0
 description="Spell checker and morphological analyzer library and program"
 depends=('gcc' 'readline' 'perl')
-sources=("https://github.com/hunspell/hunspell/archive/v$version.tar.gz")
-options=('!mirror')
+sources=("https://github.com/hunspell/hunspell/files/2573619/hunspell-$version.tar.gz"
+        "https://downloads.sf.net/project/wordlist/speller/2019.10.06/hunspell-en_US-large-2019.10.06.zip")
 
 src_prepare() {
     cd "$SOURCE_DIR/hunspell-$version"
@@ -30,4 +30,10 @@ src_install() {
     # add generic hunspell.so for development and projects not using pkgconfig flags - FS#30592
     cd "$INSTALL_DIR/usr/lib"
     ln -vs libhunspell-?.?.so libhunspell.so
+
+    install -vdm755 "$INSTALL_DIR/usr/share/hunspell"
+    install -vm644 "$SOURCE_DIR/en_US"*.dic "$SOURCE_DIR/en_US"*.aff "$INSTALL_DIR/usr/share/hunspell"
+    cd "$INSTALL_DIR/usr/share/hunspell"
+    ln -vs en_US-large.aff en_US.aff
+    ln -vs en_US-large.dic en_US.dic
 }
