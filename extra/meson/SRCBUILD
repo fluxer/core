@@ -2,7 +2,7 @@
 
 # http://www.linuxfromscratch.org/lfs/view/systemd/chapter06/meson.html
 
-version=0.49.2
+version=0.55.3
 description="High productivity build system"
 depends=('python' 'ninja')
 sources=("https://github.com/mesonbuild/meson/releases/download/$version/meson-$version.tar.gz")
