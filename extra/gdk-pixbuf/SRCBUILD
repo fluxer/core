@@ -3,35 +3,23 @@
 # TODO: introspection
 # http://www.linuxfromscratch.org/blfs/view/svn/x/gdk-pixbuf.html
 
-version=2.36.12
+version=2.42.2
 description="An image loading library"
 depends=('glib' 'libpng' 'libtiff' 'libjpeg-turbo' 'xorg-libraries')
-makedepends=('xorg-protocol-headers')
-optdepends=('jasper')
-sources=("http://download.gnome.org/sources/gdk-pixbuf/2.36/gdk-pixbuf-$version.tar.xz")
+makedepends=('xorg-protocol-headers' 'meson' 'ninja')
+sources=("http://download.gnome.org/sources/gdk-pixbuf/2.42/gdk-pixbuf-$version.tar.xz")
 
 src_compile() {
     cd "$SOURCE_DIR/gdk-pixbuf-$version"
 
-    _options="--without-libjasper"
-    [ "$OPTIONAL_JASPER" = "yes" ] && _options+=" --with-libjasper"
-    ./configure --prefix=/usr \
-        --with-x11 \
-        --disable-nls \
-        --disable-rpath \
-        --disable-gtk-doc-html \
-        $_options
-    make
-}
-
-src_check() {
-    cd "$SOURCE_DIR/gdk-pixbuf-$version"
-    make check
+    meson ../build --buildtype plain \
+        --prefix /usr
+    ninja -C ../build
 }
 
 src_install() {
     cd "$SOURCE_DIR/gdk-pixbuf-$version"
-    make DESTDIR="$INSTALL_DIR" install
+    DESTDIR="$INSTALL_DIR" ninja -C ../build install
 }
 
 pre_remove() {
