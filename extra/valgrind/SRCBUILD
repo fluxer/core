@@ -2,11 +2,11 @@
 
 # http://www.linuxfromscratch.org/blfs/view/svn/general/valgrind.html
 
-version=3.15.0
+version=3.16.1
 description="A tool to help find memory-management problems in programs"
 depends=('glibc' 'perl')
 makedepends=('gdb')
-sources=("http://valgrind.org/downloads/valgrind-$version.tar.bz2")
+sources=("https://sourceware.org/pub/valgrind/valgrind-$version.tar.bz2")
 
 src_compile() {
     cd "$SOURCE_DIR/valgrind-$version"
