@@ -11,7 +11,8 @@ sources=("http://wiki.qemu.org/download/qemu-$version.tar.xz"
 pgpkeys=('3353C9CEF108B584')
 makedepends=('pixman' 'libjpeg-turbo' 'libpng' 'sdl' 'alsa-lib' 'glib' 'libaio'
         'gnutls' 'curl' 'cyrus-sasl' 'mesalib' 'libcap-ng' 'libseccomp'
-        'libiscsi' 'libssh2' 'samba')
+        'libiscsi' 'libssh2')
+optdepends=('samba')
 options=('!binaries' '!shared' '!static')
 
 src_compile() {
