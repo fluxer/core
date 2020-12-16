@@ -1,18 +1,13 @@
 # Maintainer: Ivailo Monev <xakepa10@gmail.com>
 
-version=20190501
+version=20201216
 description="Big Fucking Projects"
-depends=('busybox' 'python' 'file' 'git' 'binutils' 'gcc' 'gnupg' 'mkinitfs')
+depends=('busybox' 'python' 'file' 'git' 'binutils' 'gcc' 'mkinitfs')
 sources=('https://github.com/fluxer/bfp.git')
 
 src_compile() {
     cd "$SOURCE_DIR/bfp.git"
     make
-}
-
-src_check() {
-    cd "$SOURCE_DIR/bfp.git"
-    make check
 }
 
 src_install() {
