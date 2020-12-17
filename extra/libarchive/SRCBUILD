@@ -2,7 +2,7 @@
 
 # http://www.linuxfromscratch.org/blfs/view/svn/general/libarchive.html
 
-version=3.3.3
+version=3.4.3
 description="Multi-format archive and compression library"
 makedepends=('zlib' 'bzip2' 'xz' 'glibc' 'acl' 'attr')
 sources=("http://www.libarchive.org/downloads/libarchive-$version.tar.gz")
@@ -11,19 +11,14 @@ src_compile() {
     cd "$SOURCE_DIR/libarchive-$version"
 
     ./configure --prefix=/usr \
-        --without-nettle \
-        --disable-rpath \
         --with-openssl \
         --with-expat \
+        --without-nettle \
         --enable-acl \
         --enable-xattr \
-        --disable-static
+        --disable-static \
+        --disable-rpath
     make
-}
-
-src_check() {
-    cd "$SOURCE_DIR/libarchive-$version"
-    make check
 }
 
 src_install() {
