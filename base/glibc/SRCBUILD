@@ -1,6 +1,6 @@
 # Maintainer: Ivailo Monev <xakepa10@gmail.com>
 
-# http://www.linuxfromscratch.org/lfs/view/development/chapter06/glibc.html
+# http://www.linuxfromscratch.org/lfs/view/development/chapter08/glibc.html
 
 version=2.32
 description="GNU C library"
@@ -12,8 +12,6 @@ sources=("http://ftp.gnu.org/gnu/glibc/glibc-$version.tar.xz"
         'nsswitch.conf'
         'locale.conf'
         'locale-gen')
-pgpkeys=('7273542B39962DF7B299931416792B4EA25340F8'
-        'BC7C7372637EC10C57D7AA6579C43DFBF1CF2187')
 backup=('etc/ld.so.conf'
         'etc/nsswitch.conf'
         'etc/locale.conf')
@@ -25,12 +23,6 @@ src_compile() {
 
     # for various reasons - build with GCC
     export CC=gcc CXX=g++
-
-    # for x86_64, to avoid lib64
-    if [ "$(uname -m)" = "x86_64" ];then
-        echo "rtlddir=/lib" >> configparms
-        echo "slibdir=/usr/lib" >> configparms
-    fi
 
     mkdir -pv ../glibc-build && cd ../glibc-build
     "../glibc-$version/configure" \
@@ -46,7 +38,8 @@ src_compile() {
         --disable-profile \
         --disable-tunables \
         --disable-selinux \
-        --disable-werror
+        --disable-werror \
+        libc_cv_slibdir=/lib
     make
 }
 
