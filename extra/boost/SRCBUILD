@@ -2,7 +2,7 @@
 
 # http://www.linuxfromscratch.org/blfs/view/svn/general/boost.html
 
-version=1_72_0
+version=1_74_0
 description="Free peer-reviewed portable C++ source libraries"
 makedepends=('gcc' 'python' 'bzip2' 'zlib' 'icu')
 sources=("http://downloads.sf.net/boost/boost_$version.tar.bz2")
