@@ -1,10 +1,10 @@
-version=3.7.1
-description="A compiler cache"
+# Maintainer: Ivailo Monev <xakepa10@gmail.com>
+
+version=3.7.12
+description="Fast compiler cache"
 depends=('zlib')
 sources=("https://github.com/ccache/ccache/releases/download/v$version/ccache-$version.tar.xz"
-        "https://github.com/ccache/ccache/releases/download/v$version/ccache-$version.tar.xz.asc"
         'profile.sh')
-pgpkeys=('5A939A71A46792CF57866A51996DDA075594ADB8')
 
 src_compile() {
     cd "$SOURCE_DIR/ccache-$version"
