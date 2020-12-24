@@ -1,3 +1,5 @@
 #!/bin/sh
 
-export PATH="/usr/lib/ccache/bin/:$PATH" 
+if [ "$EUID" -ne "0" ];then
+    export PATH="/usr/lib/ccache/bin/:$PATH"
+fi
