@@ -16,11 +16,6 @@ src_compile() {
     make MAKEINFO=true
 }
 
-src_check() {
-    cd "$SOURCE_DIR/flex-$version"
-    make check
-}
-
 src_install() {
     cd "$SOURCE_DIR/flex-$version"
     touch doc/flex.1

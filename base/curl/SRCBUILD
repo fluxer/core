@@ -5,30 +5,20 @@
 version=7.71.1
 description="Command line tool for transferring data with URL syntax"
 depends=('ca-certificates' 'libssh2' 'openssl' 'zlib')
-optdepends=('samba' 'openldap')
-checkdepends=('stunnel')
-sources=("http://curl.haxx.se/download/curl-$version.tar.gz"
-        "http://curl.haxx.se/download/curl-$version.tar.gz.asc")
-pgpkeys=('27EDEAF22F3ABCEB50DB9A125CC908FDB71E12C2')
+sources=("http://curl.haxx.se/download/curl-$version.tar.gz")
 
 src_compile() {
     cd "$SOURCE_DIR/curl-$version"
 
-    _options="--disable-smb --disable-ldap --disable-ldaps"
-    [ "$OPTIONAL_SAMBA" = "yes" ] && _options+=" --enable-smb"
-    [ "$OPTIONAL_OPENLDAP" = "yes" ] && _options+=" --enable-ldap --enable-ldaps"
     ./configure --prefix=/usr \
         --disable-static \
         --enable-threaded-resolver \
         --with-libssh2 \
         --with-ca-bundle=/etc/ssl/certs/ca-certificates.crt \
-        $_options
+        --disable-smb \
+        --disable-ldap \
+        --disable-ldaps
     make
-}
-
-src_check() {
-    cd "$SOURCE_DIR/curl-$version"
-    make check
 }
 
 src_install() {

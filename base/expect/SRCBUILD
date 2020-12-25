@@ -16,11 +16,6 @@ src_compile() {
     make
 }
 
-src_check() {
-    cd "$SOURCE_DIR/expect$version"
-    make test
-}
-
 src_install() {
     cd "$SOURCE_DIR/expect$version"
     make DESTDIR="$INSTALL_DIR" install

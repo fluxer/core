@@ -5,9 +5,7 @@
 version=1.1.1h
 description='Secure Sockets Layer and Transport Layer Security tools'
 makedepends=('zlib')
-sources=("http://www.openssl.org/source/openssl-$version.tar.gz"
-        "http://www.openssl.org/source/openssl-$version.tar.gz.asc")
-pgpkeys=('8657ABB260F056B1E5190839D9C4D26D0E604491')
+sources=("http://www.openssl.org/source/openssl-$version.tar.gz")
 
 src_compile() {
     cd "$SOURCE_DIR/openssl-$version"
@@ -22,11 +20,6 @@ src_compile() {
 
      make depend
      make
-}
-
-src_check() {
-    cd "$SOURCE_DIR/openssl-$version"
-    make test
 }
 
 src_install() {

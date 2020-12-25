@@ -5,21 +5,13 @@
 version=1.16.2
 description="Tool for automatically generating Makefile.in files compliant with the GNU Coding Standards"
 depends=('busybox' 'perl')
-sources=("http://ftp.gnu.org/gnu/automake/automake-$version.tar.xz"
-        "http://ftp.gnu.org/gnu/automake/automake-$version.tar.xz.sig")
-pgpkeys=('E1622F96D2BB4E58018EEF9860F906016E407573')
+sources=("http://ftp.gnu.org/gnu/automake/automake-$version.tar.xz")
 
 src_compile() {
     cd "$SOURCE_DIR/automake-$version"
     ./configure --prefix=/usr
     make
 }
-
-# NOT RECOMMENDED!
-# src_check() {
-#     cd "$SOURCE_DIR/automake-$version"
-#     make check
-# }
 
 src_install() {
     cd "$SOURCE_DIR/automake-$version"

@@ -6,29 +6,19 @@ version=3.7.9
 description="Interpreted, interactive, object-oriented programming language"
 depends=('bzip2' 'zlib' 'bash' 'gdbm' 'readline' 'openssl' 'glibc' 'expat'
          'libffi')
-optdepends=('sqlite')
-sources=("http://www.python.org/ftp/python/$version/Python-$version.tar.xz"
-        "http://www.python.org/ftp/python/$version/Python-$version.tar.xz.asc")
-pgpkeys=('97FC712E4C024BBEA48A61ED3A5CA953F73C700D')
+sources=("http://www.python.org/ftp/python/$version/Python-$version.tar.xz")
 
 src_compile() {
     cd "$SOURCE_DIR/Python-$version"
 
-    _options="--disable-loadable-sqlite-extensions"
-    [ "$OPTIONAL_SQLITE" = "yes" ] && _options+=" --enable-loadable-sqlite-extensions"
     ./configure --prefix=/usr \
         --enable-shared \
         --enable-ipv6 \
         --with-system-expat \
         --with-ensurepip=yes \
         --with-system-ffi \
-        $_options
+        --disable-loadable-sqlite-extensions
     make
-}
-
-src_check() {
-    cd "$SOURCE_DIR/Python-$version"
-    make test
 }
 
 src_install() {
@@ -49,4 +39,3 @@ src_install() {
     find "$INSTALL_DIR" -name test -exec rm -vrf {} +
     find "$INSTALL_DIR" -name tests -exec rm -vrf {} +
 }
-

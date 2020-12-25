@@ -6,9 +6,7 @@ version=4.8
 description='GNU stream editor'
 depends=('glibc' 'acl' 'attr')
 makedepends=('gettext')
-sources=("https://ftp.gnu.org/pub/gnu/sed/sed-$version.tar.xz"
-        "https://ftp.gnu.org/pub/gnu/sed/sed-$version.tar.xz.sig")
-pgpkeys=('2684F9ACA750566F')
+sources=("https://ftp.gnu.org/pub/gnu/sed/sed-$version.tar.xz")
 
 src_compile() {
     cd "$SOURCE_DIR/sed-$version"
@@ -18,11 +16,6 @@ src_compile() {
         --disable-rpath \
         --bindir=/bin
     make
-}
-
-src_check() {
-    cd "$SOURCE_DIR/sed-$version"
-    make check
 }
 
 src_install() {

@@ -4,9 +4,7 @@ version=1.3-20200327
 description="Script-driven curses widgets"
 depends=('ncurses')
 sources=("https://invisible-mirror.net/archives/dialog/dialog-$version.tgz"
-        "https://invisible-mirror.net/archives/dialog/dialog-$version.tgz.asc"
         'dialogrc')
-pgpkeys=('C52048C0C0748FEE227D47A2702353E0F7E48EDB')
 
 src_compile() {
      cd "$SOURCE_DIR/dialog-$version"

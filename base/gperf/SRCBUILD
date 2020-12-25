@@ -4,20 +4,13 @@
 
 version=3.1
 description="Perfect hash function generator"
-sources=("http://ftp.gnu.org/pub/gnu/gperf/gperf-$version.tar.gz"
-        "http://ftp.gnu.org/pub/gnu/gperf/gperf-$version.tar.gz.sig")
-pgpkeys=('45E59068F91BB79F')
+sources=("http://ftp.gnu.org/pub/gnu/gperf/gperf-$version.tar.gz")
 
 src_compile() {
     cd "$SOURCE_DIR/gperf-$version"
 
     ./configure --prefix=/usr
     make
-}
-
-src_check() {
-    cd "$SOURCE_DIR/gperf-$version"
-    make check
 }
 
 src_install() {

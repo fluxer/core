@@ -3,7 +3,6 @@
 version=0.42.1
 description='Dependency based init system that works with sysvinit.'
 depends=('sysvinit' 'busybox')
-optdepends=('net-tools')
 backup=(etc/inittab
         etc/rc.conf
         etc/conf.d/bootmisc

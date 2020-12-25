@@ -24,12 +24,6 @@ src_compile() {
     make
 }
 
-src_check() {
-    cd "$SOURCE_DIR/perl-$version"
-    # Failed 14 tests out of 2248, 99.38% okay.
-    make test
-}
-
 src_install() {
     cd "$SOURCE_DIR/perl-$version"
 

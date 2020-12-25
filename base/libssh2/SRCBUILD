@@ -5,10 +5,7 @@
 version=1.8.2
 description="Client-side C library implementing the SSH2 protocol"
 depends=('openssl' 'zlib' 'glibc')
-sources=("http://www.libssh2.org/download/libssh2-$version.tar.gz"
-        "http://www.libssh2.org/download/libssh2-$version.tar.gz.asc")
-pgpkeys=('914C533DF9B2ADA2204F586D78E11C6B279D5C91'
-        '27EDEAF22F3ABCEB50DB9A125CC908FDB71E12C2')
+sources=("http://www.libssh2.org/download/libssh2-$version.tar.gz")
 
 src_compile() {
     cd "$SOURCE_DIR/libssh2-$version"

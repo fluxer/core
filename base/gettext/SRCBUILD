@@ -5,9 +5,7 @@
 version=0.20.2
 description="Internationalization and localization (i18n) system"
 depends=('gcc' 'glibc' 'ncurses' 'bash')
-sources=("http://ftp.gnu.org/gnu/gettext/gettext-$version.tar.xz"
-        "http://ftp.gnu.org/gnu/gettext/gettext-$version.tar.xz.sig")
-pgpkeys=('462225C3B46F34879FC8496CD605848ED7E69871')
+sources=("http://ftp.gnu.org/gnu/gettext/gettext-$version.tar.xz")
 
 src_compile() {
     cd "$SOURCE_DIR/gettext-$version"
@@ -16,11 +14,6 @@ src_compile() {
         --disable-rpath \
         --disable-static
     make
-}
-
-src_check() {
-    cd "$SOURCE_DIR/gettext-$version"
-    make check
 }
 
 src_install() {

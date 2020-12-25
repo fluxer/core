@@ -5,9 +5,7 @@
 version=8.32
 description='The basic file, shell and text manipulation utilities of the GNU operating system'
 depends=('glibc' 'acl' 'gmp' 'libcap' 'openssl')
-sources=("http://ftp.gnu.org/gnu/coreutils/coreutils-$version.tar.xz"
-        "http://ftp.gnu.org/gnu/coreutils/coreutils-$version.tar.xz.sig")
-pgpkeys=('6C37DC12121A5006BC1DB804DF6FD971306037D9')
+sources=("http://ftp.gnu.org/gnu/coreutils/coreutils-$version.tar.xz")
 
 src_compile() {
     cd "$SOURCE_DIR/coreutils-$version"
@@ -18,11 +16,6 @@ src_compile() {
         --enable-no-install-program=kill,uptime \
         --disable-nls
     make
-}
-
-src_check() {
-    cd "$SOURCE_DIR/coreutils-$version"
-    make RUN_EXPENSIVE_TESTS=yes check
 }
 
 src_install() {

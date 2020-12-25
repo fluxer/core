@@ -12,11 +12,6 @@ src_compile() {
     make
 }
 
-src_check() {
-    cd "$SOURCE_DIR/iana-etc-$version"
-    make test
-}
-
 src_install(){
     cd "$SOURCE_DIR/iana-etc-$version"
     make DESTDIR="$INSTALL_DIR" install 

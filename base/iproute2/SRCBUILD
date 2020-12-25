@@ -12,9 +12,7 @@ backup=('etc/iproute2/ematch_map'
         'etc/iproute2/rt_realms'
         'etc/iproute2/rt_scopes'
         'etc/iproute2/rt_tables')
-sources=("http://www.kernel.org/pub/linux/utils/net/iproute2/iproute2-$version.tar.xz"
-        "http://www.kernel.org/pub/linux/utils/net/iproute2/iproute2-$version.tar.sign")
-pgpkeys=('9F6FC345B05BE7E766B83C8F80A77F6095CDE47E')
+sources=("http://www.kernel.org/pub/linux/utils/net/iproute2/iproute2-$version.tar.xz")
 
 src_prepare() {
     cd "$SOURCE_DIR/iproute2-$version"

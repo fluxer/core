@@ -5,9 +5,7 @@
 version=2.2.53
 description="Access control list utilities, libraries and headers"
 depends=('attr')
-sources=("http://download.savannah.gnu.org/releases/acl/acl-$version.tar.gz"
-        "http://download.savannah.gnu.org/releases/acl/acl-$version.tar.gz.sig")
-pgpkeys=('154343260542DF34')
+sources=("http://download.savannah.gnu.org/releases/acl/acl-$version.tar.gz")
 
 src_compile() {
     cd "$SOURCE_DIR/acl-$version"
@@ -17,11 +15,6 @@ src_compile() {
         --libexecdir=/usr/lib \
         --disable-static
     make
-}
-
-src_check() {
-    cd "$SOURCE_DIR/acl-$version"
-    make tests
 }
 
 src_install() {

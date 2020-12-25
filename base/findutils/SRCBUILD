@@ -15,11 +15,6 @@ src_compile() {
     make
 }
 
-src_check() {
-    cd "$SOURCE_DIR/findutils-$version"
-    make check
-}
-
 src_install() {
     cd "$SOURCE_DIR/findutils-$version"
     make DESTDIR=$INSTALL_DIR install

@@ -5,20 +5,13 @@
 version=1.6.2
 description="Framework for testing other programs"
 depends=('busybox' 'expect')
-sources=("http://ftp.gnu.org/gnu/dejagnu/dejagnu-$version.tar.gz"
-        "http://ftp.gnu.org/gnu/dejagnu/dejagnu-$version.tar.gz.sig")
-pgpkeys=('CB0B31452BBE862933013D9176362888B55988D4')
+sources=("http://ftp.gnu.org/gnu/dejagnu/dejagnu-$version.tar.gz")
 
 src_compile() {
     cd "$SOURCE_DIR/dejagnu-$version"
 
     ./configure --prefix=/usr
     make
-}
-
-src_check() {
-    cd "$SOURCE_DIR/dejagnu-$version"
-    make check
 }
 
 src_install() {

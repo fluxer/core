@@ -5,9 +5,7 @@
 version=1.18.1
 description="Library of database functions that use extensible hashing"
 depends=('glibc')
-sources=("http://ftp.gnu.org/gnu/gdbm/gdbm-$version.tar.gz"
-        "http://ftp.gnu.org/gnu/gdbm/gdbm-$version.tar.gz.sig")
-pgpkeys=('3602B07F55D0C732')
+sources=("http://ftp.gnu.org/gnu/gdbm/gdbm-$version.tar.gz")
 
 src_compile() {
     cd "$SOURCE_DIR/gdbm-$version"
@@ -17,11 +15,6 @@ src_compile() {
         --disable-rpath \
         --disable-static
     make
-}
-
-src_check() {
-    cd "$SOURCE_DIR/gdbm-$version"
-    make check
 }
 
 src_install() {

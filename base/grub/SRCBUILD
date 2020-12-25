@@ -6,13 +6,9 @@ version=2.04
 description="Multiboot boot loader"
 depends=('glibc' 'busybox' 'xz' 'os-prober')
 makedepends=('bison' 'flex')
-optdepends=('fuse')
-checkdepends=('qemu')
 sources=("http://ftp.gnu.org/gnu/grub/grub-$version.tar.xz"
-        "http://ftp.gnu.org/gnu/grub/grub-$version.tar.xz.sig"
         'grub-add-GRUB_COLOR_variables.patch'
         'grub.default')
-pgpkeys=('35A93B74E82E4209')
 
 src_prepare() {
     cd "$SOURCE_DIR/grub-$version"
@@ -25,8 +21,6 @@ src_compile() {
 
     export CFLAGS="${CFLAGS//-fstack-protector/}"
 
-    _options="--disable-grub-mount"
-    [ "$OPTIONAL_FUSE" = "yes" ] && _options+=" --enable-grub-mount"
     ./configure --prefix=/usr \
         --sysconfdir=/etc \
         --disable-grub-emu-usb \
@@ -34,13 +28,8 @@ src_compile() {
         --disable-werror \
         --disable-rpath \
         --disable-nls \
-        $_options
+        --disable-grub-mount
     make
-}
-
-src_check() {
-    cd "$SOURCE_DIR/grub-$version"
-    make check
 }
 
 src_install() {

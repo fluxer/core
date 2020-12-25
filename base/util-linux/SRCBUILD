@@ -5,9 +5,7 @@
 version=2.35.2
 description="Miscellaneous system utilities for Linux"
 makedepends=('eudev')
-sources=("https://www.kernel.org/pub/linux/utils/util-linux/v2.35/util-linux-$version.tar.xz"
-        "https://www.kernel.org/pub/linux/utils/util-linux/v2.35/util-linux-$version.tar.sign")
-pgpkeys=('B0C64D14301CC6EFAEDF60E4E4B71D5EEC39C284')
+sources=("https://www.kernel.org/pub/linux/utils/util-linux/v2.35/util-linux-$version.tar.xz")
 options=('missing') # tclsh
 
 src_compile() {

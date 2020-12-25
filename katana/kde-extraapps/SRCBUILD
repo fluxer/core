@@ -33,11 +33,6 @@ src_compile() {
     make
 }
 
-src_check() {
-    cd "$SOURCE_DIR/build"
-    make test
-}
-
 src_install() {
     cd "$SOURCE_DIR/build"
     make DESTDIR="$INSTALL_DIR" install

@@ -21,11 +21,6 @@ src_compile() {
     make
 }
 
-src_check() {
-    cd "$SOURCE_DIR/check-$version"
-    make check
-}
-
 src_install() {
     cd "$SOURCE_DIR/check-$version" 
     make DESTDIR="$INSTALL_DIR" install

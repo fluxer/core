@@ -5,9 +5,7 @@
 version=5.2.5
 description="Free general-purpose data compression software with high compression ratio"
 depends=('bash' 'glibc')
-sources=("http://tukaani.org/xz/xz-$version.tar.xz"
-        "http://tukaani.org/xz/xz-$version.tar.xz.sig")
-pgpkeys=('3690C240CE51B4670D30AD1C38EE757D69184620')
+sources=("http://tukaani.org/xz/xz-$version.tar.xz")
 
 src_compile() {
     cd "$SOURCE_DIR/xz-$version"
@@ -18,11 +16,6 @@ src_compile() {
         --disable-static \
         --disable-doc
     make
-}
-
-src_check() {
-    cd "$SOURCE_DIR/xz-$version"
-    make check
 }
 
 src_install() {

@@ -6,10 +6,7 @@ version=2019c
 description="Data for Time Zone and daylight saving time from IANA"
 # tzcodes is required for leapseconds.awk file that is not yet part of tzdata
 sources=("http://www.iana.org/time-zones/repository/releases/tzdata$version.tar.gz"
-        "http://www.iana.org/time-zones/repository/releases/tzdata$version.tar.gz.asc"
-        "http://www.iana.org/time-zones/repository/releases/tzcode$version.tar.gz"
-        "http://www.iana.org/time-zones/repository/releases/tzcode$version.tar.gz.asc")
-pgpkeys=('ED97E90E62AA7E34')
+        "http://www.iana.org/time-zones/repository/releases/tzcode$version.tar.gz")
 
 src_compile() {
     cd "$SOURCE_DIR"

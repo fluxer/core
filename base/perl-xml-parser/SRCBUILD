@@ -13,11 +13,6 @@ src_compile() {
     make
 }
 
-src_check() {
-    cd "$SOURCE_DIR/XML-Parser-$version"
-    make test
-}
-
 src_install() {
     cd "$SOURCE_DIR/XML-Parser-$version"
     make DESTDIR="$INSTALL_DIR" install

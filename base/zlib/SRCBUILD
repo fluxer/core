@@ -5,9 +5,7 @@
 version=1.2.11
 description="General purpose data compression library"
 depends=('glibc')
-sources=("http://downloads.sf.net/libpng/zlib-$version.tar.xz"
-        "http://downloads.sf.net/libpng/zlib-$version.tar.xz.asc")
-pgpkeys=('5ED46A6721D365587791E2AA783FCD8E58BCAFBA')
+sources=("http://downloads.sf.net/libpng/zlib-$version.tar.xz")
 
 src_compile() {
     cd "$SOURCE_DIR/zlib-$version"
@@ -18,11 +16,6 @@ src_compile() {
     export CFLAGS="${CFLAGS} -fPIC"
     ./configure --prefix=/usr
     make
-}
-
-src_check() {
-    cd "$SOURCE_DIR/zlib-$version"
-    make check
 }
 
 src_install() {

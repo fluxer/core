@@ -5,9 +5,7 @@
 version=3.7
 description='Utility programs used for creating patch files'
 depends=('glibc' 'bash')
-sources=("http://ftp.gnu.org/gnu/diffutils/diffutils-$version.tar.xz"
-        "http://ftp.gnu.org/gnu/diffutils/diffutils-$version.tar.xz.sig")
-pgpkeys=('7FD9FCCB000BEEEE')
+sources=("http://ftp.gnu.org/gnu/diffutils/diffutils-$version.tar.xz")
 
 src_compile() {
     cd "$SOURCE_DIR/diffutils-$version"
@@ -15,11 +13,6 @@ src_compile() {
         --disable-rpath \
         --disable-nls
     make
-}
-
-src_check() {
-    cd "$SOURCE_DIR/diffutils-$version"
-    make check
 }
 
 src_install() {

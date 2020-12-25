@@ -6,9 +6,7 @@
 version=4.16
 description="Collection of over 2,300 man pages"
 depends=('man-db')
-sources=("http://www.kernel.org/pub/linux/docs/man-pages/man-pages-$version.tar.xz"
-        "http://www.kernel.org/pub/linux/docs/man-pages/man-pages-$version.tar.sign")
-pgpkeys=('E522595B52EDA4E6BFCCCB5E856199113A35CE5E')
+sources=("http://www.kernel.org/pub/linux/docs/man-pages/man-pages-$version.tar.xz")
 
 src_install() {
     cd "$SOURCE_DIR/man-pages-$version"

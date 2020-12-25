@@ -5,9 +5,7 @@
 version=2.2.10
 description="XML parser library written in C"
 depends=('glibc')
-sources=("http://downloads.sf.net/expat/expat-$version.tar.xz"
-         "http://downloads.sf.net/expat/expat-$version.tar.xz.asc")
-pgpkeys=('3176EF7DB2367F1FCA4F306B1F9B0E909AF37285')
+sources=("http://downloads.sf.net/expat/expat-$version.tar.xz")
 
 src_compile() {
     cd "$SOURCE_DIR/expat-$version"
@@ -15,11 +13,6 @@ src_compile() {
     ./configure --prefix=/usr \
         --disable-static
     make
-}
-
-src_check() {
-    cd "$SOURCE_DIR/expat-$version"
-    make check
 }
 
 src_install() {

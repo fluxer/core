@@ -10,13 +10,10 @@ _mpc=1.1.0
 _mpfr=4.0.2
 description="GNU compiler collection, includes the C and C++ frontends"
 depends=('glibc' 'zlib' 'mpc' 'mpfr')
-checkdepends=('dejagnu')
 sources=("http://ftp.gnu.org/gnu/gcc/gcc-$version/gcc-$version.tar.xz"
-        "http://ftp.gnu.org/gnu/gcc/gcc-$version/gcc-$version.tar.xz.sig"
         "https://ftp.gnu.org/gnu/gmp/gmp-$_gmp.tar.xz"
         "https://ftp.gnu.org/gnu/mpc/mpc-$_mpc.tar.gz"
         "http://www.mpfr.org/mpfr-$_mpfr/mpfr-$_mpfr.tar.xz")
-pgpkeys=('33C235A34C46AA3FFB293709A328C3A2C3C45C06')
 
 src_prepare() {
     cd "$SOURCE_DIR/gcc-$version"
@@ -67,15 +64,6 @@ src_compile() {
         --with-linker-hash-style=gnu \
         --with-system-zlib
     make
-}
-
-src_check() {
-    cd "$SOURCE_DIR/gcc-build"
-
-    ulimit -s 32768
-    make check
-
-    ../gcc-$version/contrib/test_summary | grep FAIL
 }
 
 src_install(){

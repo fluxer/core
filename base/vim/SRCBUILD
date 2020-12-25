@@ -28,11 +28,6 @@ src_compile() {
     make
 }
 
-src_check() {
-    cd "$SOURCE_DIR/vim-$version"
-    make test
-}
-
 src_install() {
     cd "$SOURCE_DIR/vim-$version"
 

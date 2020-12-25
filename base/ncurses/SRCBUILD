@@ -5,9 +5,7 @@
 version=6.2
 description="Free software emulation of curses in System V Release 4.0, and more"
 depends=('glibc')
-sources=("https://ftp.gnu.org/pub/gnu/ncurses/ncurses-$version.tar.gz"
-        "https://ftp.gnu.org/pub/gnu/ncurses/ncurses-$version.tar.gz.sig")
-pgpkeys=('C52048C0C0748FEE227D47A2702353E0F7E48EDB')
+sources=("https://ftp.gnu.org/pub/gnu/ncurses/ncurses-$version.tar.gz")
 
 src_compile() {
     cd "$SOURCE_DIR/ncurses-$version"

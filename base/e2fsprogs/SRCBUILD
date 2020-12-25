@@ -6,9 +6,7 @@ version=1.45.6
 description="Filesystem utilities for use with the ext2/3/4 filesystems"
 depends=('glibc')
 backup=('etc/mke2fs.conf')
-sources=("http://prdownloads.sf.net/e2fsprogs/e2fsprogs-$version.tar.gz"
-        "http://prdownloads.sf.net/e2fsprogs/e2fsprogs-$version.tar.gz.asc")
-pgpkeys=('3AB057B7E78D945C8C5591FBD36F769BC11804F0')
+sources=("http://prdownloads.sf.net/e2fsprogs/e2fsprogs-$version.tar.gz")
 
 src_compile() {
     cd "$SOURCE_DIR/e2fsprogs-$version"
@@ -28,11 +26,6 @@ src_compile() {
         --disable-rpath \
         --disable-nls
     make
-}
-
-src_check() {
-    cd "$SOURCE_DIR/e2fsprogs-build"
-    make check 
 }
 
 src_install() {

@@ -5,52 +5,34 @@
 version=2.24.1
 description="Fast, scalable, distributed revision control system"
 depends=('busybox' 'curl' 'expat' 'openssl' 'python')
-optdepends=('tk')
 backup=('etc/gitconfig')
 sources=("http://www.kernel.org/pub/software/scm/git/git-$version.tar.xz"
-        "http://www.kernel.org/pub/software/scm/git/git-$version.tar.sign"
         "http://www.kernel.org/pub/software/scm/git/git-manpages-$version.tar.xz"
-        "http://www.kernel.org/pub/software/scm/git/git-manpages-$version.tar.sign"
         'gitconfig')
-pgpkeys=('96E07AF25771955980DAD10020D04E5A713660A7')
 options=('missing') # ruby
 
 src_compile() {
     cd "$SOURCE_DIR/git-$version"
 
-    _options="--without-tcltk"
-    _make="NO_TCLTK=YesPlease"
-    if [ "$OPTIONAL_TK" = "yes" ];then
-        _options+=" --with-tcltk"
-        _make+=" NO_TCLTK="
-    fi
     ./configure --prefix=/usr \
         --libexecdir=/usr/lib \
         --with-gitconfig=/etc/gitconfig \
-        $_options
+        --without-tcltk
     make NO_CVS=YesPlease \
         NO_SVN_TESTS=YesPlease \
         NO_GETTEXT=YesPlease \
-        $_make
-}
-
-src_check() {
-    cd "$SOURCE_DIR/git-$version"
-    make test
+        NO_TCLTK=YesPlease
 }
 
 src_install() {
     cd "$SOURCE_DIR/git-$version"
-
-    _make="NO_TCLTK=YesPlease"
-    [ "$OPTIONAL_TK" = "yes" ] && _make+=" NO_TCLTK="
 
     make NO_CVS=YesPlease \
         NO_SVN_TESTS=YesPlease \
         NO_GETTEXT=YesPlease \
         DESTDIR="$INSTALL_DIR" \
         NO_INSTALL_HARDLINKS=1 \
-        $_make install
+        NO_TCLTK=YesPlease install
 
     for mansect in man1 man5 man7; do
         for manpage in "$SOURCE_DIR/$mansect/"*; do

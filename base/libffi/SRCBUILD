@@ -5,7 +5,6 @@
 version=3.3
 description="Portable Foreign Function Interface Library"
 depends=('glibc')
-checkdepends=('dejagnu')
 sources=("https://sourceware.org/pub/libffi/libffi-$version.tar.gz")
 
 src_prepare() {
@@ -25,11 +24,6 @@ src_compile() {
     ./configure --prefix=/usr \
         --disable-static
     make
-}
-
-src_check() {
-    cd "$SOURCE_DIR/libffi-$version"
-    make check
 }
 
 src_install() {

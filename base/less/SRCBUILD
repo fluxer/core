@@ -5,19 +5,14 @@
 version=551
 description='A terminal based program for viewing text files'
 depends=('glibc' 'ncurses')
-optdepends=('pcre')
-sources=("http://www.greenwoodsoftware.com/less/less-$version.tar.gz"
-        "http://www.greenwoodsoftware.com/less/less-$version.sig")
-pgpkeys=('F153A7C833235259')
+sources=("http://www.greenwoodsoftware.com/less/less-$version.tar.gz")
 
 src_compile() {
     cd "$SOURCE_DIR/less-$version"
 
-    _options="--with-regex=posix"
-    [ "$OPTIONAL_PCRE" = "yes" ] && _options+=" --with-regex=pcre"
     ./configure --prefix=/usr \
         --sysconfdir=/etc \
-        $_options
+        --with-regex=posix
     make
 }
 

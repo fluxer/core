@@ -5,9 +5,7 @@
 version=5.0.1
 description="Upwardly compatible Unix awk version of Brian Kernighan (gawk)"
 depends=('glibc' 'readline')
-sources=("http://ftp.gnu.org/gnu/gawk/gawk-$version.tar.xz"
-        "http://ftp.gnu.org/gnu/gawk/gawk-$version.tar.xz.sig")
-pgpkeys=('DF597815937EC0D2')
+sources=("http://ftp.gnu.org/gnu/gawk/gawk-$version.tar.xz")
 
 src_compile() {
     cd "$SOURCE_DIR/gawk-$version"
@@ -15,11 +13,6 @@ src_compile() {
     ./configure --prefix=/usr \
         --sysconfdir=/etc
     make
-}
-
-src_check() {
-    cd "$SOURCE_DIR/gawk-$version"
-    make check
 }
 
 src_install() {

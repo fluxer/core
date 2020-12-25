@@ -5,9 +5,7 @@
 version=1.1.0
 description="C library for the arithmetic of complex numbers with arbitrarily high precision and correct rounding of the result"
 depends=('glibc' 'mpfr')
-sources=("https://ftp.gnu.org/gnu/mpc/mpc-$version.tar.gz"
-        "https://ftp.gnu.org/gnu/mpc/mpc-$version.tar.gz.sig")
-pgpkeys=('AD17A21EF8AED8F1CC02DBD9F7D5C9BF765C61E3')
+sources=("https://ftp.gnu.org/gnu/mpc/mpc-$version.tar.gz")
 
 src_compile() {
     cd "$SOURCE_DIR/mpc-$version"
@@ -17,10 +15,6 @@ src_compile() {
     make
 }
 
-src_check() {
-    cd "$SOURCE_DIR/mpc-$version"
-    make check
-}
 
 src_install(){
     cd "$SOURCE_DIR/mpc-$version"

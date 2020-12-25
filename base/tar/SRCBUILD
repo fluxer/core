@@ -5,9 +5,7 @@
 version=1.32
 description='Utility used to store, backup, and transport files'
 depends=('glibc' 'acl' 'attr')
-sources=("ftp://ftp.gnu.org/gnu/tar/tar-$version.tar.xz"
-        "ftp://ftp.gnu.org/gnu/tar/tar-$version.tar.xz.sig")
-pgpkeys=('3602B07F55D0C732')
+sources=("ftp://ftp.gnu.org/gnu/tar/tar-$version.tar.xz")
 
 src_compile() {
     cd "$SOURCE_DIR/tar-$version"
@@ -15,11 +13,6 @@ src_compile() {
         --exec-prefix=/ \
         --libexecdir=/lib/tar
     make
-}
-
-src_check() {
-    cd "$SOURCE_DIR/tar-$version"
-    make check
 }
 
 src_install() {

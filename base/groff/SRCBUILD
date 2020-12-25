@@ -5,9 +5,7 @@
 version=1.22.4
 description="Typesetting package which reads plain text mixed with formatting commands and produces formatted output"
 depends=('glibc' 'busybox' 'perl' 'gcc')
-sources=("http://ftp.gnu.org/gnu/groff/groff-$version.tar.gz"
-        "http://ftp.gnu.org/gnu/groff/groff-$version.tar.gz.sig")
-pgpkeys=('C1A60EACE707FDA5')
+sources=("http://ftp.gnu.org/gnu/groff/groff-$version.tar.gz")
 
 src_compile() {
     cd "$SOURCE_DIR/groff-$version"

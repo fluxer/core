@@ -5,20 +5,13 @@
 version=2.7.6
 description='A utility to apply patch files to original sources'
 depends=('glibc')
-sources=("http://ftp.gnu.org/gnu/patch/patch-$version.tar.xz"
-        "http://ftp.gnu.org/gnu/patch/patch-$version.tar.xz.sig")
-pgpkeys=('C4C927CD5D1B36D7')
+sources=("http://ftp.gnu.org/gnu/patch/patch-$version.tar.xz")
 
 src_compile() {
     cd "$SOURCE_DIR/patch-$version"
 
     ./configure --prefix=/usr
     make
-}
-
-src_check() {
-    cd "$SOURCE_DIR/patch-$version"
-    make check
 }
 
 src_install() {

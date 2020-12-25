@@ -2,7 +2,6 @@ version=20180915
 description="dillon's lightweight cron daemon (Git version)"
 depends=("bash")
 makedepends=("git")
-optdepends=("msmtp-mta")
 sources=('https://github.com/dubiousjim/dcron.git'
         "dcron.init")
 backup=("var/spool/cron/root"

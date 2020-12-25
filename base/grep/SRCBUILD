@@ -5,26 +5,16 @@
 version=3.4
 description='A string search utility'
 depends=('glibc')
-optdepends=('pcre')
 # makedepends=('texinfo')
-sources=("http://ftp.gnu.org/gnu/grep/grep-$version.tar.xz"
-         "http://ftp.gnu.org/gnu/grep/grep-$version.tar.xz.sig")
-pgpkeys=('155D3FC500C834486D1EEA677FD9FCCB000BEEEE')
+sources=("http://ftp.gnu.org/gnu/grep/grep-$version.tar.xz")
 
 src_compile() {
     cd "$SOURCE_DIR/grep-$version"
 
-    _options=" --disable-perl-regexp"
-    [ "$OPTIONAL_PCRE" == "yes" ] && _options+=" --enable-perl-regexp"
     ./configure --prefix=/usr \
         --bindir=/bin \
-        $_options
+        --disable-perl-regexp
     make
-}
-
-src_check() {
-    cd "$SOURCE_DIR/grep-$version"
-    make check
 }
 
 src_install() {

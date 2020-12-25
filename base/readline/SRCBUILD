@@ -6,16 +6,10 @@ version=8.4
 description="Set of functions for use by applications that allow users to edit command lines as they are typed in"
 depends=('glibc' 'ncurses')
 sources=("https://ftp.gnu.org/gnu/readline/readline-8.0.tar.gz"
-        "https://ftp.gnu.org/gnu/readline/readline-8.0.tar.gz.sig"
         "https://ftp.gnu.org/gnu/readline/readline-8.0-patches/readline80-001"
-        "https://ftp.gnu.org/gnu/readline/readline-8.0-patches/readline80-001.sig"
         "https://ftp.gnu.org/gnu/readline/readline-8.0-patches/readline80-002"
-        "https://ftp.gnu.org/gnu/readline/readline-8.0-patches/readline80-002.sig"
         "https://ftp.gnu.org/gnu/readline/readline-8.0-patches/readline80-003"
-        "https://ftp.gnu.org/gnu/readline/readline-8.0-patches/readline80-003.sig"
-        "https://ftp.gnu.org/gnu/readline/readline-8.0-patches/readline80-004"
-        "https://ftp.gnu.org/gnu/readline/readline-8.0-patches/readline80-004.sig")
-pgpkeys=('BB5869F064EA74AB')
+        "https://ftp.gnu.org/gnu/readline/readline-8.0-patches/readline80-004")
 
 src_prepare() {
     cd "$SOURCE_DIR/readline-8.0"

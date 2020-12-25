@@ -5,9 +5,7 @@
 version=2.4.48
 description="Extended attribute support library for ACL support"
 depends=('glibc')
-sources=("http://download.savannah.gnu.org/releases/attr/attr-$version.tar.gz"
-        "http://download.savannah.gnu.org/releases/attr/attr-$version.tar.gz.sig")
-pgpkeys=('154343260542DF34')
+sources=("http://download.savannah.gnu.org/releases/attr/attr-$version.tar.gz")
 
 src_compile() {
     cd "$SOURCE_DIR/attr-$version"

@@ -6,9 +6,7 @@ version=1.9.4
 description="A collection of common network programs"
 depends=('libcap')
 # makedepends=('help2man')
-sources=("http://ftp.gnu.org/gnu/inetutils/inetutils-$version.tar.xz"
-        "http://ftp.gnu.org/gnu/inetutils/inetutils-$version.tar.xz.sig")
-pgpkeys=('180551BAD95A3C35')
+sources=("http://ftp.gnu.org/gnu/inetutils/inetutils-$version.tar.xz")
 backup=('etc/xinetd.d/telnet'
         'etc/xinetd.d/talk'
         'etc/xinetd.d/rlogin'
@@ -25,11 +23,6 @@ src_compile() {
         --disable-whois        \
         --disable-servers
     make
-}
-
-src_check() {
-    cd inetutils-$version
-    make check
 }
 
 src_install() {

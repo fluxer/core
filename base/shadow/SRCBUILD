@@ -6,11 +6,9 @@ version=4.8.1
 description="Password and account management tool suite with support for shadow files and PAM"
 depends=('bash' 'acl')
 sources=("https://github.com/shadow-maint/shadow/releases/download/$version/shadow-$version.tar.xz"
-        "https://github.com/shadow-maint/shadow/releases/download/$version/shadow-$version.tar.xz.asc"
-        login.defs
-        useradd.defaults
-        lastlog.tmpfiles)
-pgpkeys=('872F702C4D6E25A8')
+        'login.defs'
+        'useradd.defaults'
+        'lastlog.tmpfiles')
 backup=('etc/login.defs'
         'etc/default/useradd')
 

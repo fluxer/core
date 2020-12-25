@@ -5,9 +5,7 @@
 version=6.1.2
 description="Free library for arbitrary precision arithmetic"
 depends=('glibc')
-sources=("http://ftp.gnu.org/gnu/gmp/gmp-$version.tar.xz"
-        "http://ftp.gnu.org/gnu/gmp/gmp-$version.tar.xz.sig")
-pgpkeys=('F3599FF828C67298')
+sources=("http://ftp.gnu.org/gnu/gmp/gmp-$version.tar.xz")
 
 src_compile() {
     cd "$SOURCE_DIR/gmp-$version"
@@ -24,12 +22,6 @@ src_compile() {
     fi
 
     make
-}
-
-src_check() {
-    cd "$SOURCE_DIR/gmp-$version"
-    make check 2>&1 | tee gmp-check-log
-    # awk '/tests passed/{total+=$2} ; END{print total}' gmp-check-log
 }
 
 src_install(){

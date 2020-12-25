@@ -6,9 +6,7 @@ backup=('etc/udev/udev.conf')
 depends=('bash' 'kmod' 'util-linux')
 makedepends=('gperf')
 sources=("http://dev.gentoo.org/~blueness/eudev/eudev-$version.tar.gz"
-        "http://dev.gentoo.org/~blueness/eudev/eudev-$version.tar.gz.asc"
         "http://dev.gentoo.org/~williamh/dist/udev-init-scripts-32.tar.gz")
-pgpkeys=('1FEDFAD9D82C52A53BABDC799384FA6EF52D4BBA')
 
 src_compile() {
     cd "$SOURCE_DIR/eudev-$version"
@@ -27,11 +25,6 @@ src_compile() {
             --disable-introspection \
             --disable-static
     make
-}
-
-src_check() {
-    cd "$SOURCE_DIR/eudev-$version"
-    make check
 }
 
 src_install() {

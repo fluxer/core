@@ -5,9 +5,7 @@
 version=4.3
 description="Tool which controls the generation of executables and other non-source files of a program"
 depends=('glibc')
-sources=("http://ftp.gnu.org/gnu/make/make-$version.tar.gz"
-        "http://ftp.gnu.org/gnu/make/make-$version.tar.gz.sig")
-pgpkeys=('3D2554F0A15338AB9AF1BB9D96B047156338B6D4')
+sources=("http://ftp.gnu.org/gnu/make/make-$version.tar.gz")
 
 src_compile() {
     cd "$SOURCE_DIR/make-$version"
@@ -16,11 +14,6 @@ src_compile() {
         --disable-rpath \
         --disable-nls
     make
-}
-
-src_check() {
-    cd "$SOURCE_DIR/make-$version"
-    make check
 }
 
 src_install() {

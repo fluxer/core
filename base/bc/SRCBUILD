@@ -33,11 +33,6 @@ src_compile() {
     make MAKEINFO=true
 }
 
-src_check() {
-    cd "$SOURCE_DIR/bc-$version"
-    echo "quit" | ./bc/bc -l Test/checklib.b # 10 failures
-}
-
 src_install() {
     cd "$SOURCE_DIR/bc-$version"
     make MAKEINFO=true DESTDIR="$INSTALL_DIR" install

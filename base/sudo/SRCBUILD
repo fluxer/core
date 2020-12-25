@@ -7,9 +7,7 @@ description="Method of controlling/auditing Root access"
 depends=('glibc' 'busybox' 'shadow')
 backup=('etc/sudoers')
 sources=("http://www.sudo.ws/sudo/dist/sudo-$version.tar.gz"
-        "http://www.sudo.ws/sudo/dist/sudo-$version.tar.gz.sig"
         'allow_sudo_group.patch')
-pgpkeys=('5A89DFA27EE470C4')
 
 src_prepare() {
     cd "$SOURCE_DIR/sudo-$version"
@@ -32,11 +30,6 @@ src_compile() {
         --disable-static \
         --with-secure-path="/usr/sbin:/usr/bin:/sbin:/bin"
     make
-}
-
-src_check() {
-    cd "$SOURCE_DIR/sudo-$version"
-    make check
 }
 
 src_install() {

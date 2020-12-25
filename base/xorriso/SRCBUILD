@@ -3,9 +3,7 @@
 version=1.4.8
 description="ISO 9660 Rock Ridge filesystem manipulator"
 depends=('glibc' 'readline')
-sources=("http://www.gnu.org/software/xorriso/xorriso-$version.tar.gz"
-        "http://www.gnu.org/software/xorriso/xorriso-$version.tar.gz.sig")
-pgpkeys=('44BC9FD0D688EB007C4DD029E9CBDFC0ABC0A854')
+sources=("http://www.gnu.org/software/xorriso/xorriso-$version.tar.gz")
 options=('missing') # tcl/tk
 
 src_prepare() {

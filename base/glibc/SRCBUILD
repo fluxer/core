@@ -7,7 +7,6 @@ description="GNU C library"
 depends=('filesystem' 'linux-api-headers' 'tzdata')
 makedepends=('gawk' 'python')
 sources=("http://ftp.gnu.org/gnu/glibc/glibc-$version.tar.xz"
-        "http://ftp.gnu.org/gnu/glibc/glibc-$version.tar.xz.sig"
         'ld.so.conf'
         'nsswitch.conf'
         'locale.conf'

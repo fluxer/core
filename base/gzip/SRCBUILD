@@ -5,20 +5,13 @@
 version=1.10
 description='GNU compression utility'
 depends=('glibc' 'bash' 'less')
-sources=("http://ftp.gnu.org/pub/gnu/gzip/gzip-$version.tar.xz"
-        "http://ftp.gnu.org/pub/gnu/gzip/gzip-$version.tar.xz.sig")
-pgpkeys=('7FD9FCCB000BEEEE')
+sources=("http://ftp.gnu.org/pub/gnu/gzip/gzip-$version.tar.xz")
 
 src_compile() {
     cd "$SOURCE_DIR/gzip-$version"
 
     ./configure --prefix=/usr
     make
-}
-
-src_check() {
-    cd "$SOURCE_DIR/gzip-$version"
-    make check
 }
 
 src_install() {
