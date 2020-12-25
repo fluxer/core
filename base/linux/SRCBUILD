@@ -2,7 +2,6 @@
 
 version=5.4.85
 description="Linux Kernel and modules"
-depends=('linux-firmware')
 makedepends=('bc' 'busybox')
 sources=("https://www.kernel.org/pub/linux/kernel/v5.x/linux-$version.tar.xz"
         "https://www.kernel.org/pub/linux/kernel/v5.x/linux-$version.tar.sign"

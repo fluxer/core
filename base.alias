@@ -45,7 +45,6 @@ libpipeline
 libtool
 linux
 linux-api-headers
-linux-firmware
 m4
 make
 man-db
