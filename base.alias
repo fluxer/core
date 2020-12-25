@@ -80,6 +80,7 @@ curl
 dialog
 libnl
 os-prober
+libffi
 python
 squashfs-tools
 wpa_supplicant

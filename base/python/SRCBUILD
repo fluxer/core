@@ -4,8 +4,9 @@
 
 version=3.7.9
 description="Interpreted, interactive, object-oriented programming language"
-depends=('bzip2' 'zlib' 'bash' 'gdbm' 'readline' 'openssl' 'glibc' 'expat')
-optdepends=('libffi' 'sqlite')
+depends=('bzip2' 'zlib' 'bash' 'gdbm' 'readline' 'openssl' 'glibc' 'expat'
+         'libffi')
+optdepends=('sqlite')
 sources=("http://www.python.org/ftp/python/$version/Python-$version.tar.xz"
         "http://www.python.org/ftp/python/$version/Python-$version.tar.xz.asc")
 pgpkeys=('97FC712E4C024BBEA48A61ED3A5CA953F73C700D')
@@ -13,14 +14,14 @@ pgpkeys=('97FC712E4C024BBEA48A61ED3A5CA953F73C700D')
 src_compile() {
     cd "$SOURCE_DIR/Python-$version"
 
-    _options="--without-system-ffi --disable-loadable-sqlite-extensions"
-    [ "$OPTIONAL_LIBFFI" = "yes" ] && _options+=" --with-system-ffi"
+    _options="--disable-loadable-sqlite-extensions"
     [ "$OPTIONAL_SQLITE" = "yes" ] && _options+=" --enable-loadable-sqlite-extensions"
     ./configure --prefix=/usr \
         --enable-shared \
         --enable-ipv6 \
         --with-system-expat \
         --with-ensurepip=yes \
+        --with-system-ffi \
         $_options
     make
 }
