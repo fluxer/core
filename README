@@ -1,0 +1,24 @@
+For more ports use pkgsrc, either https://github.com/fluxer/pkgsrc (with Linux
+build fixes) or https://github.com/NetBSD/pkgsrc.
+
+To bootstrap pkgsrc:
+```
+export SH=/bin/bash
+cd /usr
+git clone --depth=1 https://github.com/fluxer/pkgsrc
+cd /usr/pkgsrc/bootstrap
+./bootstrap --abi 64
+```
+
+Add the following to `/usr/pkg/etc/mk.conf`:
+```
+TOOLS_PLATFORM.paxctl?=         /bin/true
+
+CFLAGS=                         -march=x86-64 -mtune=native -pipe -O2
+CXXFLAGS=                       -march=x86-64 -mtune=native -pipe -O2
+LDFLAGS=                        -Wl,-O1,--sort-common,--as-needed,--no-keep-memory
+MAKE_JOBS=                      4
+```
+
+Make sure `bmake` and the the package tools are in `PATH`, use `bmake` to build
+ports as you would on NetBSD.
