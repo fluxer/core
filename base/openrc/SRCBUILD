@@ -1,6 +1,7 @@
 # Maintainer:  Ivailo Monev <xakepa10@gmail.com>
 
 version=0.42.1
+release=2
 description='Dependency based init system that works with sysvinit.'
 depends=('sysvinit' 'busybox')
 backup=(etc/inittab
@@ -25,7 +26,13 @@ backup=(etc/inittab
 sources=("https://github.com/OpenRC/openrc/archive/$version.tar.gz"
         'https://github.com/OpenRC/opentmpfiles/archive/0.2.tar.gz'
         'einfo-color.patch'
-        'inittab')
+        'inittab'
+        'https://raw.githubusercontent.com/NetBSD/pkgsrc/trunk/pkgtools/rc.subr/files/rc.subr'
+        'https://raw.githubusercontent.com/NetBSD/pkgsrc/trunk/pkgtools/rc.subr/files/rc.d/DAEMON'
+        'https://raw.githubusercontent.com/NetBSD/pkgsrc/trunk/pkgtools/rc.subr/files/rc.d/LOGIN'
+        'https://raw.githubusercontent.com/NetBSD/pkgsrc/trunk/pkgtools/rc.subr/files/rc.d/NETWORKING'
+        'https://raw.githubusercontent.com/NetBSD/pkgsrc/trunk/pkgtools/rc.subr/files/rc.d/SERVERS'
+        'rcd.initd')
 options=('!mirror')
 
 _makeargs=(BRANDING='Entropy GNU/Linux')
@@ -70,11 +77,28 @@ src_install() {
         "$INSTALL_DIR/etc/init.d/opentmpfiles-setup"
 
     install -vm644 "$SOURCE_DIR/inittab" "$INSTALL_DIR/etc/inittab"
+
+    # these are basically all rc.subr files except the config since it conflicts
+    # with the OpenRC config
+    install -vDm744 "$SOURCE_DIR/rc.subr" "$INSTALL_DIR/etc/rc.subr"
+    install -vDm744 "$SOURCE_DIR/DAEMON" "$INSTALL_DIR/etc/rc.d/DAEMON"
+    install -vDm744 "$SOURCE_DIR/LOGIN" "$INSTALL_DIR/etc/rc.d/LOGIN"
+    install -vDm744 "$SOURCE_DIR/NETWORKING" "$INSTALL_DIR/etc/rc.d/NETWORKING"
+    install -vDm744 "$SOURCE_DIR/SERVERS" "$INSTALL_DIR/etc/rc.d/SERVERS"
+    for cmd in chown chroot ci co cp echo kill logger mount mv nice ps rcs rm sh su systrace whoami; do
+        if which "${cmd}"; then
+            sed "s|_RCCMD_${cmd}=.*|_RCCMD_${cmd}=\"$(which ${cmd})\"|g" -i "$INSTALL_DIR/etc/rc.subr"
+        fi
+    done
+
+    install -vDm744 "$SOURCE_DIR/rcd.initd" \
+        "$INSTALL_DIR/etc/init.d/rcd"
 }
 
 post_install() {
     rc-update add opentmpfiles-dev sysinit
     rc-update add opentmpfiles-setup boot
+    rc-update add rcd default
 }
 
 post_upgrade() {

@@ -1,0 +1,25 @@
+#!/sbin/openrc-run
+# Copyright 2021 Ivailo Monev <xakepa10@gmail.com>
+# All rights reserved. Released under the 2-clause BSD license.
+
+start()
+{
+    # if not enabled in /etc/rc.conf the scripts will not start anyway so
+    # starting the scripts from the examples directory directly
+    for rcd_script in /usr/pkg/share/examples/rc.d/*; do
+        grep -q $(basename ${rcd_script}) /etc/rc.conf || continue
+        ebegin "Starting ${rcd_script}"
+        "${rcd_script}" start
+        eend $?
+    done
+}
+
+stop()
+{
+    for rcd_script in /usr/pkg/share/examples/rc.d/*; do
+        grep -q $(basename ${rcd_script}) /etc/rc.conf || continue
+        ebegin "Stopping ${rcd_script}"
+        "${rcd_script}" stop
+        eend $?
+    done
+}
