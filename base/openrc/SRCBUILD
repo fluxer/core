@@ -32,7 +32,8 @@ sources=("https://github.com/OpenRC/openrc/archive/$version.tar.gz"
         'https://raw.githubusercontent.com/NetBSD/pkgsrc/trunk/pkgtools/rc.subr/files/rc.d/LOGIN'
         'https://raw.githubusercontent.com/NetBSD/pkgsrc/trunk/pkgtools/rc.subr/files/rc.d/NETWORKING'
         'https://raw.githubusercontent.com/NetBSD/pkgsrc/trunk/pkgtools/rc.subr/files/rc.d/SERVERS'
-        'rcd.initd')
+        'rcd.initd'
+        '375ef42393f3dc6edbaa2cb70c79b2366072db38.patch')
 options=('!mirror')
 
 _makeargs=(BRANDING='Entropy GNU/Linux')
@@ -50,7 +51,9 @@ _makeargs+=(SYSCONFDIR=/etc)
 
 src_prepare() {
     cd "$SOURCE_DIR/openrc-$version"
+
     patch -Np1 -i "$SOURCE_DIR/einfo-color.patch"
+    patch -Np1 -i "$SOURCE_DIR/375ef42393f3dc6edbaa2cb70c79b2366072db38.patch"
 }
 
 src_compile() {

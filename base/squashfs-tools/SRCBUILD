@@ -3,7 +3,13 @@
 version=4.4
 description="Highly compressed read-only filesystem for Linux"
 depends=('zlib' 'xz')
-sources=("http://downloads.sf.net/squashfs/squashfs$version.tar.gz")
+sources=("http://downloads.sf.net/squashfs/squashfs$version.tar.gz"
+        'fe2f5da4b0f8994169c53e84b7cb8a0feefc97b5.patch')
+
+src_prepare() {
+    cd "$SOURCE_DIR/squashfs$version"
+    patch -Np1 -i "$SOURCE_DIR/fe2f5da4b0f8994169c53e84b7cb8a0feefc97b5.patch"
+}
 
 src_compile() {
     cd "$SOURCE_DIR/squashfs$version/squashfs-tools"
