@@ -2,11 +2,15 @@
 # Copyright 2021 Ivailo Monev <xakepa10@gmail.com>
 # All rights reserved. Released under the 2-clause BSD license.
 
+# if not enabled in /etc/rc.conf the scripts will not start anyway so
+# starting/stopping the scripts from the examples directory directly
+rcd_scripts_dir="/usr/pkg/share/examples/rc.d"
+
 start()
 {
-    # if not enabled in /etc/rc.conf the scripts will not start anyway so
-    # starting the scripts from the examples directory directly
-    for rcd_script in /usr/pkg/share/examples/rc.d/*; do
+    [ -d "${rcd_scripts_dir}" ] || return 0
+
+    for rcd_script in ${rcd_scripts_dir}/*; do
         grep -q $(basename ${rcd_script}) /etc/rc.conf || continue
         ebegin "Starting ${rcd_script}"
         "${rcd_script}" start
@@ -16,7 +20,9 @@ start()
 
 stop()
 {
-    for rcd_script in /usr/pkg/share/examples/rc.d/*; do
+    [ -d "${rcd_scripts_dir}" ] || return 0
+
+    for rcd_script in ${rcd_scripts_dir}/*; do
         grep -q $(basename ${rcd_script}) /etc/rc.conf || continue
         ebegin "Stopping ${rcd_script}"
         "${rcd_script}" stop
