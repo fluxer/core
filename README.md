@@ -23,10 +23,10 @@ Add the following to `/usr/pkg/etc/mk.conf`:
 TOOLS_PLATFORM.paxctl?=         /bin/true
 
 PKG_DEFAULT_OPTIONS=            -debug -doc -introspection
-CFLAGS=                         -march=x86-64 -mtune=native -pipe -O2
-CXXFLAGS=                       -march=x86-64 -mtune=native -pipe -O2
-LDFLAGS=                        -Wl,-O1,--sort-common,--as-needed,--no-keep-memory
 MAKE_JOBS=                      4
+CFLAGS+=                         -march=x86-64 -mtune=native -pipe -O2
+CXXFLAGS+=                       -march=x86-64 -mtune=native -pipe -O2
+LDFLAGS+=                        -Wl,-O1,--sort-common,--as-needed,--no-keep-memory
 ```
 
 Make sure `bmake` and the the package tools are in `PATH`, use `bmake` to build
