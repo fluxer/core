@@ -2,7 +2,7 @@
 
 # https://linuxfromscratch.org/lfs/view/development/chapter06/gzip.html
 
-version=1.10
+version=1.11
 description='GNU compression utility'
 depends=('glibc' 'bash' 'less')
 sources=("http://ftp.gnu.org/pub/gnu/gzip/gzip-$version.tar.xz")
