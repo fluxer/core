@@ -2,7 +2,7 @@
 
 # http://www.linuxfromscratch.org/lfs/view/development/chapter06/kbd.html
 
-version=2.2.0
+version=2.4.0
 description="Keytable files and keyboard utilities"
 makedepends=('check')
 sources=("https://www.kernel.org/pub/linux/utils/kbd/kbd-$version.tar.xz"
