@@ -2,7 +2,7 @@
 
 # http://cblfs.cross-lfs.org/index.php/Libssh2
 
-version=1.8.2
+version=1.10.0
 description="Client-side C library implementing the SSH2 protocol"
 depends=('openssl' 'zlib' 'glibc')
 sources=("http://www.libssh2.org/download/libssh2-$version.tar.gz")
