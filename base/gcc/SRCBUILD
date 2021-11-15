@@ -4,9 +4,9 @@
 # http://www.linuxfromscratch.org/blfs/view/svn/general/gcc.html
 # http://gcc.gnu.org/git/?p=gcc.git;a=summary
 
-version=10.2.0
-_gmp=6.1.2
-_mpc=1.1.0
+version=10.3.0
+_gmp=6.2.1
+_mpc=1.2.1
 _mpfr=4.0.2
 description="GNU compiler collection, includes the C and C++ frontends"
 depends=('glibc' 'zlib' 'mpc' 'mpfr')
