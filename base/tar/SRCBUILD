@@ -2,10 +2,10 @@
 
 # http://www.linuxfromscratch.org/lfs/view/development/chapter06/tar.html
 
-version=1.32
+version=1.34
 description='Utility used to store, backup, and transport files'
 depends=('glibc' 'acl' 'attr')
-sources=("ftp://ftp.gnu.org/gnu/tar/tar-$version.tar.xz")
+sources=("https://ftp.gnu.org/gnu/tar/tar-$version.tar.xz")
 
 src_compile() {
     cd "$SOURCE_DIR/tar-$version"
