@@ -1,6 +1,6 @@
 # Maintainer: Ivailo Monev <xakepa10@gmail.com>
 
-version=1.3-20200327
+version=1.3-20211107
 description="Script-driven curses widgets"
 depends=('ncurses')
 sources=("https://invisible-mirror.net/archives/dialog/dialog-$version.tgz"
