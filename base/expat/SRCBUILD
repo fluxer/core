@@ -2,7 +2,7 @@
 
 # http://www.linuxfromscratch.org/lfs/view/development/chapter06/expat.html
 
-version=2.2.10
+version=2.4.1
 description="XML parser library written in C"
 depends=('glibc')
 sources=("http://downloads.sf.net/expat/expat-$version.tar.xz")
