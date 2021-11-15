@@ -2,7 +2,7 @@
 
 # http://www.linuxfromscratch.org/lfs/view/development/chapter06/autoconf.html
 
-version=2.69
+version=2.71
 description="Extensible package of M4 macros that produce shell scripts to automatically configure software source code packages"
 depends=('m4' 'perl')
 sources=("http://ftp.gnu.org/gnu/autoconf/autoconf-$version.tar.xz")
