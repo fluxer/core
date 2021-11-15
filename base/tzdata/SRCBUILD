@@ -2,7 +2,7 @@
 
 # https://sources.gentoo.org/cgi-bin/viewvc.cgi/gentoo-x86/sys-libs/timezone-data/files/timezone-data-2015c-makefile.patch
 
-version=2020f
+version=2021e
 description="Data for Time Zone and daylight saving time from IANA"
 # tzcodes is required for leapseconds.awk file that is not yet part of tzdata
 sources=("http://www.iana.org/time-zones/repository/releases/tzdata$version.tar.gz"
