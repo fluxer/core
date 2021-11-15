@@ -2,7 +2,7 @@
 
 # http://www.linuxfromscratch.org/lfs/view/development/chapter06/grub.html
 
-version=2.04
+version=2.06
 description="Multiboot boot loader"
 depends=('glibc' 'busybox' 'xz' 'os-prober')
 makedepends=('bison' 'flex')
