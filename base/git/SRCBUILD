@@ -2,7 +2,7 @@
 
 # http://www.linuxfromscratch.org/blfs/view/svn/general/git.html
 
-version=2.25.4
+version=2.30.2
 description="Fast, scalable, distributed revision control system"
 depends=('busybox' 'curl' 'expat' 'openssl' 'python')
 backup=('etc/gitconfig')
