@@ -2,7 +2,7 @@
 
 # http://www.linuxfromscratch.org/blfs/view/svn/basicnet/curl.html
 
-version=7.71.1
+version=7.79.1
 description="Command line tool for transferring data with URL syntax"
 depends=('ca-certificates' 'libssh2' 'openssl' 'zlib')
 sources=("http://curl.haxx.se/download/curl-$version.tar.gz")
