@@ -2,7 +2,7 @@
 
 # http://www.linuxfromscratch.org/lfs/view/development/chapter06/gmp.html
 
-version=6.1.2
+version=6.2.1
 description="Free library for arbitrary precision arithmetic"
 depends=('glibc')
 sources=("http://ftp.gnu.org/gnu/gmp/gmp-$version.tar.xz")
