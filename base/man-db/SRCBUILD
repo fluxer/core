@@ -2,7 +2,7 @@
 
 # http://www.linuxfromscratch.org/lfs/view/development/chapter06/man-db.html
 
-version=2.8.7
+version=2.9.4
 description="A utility for reading man pages"
 depends=('bash' 'gdbm' 'zlib' 'groff' 'libpipeline' 'less' 'gzip')
 backup=('etc/man_db.conf')
