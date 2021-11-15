@@ -6,7 +6,7 @@
 # http://git.busybox.net/busybox/plain/miscutils/fbsplash.c
 # http://git.busybox.net/busybox/plain/miscutils/fbsplash.cfg
 
-version=1.32.1
+version=1.34.1
 description="Utilities for rescue and embedded systems"
 makedepends=('glibc' 'make' 'gcc' 'ncurses')
 sources=("http://www.busybox.net/downloads/busybox-$version.tar.bz2"
