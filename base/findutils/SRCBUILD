@@ -2,7 +2,7 @@
 
 # http://www.linuxfromscratch.org/lfs/view/development/chapter06/findutils.html
 
-version=4.7.0
+version=4.8.0
 description="GNU utilities to locate files"
 depends=('glibc')
 sources=("https://ftp.gnu.org/pub/gnu/findutils/findutils-$version.tar.xz")
