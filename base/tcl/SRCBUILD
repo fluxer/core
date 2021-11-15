@@ -2,7 +2,7 @@
 
 # http://www.linuxfromscratch.org/blfs/view/svn/general/tcl.html
 
-version=8.6.11
+version=8.6.12
 description="The Tcl scripting language"
 depends=('zlib')
 sources=("http://downloads.sf.net/tcl/tcl$version-src.tar.gz")
@@ -30,7 +30,7 @@ src_install() {
         -e "s#$SOURCE_DIR/tcl$version#/usr/include#" \
         -i "$INSTALL_DIR/usr/lib/tclConfig.sh"
 
-    _tdbcver="1.1.2"
+    _tdbcver="1.1.3"
     sed -e "s#$SOURCE_DIR/tcl$version/unix/pkgs/tdbc${_tdbcver}#/usr/lib/tdbc${_tdbcver}#" \
         -e "s#$SOURCE_DIR/tcl$version/pkgs/tdbc${_tdbcver}/generic#/usr/include#" \
         -e "s#$SOURCE_DIR/tcl$version/pkgs/tdbc${_tdbcver}/library#/usr/lib/tcl${version%.*}#" \
