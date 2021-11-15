@@ -3,11 +3,11 @@
 # http://www.linuxfromscratch.org/lfs/view/development/chapter06/vim.html
 # http://www.linuxfromscratch.org/blfs/view/svn/postlfs/vim.html
 
-version=8.2.0814
+version=8.2.3598
 description="Highly configurable text editor built to enable efficient text editing"
 depends=('glibc' 'ncurses' 'busybox')
 backup=('etc/vimrc')
-sources=("https://github.com/vim/vim/releases/download/v$version/vim-$version.tar.gz"
+sources=("https://github.com/vim/vim/archive/v$version/vim-$version.tar.gz"
         'vimrc')
 
 src_compile() {
