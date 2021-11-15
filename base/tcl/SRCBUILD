@@ -37,7 +37,7 @@ src_install() {
         -e "s#$SOURCE_DIR/tcl$version/pkgs/tdbc${_tdbcver}#/usr/include#" \
         -i "$INSTALL_DIR/usr/lib/tdbc${_tdbcver}/tdbcConfig.sh"
 
-    _itclver="4.2.1"
+    _itclver="4.2.2"
     sed -e "s#$SOURCE_DIR/tcl$version/unix/pkgs/itcl${_itclver}#/usr/lib/itcl${_itclver}#" \
         -e "s#$SOURCE_DIR/tcl$version/pkgs/itcl${_itclver}/generic#/usr/include#" \
         -e "s#$SOURCE_DIR/tcl$version/pkgs/itcl${_itclver}#/usr/include#" \
