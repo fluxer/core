@@ -2,7 +2,7 @@
 
 # http://www.linuxfromscratch.org/lfs/view/development/chapter06/automake.html
 
-version=1.16.2
+version=1.16.5
 description="Tool for automatically generating Makefile.in files compliant with the GNU Coding Standards"
 depends=('busybox' 'perl')
 sources=("http://ftp.gnu.org/gnu/automake/automake-$version.tar.xz")
