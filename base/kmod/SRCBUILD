@@ -2,7 +2,7 @@
 
 # http://www.linuxfromscratch.org/lfs/view/development/chapter06/kmod.html
 
-version=27
+version=29
 description="Linux kernel module handling"
 depends=('glibc' 'zlib' 'xz')
 sources=("https://www.kernel.org/pub/linux/utils/kernel/kmod/kmod-$version.tar.xz")
