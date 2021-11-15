@@ -8,13 +8,13 @@ depends=('ncurses' 'eudev')
 sources=("http://downloads.sf.net/procps-ng/Production/procps-ng-$version.tar.xz")
 
 src_prepare() {
-    cd "$SOURCE_DIR/procps-ng-$version"
+    cd "$SOURCE_DIR/procps-$version"
 
     sed 's:<ncursesw/:<:g' -i watch.c
 }
 
 src_compile() {
-    cd "$SOURCE_DIR/procps-ng-$version"
+    cd "$SOURCE_DIR/procps-$version"
 
     ./configure --prefix=/usr \
         --exec-prefix=/ \
@@ -28,6 +28,6 @@ src_compile() {
 }
 
 src_install() {
-    cd "$SOURCE_DIR/procps-ng-$version"
+    cd "$SOURCE_DIR/procps-$version"
     make DESTDIR="$INSTALL_DIR" install
 }
