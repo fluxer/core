@@ -3,7 +3,7 @@
 # http://www.linuxfromscratch.org/lfs/view/development/chapter06/man-pages.html
 # NB: spm local -fp man-pages | wc -l
 
-version=4.16
+version=5.13
 description="Collection of over 2,300 man pages"
 depends=('man-db')
 sources=("http://www.kernel.org/pub/linux/docs/man-pages/man-pages-$version.tar.xz")
