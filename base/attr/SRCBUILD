@@ -2,10 +2,10 @@
 
 # http://www.linuxfromscratch.org/lfs/view/development/chapter06/attr.html
 
-version=2.4.48
+version=2.5.1
 description="Extended attribute support library for ACL support"
 depends=('glibc')
-sources=("http://download.savannah.gnu.org/releases/attr/attr-$version.tar.gz")
+sources=("http://download.savannah.gnu.org/releases/attr/attr-$version.tar.xz")
 
 src_compile() {
     cd "$SOURCE_DIR/attr-$version"
