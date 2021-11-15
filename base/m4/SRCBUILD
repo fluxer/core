@@ -2,16 +2,10 @@
 
 # http://www.linuxfromscratch.org/lfs/view/development/chapter06/m4.html
 
-version=1.4.18
+version=1.4.19
 description="Implementation of the traditional Unix macro processor"
 depends=('glibc')
-sources=("http://ftp.gnu.org/gnu/m4/m4-$version.tar.xz"
-        'glibc-change-work-around.patch')
-
-src_prepare() {
-    cd "$SOURCE_DIR/m4-$version"
-    patch -Np1 -i "$SOURCE_DIR/glibc-change-work-around.patch"
-}
+sources=("http://ftp.gnu.org/gnu/m4/m4-$version.tar.xz")
 
 src_compile() {
     cd "$SOURCE_DIR/m4-$version"
