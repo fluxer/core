@@ -17,7 +17,8 @@ src_compile() {
     cd "$SOURCE_DIR/check-$version"
 
     ./configure --prefix=/usr \
-        --disable-static
+        --disable-static \
+        --disable-build-docs
     make
 }
 
