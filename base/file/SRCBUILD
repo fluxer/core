@@ -2,10 +2,10 @@
 
 # http://www.linuxfromscratch.org/lfs/view/development/chapter06/file.html
 
-version=5.38
+version=5.41
 description="File type identification utility"
 depends=('zlib' 'glibc')
-sources=("ftp://ftp.astron.com/pub/file/file-$version.tar.gz")
+sources=("http://ftp.astron.com/pub/file/file-$version.tar.gz")
 
 src_compile() {
     cd "$SOURCE_DIR/file-$version"
