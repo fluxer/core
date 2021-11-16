@@ -1,12 +1,13 @@
 # Maintainer: Ivailo Monev <xakepa10@gmail.com>
 
 version=3.2.9
+release=2
 description="Userspace dev tools (udev) forked by Gentoo"
 backup=('etc/udev/udev.conf')
 depends=('bash' 'kmod' 'util-linux')
 makedepends=('gperf')
 sources=("http://dev.gentoo.org/~blueness/eudev/eudev-$version.tar.gz"
-        "http://dev.gentoo.org/~williamh/dist/udev-init-scripts-32.tar.gz")
+        "https://gitweb.gentoo.org/proj/udev-gentoo-scripts.git/snapshot/udev-gentoo-scripts-35.tar.gz")
 
 src_compile() {
     cd "$SOURCE_DIR/eudev-$version"
@@ -31,7 +32,7 @@ src_install() {
     cd "$SOURCE_DIR/eudev-$version"
     make DESTDIR="$INSTALL_DIR" install
 
-    make -C "$SOURCE_DIR/udev-init-scripts-32" DESTDIR="$INSTALL_DIR" install
+    make -C "$SOURCE_DIR/udev-gentoo-scripts-35" DESTDIR="$INSTALL_DIR" install
 }
 
 post_install() {
