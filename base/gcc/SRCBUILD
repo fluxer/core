@@ -7,7 +7,7 @@
 version=10.3.0
 _gmp=6.2.1
 _mpc=1.2.1
-_mpfr=4.0.2
+_mpfr=4.1.0
 description="GNU compiler collection, includes the C and C++ frontends"
 depends=('glibc' 'zlib' 'mpc' 'mpfr')
 sources=("http://ftp.gnu.org/gnu/gcc/gcc-$version/gcc-$version.tar.xz"

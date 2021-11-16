@@ -2,7 +2,7 @@
 
 # http://www.linuxfromscratch.org/lfs/view/development/chapter06/mpfr.html
 
-version=4.0.2
+version=4.1.0
 description="C library for multiple-precision floating-point computations with correct rounding"
 depends=('glibc' 'gmp')
 sources=("http://www.mpfr.org/mpfr-$version/mpfr-$version.tar.xz")
