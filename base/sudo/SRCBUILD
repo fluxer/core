@@ -28,7 +28,7 @@ src_compile() {
         --disable-nls \
         --disable-rpath \
         --disable-static \
-        --with-secure-path="/usr/sbin:/usr/bin:/sbin:/bin"
+        --with-secure-path="/usr/pkg/sbin:/usr/pkg/bin:/usr/sbin:/usr/bin:/sbin:/bin"
     make
 }
 
