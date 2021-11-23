@@ -2,7 +2,7 @@
 
 # http://www.linuxfromscratch.org/blfs/view/svn/postlfs/cacerts.html
 
-version=20210119
+version=20211016
 description='Common CA certificates'
 depends=('bash' 'openssl' 'busybox')
 backup=('etc/ca-certificates.conf')
