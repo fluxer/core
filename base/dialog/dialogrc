@@ -9,7 +9,7 @@
 # Number     -  <number>
 # String     -  "string"
 # Boolean    -  <ON|OFF>
-# Attribute  -  (foreground,background,highlight?)
+# Attribute  -  (foreground,background,highlight?,underline?,reverse?)
 
 # Set aspect-ration.
 aspect = 0

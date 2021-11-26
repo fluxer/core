@@ -13,7 +13,6 @@ src_compile() {
     ./configure --prefix=/usr \
         --enable-widec \
         --with-shared \
-        --with-ncurses \
         --without-libtool \
         --with-ncursesw
     make
