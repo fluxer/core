@@ -3,6 +3,7 @@
 # http://www.linuxfromscratch.org/lfs/view/development/chapter06/binutils.html
 
 version=2.35.2
+release=2
 description="Collection of binary tools"
 depends=('zlib' 'glibc')
 sources=("http://ftp.gnu.org/gnu/binutils/binutils-$version.tar.xz"
@@ -38,7 +39,7 @@ src_compile() {
 src_install() {
     cd "$SOURCE_DIR/binutils-build"
 
-    make prefix="$INSTALL_DIR/usr" tooldir="$INSTALL_DIR" install
+    make prefix="$INSTALL_DIR/usr" tooldir="$INSTALL_DIR/usr" install
     install -vdm755 "$INSTALL_DIR/usr/include"
     cp -v "../binutils-$version/include/libiberty.h" "$INSTALL_DIR/usr/include"
 }
