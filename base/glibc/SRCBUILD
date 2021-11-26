@@ -3,6 +3,7 @@
 # http://www.linuxfromscratch.org/lfs/view/development/chapter08/glibc.html
 
 version=2.34
+release=2
 description="GNU C library"
 depends=('filesystem' 'linux-api-headers' 'tzdata')
 makedepends=('gawk' 'python')
@@ -27,8 +28,8 @@ src_compile() {
     "../glibc-$version/configure" \
         --prefix=/usr \
         --libexecdir=/usr/lib/glibc \
-        --enable-kernel=4.19.0 \
-        --enable-oldest-abi=2.27 \
+        --enable-kernel=5.10.0 \
+        --enable-oldest-abi=2.30 \
         --enable-stackguard-randomization \
         --disable-timezone-tools \
         --disable-build-nscd \
