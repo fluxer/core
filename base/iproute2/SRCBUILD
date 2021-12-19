@@ -2,7 +2,7 @@
 
 # http://www.linuxfromscratch.org/lfs/view/development/chapter08/iproute2.html
 
-version=5.8.0
+version=5.13.0
 description="IP Routing Utilities"
 depends=('glibc') # 'iptables'
 # makedepends=('linux-atm')
@@ -29,6 +29,7 @@ src_compile() {
     cd "$SOURCE_DIR/iproute2-$version"
 
     ./configure
+    sed 's|HAVE_ELF|NOT_HAVE_ELF|g' -i config.mk
     make
 }
 
