@@ -28,7 +28,8 @@ src_compile() {
         --disable-werror \
         --disable-rpath \
         --disable-nls \
-        --disable-grub-mount
+        --disable-grub-mount \
+        --disable-grub-mkfont
     make
 }
 
