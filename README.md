@@ -22,7 +22,7 @@ Add the following to `/usr/pkg/etc/mk.conf`:
 ```
 TOOLS_PLATFORM.paxctl?=         /bin/true
 
-PKG_DEFAULT_OPTIONS=            -debug -doc -introspection
+PKG_DEFAULT_OPTIONS=            -debug -doc
 MAKE_JOBS=                      4
 CFLAGS+=                         -march=x86-64 -mtune=native -pipe -O2
 CXXFLAGS+=                       -march=x86-64 -mtune=native -pipe -O2
