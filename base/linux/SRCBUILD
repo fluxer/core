@@ -23,6 +23,11 @@ src_compile() {
 
     echo "Configuring kernel..."
     make olddefconfig
+
+    # requires libelf
+    sed '/CONFIG_HAVE_STACK_VALIDATION=y/d' -i include/config/auto.conf
+    sed '/CONFIG_STACK_VALIDATION=y/d' -i include/config/auto.conf
+
     make menuconfig
 
     echo "Building kernel..."
