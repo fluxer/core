@@ -2,7 +2,7 @@
 
 # http://www.linuxfromscratch.org/lfs/view/development/chapter05/linux-headers.html
 
-version=5.16.10
+version=5.16.14
 description="Kernel headers sanitized for use in userspace"
 makedepends=('bc' 'busybox')
 sources=("https://www.kernel.org/pub/linux/kernel/v5.x/linux-$version.tar.xz")

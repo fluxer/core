@@ -1,6 +1,6 @@
 # Maintainer: Ivailo Monev <xakepa10@gmail.com>
 
-version=5.16.10
+version=5.16.14
 description="Linux Kernel and modules"
 makedepends=('bc' 'busybox')
 sources=("https://www.kernel.org/pub/linux/kernel/v5.x/linux-$version.tar.xz"
@@ -25,8 +25,9 @@ src_compile() {
     make olddefconfig
 
     # requires libelf
-    sed '/CONFIG_HAVE_STACK_VALIDATION=y/d' -i include/config/auto.conf
-    sed '/CONFIG_STACK_VALIDATION=y/d' -i include/config/auto.conf
+    sed '/.*STACK_VALIDATION.*/d' -i arch/x86/Kconfig
+    # sed '/CONFIG_HAVE_STACK_VALIDATION=y/d' -i include/config/auto.conf
+    # sed '/CONFIG_STACK_VALIDATION=y/d' -i include/config/auto.conf
 
     make menuconfig
 
