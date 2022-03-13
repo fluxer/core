@@ -24,3 +24,11 @@ fi
 if [ -d /usr/pkg/man ]; then
         pathappend /usr/pkg/man MANPATH
 fi
+
+if [ -d /usr/pkg/man ]; then
+        pathappend /usr/pkg/man MANPATH
+fi
+
+if [ -d /usr/pkg/share ]; then
+        pathappend /usr/pkg/share XDG_DATA_DIRS
+fi
