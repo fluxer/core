@@ -1,6 +1,7 @@
 # Maintainer:  Ivailo Monev <xakepa10@gmail.com>
 
 version=0.44.8
+release=2
 description='Dependency based init system that works with sysvinit.'
 depends=('sysvinit' 'busybox')
 backup=(etc/inittab
@@ -90,6 +91,7 @@ src_install() {
             sed "s|_RCCMD_${cmd}=.*|_RCCMD_${cmd}=\"$(which ${cmd})\"|g" -i "$INSTALL_DIR/etc/rc.subr"
         fi
     done
+    sed "s|sysconfbase=.*|sysconfbase=\"/etc\"|g" -i "$INSTALL_DIR/etc/rc.subr"
 
     install -vDm744 "$SOURCE_DIR/rcd.initd" \
         "$INSTALL_DIR/etc/init.d/rcd"
