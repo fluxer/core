@@ -1,6 +1,6 @@
 # Maintainer: Ivailo Monev <xakepa10@gmail.com>
 
-version=5.17.7
+version=5.17.14
 description="Linux Kernel and modules"
 makedepends=('bc' 'busybox')
 sources=("https://www.kernel.org/pub/linux/kernel/v5.x/linux-$version.tar.xz"
